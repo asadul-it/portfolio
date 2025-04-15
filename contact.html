@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - Asadul Islam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f4f4;
+    }
+
+    .navbar {
+      background-color: green;
+      width: 80%;
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      border-radius: 10px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar ul li a:hover {
+      background-color: pink;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 120px auto 50px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      margin: 10px 0;
+      color: #333;
+      font-size: 18px;
+    }
+
+    .contact-info a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    .contact-form button {
+      padding: 12px 25px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .contact-form button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="skills.html">Skills</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>Asadul Islam</h1>
+
+    <div class="contact-info">
+      <p><strong>Address:</strong> Zirani Bazar, Savar, Dhaka</p>
+      <p><strong>Phone:</strong> +880 1706927793, +880 1647865136</p>
+      <p><strong>Email:</strong> asadul.it@yahoo.com</p>
+      <p><strong>WhatsApp:</strong> <a href="https://wa.me/8801706927793" target="_blank">Chat on WhatsApp</a></p>
+      <p><strong>Website:</strong> <a href="https://asadul-it.github.io/portfolio/" target="_blank">asadul-it.github.io</a></p>
+      <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank">linkedin.com/in/asadul-islam-asad</a></p>
+    </div>
+
+    <form class="contact-form" onsubmit="sendMail(event)">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <script>
+    function sendMail(event) {
+      event.preventDefault();
+      alert("Thanks for your message!");
+      // You can integrate EmailJS or backend mail logic here
+    }
+  </script>
+
+</body>
+</html>
