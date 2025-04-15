@@ -109,7 +109,9 @@
   <nav class="navbar">
     <ul>
       <li><a href="index.html">Home</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="skills.html">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
@@ -126,7 +128,7 @@
       <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank">linkedin.com/in/asadul-islam-asad</a></p>
     </div>
 
-    <form class="contact-form" onsubmit="sendMail(event)">
+    <form class="contact-form" onsubmit="redirectToMailApp(event)">
       <input type="text" id="name" placeholder="Your Name" required>
       <input type="email" id="email" placeholder="Your Email" required>
       <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
@@ -135,10 +137,17 @@
   </div>
 
   <script>
-    function sendMail(event) {
+    function redirectToMailApp(event) {
       event.preventDefault();
-      alert("Thanks for your message!");
-      // You can integrate EmailJS or backend mail logic here
+      
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+
+      const subject = encodeURIComponent("Message from Website Visitor");
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+
+      window.location.href = `mailto:asadul.it@yahoo.com?subject=${subject}&body=${body}`;
     }
   </script>
 
