@@ -174,54 +174,72 @@
 </nav>
 <!-- Navbar End -->
 
+
+
+
+
+
 <style>
-
-
+/* Navbar toggler icon design */
 .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
 }
 
+/* Navbar background color */
+.navbar {
+  background-color: green !important;
+}
 
+/* Navbar link color */
+.navbar-nav .nav-link {
+  color: white !important;
+  transition: color 0.3s ease;
+}
 
+/* Hover color for links */
+.navbar-nav .nav-link:hover {
+  color: pink !important;
+}
 
+/* Mobile responsive dropdown styling */
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background-color: green !important;
+    padding: 10px 15px;
+  }
 
+  .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-    /* Navbar background color */
-    .navbar {
-        background-color: green !important; /* Set navbar color to green */
-    }
+  .navbar-nav .nav-item {
+    width: 100%;
+  }
 
-    /* Navbar link color */
-    .navbar-nav .nav-link {
-        color: white !important; /* Set text color to white */
-        transition: color 0.3s ease; /* Smooth color transition */
-    }
+  .navbar-nav .nav-link {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    color: white !important;
+    border-bottom: 1px solid #ffffff33;
+  }
 
-    /* Navbar link hover color */
-    .navbar-nav .nav-link:hover {
-        color: pink !important; /* Change link color to pink on hover */
-    }
+  .navbar-nav .nav-link:hover {
+    color: pink !important;
+    background-color: #006400 !important; /* Darker green on hover */
+  }
 
-    /* Mobile navbar toggler icon color */
-    .navbar-toggler-icon {
-        background-color: white !important; /* Set toggler icon color to white */
-    }
+  .navbar-toggler {
+    border: none;
+    outline: none;
+  }
 
-    /* Mobile view: adjust navbar for smaller screens */
-    @media (max-width: 991px) {
-        .navbar-collapse {
-            background-color: green !important; /* Set background color to green on mobile */
-        }
-
-        .navbar-nav .nav-link {
-            color: white !important; /* Set text color to white on mobile */
-            padding: 10px 15px; /* Add padding for better mobile readability */
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: pink !important; /* Change link color to pink on hover on mobile */
-        }
-    }
+  .navbar-toggler:focus {
+    box-shadow: none;
+  }
+}
 </style>
 
 
@@ -273,7 +291,7 @@
                                 <h5 class="d-inline text-primary">Phone:</h5>+880 1647865136
                             </div>
                              <div class="col-sm-6 py-1">
-                                <h5 class="d-inline text-primary">Degree:</h5> BSc in CSE.
+                                <h5 class="d-inline text-primary">Degree:</h5> B.Sc. in Computer Science & Engineering.
                             </div>
 
                               <div class="col-sm-6 py-1">
@@ -447,7 +465,11 @@
 
 
 
-<!-- Education Start -->
+
+
+
+
+            <!-- Education Start -->
 <div class="container bg-white py-5">
     <div class="row px-3">
         <div class="col-12">
@@ -459,32 +481,32 @@
                 <div class="position-relative mb-4">
                     <i class="fa fa-arrow-right text-primary position-absolute" style="top: 3px; left: -24px;"></i>
                     <h5 class="mb-1">Bachelor of Science (B.Sc.)</h5>
-                    <p class="mb-2">Sonargaon University | <small>2025</small></p>
+                    <p class="mb-2"><strong>Sonargaon University</strong> | <small>2025</small></p>
                     <ul>
-                        <li>Department: Computer Science & Engineering (CSE)</li>
-                        <li>Duration: 4 Years</li>
-                        <li>Result: CGPA 3.75 / 4.00</li>
+                        <li><strong>Department:</strong> Computer Science & Engineering (CSE)</li>
+                        <li><strong>Duration:</strong> 4 Years</li>
+                        <li><strong>Result:</strong> CGPA 3.75 / 4.00</li>
                     </ul>
                 </div>
                 <!-- Education 2 -->
                 <div class="position-relative mb-4">
                     <i class="fa fa-arrow-right text-primary position-absolute" style="top: 3px; left: -24px;"></i>
                     <h5 class="mb-1">Diploma in Engineering</h5>
-                    <p class="mb-2">Sylhet Polytechnic Institute | <small>2019</small></p>
+                    <p class="mb-2"><strong>Sylhet Polytechnic Institute</strong> | <small>2019</small></p>
                     <ul>
-                        <li>Department: Computer Technology</li>
-                        <li>Duration: 4 Years</li>
-                        <li>Result: CGPA 3.04 / 4.00</li>
+                        <li><strong>Department:</strong> Computer Technology</li>
+                        <li><strong>Duration:</strong> 4 Years</li>
+                        <li><strong>Result:</strong> CGPA 3.04 / 4.00</li>
                     </ul>
                 </div>
                 <!-- Education 3 -->
                 <div class="position-relative mb-4">
                     <i class="fa fa-arrow-right text-primary position-absolute" style="top: 3px; left: -24px;"></i>
                     <h5 class="mb-1">Secondary School Certificate (SSC)</h5>
-                    <p class="mb-2">Shajanpur High School | <small>2015</small></p>
+                    <p class="mb-2"><strong>Shajanpur High School</strong> | <small>2015</small></p>
                     <ul>
-                        <li>Group: Business Studies</li>
-                        <li>Result: GPA 4.83 / 5.00</li>
+                        <li><strong>Group:</strong> Business Studies</li>
+                        <li><strong>Result:</strong> GPA 4.83 / 5.00</li>
                     </ul>
                 </div>
             </div>
@@ -757,6 +779,227 @@
                 </div>
             </div>
             <!-- Testimonial End -->
+
+
+
+    <!-- Contact part Start -->
+
+
+
+
+
+
+<style>
+    .asadul-body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f2f5; /* Light gray background */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh; /* Full viewport height */
+    }
+
+    .asadul-container {
+        width: 100%;
+        max-width: 900px; /* Max width of the container */
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 30px;
+        border-radius: 12px; /* More rounded corners */
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); /* Deeper and wider shadow */
+        animation: fadeIn 1s ease-out; /* Fade-in animation */
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .asadul-container h1 {
+        text-align: center;
+        color: #2c3e50; /* Dark gray */
+        margin-bottom: 30px;
+        font-size: 2.8em; /* Increased font size */
+        font-weight: 700; /* Bolder font weight */
+        letter-spacing: 2px; /* Increased letter spacing */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Text shadow */
+        background: linear-gradient(90deg, #007bff, #0056b3); /* Gradient background for text */
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent; /* Make text transparent to show gradient */
+        padding-bottom: 10px;
+        border-bottom: 3px solid #007bff; /* Blue line at the bottom */
+        display: inline-block; /* To make text shadow and border apply only to text */
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .asadul-contact-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 30px; /* Increased gap */
+    }
+
+    .asadul-contact-info {
+        flex: 1;
+        min-width: 280px; /* Increased minimum width */
+        background-color: #f9f9f9; /* Light background */
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Lighter shadow */
+    }
+
+    .asadul-contact-info p {
+        margin-bottom: 18px; /* Increased margin */
+        color: #555;
+        font-size: 17px; /* Increased font size */
+        display: flex;
+        align-items: center;
+    }
+
+    .asadul-contact-info i {
+        color: #007bff;
+        margin-right: 12px; /* Increased margin */
+        font-size: 1.2em; /* Increased icon size */
+        transition: transform 0.3s ease; /* Animation on hover */
+    }
+
+    .asadul-contact-info p:hover i {
+        transform: scale(1.1); /* Icon scales up on hover */
+    }
+
+    .asadul-contact-line {
+        vertical-align: middle;
+    }
+
+    .asadul-contact-info a {
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .asadul-contact-info a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    .asadul-contact-form {
+        flex: 1;
+        min-width: 280px; /* Increased minimum width */
+        display: flex;
+        flex-direction: column;
+        background-color: #f9f9f9; /* Light background */
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Lighter shadow */
+    }
+
+    .asadul-contact-form input,
+    .asadul-contact-form textarea {
+        padding: 14px; /* Increased padding */
+        margin-bottom: 18px; /* Increased margin */
+        border: 1px solid #ddd; /* Light border */
+        border-radius: 6px; /* More rounded corners */
+        font-size: 16px; /* Increased font size */
+        width: 100%;
+        box-sizing: border-box; /* Padding and border included in width */
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .asadul-contact-form input:focus,
+    .asadul-contact-form textarea:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+        outline: none; /* Removed focus outline */
+    }
+
+    .asadul-contact-form button {
+        padding: 14px; /* Increased padding */
+        background-color: #007bff;
+        color: white;
+        font-size: 18px; /* Increased font size */
+        font-weight: 600;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        letter-spacing: 0.5px;
+    }
+
+    .asadul-contact-form button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px); /* Lifts up slightly on hover */
+    }
+
+    @media (max-width: 768px) {
+        .asadul-contact-content {
+            flex-direction: column;
+        }
+        .asadul-container {
+            margin: 20px;
+            padding: 20px;
+        }
+        .asadul-container h1 {
+            font-size: 2.2em; /* Smaller font on small screens */
+        }
+    }
+
+    @media (max-width: 480px) {
+        .asadul-container h1 {
+            font-size: 1.8em;
+        }
+    }
+</style>
+</head>
+<body class="asadul-body">
+
+    <div class="asadul-container">
+        <h1>Asadul Islam</h1>
+
+        <div class="asadul-contact-content">
+            <div class="asadul-contact-info">
+                <p><i class="fas fa-map-marker-alt"></i> <span class="asadul-contact-line"><strong>Address:</strong> Zirani Bazar, Savar, Dhaka</span></p>
+                <p><i class="fas fa-phone"></i> <span class="asadul-contact-line"><strong>Phone:</strong> +880 1706927793, +880 1647865136</span></p>
+                <p><i class="fas fa-envelope"></i> <span class="asadul-contact-line"><strong>Email:</strong> <a href="mailto:asadul.it@yahoo.com">asadul.it@yahoo.com</a></span></p>
+                <p><i class="fab fa-whatsapp"></i> <span class="asadul-contact-line"><strong>WhatsApp:</strong> <a href="https://wa.me/8801706927793" target="_blank">Chat on WhatsApp</a></span></p>
+                <p><i class="fas fa-globe"></i> <span class="asadul-contact-line"><strong>Website:</strong> <a href="https://asadul-it.github.io/portfolio/" target="_blank">asadul-it.github.io</a></span></p>
+                <p><i class="fab fa-linkedin"></i> <span class="asadul-contact-line"><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank">LinkedIn Profile</a></span></p>
+            </div>
+
+            <form class="asadul-contact-form" onsubmit="redirectToMailApp(event)">
+                <input type="text" id="name" placeholder="Your Name" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function redirectToMailApp(event) {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+
+            const subject = encodeURIComponent("Message from Website Visitor");
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+
+            window.location.href = `mailto:asadul.it@yahoo.com?subject=${subject}&body=${body}`;
+        }
+    </script>
+
+
+
+    <!-- Contact part End -->
+
+
+
+            
             <!-- Footer Start -->
             <div class="container-fluid bg-white pt-5 px-0">
                 <div class="container bg-dark text-light text-center py-5">
