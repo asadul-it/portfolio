@@ -21,7 +21,6 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            /* Removed padding-top from body, as the sticky header will now occupy space in the document flow */
             color: #333;
         }
 
@@ -248,7 +247,6 @@
                 font-size: 1em;
                 padding: 6px 15px;
             }
-            /* No padding-top on body needed as sticky header takes space */
             .container {
                 width: 95%;
                 padding: 30px;
@@ -294,7 +292,6 @@
                 font-size: 0.9em;
                 padding: 5px 10px;
             }
-            /* No padding-top on body needed as sticky header takes space */
             .container {
                 width: 98%;
                 padding: 20px;
@@ -324,6 +321,9 @@
             .skill-details {
                 font-size: 0.9em;
             }
+        }
+
+    
         }
     </style>
 </head>
@@ -415,6 +415,283 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Footer Start -->
+
+
+
+<style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif; /* যদি রোবোটো ফন্ট ব্যবহার করতে চান, তাহলে এটি লিঙ্ক করতে হবে */
+        }
+
+        /* --- ফুটার স্টাইল --- */
+        footer {
+            /* ফুটারের ব্যাকগ্রাউন্ড স্বচ্ছ করা হয়েছে যাতে অ্যানিমেটেড বর্ডার দেখা যায় */
+            background-color: transparent;
+            color: #343a40; /* গাঢ় ধূসর টেক্সট কালার */
+            padding: 5px; /* এই প্যাডিং অ্যানিমেটেড বর্ডারের পুরুত্ব নির্ধারণ করবে */
+            margin-top: auto;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08); /* সূক্ষ্ম শ্যাডো */
+            position: relative; /* Pseudo-element এর পজিশনিং এর জন্য */
+            overflow: hidden;
+            border-radius: 10px; /* ফুটারে রাউন্ডেড কর্নার যোগ করা হয়েছে */
+        }
+
+        /* অ্যানিমেটেড বর্ডার ইফেক্ট */
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -1px; /* বর্ডারের উপরে পজিশন করার জন্য - পুরুত্ব আরও কমানো হয়েছে */
+            left: -1px; /* পুরুত্ব আরও কমানো হয়েছে */
+            right: -1px; /* পুরুত্ব আরও কমানো হয়েছে */
+            bottom: -1px; /* পুরুত্ব আরও কমানো হয়েছে */
+            /* Gradient background for animation: Red, Blue, Pink, and other colors */
+            background: linear-gradient(45deg, #ff0000, #007bff, #ff007b, #6610f2, #ff0000, #007bff);
+            background-size: 400% 400%;
+            border-radius: 11px; /* আরও চিকন বর্ডারের সাথে সামঞ্জস্যপূর্ণ করতে বর্ডার-রেডিয়াস কমানো হয়েছে */
+            z-index: -1; /* কন্টেন্টের পেছনে রাখার জন্য */
+            animation: animateBorder 20s linear infinite; /* ধীর গতির অ্যানিমেশন */
+        }
+
+        /* বর্ডার অ্যানিমেশনের কীফ্রেম */
+        @keyframes animateBorder {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        /* কন্টেন্টকে অ্যানিমেটেড বর্ডারের উপরে আনার জন্য এবং সাদা ব্যাকগ্রাউন্ড দেওয়ার জন্য */
+        .footer-container {
+            background-color: #ffffff; /* কন্টেন্টের জন্য সাদা ব্যাকগ্রাউন্ড */
+            border-radius: 8px; /* ফুটারের ভিতরের কন্টেন্টের জন্য সামান্য ছোট বর্ডার-রেডিয়াস */
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 50px 20px 30px; /* কন্টেন্টের আসল প্যাডিং */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            position: relative; /* কন্টেন্টকে অ্যানিমেটেড বর্ডারের উপরে আনার জন্য */
+            z-index: 1; /* কন্টেন্টকে অ্যানিমেটেড বর্ডারের উপরে আনার জন্য */
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: #212529; /* আরও গাঢ় হেডিং কালার */
+            font-weight: 700;
+            /* Transition for smooth effect, including transform */
+            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease; 
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: #007bff; /* অ্যাকসেন্ট নীল কালার */
+            border-radius: 5px;
+        }
+
+        .footer-column h3:hover {
+            color: #28a745; /* হোভারে উজ্জ্বল সবুজ কালার */
+            text-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* সূক্ষ্ম টেক্সট শ্যাডো নতুন হোভার কালারের সাথে সামঞ্জস্যপূর্ণ */
+            transform: translateY(-3px) scale(1.02); /* হালকা উপরে উঠবে এবং সামান্য বড় হবে */
+        }
+
+        .footer-column p, .footer-column ul li {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #495057; /* টেক্সট কালার গাঢ় ধূসর */
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #495057;
+            text-decoration: none; /* এই লাইনটি যোগ করা হয়েছে আন্ডারলাইন সরানোর জন্য */
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-column ul li a i {
+            margin-right: 8px;
+            font-size: 0.75rem;
+            color: #007bff; /* আইকনের অ্যাকসেন্ট কালার */
+        }
+
+        .footer-column ul li a:hover {
+            color: #0056b3; /* হোভারে গাঢ় নীল কালার */
+            padding-left: 5px;
+        }
+
+        .footer-bottom {
+            background-color: #ffffff; /* কপিরাইট সেকশনের জন্য সাদা ব্যাকগ্রাউন্ড */
+            border-radius: 0 0 8px 8px; /* নিচের কোণাগুলো রাউন্ডেড করার জন্য */
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 0; /* কন্টেইনারের সাথে মার্জিন থাকবে না */
+            border-top: 1px solid #e9ecef; /* হালকা ধূসর বর্ডার */
+            font-size: 0.8rem;
+            color: #6c757d; /* কপিরাইট টেক্সট কালার */
+            position: relative; /* কন্টেন্টকে অ্যানিমেটেড বর্ডারের উপরে আনার জন্য */
+            z-index: 1; /* কন্টেন্টকে অ্যানিমেটেড বর্ডারের উপরে আনার জন্য */
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 18px;
+            justify-content: flex-start;
+        }
+
+        .social-links a {
+            color: #007bff; /* আইকনের নিজস্ব নীল কালার */
+            background: #e9ecef; /* হালকা ধূসর ব্যাকগ্রাউন্ড */
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            border: 1px solid #ced4da; /* হালকা বর্ডার */
+            text-decoration: none; /* এই লাইনটি যোগ করা হয়েছে আন্ডারলাইন সরানোর জন্য */
+        }
+
+        .social-links a:hover {
+            background: #007bff; /* হোভারে নীল ব্যাকগ্রাউন্ড */
+            color: #ffffff; /* হোভারে সাদা ফন্ট কালার */
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* হোভারে নীল শ্যাডো */
+        }
+
+        /* --- মোবাইল রেসপনসিভনেস --- */
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr; /* ছোট স্ক্রিনে কলামগুলো একটির নিচে একটি আসবে */
+                gap: 25px;
+            }
+
+            .footer-column {
+                margin-bottom: 20px;
+                text-align: center; /* কলামের টেক্সট মাঝখানে আসবে */
+                /* কলামের ভেতরের কন্টেন্ট মাঝখানে আনতে */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-column h3::after {
+                margin: 0 auto; /* হেডিং এর নিচের লাইন মাঝখানে আসবে */
+                left: 0;
+                right: 0;
+            }
+
+            .social-links {
+                justify-content: center; /* সোশ্যাল লিঙ্কগুলো মাঝখানে আসবে */
+            }
+
+            footer {
+                padding: 40px 0 20px; /* ছোট স্ক্রিনে প্যাডিং কিছুটা কমবে */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-column h3 {
+                font-size: 1.2rem; /* আরও ছোট স্ক্রিনে হেডিং ফন্ট সাইজ কমবে */
+            }
+            .footer-column p, .footer-column ul li, .footer-bottom p {
+                font-size: 0.85rem; /* আরও ছোট স্ক্রিনে টেক্সট ফন্ট সাইজ কমবে */
+            }
+            .social-links a {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem; /* আরও ছোট স্ক্রিনে সোশ্যাল আইকন সাইজ কমবে */
+            }
+        }
+    </style>
+</head>
+<body>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About ME</h3>
+                <p>I am Asadul Islam, an IT professional with over 5.5 years of experience in IT infrastructure management and an expert in hardware, software, networking, and system security. I have a passion for solving technical challenges and improving operational efficiency.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+                    <li><a href="contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+                    <li><a href="photo-gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i>Zirani Bazar,Savar,Dhaka</li>
+                    <li><i class="fas fa-envelope"></i>asadul.it@yahoo.com</li>
+                    <li><i class="fas fa-phone"></i>01706927793</li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow ME</h3>
+                <p>আমার সোশ্যাল মিডিয়ায় যুক্ত থাকুন!</p>
+                <div class="social-links">
+                    <a class="mx-2" href="https://www.linkedin.com/in/asadul-islam-asad/" target="_blank" title="Connect on LinkedIn">  <i class="fab fa-linkedin-in"></i> </a>
+                    <a class="mx-2" href="https://wa.me/8801706927793" target="_blank" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a class="mx-2" href="https://github.com/asadul-it" target="_blank" title="Visit my GitHub"> <i class="fab fa-github"></i></a>
+                    <a class="mx-2" href="https://join.skype.com/invite/VosI1Dw4dGGc" target="_blank" title="Call on Skype"><i class="fab fa-skype"></i></a>
+                    <a class="mx-2" href="https://www.facebook.com/mdasadulislam.asad.7311/" target="_blank" title="Follow on Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="m-0">&copy; All Rights Reserved. Designed by <a href="index.html">Asadul Islam</a></p>
+        </div>
+    </footer>
+
+
+
+<!-- Footer End -->
+
 
 </body>
 </html>
