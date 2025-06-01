@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Certificates Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            --glass-bg: rgba(255, 255, 255, 0.25);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-hover: 0 15px 45px rgba(31, 38, 135, 0.4);
+            --border-radius: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff; /* Changed background to white */
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex; /* Added for footer to stick to bottom */
+            flex-direction: column; /* Added for footer to stick to bottom */
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(224, 224, 224, 0.5); /* Lightened track for white bg */
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-gradient);
+        }
+
+        /* Fixed Header Container */
+        .fixed-header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #f8f9fa;
+        }
+
+        /* Enhanced Navbar Styles */
+        .navbar {
+            background: #ffffff;
+            width: 85%;
+            max-width: 1000px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px; /* Adjusted margin */
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f1f3f4;
+            position: relative;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .navbar ul li a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .navbar ul li a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Main Title in Header */
+        .header-title { /* Renamed .title to .header-title to avoid conflict */
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem); /* Adjusted size */
+            font-weight: 700;
+            color: #2c3e50;
+            margin-top: 10px; /* Added margin */
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            text-align: center;
+        }
+
+
+        @keyframes titleGlow {
+            0% {
+                text-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+                transform: scale(1);
+            }
+            50% {
+                text-shadow: 0 0 15px rgba(102, 126, 234, 0.8), 0 0 20px rgba(118, 75, 162, 0.6);
+                transform: scale(1.01);
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+                transform: scale(1);
+            }
+        }
+
+        .title-decoration { /* This was inside main-title, moved if still needed elsewhere or remove */
+            width: 100px;
+            height: 4px;
+            background: var(--accent-gradient);
+            margin: 10px auto 0; /* Adjusted margin */
+            border-radius: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scaleX(1); opacity: 1; }
+            50% { transform: scaleX(1.2); opacity: 0.8; }
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 200px; /* Adjusted margin to accommodate fixed header's height */
+            padding: 0 20px 60px; /* Reduced bottom padding */
+            flex-grow: 1; /* Added for footer to stick to bottom */
+        }
+
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(248, 249, 250, 0.95); /* Slightly off-white for contrast */
+            backdrop-filter: blur(10px); /* Reduced blur */
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: var(--border-radius);
+            border: 1px solid #dee2e6; /* Lighter border */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05); /* Softer shadow */
+            padding: 50px 30px; /* Adjusted padding */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent-gradient);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px; /* Adjusted margin */
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem; /* Adjusted size */
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px; /* Adjusted margin */
+        }
+
+        .section-description {
+            color: #7f8c8d;
+            font-size: 1rem; /* Adjusted size */
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Gallery Grid */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Adjusted minmax */
+            gap: 25px; /* Adjusted gap */
+            margin-top: 30px; /* Adjusted margin */
+        }
+
+        .certificate-card {
+            background: #ffffff; /* Solid white for cards */
+            border-radius: var(--border-radius);
+            border: 1px solid #e9ecef; /* Lighter border */
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Softer shadow */
+        }
+
+        .certificate-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.03), transparent); /* Subtler shine */
+            transition: left 0.6s ease;
+            z-index: 1;
+        }
+
+        .certificate-card:hover::before {
+            left: 100%;
+        }
+
+        .certificate-card:hover {
+            transform: translateY(-8px) scale(1.01); /* Slightly reduced hover effect */
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+            border-color: rgba(79, 172, 254, 0.5);
+        }
+
+        .image-container {
+            position: relative;
+            overflow: hidden;
+            height: 220px; /* Adjusted height */
+        }
+
+        .certificate-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .certificate-card:hover img {
+            transform: scale(1.05); /* Slightly reduced zoom */
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.05) 100%); /* Adjusted overlay */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .certificate-card:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .zoom-icon {
+            color: white;
+            font-size: 2.5rem; /* Adjusted size */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4); /* Softer shadow */
+            animation: zoomPulse 1.5s infinite;
+        }
+
+        @keyframes zoomPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .card-content {
+            padding: 20px; /* Adjusted padding */
+            background: #ffffff;
+        }
+
+        .certificate-title {
+            font-size: 1.15rem; /* Adjusted size */
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px; /* Adjusted margin */
+            line-height: 1.3;
+        }
+
+        .certificate-details {
+            display: flex;
+            flex-direction: column;
+            gap: 6px; /* Adjusted gap */
+            color: #7f8c8d;
+            font-size: 0.9rem; /* Adjusted size */
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-item i {
+            width: 14px; /* Adjusted size */
+            color: #4facfe;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9); /* Slightly less opaque */
+            backdrop-filter: blur(8px); /* Reduced blur */
+            align-items: center;
+            justify-content: center;
+            padding: 20px; /* Adjusted padding */
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); /* Adjusted shadow */
+            display: flex; /* For centering image if smaller than container */
+            align-items: center; /* For centering image */
+            justify-content: center; /* For centering image */
+        }
+
+        .lightbox img {
+            max-width: 100%; /* Ensure image doesn't overflow content box */
+            max-height: 100%; /* Ensure image doesn't overflow content box */
+            object-fit: contain;
+            display: block;
+        }
+
+        .lightbox-controls { /* Container for close button */
+            position: absolute;
+            top: 15px; /* Adjusted position */
+            right: 15px; /* Adjusted position */
+            display: flex;
+            gap: 10px;
+        }
+
+        .control-btn { /* General style for control buttons */
+            width: 40px; /* Adjusted size */
+            height: 40px; /* Adjusted size */
+            background: rgba(30, 30, 30, 0.7); /* Darker, less transparent */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem; /* Adjusted size */
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+
+        /* Removed .nav-btn, .prev-btn, .next-btn as per previous simplification */
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px; /* Adjusted position */
+            right: 25px; /* Adjusted position */
+            width: 50px; /* Adjusted size */
+            height: 50px; /* Adjusted size */
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none; /* Initially hidden */
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem; /* Adjusted size */
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: var(--shadow-hover);
+        }
+
+       
+
+
+  /* Footer Styles */
+        footer {
+            background: #f8f9fa;
+            color: #333;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+            position: relative;
+            z-index: 2;
+            border-top: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 22px;
+            margin-bottom: 25px;
+            color: #667eea;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .footer-column p,
+        .footer-column ul li {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li a {
+            color: #666;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+        }
+
+        .footer-column ul li a i {
+            margin-right: 12px;
+            font-size: 16px;
+            color: #667eea;
+            width: 20px;
+        }
+
+        .footer-column ul li a i.fa-certificate {
+            color: #ffd700;
+        }
+
+        .footer-column ul li a:hover {
+            color: #667eea;
+            transform: translateX(10px);
+        }
+
+        .footer-column ul li a:hover i.fa-certificate {
+            transform: rotate(360deg);
+            transition: transform 0.5s ease;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(102, 126, 234, 0.1);
+            color: #666;
+        }
+
+        .footer-bottom a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .container {
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 100px;
+            }
+            .navbar {
+                width: 95%;
+                padding: 12px 15px;
+            }
+            .navbar ul {
+                gap: 20px;
+            }
+            .navbar ul li a {
+                font-size: 16px;
+                padding: 10px 18px;
+            }
+            .container {
+                width: 95%;
+                padding: 30px;
+            }
+            h1 {
+                font-size: 36px;
+                margin-bottom: 40px;
+            }
+            .contact-info,
+            .contact-form {
+                padding: 30px;
+            }
+            .contact-info h2,
+            .contact-form h2 {
+                font-size: 24px;
+            }
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .footer-column h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            .social-links {
+                justify-content: center;
+            }
+            .footer-column ul li a {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: 160px;
+            }
+            .navbar {
+                width: 98%;
+                padding: 10px;
+            }
+            .navbar ul {
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+            }
+            .navbar ul li a {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+            h1 {
+                font-size: 24px;
+            }
+            .container {
+                width: 98%;
+                padding: 20px;
+            }
+            .contact-info,
+            .contact-form {
+                padding: 25px;
+            }
+            .contact-info .info-item {
+                padding: 15px;
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            .contact-info .info-item i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+            .contact-form input,
+            .contact-form textarea {
+                padding: 15px;
+                font-size: 16px;
+            }
+            .submit-btn {
+                padding: 18px;
+                font-size: 16px;
+            }
+            .footer-container {
+                padding: 0 15px;
+            }
+        
+
+
+        /* Responsive Design - General Adjustments */
+        @media (max-width: 992px) {
+            .navbar {
+                width: 90%; /* Wider navbar on tablets */
+                padding: 12px 15px;
+            }
+            .navbar ul { gap: 15px; }
+            .navbar ul li a { font-size: 1rem; padding: 10px 18px; }
+            .main-content { margin-top: 180px; } /* Adjust if header height changes */
+            .gallery-container { padding: 40px 20px; }
+            .gallery { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        }
+
+        @media (max-width: 768px) {
+            .fixed-header-container { padding: 15px 0; }
+            .navbar { width: 95%; padding: 10px; margin-bottom: 10px; }
+            .header-title { font-size: clamp(1.5rem, 3.5vw, 2rem); margin-top: 5px;}
+            .navbar ul { gap: 8px; }
+            .navbar ul li a { font-size: 0.9rem; padding: 8px 12px; border-radius: 25px; }
+            .navbar ul li a i { font-size: 0.8rem; margin-right: 5px;}
+            .main-content { margin-top: 150px; padding: 0 15px 40px;} /* Adjust if header height changes */
+            .gallery-container { padding: 30px 15px; }
+            .section-title { font-size: 1.8rem; }
+            .gallery { grid-template-columns: 1fr; gap: 20px; }
+            .footer-container { grid-template-columns: 1fr; text-align: center; }
+            .footer-column h3::after { margin-left: auto; margin-right: auto; } /* Center underline */
+            .social-links { justify-content: center; }
+            .lightbox-content { max-width: 95vw; max-height: 95vh; }
+            .control-btn { width: 35px; height: 35px; font-size: 1rem; }
+            .back-to-top { width: 45px; height: 45px; bottom: 20px; right: 20px; font-size: 1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .navbar ul { gap: 5px; justify-content: space-around; }
+            .navbar ul li a { font-size: 0.75rem; padding: 6px 8px; }
+            .navbar ul li a i { display: none; } /* Hide icons on very small screens */
+            .main-content { margin-top: 140px; } /* Adjust if header height changes */
+            .section-title { font-size: 1.6rem; }
+            .certificate-title { font-size: 1rem; }
+            .card-content { padding: 15px; }
+            .image-container { height: 200px; }
+            .footer-column h3 { font-size: 1.15rem; }
+            .footer-column p, .footer-column ul li { font-size: 0.9rem; }
+            .social-links a { width: 35px; height: 35px; font-size: 1rem; }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="fixed-header-container">
+        <nav class="navbar">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+                <li><a href="certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+                <li><a href="contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+                <li><a href="photo-gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            </ul>
+        </nav>
+        <h1 class="header-title">My Certificates</h1>
+        <div class="title-decoration"></div>
+    </div>
+
+    <main class="main-content">
+        <div class="gallery-container">
+            <div class="section-header">
+                <h2 class="section-title">Professional Certifications</h2>
+                
+            </div>
+
+            <div class="gallery">
+
+                <div class="certificate-card" data-index="0">
+    <div class="image-container">
+        <img src="certificate img\Google Cybersecurity Professional Certificate\Image\Google Cybersecurity.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Google Cybersecurity Professional Certificate</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: January 2024</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Python, Linux, SQL, SIEM</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="certificate-card" data-index="1">
+    <div class="image-container">
+        <img src="certificate img\Google Cybersecurity Professional Certificate\Image\Foundations of Cybersecurity.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Foundations of Cybersecurity</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: December 2023</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Security Fundamentals</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="certificate-card" data-index="2">
+    <div class="image-container">
+        <img src="certificate img\Google Cybersecurity Professional Certificate\Image\Manage Security Risks.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Play It Safe: Manage Security Risks</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: December 2023</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Risk Management</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="certificate-card" data-index="4">
+    <div class="image-container">
+        <img src="certificate img\Google Cybersecurity Professional Certificate\Image\Networks and Network.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Connect and Protect: Networks and Network Security</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: December 2023</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-network-wired"></i>
+                <span>Network Security</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="certificate-card" data-index="3">
+    <div class="image-container">
+        <img src="certificate img\Google Cybersecurity Professional Certificate\Image\Linux and SQL.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Tools of the Trade: Linux and SQL</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: December 2023</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-terminal"></i>
+                <span>Linux, SQL</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="certificate-card" data-index="4">
+    <div class="image-container">
+        <img src="certificate img\Google Cybersecurity Professional Certificate\Image\Assets, Threats, and Vulnerabilities.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Assets, Threats, and Vulnerabilities</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: December 2023</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-bug"></i>
+                <span>Threat Analysis</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="certificate-card" data-index="4">
+    <div class="image-container">
+        <img src="certificate img\Google Cybersecurity Professional Certificate\Image\Detection and Response.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Sound the Alarm: Detection and Response</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: January 2024</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>Incident Detection & Response</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="certificate-card" data-index="4">
+    <div class="image-container">
+        <img src="certificate img\Google Cybersecurity Professional Certificate\Image\Automate Cybersecurity Tasks with Python.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Automate Cybersecurity Tasks with Python</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: January 2024</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-code"></i>
+                <span>Python Automation</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="certificate-card" data-index="4">
+    <div class="image-container">
+        <img src="certificate img\Google Cybersecurity Professional Certificate\Image\Prepare for Cybersecurity Jobs.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Put It to Work: Prepare for Cybersecurity Jobs</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: January 2024</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-briefcase"></i>
+                <span>Career Preparation</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="certificate-card" data-index="4">
+    <div class="image-container">
+        <img src="certificate img\Google IT Support\Image\Google IT Support.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Google IT Support Professional Certificate</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: December 2022</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-tools"></i>
+                <span>IT Support & Troubleshooting</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>5 Course Professional Certificate</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="certificate-card" data-index="4">
+    <div class="image-container">
+        <img src="certificate img\Google IT Support\Image\Technical Support Fundamentals.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Technical Support Fundamentals</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: December 2022</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-tools"></i>
+                <span>Technical Support Basics</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Foundation Course</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="certificate-card" data-index="4">
+    <div class="image-container">
+        <img src="certificate img\Google IT Support\Image\The Bits and Bytes of Computer Networking.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">The Bits and Bytes of Computer Networking</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: December 2022</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-network-wired"></i>
+                <span>Computer Networking</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Networking Fundamentals</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="certificate-card" data-index="4">
+    <div class="image-container">
+        <img src="certificate img\Google IT Support\Image\Operating Systems and You Becoming a Power.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">Operating Systems and You: Becoming a Power User</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: December 2022</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-desktop"></i>
+                <span>Operating Systems</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-user-cog"></i>
+                <span>System Administration</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="certificate-card" data-index="5">
+    <div class="image-container">
+        <img src="certificate img\Google IT Support\Image\System Administration and IT Infrastructure.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">System Administration and IT Infrastructure Services</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: December 2022</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-server"></i>
+                <span>System Administration</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-network-wired"></i>
+                <span>IT Infrastructure</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="certificate-card" data-index="6">
+    <div class="image-container">
+        <img src="certificate img\Google IT Support\Image\IT Security Defense against the digital dark arts.jpg">
+        <div class="image-overlay">
+            <i class="fas fa-search-plus zoom-icon"></i>
+        </div>
+    </div>
+    <div class="card-content">
+        <h3 class="certificate-title">IT Security: Defense against the digital dark arts</h3>
+        <div class="certificate-details">
+            <div class="detail-item">
+                <i class="fas fa-building"></i>
+                <span>Google Career Certificates</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-calendar"></i>
+                <span>Completed: December 2022</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-shield-alt"></i>
+                <span>IT Security</span>
+            </div>
+            <div class="detail-item">
+                <i class="fas fa-lock"></i>
+                <span>Cybersecurity</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                 </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+    </main>
+
+  <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Me</h3>
+                <p>I am Asadul Islam, an IT professional with over 5.5 years of experience in IT infrastructure management and an expert in hardware, software, networking, and system security. I have a passion for solving technical challenges and improving operational efficiency.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+                    <li><a href="certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+                    <li><a href="contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+                    <li><a href="photo-gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> Zirani Bazar, Savar, Dhaka</li>
+                    <li><i class="fas fa-envelope"></i> asadul.it@yahoo.com</li>
+                    <li><i class="fas fa-phone"></i> 01706927793</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Follow Me</h3>
+                <p>আমার সোশ্যাল মিডিয়ায় যুক্ত থাকুন!</p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/asadul-islam-asad/" target="_blank" title="Connect on LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://wa.me/8801706927793" target="_blank" title="Chat on WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://github.com/asadul-it" target="_blank" title="Visit my GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://join.skype.com/invite/VosI1Dw4dGGc" target="_blank" title="Call on Skype">
+                        <i class="fab fa-skype"></i>
+                    </a>
+                    <a href="https://www.facebook.com/mdasadulislam.asad.7311/" target="_blank" title="Follow on Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; All Rights Reserved. Designed by <a href="index.html">Asadul Islam</a></p>
+        </div>
+    </footer>
+
+    <button class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        const certificateCards = document.querySelectorAll('.certificate-card');
+        const lightbox = document.createElement('div');
+        lightbox.classList.add('lightbox');
+        const lightboxContent = document.createElement('div');
+        lightboxContent.classList.add('lightbox-content');
+        const lightboxImg = document.createElement('img');
+        const lightboxControls = document.createElement('div'); // Container for controls
+        lightboxControls.classList.add('lightbox-controls');
+
+        const closeBtn = document.createElement('button');
+        closeBtn.classList.add('control-btn', 'close-btn');
+        closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        closeBtn.setAttribute('aria-label', 'Close image');
+
+        lightboxControls.appendChild(closeBtn); // Add close button to controls div
+        lightboxContent.appendChild(lightboxImg);
+        lightboxContent.appendChild(lightboxControls); // Add controls div to content
+        lightbox.appendChild(lightboxContent);
+        document.body.appendChild(lightbox);
+
+        certificateCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const imgSrc = card.querySelector('img').src;
+                const imgAlt = card.querySelector('img').alt;
+                lightboxImg.src = imgSrc;
+                lightboxImg.alt = imgAlt;
+                lightbox.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when lightbox is open
+            });
+        });
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        closeBtn.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) { // Click outside the content
+                closeLightbox();
+            }
+        });
+
+        // Keyboard accessibility for lightbox
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+                closeLightbox();
+            }
+        });
+
+        // Back to Top Button
+        const backToTopButton = document.querySelector(".back-to-top");
+
+        window.addEventListener("scroll", () => {
+            if (window.pageYOffset > 300) { // Show button after scrolling 300px
+                backToTopButton.style.display = "flex";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        });
+
+        backToTopButton.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+
+        // Update Footer Year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
