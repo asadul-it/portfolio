@@ -146,99 +146,275 @@
 
 
 
-<!-- Navbar Start -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <!-- Navbar toggler for mobile view -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.html">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="skills.html">Skills</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="photo-gallery.html">Gallery</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- Navbar End -->
 
 
 
 
 
+
+        <!-- Navbar Start -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <!-- Navbar toggler for mobile view -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+                        <li class="nav-item"><a class="nav-link" href="certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="photo-gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar End -->
+        
+      
 
 <style>
-/* Navbar toggler icon design */
-.navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Navbar background color */
-.navbar {
-  background-color: green !important;
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    padding-top: 140px;
 }
 
-/* Navbar link color */
-.navbar-nav .nav-link {
-  color: white !important;
-  transition: color 0.3s ease;
-}
-
-/* Hover color for links */
-.navbar-nav .nav-link:hover {
-  color: pink !important;
-}
-
-/* Mobile responsive dropdown styling */
-@media (max-width: 991px) {
-  .navbar-collapse {
-    background-color: green !important;
-    padding: 10px 15px;
-  }
-
-  .navbar-nav {
+/* Fixed Header Container */
+.fixed-header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-  }
+    align-items: center;
+    padding: 20px 0 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-  .navbar-nav .nav-item {
-    width: 100%;
-  }
+/* Enhanced Navbar Styles */
+.navbar {
+    background: rgba(255, 255, 255, 0.9);
+    width: 90%;
+    max-width: 1000px;
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    margin-bottom: 10px;
+}
 
-  .navbar-nav .nav-link {
-    display: block;
+.navbar-nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    padding: 10px 15px;
+}
+
+.nav-link {
+    color: #2c3e50 !important;
+    text-decoration: none;
+    font-size: 1.05em;
+    font-weight: 500;
+    padding: 12px 20px !important;
+    border-radius: 25px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    border: 2px solid transparent;
+}
+
+.nav-link:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white !important;
-    border-bottom: 1px solid #ffffff33;
-  }
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    transform: translateY(-3px);
+    border-color: rgba(255, 255, 255, 0.2);
+}
 
-  .navbar-nav .nav-link:hover {
-    color: pink !important;
-    background-color: #006400 !important; /* Darker green on hover */
-  }
+.nav-link i {
+    font-size: 1.1em;
+    transition: transform 0.3s ease;
+}
 
-  .navbar-toggler {
-    border: none;
-    outline: none;
-  }
+.nav-link:hover i {
+    transform: scale(1.2);
+}
 
-  .navbar-toggler:focus {
-    box-shadow: none;
-  }
+/* Navbar Toggler */
+.navbar-toggler {
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    padding: 6px 10px;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23667eea' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+    width: 24px;
+    height: 24px;
+}
+
+/* Header Title */
+.header-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 5px 0;
+    animation: titleGlow 3s ease-in-out infinite alternate;
+    text-align: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header-subtitle {
+    font-size: 1.1em;
+    color: #6c757d;
+    text-align: center;
+    font-weight: 500;
+    margin: 0;
+}
+
+@keyframes titleGlow {
+    0% { 
+        text-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        transform: scale(1);
+    }
+    100% { 
+        text-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+        transform: scale(1.02);
+    }
+}
+
+/* Main Content */
+.main-content {
+    padding: 40px 20px;
+}
+
+.about-section {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+.about-content {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #4a5568;
+    text-align: justify;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .fixed-header-container {
+        padding: 15px 10px;
+    }
+    
+    .navbar {
+        width: 95%;
+        padding: 12px 15px;
+    }
+    
+    .navbar-nav {
+        gap: 5px;
+        flex-direction: column;
+        margin-top: 15px;
+    }
+    
+    .nav-link {
+        font-size: 1rem;
+        padding: 10px 15px !important;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .header-title {
+        font-size: 1.6rem;
+    }
+    
+    .header-subtitle {
+        font-size: 1rem;
+    }
+    
+    body {
+        padding-top: 180px;
+    }
+    
+    .about-content {
+        padding: 25px;
+        margin: 0 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-nav {
+        gap: 8px;
+    }
+    
+    .nav-link {
+        padding: 8px 12px !important;
+        font-size: 0.95rem;
+    }
+    
+    body {
+        padding-top: 200px;
+    }
 }
 </style>
 
@@ -1282,6 +1458,10 @@
 
 
 <!-- Footer End -->
+
+
+
+
 
 
         </div>
