@@ -15,315 +15,564 @@
         }
 
         body {
-            font-family: 'Montserrat', sans-serif; /* Changed font to Montserrat for consistency */
-            background: linear-gradient(135deg, #f0f8ff 0%, #e6f7ff 100%); /* Softer blue gradient background */
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            color: #333;
+            color: #2c3e50;
+            line-height: 1.6;
         }
 
-        /* Fixed Header Container (now sticky) */
+        /* Fixed Header Container */
         .fixed-header-container {
-            position: sticky; /* Changed from fixed to sticky */
-            top: 0; /* Stays at the top when scrolled */
+            position: sticky;
+            top: 0;
             left: 0;
             width: 100%;
-            background-color: #ffffff; /* Solid white background for the sticky header */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-            z-index: 100; /* Ensure it stays on top of other content */
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 100;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Center content horizontally */
-            padding-top: 20px; /* Space above the navbar */
-            padding-bottom: 20px; /* Space below the heading */
-            box-sizing: border-box; /* Include padding in total height */
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid #f8f9fa;
         }
 
-        /* Navbar Styles */
+        /* Enhanced Navbar Styles */
         .navbar {
-            background: linear-gradient(90deg, #3498db 0%, #2980b9 100%); /* Blue gradient background */
-            width: 80%;
-            padding: 10px 0;
+            background: #ffffff;
+            width: 85%;
+            max-width: 1000px;
+            padding: 15px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 20px; /* Space between navbar and h1 */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+            margin-bottom: 25px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border: 2px solid #f1f3f4;
+            position: relative;
         }
 
         .navbar ul {
             list-style: none;
             display: flex;
-            gap: 20px;
+            gap: 25px;
             margin: 0;
             padding: 0;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .navbar ul li a {
-            color: white;
+            color: #2c3e50;
             text-decoration: none;
-            font-size: 1.1em; /* Slightly smaller font for better fit */
-            font-weight: 600; /* Bolder font */
-            padding: 8px 18px; /* Adjusted padding */
-            border-radius: 20px; /* More rounded for pill shape */
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-size: 1.1em;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
         }
 
         .navbar ul li a:hover {
-            background-color: #1abc9c; /* Teal color on hover */
-            transform: translateY(-2px); /* Slight lift */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* More pronounced shadow */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
         }
 
-        /* Keyframe animation for title pulse */
-        @keyframes titlePulse {
+        /* Enhanced Title Animation */
+        @keyframes titleGlow {
             0% {
+                text-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
                 transform: scale(1);
-                color: #2c3e50;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             }
             50% {
-                transform: scale(1.03); /* Slightly more pronounced scale */
-                color: #3498db; /* Blue accent color */
-                text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+                text-shadow: 0 0 20px rgba(102, 126, 234, 0.8), 0 0 30px rgba(118, 75, 162, 0.6);
+                transform: scale(1.02);
             }
             100% {
+                text-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
                 transform: scale(1);
-                color: #2c3e50;
-                text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
             }
         }
 
-        /* Styling for the main heading (now inside .fixed-header-container) */
         h1 {
-            color: #2c3e50; /* Dark blue text */
-            font-weight: 700; /* Bolder font weight */
-            letter-spacing: 1px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            color: #2c3e50;
+            font-size: 3em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-align: center;
+            margin: 0;
+            animation: titleGlow 3s infinite ease-in-out;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             position: relative;
-            padding-bottom: 10px;
-            text-align: center; /* Ensures text is centered within the h1 element */
-            margin: 0; /* Remove default margins */
-            width: 100%; /* Ensure h1 takes full width of its parent for centering */
-            animation: titlePulse 2s infinite ease-in-out; /* Apply pulse animation */
-            box-sizing: border-box;
         }
 
         h1::after {
             content: '';
             position: absolute;
             left: 50%;
-            bottom: 10px;
+            bottom: -10px;
             transform: translateX(-50%);
-            width: 80px;
-            height: 3px;
-            background-color: #3498db; /* Accent color for underline */
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 2px;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
         }
 
-        /* Container for the entire gallery grid with enhanced shadow */
+        /* Enhanced Container */
         .container {
-            background-color: #ffffff;
-            padding: 40px; /* More padding */
-            border-radius: 20px; /* More rounded corners */
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15); /* Stronger, softer shadow */
-            width: 90%;
-            max-width: 1100px; /* Wider container */
-            margin-top: 50px; /* Space below the sticky header */
-            margin-bottom: 50px; /* Space at the bottom */
+            background: #ffffff;
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            width: 95%;
+            max-width: 1200px;
+            margin: 40px 0;
+            border: 1px solid #f1f3f4;
         }
 
         .skills {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 25px; /* Increased gap between cards */
         }
 
-        /* Keyframe animation for skill box entry */
-        @keyframes fadeInUp {
+        /* Enhanced Skill Cards */
+        @keyframes skillSlideIn {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px) rotateX(15deg);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) rotateX(0);
             }
         }
 
         .skill {
-            background: linear-gradient(135deg, #fdfdfd 0%, #f0f0f0 100%); /* Subtle gradient for cards */
-            border: 1px solid #e0e0e0; /* Added subtle border */
-            border-radius: 15px; /* More rounded corners */
-            padding: 25px; /* More padding */
-            width: 280px; /* Slightly larger fixed width for desktop */
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Stronger shadow */
+            background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%);
+            border: 2px solid #e9ecef;
+            border-radius: 20px;
+            padding: 30px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease; /* Added filter to transition */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between; /* Distribute space between elements */
-            min-height: 220px; /* Ensure consistent height for cards */
-            opacity: 0; /* Start hidden for animation */
-            transform: translateY(20px); /* Start slightly below for animation */
-            animation: fadeInUp 0.6s ease-out forwards; /* Apply animation */
+            justify-content: space-between;
+            min-height: 250px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: skillSlideIn 0.8s ease-out forwards;
         }
 
-        /* Staggered animation delay for each skill box */
-        .skills .skill:nth-child(1) { animation-delay: 0.1s; }
-        .skills .skill:nth-child(2) { animation-delay: 0.2s; }
-        .skills .skill:nth-child(3) { animation-delay: 0.3s; }
-        .skills .skill:nth-child(4) { animation-delay: 0.4s; }
-        .skills .skill:nth-child(5) { animation-delay: 0.5s; }
-        .skills .skill:nth-child(6) { animation-delay: 0.6s; }
-        .skills .skill:nth-child(7) { animation-delay: 0.7s; }
-        .skills .skill:nth-child(8) { animation-delay: 0.8s; }
-        .skills .skill:nth-child(9) { animation-delay: 0.9s; }
-        .skills .skill:nth-child(10) { animation-delay: 1.0s; }
-        .skills .skill:nth-child(11) { animation-delay: 1.1s; }
-        .skills .skill:nth-child(12) { animation-delay: 1.2s; }
-        .skills .skill:nth-child(13) { animation-delay: 1.3s; }
-        .skills .skill:nth-child(14) { animation-delay: 1.4s; }
+        .skill::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
 
+        .skill:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Staggered animation delays */
+        .skill:nth-child(1) { animation-delay: 0.1s; }
+        .skill:nth-child(2) { animation-delay: 0.2s; }
+        .skill:nth-child(3) { animation-delay: 0.3s; }
+        .skill:nth-child(4) { animation-delay: 0.4s; }
+        .skill:nth-child(5) { animation-delay: 0.5s; }
+        .skill:nth-child(6) { animation-delay: 0.6s; }
+        .skill:nth-child(7) { animation-delay: 0.7s; }
+        .skill:nth-child(8) { animation-delay: 0.8s; }
+        .skill:nth-child(9) { animation-delay: 0.9s; }
+        .skill:nth-child(10) { animation-delay: 1.0s; }
+        .skill:nth-child(11) { animation-delay: 1.1s; }
+        .skill:nth-child(12) { animation-delay: 1.2s; }
+        .skill:nth-child(13) { animation-delay: 1.3s; }
+        .skill:nth-child(14) { animation-delay: 1.4s; }
 
         .skill:hover {
-            transform: translateY(-12px) scale(1.03); /* More lift and slight scale */
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3); /* Stronger, more diffused shadow */
-            filter: brightness(1.05); /* Subtle brightness increase */
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.15);
+            border-color: #667eea;
         }
 
+        /* Enhanced Icons */
         .icon {
-            font-size: 3.8em; /* Larger icon size */
-            margin-bottom: 15px; /* More space below icon */
-            color: #3498db; /* Blue icon color */
-            background-color: #e0f7fa; /* Light background for icon circle */
-            border-radius: 50%; /* Circular background */
-            padding: 15px; /* Padding inside the circle */
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for icon */
-            transition: color 0.3s ease, background-color 0.3s ease, text-shadow 0.3s ease; /* Added text-shadow to transition */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* Subtle text shadow for icon */
-        }
-        /* Specific icon colors for a more unique look */
-        .skill:nth-child(even) .icon {
-            color: #2ecc71; /* Green for even cards */
-            background-color: #e8f5e9;
-        }
-        .skill:nth-child(odd) .icon {
-            color: #3498db; /* Blue for odd cards */
-            background-color: #e0f7fa;
+            font-size: 4em;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
+        .skill:nth-child(odd) .icon {
+            color: #667eea;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+        }
+
+        .skill:nth-child(even) .icon {
+            color: #764ba2;
+            background: linear-gradient(135deg, #fff3e0 0%, #fce4ec 100%);
+        }
+
+        .skill:hover .icon {
+            transform: rotateY(360deg) scale(1.1);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
 
         .skill-name {
-            font-size: 1.4em; /* Larger skill name font */
-            color: #2c3e50; /* Darker text for name */
-            font-weight: 700; /* Bolder font */
-            margin-bottom: 10px;
-            letter-spacing: 0.5px; /* More spaced out */
+            font-size: 1.5em;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
         }
 
         .skill-details {
-            font-size: 1.05em; /* Slightly larger */
-            color: #7f8c8d; /* Muted grey for details */
-            line-height: 1.5; /* Improved readability */
+            font-size: 1.1em;
+            color: #5a6c7d;
+            line-height: 1.6;
+            text-align: center;
         }
 
-        /* Responsive Styles */
+        /* Enhanced Footer */
+        footer {
+            background: #ffffff;
+            color: #2c3e50;
+            padding: 60px 0 30px;
+            margin-top: auto;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            border-top: 2px solid #f1f3f4;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.1);
+        }
 
-        /* For tablets and smaller desktops (max-width: 992px) */
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .footer-column h3:hover {
+            color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .footer-column p, .footer-column ul li {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #5a6c7d;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: #5a6c7d;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        .footer-column ul li a i {
+            margin-right: 12px;
+            font-size: 1rem;
+            color: #667eea;
+            width: 20px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #667eea;
+            padding-left: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            color: #2c3e50;
+            background: #f8f9fa;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+            border: 2px solid #e9ecef;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid #e9ecef;
+            font-size: 0.95rem;
+            color: #5a6c7d;
+        }
+
+        .footer-bottom a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: #764ba2;
+        }
+
+        /* Responsive Design - Tablet */
         @media (max-width: 992px) {
             .navbar {
-                width: 90%;
+                width: 95%;
+                padding: 12px 20px;
             }
+            
             .navbar ul {
                 gap: 15px;
             }
+            
             .navbar ul li a {
-                font-size: 1em;
-                padding: 6px 15px;
+                font-size: 1rem;
+                padding: 10px 18px;
             }
+            
             .container {
-                width: 95%;
-                padding: 30px;
-                margin-top: 40px; /* Adjust margin-top for smaller screens */
+                width: 98%;
+                padding: 40px 25px;
             }
-            .title {
+            
+            h1 {
                 font-size: 2.5em;
-                margin-bottom: 25px;
             }
+            
             .skills {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 25px;
+            }
+            
+            .skill {
+                padding: 25px;
+                min-height: 220px;
+            }
+        }
+
+        /* Responsive Design - Mobile */
+        @media (max-width: 768px) {
+            .fixed-header-container {
+                padding: 15px 0;
+            }
+
+            .navbar {
+                width: 95%;
+                padding: 15px;
+                border-radius: 25px;
+            }
+
+            .navbar ul {
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .navbar ul li a {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+                border-radius: 20px;
+            }
+
+            .navbar ul li a i {
+                font-size: 0.8rem;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+                letter-spacing: 1px;
+            }
+            
+            .container {
+                padding: 30px 20px;
+                margin: 20px 0;
+            }
+            
+            .skills {
+                grid-template-columns: 1fr;
                 gap: 20px;
             }
+            
             .skill {
-                width: calc(50% - 15px); /* Two columns with gap */
                 padding: 20px;
                 min-height: 200px;
             }
+            
             .icon {
                 font-size: 3em;
-                margin-bottom: 12px;
+                padding: 15px;
+            }
+            
+            .skill-name {
+                font-size: 1.3em;
+            }
+            
+            .skill-details {
+                font-size: 1rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        /* Responsive Design - Small Mobile */
+        @media (max-width: 480px) {
+            .navbar {
+                padding: 10px;
+            }
+
+            .navbar ul {
+                gap: 5px;
+                flex-wrap: wrap;
+            }
+
+            .navbar ul li a {
+                font-size: 0.8rem;
+                padding: 6px 8px;
+                border-radius: 15px;
+            }
+
+            .navbar ul li a i {
+                display: none; /* Hide icons on very small screens */
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .skill {
+                padding: 18px;
+            }
+            
+            .icon {
+                font-size: 2.5em;
                 padding: 12px;
             }
+            
             .skill-name {
                 font-size: 1.2em;
             }
+            
             .skill-details {
-                font-size: 0.95em;
+                font-size: 0.9rem;
             }
         }
 
-        /* For mobile devices (max-width: 600px) */
-        @media (max-width: 600px) {
-            .navbar {
-                width: 95%;
-                padding: 8px 0;
-                border-radius: 8px;
-            }
-            .navbar ul {
-                flex-direction: column; /* Stack nav items vertically */
-                gap: 10px;
-            }
+        /* Extra Small Screens */
+        @media (max-width: 360px) {
             .navbar ul li a {
-                font-size: 0.9em;
-                padding: 5px 10px;
+                font-size: 0.7rem;
+                padding: 5px 6px;
             }
-            .container {
-                width: 98%;
-                padding: 20px;
-                margin-top: 30px; /* Adjust margin-top for mobile */
-                margin-bottom: 30px;
-            }
-            .title {
-                font-size: 2em;
-                margin-bottom: 20px;
-            }
-            .skills {
-                gap: 15px;
-            }
-            .skill {
-                width: 100%; /* Single column */
-                padding: 18px;
-                min-height: 180px;
-            }
-            .icon {
-                font-size: 2.5em;
-                margin-bottom: 10px;
-                padding: 10px;
-            }
-            .skill-name {
-                font-size: 1.1em;
-            }
-            .skill-details {
-                font-size: 0.9em;
-            }
-        }
 
-    
+            h1 {
+                font-size: 1.6em;
+            }
         }
     </style>
 </head>
@@ -332,13 +581,14 @@
 <div class="fixed-header-container">
     <nav class="navbar">
         <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="skills.html">Skills</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="photo-gallery.html">Gallery</a></li>
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+            <li><a href="certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+            <li><a href="contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+            <li><a href="photo-gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
         </ul>
     </nav>
-    <h1 class="title">SKILLS</h1>
+    <h1 class="title">MY PROFESSIONAL SKILLS</h1>
 </div>
 
 <div class="container">
@@ -346,356 +596,130 @@
         <div class="skill">
             <i class="fas fa-server icon"></i>
             <p class="skill-name">IT Infrastructure Management</p>
-            <p class="skill-details">Managing hardware, software, and networking systems.</p>
+            <p class="skill-details">Managing comprehensive hardware, software, and networking systems with expertise in server administration and system optimization.</p>
         </div>
         <div class="skill">
             <i class="fas fa-network-wired icon"></i>
-            <p class="skill-name">Networking</p>
-            <p class="skill-details">Mikro-Tik configuration and LAN/WAN management.</p>
+            <p class="skill-name">Advanced Networking</p>
+            <p class="skill-details">Expert in MikroTik configuration, LAN/WAN management, network troubleshooting, and implementing robust network solutions.</p>
         </div>
         <div class="skill">
             <i class="fas fa-headset icon"></i>
-            <p class="skill-name">Technical Support</p>
-            <p class="skill-details">Troubleshooting hardware and software issues.</p>
+            <p class="skill-name">Technical Support Excellence</p>
+            <p class="skill-details">Providing comprehensive technical support with expertise in hardware and software troubleshooting and user training.</p>
         </div>
         <div class="skill">
             <i class="fas fa-shield-alt icon"></i>
-            <p class="skill-name">Hardware and Security</p>
-            <p class="skill-details">Installation and troubleshooting of IT devices.</p>
+            <p class="skill-name">Hardware & Security</p>
+            <p class="skill-details">Specialized in IT device installation, maintenance, and implementing comprehensive security protocols for enterprise systems.</p>
         </div>
         <div class="skill">
             <i class="fas fa-video icon"></i>
             <p class="skill-name">Surveillance Systems</p>
-            <p class="skill-details">Installing and managing security cameras.</p>
+            <p class="skill-details">Expert installation and management of advanced security camera systems with remote monitoring capabilities.</p>
         </div>
         <div class="skill">
             <i class="fas fa-fingerprint icon"></i>
-            <p class="skill-name">Access Control</p>
-            <p class="skill-details">Managing attendance and security systems.</p>
+            <p class="skill-name">Access Control Systems</p>
+            <p class="skill-details">Managing sophisticated attendance and security systems with biometric integration and access management.</p>
         </div>
         <div class="skill">
             <i class="fab fa-windows icon"></i>
             <p class="skill-name">Operating Systems</p>
-            <p class="skill-details">Proficient in Windows and Linux OS.</p>
+            <p class="skill-details">Advanced proficiency in Windows and Linux operating systems with server administration and system optimization skills.</p>
         </div>
         <div class="skill">
             <i class="fas fa-pencil-ruler icon"></i>
             <p class="skill-name">AutoCAD & Research</p>
-            <p class="skill-details">Basic AutoCAD design and emerging tech research.</p>
+            <p class="skill-details">Proficient in AutoCAD design and actively researching emerging technologies to stay ahead of industry trends.</p>
         </div>
         <div class="skill">
             <i class="fas fa-file-contract icon"></i>
             <p class="skill-name">IT Policy Development</p>
-            <p class="skill-details">Developing and enforcing IT policies for security and operational efficiency.</p>
+            <p class="skill-details">Creating and implementing comprehensive IT policies ensuring security compliance and operational efficiency across organizations.</p>
         </div>
         <div class="skill">
             <i class="fas fa-sync-alt icon"></i>
             <p class="skill-name">System Maintenance & Backup</p>
-            <p class="skill-details">Performing routine system maintenance, updates, virus scans, and data backups.</p>
+            <p class="skill-details">Implementing automated system maintenance routines, security updates, virus protection, and reliable data backup strategies.</p>
         </div>
         <div class="skill">
             <i class="fas fa-book icon"></i>
             <p class="skill-name">IT Documentation & Protocols</p>
-            <p class="skill-details">Maintaining comprehensive IT documentation and ensuring adherence to security protocols.</p>
+            <p class="skill-details">Maintaining detailed IT documentation, creating standard operating procedures, and ensuring strict adherence to security protocols.</p>
         </div>
         <div class="skill">
             <i class="fas fa-bullhorn icon"></i>
-            <p class="skill-name">Public Address Systems Management</p>
-            <p class="skill-details">Operating and maintaining Public Address (PA) systems for effective communication.</p>
+            <p class="skill-name">Public Address Systems</p>
+            <p class="skill-details">Expert operation and maintenance of sophisticated Public Address systems for effective organizational communication.</p>
         </div>
         <div class="skill">
             <i class="fas fa-user-shield icon"></i>
             <p class="skill-name">Cybersecurity Expertise</p>
-            <p class="skill-details">Proficient in cybersecurity principles and implementing robust security measures.</p>
+            <p class="skill-details">Implementing advanced cybersecurity measures, threat assessment, and maintaining robust security infrastructure.</p>
         </div>
         <div class="skill">
             <i class="fas fa-brain icon"></i>
-            <p class="skill-name">Analytical Thinking & Problem Solving</p>
-            <p class="skill-details">Strong analytical thinking and creative problem-solving abilities for complex IT challenges.</p>
+            <p class="skill-name">Analytical Problem Solving</p>
+            <p class="skill-details">Exceptional analytical thinking and innovative problem-solving abilities for complex IT challenges and system optimization.</p>
         </div>
     </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- Footer Start -->
-
-
-
-<style>
-        /* Basic Reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif; /* যদি রোবোটো ফন্ট ব্যবহার করতে চান, তাহলে এটি লিঙ্ক করতে হবে */
-        }
-
-        /* --- ফুটার স্টাইল --- */
-        footer {
-            /* ফুটারের ব্যাকগ্রাউন্ড স্বচ্ছ করা হয়েছে যাতে অ্যানিমেটেড বর্ডার দেখা যায় */
-            background-color: transparent;
-            color: #343a40; /* গাঢ় ধূসর টেক্সট কালার */
-            padding: 5px; /* এই প্যাডিং অ্যানিমেটেড বর্ডারের পুরুত্ব নির্ধারণ করবে */
-            margin-top: auto;
-            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08); /* সূক্ষ্ম শ্যাডো */
-            position: relative; /* Pseudo-element এর পজিশনিং এর জন্য */
-            overflow: hidden;
-            border-radius: 10px; /* ফুটারে রাউন্ডেড কর্নার যোগ করা হয়েছে */
-        }
-
-        /* অ্যানিমেটেড বর্ডার ইফেক্ট */
-        footer::before {
-            content: '';
-            position: absolute;
-            top: -1px; /* বর্ডারের উপরে পজিশন করার জন্য - পুরুত্ব আরও কমানো হয়েছে */
-            left: -1px; /* পুরুত্ব আরও কমানো হয়েছে */
-            right: -1px; /* পুরুত্ব আরও কমানো হয়েছে */
-            bottom: -1px; /* পুরুত্ব আরও কমানো হয়েছে */
-            /* Gradient background for animation: Red, Blue, Pink, and other colors */
-            background: linear-gradient(45deg, #ff0000, #007bff, #ff007b, #6610f2, #ff0000, #007bff);
-            background-size: 400% 400%;
-            border-radius: 11px; /* আরও চিকন বর্ডারের সাথে সামঞ্জস্যপূর্ণ করতে বর্ডার-রেডিয়াস কমানো হয়েছে */
-            z-index: -1; /* কন্টেন্টের পেছনে রাখার জন্য */
-            animation: animateBorder 20s linear infinite; /* ধীর গতির অ্যানিমেশন */
-        }
-
-        /* বর্ডার অ্যানিমেশনের কীফ্রেম */
-        @keyframes animateBorder {
-            0% {
-                background-position: 0% 50%;
-            }
-            100% {
-                background-position: 100% 50%;
-            }
-        }
-
-        /* কন্টেন্টকে অ্যানিমেটেড বর্ডারের উপরে আনার জন্য এবং সাদা ব্যাকগ্রাউন্ড দেওয়ার জন্য */
-        .footer-container {
-            background-color: #ffffff; /* কন্টেন্টের জন্য সাদা ব্যাকগ্রাউন্ড */
-            border-radius: 8px; /* ফুটারের ভিতরের কন্টেন্টের জন্য সামান্য ছোট বর্ডার-রেডিয়াস */
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 50px 20px 30px; /* কন্টেন্টের আসল প্যাডিং */
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            position: relative; /* কন্টেন্টকে অ্যানিমেটেড বর্ডারের উপরে আনার জন্য */
-            z-index: 1; /* কন্টেন্টকে অ্যানিমেটেড বর্ডারের উপরে আনার জন্য */
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-            color: #212529; /* আরও গাঢ় হেডিং কালার */
-            font-weight: 700;
-            /* Transition for smooth effect, including transform */
-            transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease; 
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 50px;
-            height: 2px;
-            background: #007bff; /* অ্যাকসেন্ট নীল কালার */
-            border-radius: 5px;
-        }
-
-        .footer-column h3:hover {
-            color: #28a745; /* হোভারে উজ্জ্বল সবুজ কালার */
-            text-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* সূক্ষ্ম টেক্সট শ্যাডো নতুন হোভার কালারের সাথে সামঞ্জস্যপূর্ণ */
-            transform: translateY(-3px) scale(1.02); /* হালকা উপরে উঠবে এবং সামান্য বড় হবে */
-        }
-
-        .footer-column p, .footer-column ul li {
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #495057; /* টেক্সট কালার গাঢ় ধূসর */
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-column ul li a {
-            color: #495057;
-            text-decoration: none; /* এই লাইনটি যোগ করা হয়েছে আন্ডারলাইন সরানোর জন্য */
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-        }
-
-        .footer-column ul li a i {
-            margin-right: 8px;
-            font-size: 0.75rem;
-            color: #007bff; /* আইকনের অ্যাকসেন্ট কালার */
-        }
-
-        .footer-column ul li a:hover {
-            color: #0056b3; /* হোভারে গাঢ় নীল কালার */
-            padding-left: 5px;
-        }
-
-        .footer-bottom {
-            background-color: #ffffff; /* কপিরাইট সেকশনের জন্য সাদা ব্যাকগ্রাউন্ড */
-            border-radius: 0 0 8px 8px; /* নিচের কোণাগুলো রাউন্ডেড করার জন্য */
-            text-align: center;
-            padding-top: 30px;
-            margin-top: 0; /* কন্টেইনারের সাথে মার্জিন থাকবে না */
-            border-top: 1px solid #e9ecef; /* হালকা ধূসর বর্ডার */
-            font-size: 0.8rem;
-            color: #6c757d; /* কপিরাইট টেক্সট কালার */
-            position: relative; /* কন্টেন্টকে অ্যানিমেটেড বর্ডারের উপরে আনার জন্য */
-            z-index: 1; /* কন্টেন্টকে অ্যানিমেটেড বর্ডারের উপরে আনার জন্য */
-        }
-
-        .social-links {
-            display: flex;
-            gap: 12px;
-            margin-top: 18px;
-            justify-content: flex-start;
-        }
-
-        .social-links a {
-            color: #007bff; /* আইকনের নিজস্ব নীল কালার */
-            background: #e9ecef; /* হালকা ধূসর ব্যাকগ্রাউন্ড */
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            border: 1px solid #ced4da; /* হালকা বর্ডার */
-            text-decoration: none; /* এই লাইনটি যোগ করা হয়েছে আন্ডারলাইন সরানোর জন্য */
-        }
-
-        .social-links a:hover {
-            background: #007bff; /* হোভারে নীল ব্যাকগ্রাউন্ড */
-            color: #ffffff; /* হোভারে সাদা ফন্ট কালার */
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* হোভারে নীল শ্যাডো */
-        }
-
-        /* --- মোবাইল রেসপনসিভনেস --- */
-        @media (max-width: 768px) {
-            .footer-container {
-                grid-template-columns: 1fr; /* ছোট স্ক্রিনে কলামগুলো একটির নিচে একটি আসবে */
-                gap: 25px;
-            }
-
-            .footer-column {
-                margin-bottom: 20px;
-                text-align: center; /* কলামের টেক্সট মাঝখানে আসবে */
-                /* কলামের ভেতরের কন্টেন্ট মাঝখানে আনতে */
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .footer-column h3::after {
-                margin: 0 auto; /* হেডিং এর নিচের লাইন মাঝখানে আসবে */
-                left: 0;
-                right: 0;
-            }
-
-            .social-links {
-                justify-content: center; /* সোশ্যাল লিঙ্কগুলো মাঝখানে আসবে */
-            }
-
-            footer {
-                padding: 40px 0 20px; /* ছোট স্ক্রিনে প্যাডিং কিছুটা কমবে */
-            }
-        }
-
-        @media (max-width: 480px) {
-            .footer-column h3 {
-                font-size: 1.2rem; /* আরও ছোট স্ক্রিনে হেডিং ফন্ট সাইজ কমবে */
-            }
-            .footer-column p, .footer-column ul li, .footer-bottom p {
-                font-size: 0.85rem; /* আরও ছোট স্ক্রিনে টেক্সট ফন্ট সাইজ কমবে */
-            }
-            .social-links a {
-                width: 35px;
-                height: 35px;
-                font-size: 0.9rem; /* আরও ছোট স্ক্রিনে সোশ্যাল আইকন সাইজ কমবে */
-            }
-        }
-    </style>
-</head>
-<body>
-    <footer>
-        <div class="footer-container">
-            <div class="footer-column">
-                <h3>About ME</h3>
-                <p>I am Asadul Islam, an IT professional with over 5.5 years of experience in IT infrastructure management and an expert in hardware, software, networking, and system security. I have a passion for solving technical challenges and improving operational efficiency.</p>
-            </div>
-
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
-                    <li><a href="contact.html"><i class="fas fa-phone"></i> Contact</a></li>
-                    <li><a href="photo-gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h3>Contact Info</h3>
-                <ul>
-                    <li><i class="fas fa-map-marker-alt"></i>Zirani Bazar,Savar,Dhaka</li>
-                    <li><i class="fas fa-envelope"></i>asadul.it@yahoo.com</li>
-                    <li><i class="fas fa-phone"></i>01706927793</li>
-                </ul>
-            </div>
-
-            <div class="footer-column">
-                <h3>Follow ME</h3>
-                <p>আমার সোশ্যাল মিডিয়ায় যুক্ত থাকুন!</p>
-                <div class="social-links">
-                    <a class="mx-2" href="https://www.linkedin.com/in/asadul-islam-asad/" target="_blank" title="Connect on LinkedIn">  <i class="fab fa-linkedin-in"></i> </a>
-                    <a class="mx-2" href="https://wa.me/8801706927793" target="_blank" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                    <a class="mx-2" href="https://github.com/asadul-it" target="_blank" title="Visit my GitHub"> <i class="fab fa-github"></i></a>
-                    <a class="mx-2" href="https://join.skype.com/invite/VosI1Dw4dGGc" target="_blank" title="Call on Skype"><i class="fab fa-skype"></i></a>
-                    <a class="mx-2" href="https://www.facebook.com/mdasadulislam.asad.7311/" target="_blank" title="Follow on Facebook"><i class="fab fa-facebook-f"></i></a>
-                </div>
-            </div>
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About ME</h3>
+            <p>I am Asadul Islam, a dedicated IT professional with over 5.5 years of comprehensive experience in IT infrastructure management. I specialize in hardware, software, networking, and system security with a passion for solving complex technical challenges and improving operational efficiency.</p>
         </div>
 
-        <div class="footer-bottom">
-            <p class="m-0">&copy; All Rights Reserved. Designed by <a href="index.html">Asadul Islam</a></p>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+                <li><a href="certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+                <li><a href="contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+                <li><a href="photo-gallery.html"><i class="fas fa-images"></i> Gallery</a></li>
+            </ul>
         </div>
-    </footer>
 
+        <div class="footer-column">
+            <h3>Contact Information</h3>
+            <ul>
+                <li><a href="#"><i class="fas fa-map-marker-alt"></i>Zirani Bazar, Savar, Dhaka</a></li>
+                <li><a href="mailto:asadul.it@yahoo.com"><i class="fas fa-envelope"></i>asadul.it@yahoo.com</a></li>
+                <li><a href="tel:01706927793"><i class="fas fa-phone"></i>01706927793</a></li>
+            </ul>
+        </div>
 
+        <div class="footer-column">
+            <h3>Connect With ME</h3>
+            <p>আমার সোশ্যাল মিডিয়ায় যুক্ত থাকুন এবং আপডেট পান!</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/asadul-islam-asad/" target="_blank" title="Connect on LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://wa.me/8801706927793" target="_blank" title="Chat on WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://github.com/asadul-it" target="_blank" title="Visit my GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://join.skype.com/invite/VosI1Dw4dGGc" target="_blank" title="Call on Skype">
+                    <i class="fab fa-skype"></i>
+                </a>
+                <a href="https://www.facebook.com/mdasadulislam.asad.7311/" target="_blank" title="Follow on Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
-<!-- Footer End -->
-
-
-
-
-
+    <div class="footer-bottom">
+        <p>&copy; 2024 All Rights Reserved. Designed with ❤️ by <a href="index.html">Asadul Islam</a></p>
+    </div>
+</footer>
 
 </body>
 </html>
