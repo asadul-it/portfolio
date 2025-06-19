@@ -1421,5 +1421,86 @@ body {
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Mouse Follower Effect - এই কোডটি কপি করুন -->
+<style>
+    .mouse-follower {
+        position: fixed;
+        width: 30px;
+        height: 30px;
+        background: rgba(255, 100, 150, 0.8);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(-50%, -50%);
+        transition: all 0.2s ease;
+        backdrop-filter: blur(5px);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+    }
+</style>
+
+<div class="mouse-follower" id="mouseFollower">💖</div>
+
+<script>
+    (function() {
+        const follower = document.getElementById('mouseFollower');
+        if (!follower) return;
+        
+        let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
+        
+        document.addEventListener('mousemove', function(e) {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        
+        function animate() {
+            followerX += (mouseX - followerX) * 0.1;
+            followerY += (mouseY - followerY) * 0.1;
+            
+            follower.style.left = followerX + 'px';
+            follower.style.top = followerY + 'px';
+            
+            requestAnimationFrame(animate);
+        }
+        animate();
+        
+        document.addEventListener('mouseleave', () => follower.style.opacity = '0');
+        document.addEventListener('mouseenter', () => follower.style.opacity = '1');
+        
+        document.addEventListener('click', function() {
+            follower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+            setTimeout(() => follower.style.transform = 'translate(-50%, -50%) scale(1)', 200);
+        });
+    })();
+</script>
+
+
+
+
+
+
+
+
+
+
+    
 </body>
 </html>
