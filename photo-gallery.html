@@ -1497,8 +1497,6 @@
 
 
 
-
-
 <!-- Mouse Follower Effect - এই কোডটি কপি করুন -->
 <style>
     .mouse-follower {
@@ -1507,8 +1505,8 @@
         height: 30px;
         background: rgba(255, 100, 150, 0.8);
         border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
+        pointer-events: none !important;
+        z-index: 999;
         font-size: 18px;
         display: flex;
         align-items: center;
@@ -1517,11 +1515,20 @@
         transition: all 0.2s ease;
         backdrop-filter: blur(5px);
         border: 2px solid rgba(255, 255, 255, 0.5);
+        user-select: none;
     }
 </style>
-
-<div class="mouse-follower" id="mouseFollower">💖</div>
-
+<div class="mouse-follower" id="mouseFollower">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Main Star -->
+        <path d="M12 4 L13 8 L17 8 L14 11 L15 15 L12 13 L9 15 L10 11 L7 8 L11 8 Z" fill="white" opacity="0.9"/>
+        <!-- Small Sparkles -->
+        <circle cx="6" cy="7" r="1" fill="white" opacity="0.7"/>
+        <circle cx="18" cy="9" r="0.8" fill="white" opacity="0.7"/>
+        <circle cx="5" cy="16" r="0.6" fill="white" opacity="0.7"/>
+        <circle cx="19" cy="17" r="1" fill="white" opacity="0.7"/>
+    </svg>
+</div>
 <script>
     (function() {
         const follower = document.getElementById('mouseFollower');
@@ -1538,8 +1545,9 @@
             followerX += (mouseX - followerX) * 0.1;
             followerY += (mouseY - followerY) * 0.1;
             
-            follower.style.left = followerX + 'px';
-            follower.style.top = followerY + 'px';
+            // মাউস থেকে 50px দূরে রাখার জন্য offset যোগ করা হয়েছে
+            follower.style.left = (followerX + 50) + 'px';
+            follower.style.top = (followerY + 50) + 'px';
             
             requestAnimationFrame(animate);
         }
@@ -1552,10 +1560,20 @@
             follower.style.transform = 'translate(-50%, -50%) scale(1.5)';
             setTimeout(() => follower.style.transform = 'translate(-50%, -50%) scale(1)', 200);
         });
+        
+        // অতিরিক্ত সুরক্ষা
+        follower.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        
+        follower.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        
     })();
 </script>
-
-
 
 
 
