@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Expert Blog - তথ্য প্রযুক্তি বিশেষজ্ঞ ব্লগ</title>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+
+
+
+    <style>
+
+
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8f9fa;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .newspaper-header {
+            background: #ffffff;
+            border-bottom: 4px solid #2c3e50;
+            margin-bottom: 30px;
+            padding: 30px 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .newspaper-header h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .newspaper-header .tagline {
+            font-size: 1.1rem;
+            color: #7f8c8d;
+            font-style: italic;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+
+        .date-line {
+            font-size: 0.9rem;
+            color: #95a5a6;
+            margin-top: 5px;
+        }
+
+        /* Main Grid Layout */
+        .newspaper-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        /* Article Styles */
+        .newspaper-article {
+            background: #ffffff;
+            border: 1px solid #e8e8e8;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .newspaper-article::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #3498db;
+        }
+
+        .article-category {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .article-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        .article-meta {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            border-left: 3px solid #3498db;
+            padding-left: 10px;
+        }
+
+        .article-content {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #34495e;
+            text-align: justify;
+        }
+
+        .article-content p {
+            margin-bottom: 12px;
+        }
+
+        .article-content h4 {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin: 20px 0 10px 0;
+            font-weight: bold;
+            border-bottom: 1px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+
+        .article-content ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        .article-content li::before {
+            content: '▸';
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: -15px;
+        }
+
+        .expanded-content {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #bdc3c7;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .read-more {
+            display: inline-block;
+            background: #2c3e50;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: background 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .read-more:hover {
+            background: #34495e;
+        }
+
+        /* Column Separators */
+        .newspaper-grid::before,
+        .newspaper-grid::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: #e8e8e8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .newspaper-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .newspaper-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .newspaper-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .newspaper-article {
+                padding: 20px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .newspaper-article {
+                box-shadow: none;
+                border: 1px solid #000;
+                break-inside: avoid;
+            }
+            
+            .read-more {
+                display: none;
+            }
+        }
+
+        /* Special styling for first article */
+        .newspaper-article:first-child {
+            grid-column: 1 / -1;
+        }
+
+        .newspaper-article:first-child .article-title {
+            font-size: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .newspaper-article:first-child .article-content {
+            columns: 3;
+            column-gap: 30px;
+            column-rule: 1px solid #e8e8e8;
+        }
+
+        @media (max-width: 1200px) {
+            .newspaper-article:first-child .article-content {
+                columns: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .newspaper-article:first-child .article-content {
+                columns: 1;
+            }
+
+
+
+
+
+
+
+            
+        }
+    </style>
+
+    
+</head>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .main-content-body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Fixed Header Container */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Enhanced Navbar */
+        .navbar {
+            background: linear-gradient(135deg, #f4f5f9 0%, #fdfcff 100%);
+            width: 85%;
+            max-width: 1000px;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .navbar:hover::before {
+            left: 100%;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .navbar ul li a {
+            color: rgb(72, 66, 189);
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s ease;
+        }
+
+        .navbar ul li a:hover::before {
+            left: 0;
+        }
+
+        .navbar ul li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Enhanced Title */
+        .title {
+            color: #2c3e50;
+            font-size: 3em;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-align: center;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            animation: titleGlow 3s infinite ease-in-out;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            color: #667eea;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            background: rgba(255, 255, 255, 0.4);
+            color: #764ba2;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .navbar {
+                width: 95%;
+                padding: 12px 20px;
+            }
+            
+            .navbar ul {
+                gap: 15px;
+            }
+            
+            .navbar ul li a {
+                font-size: 1rem;
+                padding: 10px 18px;
+            }
+            
+            .title {
+                font-size: 2.5em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .fixed-header-container {
+                padding: 15px 0;
+            }
+
+            .navbar {
+                width: 95%;
+                padding: 15px;
+                border-radius: 25px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+
+
+
+
+
+
+
+
+
+            
+
+.mobile-menu-toggle {
+  display: block;
+  align-self: flex-end;
+  margin-bottom: 8px;
+  padding: 8px 8px;
+  font-size: 1.2em;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(135deg, #007bff, #00c6ff); /* নীল গ্রেডিয়েন্ট */
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mobile-menu-toggle::before {
+  content: "\2630"; /* Unicode hamburger icon ≡ */
+  font-size: 1.5em;
+}
+
+.mobile-menu-toggle:hover {
+  background: linear-gradient(135deg, #0056b3, #0096c7); /* হোভার অবস্থায় গাঢ় নীল */
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.mobile-menu-toggle:hover {
+  background: linear-gradient(135deg, #0056b3, #0096c7); /* হোভার অবস্থায় গাঢ় নীল */
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+
+
+
+
+
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 10px;
+                width: 100%;
+                display: none; /* Hidden by default for mobile */
+            }
+
+            .navbar ul.active {
+                display: flex; /* Shown when active */
+            }
+
+            .navbar ul li {
+                width: 100%;
+            }
+
+            .navbar ul li a {
+                justify-content: center;
+                width: 100%;
+                font-size: 1rem;
+                padding: 12px;
+                color: rgb(72, 66, 189) !important;
+                background: rgba(255, 255, 255, 0.2);
+            }
+            
+            .title {
+                font-size: 2.2em;
+                letter-spacing: 1px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8em;
+            }
+            
+            .navbar ul li a {
+                font-size: 0.9rem;
+                padding: 10px;
+                color: rgb(72, 66, 189) !important;
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+    </style>
+</head>
+<body class="main-content-body">
+    <div class="fixed-header-container">
+        <nav class="navbar">
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul id="navMenu">
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="skills.html"><i class="fas fa-code"></i> Skills</a></li> 
+                <li><a href="certificate.html"><i class="fas fa-award"></i> Certificate</a></li>
+                <li><a href="contact.html"><i class="fas fa-address-book"></i> Contact</a></li>
+                 <li><a href="photo-gallery.html"><i class="fas fa-camera"></i> Gallery</a></li>
+                <li><a href="blog.html"><i class="fas fa-pen"></i> Blog</a></li> </ul>
+        </nav>
+       <h1>IT Expert Blog</h1>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle Function
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            const toggleIcon = document.querySelector('.mobile-menu-toggle i');
+            
+            navMenu.classList.toggle('active');
+            
+            // Change icon based on menu state
+            if (navMenu.classList.contains('active')) {
+                toggleIcon.classList.remove('fa-bars');
+                toggleIcon.classList.add('fa-times');
+            } else {
+                toggleIcon.classList.remove('fa-times');
+                toggleIcon.classList.add('fa-bars');
+            }
+        }
+
+        // Close mobile menu when clicking on a link (optional, if you want this functionality)
+        document.querySelectorAll('.navbar ul li a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navMenu = document.getElementById('navMenu');
+                const toggleIcon = document.querySelector('.mobile-menu-toggle i');
+                
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    toggleIcon.classList.remove('fa-times');
+                    toggleIcon.classList.add('fa-bars');
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<body>
+
+
+
+
+
+
+
+
+
+    <div class="container">
+       
+
+        <div class="newspaper-grid">
+
+
+
+
+
+     <article class="newspaper-article">
+    <div class="article-category">নেটওয়ার্ক নিরাপত্তা</div>
+    <h2 class="article-title">Network Security Practices</h2>
+    <div class="article-meta">প্রকাশিত: ১৫ নভেম্বর, ২০২৪ | বিভাগ: সিকিউরিটি | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>আধুনিক নেটওয়ার্ক নিরাপত্তার জন্য প্রয়োজনীয় সব কৌশল এবং বাস্তবায়ন পদ্ধতি। নেটওয়ার্ক নিরাপত্তা শুধুমাত্র প্রযুক্তি নয়, এটি একটি সম্পূর্ণ প্রক্রিয়া যা সঠিক পরিকল্পনা এবং বাস্তবায়ন প্রয়োজন।</p>
+        
+        <h4>মূল বিষয়সমূহ:</h4>
+        <ul>
+            <li>Firewall কনফিগারেশন এবং পরিচালনা</li>
+            <li>VPN সেটআপ এবং এনক্রিপশন</li>
+            <li>Network Monitoring এবং Intrusion Detection</li>
+            <li>Access Control এবং Authentication</li>
+            <li>Security Policies এবং Best Practices</li>
+        </ul>
+        
+        <div class="expanded-content" style="display: none;">
+            <h4>বিস্তারিত গাইডলাইন:</h4>
+            
+            <h4>১. Firewall কনফিগারেশন:</h4>
+            <ul>
+                <li>Port-based filtering এবং protocol restrictions</li>
+                <li>Application-level gateway setup</li>
+                <li>DMZ configuration এবং NAT rules</li>
+                <li>Logging এবং monitoring setup</li>
+            </ul>
+            
+            <h4>২. VPN Implementation:</h4>
+            <ul>
+                <li>Site-to-site VPN configuration</li>
+                <li>Remote access VPN setup</li>
+                <li>IPSec এবং SSL/TLS protocols</li>
+                <li>Certificate management</li>
+            </ul>
+            
+            <h4>৩. Network Monitoring:</h4>
+            <ul>
+                <li>SIEM tools এবং traffic analysis</li>
+                <li>Intrusion detection systems (IDS/IPS)</li>
+                <li>Vulnerability scanning</li>
+                <li>Performance monitoring</li>
+            </ul>
+            
+            <p><strong>প্রাকটিক্যাল টিপস:</strong> নিয়মিত security updates, employee training, এবং penetration testing করা অত্যন্ত জরুরি। Network segmentation ব্যবহার করে critical systems আলাদা রাখুন।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+<article class="newspaper-article">
+    <div class="article-category">সিস্টেম প্রশাসন</div>
+    <h2 class="article-title">Active Directory Management</h2>
+    <div class="article-meta">প্রকাশিত: ২৮ অক্টোবর, ২০২৪ | বিভাগ: সিস্টেম | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>Active Directory পরিচালনার জন্য প্রয়োজনীয় টিপস এবং উন্নত কৌশল। Active Directory হল Windows পরিবেশের হৃদয়, যার সঠিক ব্যবহার আপনার সংস্থার IT অবকাঠামোকে শক্তিশালী করে তুলবে।</p>
+        
+        <h4>প্রধান বিষয়সমূহ:</h4>
+        <ul>
+            <li>User এবং Group Management</li>
+            <li>Group Policy Configuration</li>
+            <li>Domain Controller Optimization</li>
+            <li>Security এবং Permission Management</li>
+            <li>Backup এবং Recovery Strategies</li>
+        </ul>
+        
+        <div class="expanded-content" style="display: none;">
+            <h4>Advanced Management Tips:</h4>
+            
+            <h4>১. User Account Management:</h4>
+            <ul>
+                <li>Bulk user creation using PowerShell</li>
+                <li>Automated user provisioning</li>
+                <li>Password policy implementation</li>
+                <li>User account lifecycle management</li>
+            </ul>
+            
+            <h4>২. Group Policy Optimization:</h4>
+            <ul>
+                <li>GPO inheritance এবং precedence</li>
+                <li>WMI filtering techniques</li>
+                <li>Software deployment through GPO</li>
+                <li>Security settings centralization</li>
+            </ul>
+            
+            <p><strong>PowerShell Commands:</strong> Get-ADUser, Set-ADUser, New-ADGroup, এবং Get-GPOReport কমান্ডগুলো নিয়মিত ব্যবহার করুন।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+<article class="newspaper-article">
+    <div class="article-category">হার্ডওয়ার সাপোর্ট</div>
+    <h2 class="article-title">Hardware Troubleshooting</h2>
+    <div class="article-meta">প্রকাশিত: ০৫ ডিসেম্বর, ২০২৪ | বিভাগ: হার্ডওয়ার | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>হার্ডওয়ার সমস্যা সমাধানের জন্য প্রয়োজনীয় দক্ষতা এবং পদ্ধতি। হার্ডওয়ার সমস্যা শনাক্তকরণ এবং সমাধান একটি পদ্ধতিগত প্রক্রিয়া যা সঠিক জ্ঞান এবং অভিজ্ঞতা প্রয়োজন।</p>
+        
+        <h4>সমস্যা সমাধানের ক্ষেত্রসমূহ:</h4>
+        <ul>
+            <li>Motherboard এবং CPU সমস্যা</li>
+            <li>RAM এবং Storage Issues</li>
+            <li>Graphics Card Troubleshooting</li>
+            <li>Power Supply এবং Cooling Problems</li>
+            <li>Peripheral Device Issues</li>
+        </ul>
+        
+        <div class="expanded-content" style="display: none;">
+            <h4>বিস্তারিত Troubleshooting:</h4>
+            
+            <h4>১. Motherboard সমস্যা:</h4>
+            <ul>
+                <li>POST error codes analysis</li>
+                <li>BIOS/UEFI configuration</li>
+                <li>Component failure detection</li>
+                <li>Socket এবং slot problems</li>
+            </ul>
+            
+            <h4>২. Memory Issues:</h4>
+            <ul>
+                <li>Memory testing tools (MemTest86)</li>
+                <li>BSOD analysis</li>
+                <li>Compatibility troubleshooting</li>
+            </ul>
+            
+            <p><strong>Essential Tools:</strong> Multimeter, POST card, thermal paste এবং cable tester অত্যন্ত প্রয়োজনীয়।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+<article class="newspaper-article">
+    <div class="article-category">সিকিউরিটি সিস্টেম</div>
+    <h2 class="article-title">CCTV & NVR Configuration</h2>
+    <div class="article-meta">প্রকাশিত: ২২ সেপ্টেম্বর, ২০২৪ | বিভাগ: সিকিউরিটি | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>সিকিউরিটি সিস্টেম স্থাপনা এবং কনফিগারেশনের সম্পূর্ণ গাইড। আধুনিক সিকিউরিটি সিস্টেমের সফল বাস্তবায়নের জন্য প্রয়োজন সঠিক পরিকল্পনা এবং পেশাদার কনফিগারেশন।</p>
+        
+        <h4>কনফিগারেশন বিষয়সমূহ:</h4>
+        <ul>
+            <li>NVR/DVR সিস্টেম সেটআপ</li>
+            <li>IP Camera Configuration</li>
+            <li>Remote Access এবং Mobile Monitoring</li>
+            <li>Storage Management এবং Backup</li>
+            <li>Network Settings এবং Port Configuration</li>
+        </ul>
+        
+        <div class="expanded-content" style="display: none;">
+            <h4>Complete Setup Guide:</h4>
+            
+            <h4>১. NVR/DVR Configuration:</h4>
+            <ul>
+                <li>Initial setup এবং admin account</li>
+                <li>Recording schedule configuration</li>
+                <li>Motion detection settings</li>
+                <li>Alert notifications setup</li>
+            </ul>
+            
+            <h4>২. Network Configuration:</h4>
+            <ul>
+                <li>Port forwarding এবং DDNS setup</li>
+                <li>VPN access configuration</li>
+                <li>Bandwidth optimization</li>
+            </ul>
+            
+            <p><strong>Best Practices:</strong> নিয়মিত firmware updates, password security, এবং regular maintenance করুন।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+<article class="newspaper-article">
+    <div class="article-category">সিস্টেম রক্ষণাবেক্ষণ</div>
+    <h2 class="article-title">System Maintenance Guide</h2>
+    <div class="article-meta">প্রকাশিত: ১২ জানুয়ারি, ২০২৫ | বিভাগ: রক্ষণাবেক্ষণ | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>Windows এবং Linux সিস্টেম রক্ষণাবেক্ষণের জন্য বিস্তারিত চেকলিস্ট। নিয়মিত সিস্টেম রক্ষণাবেক্ষণ আপনার কম্পিউটারের কর্মক্ষমতা বৃদ্ধি করে এবং সমস্যা প্রতিরোধে সাহায্য করে।</p>
+        
+        <h4>রক্ষণাবেক্ষণ কার্যক্রম:</h4>
+        <ul>
+            <li>System Updates এবং Security Patches</li>
+            <li>Disk Cleanup এবং Defragmentation</li>
+            <li>Registry Cleaning এবং Optimization</li>
+            <li>Antivirus Scanning এবং Malware Removal</li>
+            <li>Performance Monitoring এবং Tuning</li>
+        </ul>
+        
+        <div class="expanded-content" style="display: none;">
+            <h4>Detailed Maintenance:</h4>
+            
+            <h4>১. Windows Maintenance:</h4>
+            <ul>
+                <li>Windows Update configuration</li>
+                <li>Disk Cleanup এবং temp files removal</li>
+                <li>Registry optimization</li>
+                <li>Startup programs management</li>
+            </ul>
+            
+            <h4>২. Linux Maintenance:</h4>
+            <ul>
+                <li>Package manager updates</li>
+                <li>Log file cleanup</li>
+                <li>Cron job management</li>
+                <li>System monitoring</li>
+            </ul>
+            
+            <p><strong>Automation:</strong> Task Scheduler এবং Cron jobs ব্যবহার করে maintenance automate করুন।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+<article class="newspaper-article">
+    <div class="article-category">ডকুমেন্টেশন</div>
+    <h2 class="article-title">IT Documentation Standards</h2>
+    <div class="article-meta">প্রকাশিত: ০৮ আগস্ট, ২০২৪ | বিভাগ: ডকুমেন্টেশন | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>IT অবকাঠামো এবং প্রক্রিয়ার কার্যকর ডকুমেন্টেশনের জন্য সর্বোত্তম পদ্ধতি। ভালো ডকুমেন্টেশন IT টিমের দক্ষতা বৃদ্ধি করে এবং সমস্যা সমাধানে সময় সাশ্রয় করে।</p>
+        
+        <h4>ডকুমেন্টেশন কৌশল:</h4>
+        <ul>
+            <li>System Architecture Documentation</li>
+            <li>Standard Operating Procedures (SOPs)</li>
+            <li>Change Management Documentation</li>
+            <li>Incident Response Procedures</li>
+            <li>Knowledge Base Management</li>
+        </ul>
+        
+        <div class="expanded-content" style="display: none;">
+            <h4>Documentation Best Practices:</h4>
+            
+            <h4>১. System Documentation:</h4>
+            <ul>
+                <li>Network topology diagrams</li>
+                <li>Server configuration details</li>
+                <li>Software inventory এবং licensing</li>
+                <li>Hardware specifications</li>
+            </ul>
+            
+            <h4>২. Process Documentation:</h4>
+            <ul>
+                <li>Step-by-step procedures</li>
+                <li>Decision trees for troubleshooting</li>
+                <li>Emergency response plans</li>
+                <li>Escalation procedures</li>
+            </ul>
+            
+            <p><strong>Key Principles:</strong> Clear, concise, current, এবং accessible documentation তৈরি করুন।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+<article class="newspaper-article">
+    <div class="article-category">ক্লাউড কম্পিউটিং</div>
+    <h2 class="article-title">Cloud Infrastructure Management</h2>
+    <div class="article-meta">প্রকাশিত: ১৮ মার্চ, ২০২৪ | বিভাগ: ক্লাউড | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>AWS, Azure, এবং Google Cloud Platform এর উপর ভিত্তি করে ক্লাউড অবকাঠামো পরিচালনা। আধুনিক ব্যবসায়িক প্রয়োজনে ক্লাউড সেবা অপরিহার্য হয়ে উঠেছে।</p>
+        
+        <h4>প্রধান সেবাসমূহ:</h4>
+        <ul>
+            <li>Virtual Machine Management এবং EC2 Instances</li>
+            <li>Container Orchestration (Kubernetes, Docker Swarm)</li>
+            <li>Database as a Service (RDS, CosmosDB, BigQuery)</li>
+            <li>Load Balancing এবং Auto Scaling Groups</li>
+            <li>Backup এবং Disaster Recovery Solutions</li>
+        </ul>
+        
+        <div class="expanded-content" style="display: none;">
+            <h4>Advanced Cloud Solutions:</h4>
+            
+            <h4>১. Multi-Cloud Strategy:</h4>
+            <ul>
+                <li>Hybrid cloud architecture design এবং implementation</li>
+                <li>Cloud migration planning এবং execution</li>
+                <li>Cost optimization strategies এবং resource monitoring</li>
+                <li>Performance monitoring এবং alerting setup</li>
+            </ul>
+            
+            <h4>২. Security in Cloud:</h4>
+            <ul>
+                <li>Identity and Access Management (IAM) configuration</li>
+                <li>Encryption at rest এবং in transit setup</li>
+                <li>Compliance frameworks (SOC 2, ISO 27001)</li>
+                <li>Security monitoring এবং threat detection</li>
+            </ul>
+            
+            <h4>৩. DevOps Integration:</h4>
+            <ul>
+                <li>CI/CD pipeline setup with cloud services</li>
+                <li>Infrastructure as Code (Terraform, CloudFormation)</li>
+                <li>Automated testing এবং deployment</li>
+                <li>Container registry management</li>
+            </ul>
+            
+            <p><strong>সফলতার টিপস:</strong> Cloud-native architecture design করুন, microservices pattern অনুসরণ করুন, এবং serverless computing এর সুবিধা গ্রহণ করুন।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+<article class="newspaper-article">
+    <div class="article-category">ডাটাবেস প্রশাসন</div>
+    <h2 class="article-title">Database Administration Guide</h2>
+    <div class="article-meta">প্রকাশিত: ০৩ জুন, ২০২৪ | বিভাগ: ডাটাবেস | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>SQL Server, MySQL, PostgreSQL এবং Oracle ডাটাবেস পরিচালনার সম্পূর্ণ গাইড। কার্যকর ডাটাবেস প্রশাসন ব্যবসায়িক তথ্যের নিরাপত্তা এবং প্রাপ্যতা নিশ্চিত করে।</p>
+        
+        <h4>প্রধান কার্যক্রম:</h4>
+        <ul>
+            <li>Database Installation এবং Initial Configuration</li>
+            <li>Performance Tuning এবং Query Optimization</li>
+            <li>Backup Strategies এবং Recovery Planning</li>
+            <li>User Management এবং Access Control</li>
+            <li>Monitoring, Alerting এবং Maintenance</li>
+        </ul>
+        
+        <div class="expanded-content" style="display: none;">
+            <h4>Advanced Database Management:</h4>
+            
+            <h4>১. Performance Optimization:</h4>
+            <ul>
+                <li>Query optimization techniques এবং execution plans</li>
+                <li>Index management strategies (clustered, non-clustered)</li>
+                <li>Memory configuration tuning এবং buffer pool</li>
+                <li>Connection pooling setup এবং resource management</li>
+            </ul>
+            
+            <h4>২. High Availability Solutions:</h4>
+            <ul>
+                <li>Database replication setup (Master-Slave, Master-Master)</li>
+                <li>Clustering configuration (SQL Server AlwaysOn, MySQL Cluster)</li>
+                <li>Failover strategies এবং automatic recovery</li>
+                <li>Load balancing for read replicas</li>
+            </ul>
+            
+            <h4>৩. Security Implementation:</h4>
+            <ul>
+                <li>Database encryption (TDE, column-level encryption)</li>
+                <li>Audit logging এবং compliance monitoring</li>
+                <li>Role-based access control (RBAC)</li>
+                <li>SQL injection prevention techniques</li>
+            </ul>
+            
+            <p><strong>DBA Best Practices:</strong> নিয়মিত maintenance windows সেট করুন, automated backup verification করুন, এবং disaster recovery testing পরিচালনা করুন।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+<article class="newspaper-article">
+    <div class="article-category">ডেভঅপস</div>
+    <h2 class="article-title">DevOps Implementation Strategy</h2>
+    <div class="article-meta">প্রকাশিত: ২৫ এপ্রিল, ২০২৪ | বিভাগ: ডেভঅপস | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>CI/CD পাইপলাইন এবং DevOps সংস্কৃতি বাস্তবায়নের জন্য সম্পূর্ণ গাইড। আধুনিক সফটওয়্যার উন্নয়নে DevOps একটি অপরিহার্য methodology যা দ্রুত এবং নির্ভরযোগ্য deployment নিশ্চিত করে।</p>
+        
+        <h4>মূল উপাদানসমূহ:</h4>
+        <ul>
+            <li>Version Control System (Git, SVN) এবং Branching Strategy</li>
+            <li>Continuous Integration/Continuous Deployment (CI/CD)</li>
+            <li>Containerization (Docker, Podman) এবং Orchestration</li>
+            <li>Infrastructure as Code (Terraform, Ansible, Puppet)</li>
+            <li>Monitoring, Logging এবং Observability</li>
+        </ul>
+        
+        <div class="expanded-content" style="display: none;">
+            <h4>Complete DevOps Pipeline:</h4>
+            
+            <h4>১. CI/CD Pipeline Architecture:</h4>
+            <ul>
+                <li>Jenkins pipeline configuration এবং Blue Ocean setup</li>
+                <li>GitHub Actions workflow এবং GitLab CI/CD</li>
+                <li>Automated testing integration (unit, integration, e2e)</li>
+                <li>Deployment strategies (Blue-Green, Canary, Rolling)</li>
+            </ul>
+            
+            <h4>২. Container Orchestration:</h4>
+            <ul>
+                <li>Docker containerization best practices</li>
+                <li>Kubernetes cluster management এবং YAML configurations</li>
+                <li>Helm charts for package management</li>
+                <li>Service mesh implementation (Istio, Linkerd)</li>
+            </ul>
+            
+            <h4>৩. Monitoring এবং Observability:</h4>
+            <ul>
+                <li>Prometheus monitoring setup এবং Grafana dashboards</li>
+                <li>ELK Stack (Elasticsearch, Logstash, Kibana) for logging</li>
+                <li>Distributed tracing with Jaeger/Zipkin</li>
+                <li>Application Performance Monitoring (APM) tools</li>
+            </ul>
+            
+            <p><strong>DevOps Success Metrics:</strong> Deployment frequency, lead time, MTTR (Mean Time To Recovery), এবং change failure rate নিয়মিত পরিমাপ করুন।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+<article class="newspaper-article">
+    <div class="article-category">সাইবার নিরাপত্তা</div>
+    <h2 class="article-title">Advanced Cybersecurity Framework</h2>
+    <div class="article-meta">প্রকাশিত: ০৯ জুলাই, ২০২৪ | বিভাগ: সিকিউরিটি | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>আধুনিক সাইবার নিরাপত্তা কৌশল এবং threat intelligence বাস্তবায়ন। সাইবার আক্রমণের বিরুদ্ধে সম্পূর্ণ defense-in-depth strategy গড়ে তোলার জন্য বিস্তৃত নির্দেশনা।</p>
+        
+        <h4>নিরাপত্তা স্তরসমূহ:</h4>
+        <ul>
+            <li>Endpoint Detection and Response (EDR) Solutions</li>
+            <li>Security Information and Event Management (SIEM)</li>
+            <li>Zero Trust Network Architecture (ZTNA)</li>
+            <li>Threat Intelligence এবং Cyber Threat Hunting</li>
+            <li>Incident Response এবং Forensic Analysis</li>
+        </ul>
+        
+        <div class="expanded-content" style="display: none;">
+            <h4>Advanced Security Implementation:</h4>
+            
+            <h4>১. Threat Detection এবং Prevention:</h4>
+            <ul>
+                <li>AI/ML-powered behavioral analytics implementation</li>
+                <li>Advanced persistent threat (APT) detection</li>
+                <li>Dark web monitoring এবং threat intelligence feeds</li>
+                <li>Vulnerability assessment automation (OpenVAS, Nessus)</li>
+            </ul>
+            
+            <h4>২. Identity এবং Access Management:</h4>
+            <ul>
+                <li>Multi-factor authentication (MFA) deployment</li>
+                <li>Single Sign-On (SSO) implementation</li>
+                <li>Privileged Access Management (PAM)</li>
+                <li>Identity governance এবং lifecycle management</li>
+            </ul>
+            
+            <h4>৩. Incident Response Framework:</h4>
+            <ul>
+                <li>Incident response playbooks এবং procedures</li>
+                <li>Digital forensic analysis techniques</li>
+                <li>Crisis communication protocols</li>
+                <li>Post-incident analysis এবং lessons learned</li>
+            </ul>
+            
+            <p><strong>Security Awareness:</strong> নিয়মিত security training programs, phishing simulation exercises, এবং security culture development অত্যন্ত গুরুত্বপূর্ণ।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+
+
+
+
+
+
+<article class="newspaper-article">
+    <div class="article-category">নেটওয়ার্কিং</div>
+    <h2 class="article-title">Enterprise Networking Essentials</h2>
+    <div class="article-meta">প্রকাশিত: ২০ মে, ২০২৪ | বিভাগ: নেটওয়ার্ক | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>বড় প্রতিষ্ঠানের জন্য উচ্চ-দক্ষতার নেটওয়ার্ক ডিজাইন ও মেইনটেনেন্স গাইড। LAN, WAN, এবং Wireless নেটওয়ার্কে সর্বোত্তম পারফরম্যান্স ও নিরাপত্তা বজায় রাখা।</p>
+        
+        <h4>মূল বিষয়:</h4>
+        <ul>
+            <li>Network Topology Design এবং Redundancy</li>
+            <li>Switching & Routing Configuration</li>
+            <li>Firewall & ACL Management</li>
+            <li>VLAN & Subnetting Strategies</li>
+            <li>Monitoring & Troubleshooting Tools</li>
+        </ul>
+
+        <div class="expanded-content" style="display: none;">
+            <h4>Advanced Networking Topics:</h4>
+
+            <h4>১. High Availability & Scalability:</h4>
+            <ul>
+                <li>Spanning Tree Protocol (STP) & Link Aggregation</li>
+                <li>Hot Standby Router Protocol (HSRP) / VRRP</li>
+                <li>Load Balancers & SD-WAN</li>
+            </ul>
+
+            <h4>২. Wireless Networking:</h4>
+            <ul>
+                <li>Access Point Planning ও Site Survey</li>
+                <li>Wi-Fi Security (WPA3, RADIUS)</li>
+                <li>Guest & Corporate SSID Segregation</li>
+            </ul>
+
+            <h4>৩. Network Security:</h4>
+            <ul>
+                <li>Intrusion Detection & Prevention (IDS/IPS)</li>
+                <li>Network Access Control (NAC)</li>
+                <li>Network Segmentation & Zero Trust</li>
+            </ul>
+
+            <p><strong>Tips:</strong> Network documentation আপডেট রাখুন এবং রেগুলার পেন-টেস্ট করান।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+<article class="newspaper-article">
+    <div class="article-category">সফটওয়্যার প্রকল্প ব্যবস্থাপনা</div>
+    <h2 class="article-title">Agile Project Management</h2>
+    <div class="article-meta">প্রকাশিত: ১২ মার্চ, ২০২৪ | বিভাগ: প্রজেক্ট ম্যানেজমেন্ট | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>Agile methodology ব্যবহার করে সফটওয়্যার প্রকল্প কার্যকরভাবে পরিচালনার কৌশল। দ্রুত মানসম্মত ডেলিভারি এবং টিম কোলাবোরেশন বাড়ানোর জন্য এটি জনপ্রিয়।</p>
+
+        <h4>মূল চর্চাসমূহ:</h4>
+        <ul>
+            <li>Scrum & Kanban frameworks</li>
+            <li>Sprint Planning ও Retrospective</li>
+            <li>User Stories & Backlog Grooming</li>
+            <li>Burndown Charts ও Velocity Tracking</li>
+            <li>Continuous Feedback Loops</li>
+        </ul>
+
+        <div class="expanded-content" style="display: none;">
+            <h4>Advanced Agile Practices:</h4>
+
+            <h4>১. Scaling Agile:</h4>
+            <ul>
+                <li>SAFe (Scaled Agile Framework)</li>
+                <li>LeSS (Large-Scale Scrum)</li>
+                <li>Agile Portfolio Management</li>
+            </ul>
+
+            <h4>২. Team Collaboration Tools:</h4>
+            <ul>
+                <li>Jira, Trello, Asana for Task Management</li>
+                <li>Slack/Microsoft Teams for Communication</li>
+                <li>Confluence/Notion for Documentation</li>
+            </ul>
+
+            <h4>৩. Risk & Quality Management:</h4>
+            <ul>
+                <li>Risk identification & mitigation plans</li>
+                <li>Definition of Done (DoD) & Acceptance Criteria</li>
+                <li>Regular Quality Assurance (QA) checkpoints</li>
+            </ul>
+
+            <p><strong>Agile Mindset:</strong> পরিবর্তন মেনে নিয়ে, ক্রমাগত শেখা ও মানোন্নয়নের দিকে মনোযোগ দিন।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+
+
+
+
+<article class="newspaper-article">
+    <div class="article-category">অপারেটিং সিস্টেম</div>
+    <h2 class="article-title">কিভাবে পেনড্রাইভ দিয়ে Windows ইনস্টল করবেন</h2>
+    <div class="article-meta">প্রকাশিত: ১৫ জুলাই, ২০২৫ | বিভাগ: উইন্ডোজ | লেখক: Asadul Islam - IT Support Specialist</div>
+    <div class="article-content">
+        <p>পেনড্রাইভ ব্যবহার করে Windows ইনস্টল করা আজকাল খুব সহজ ও দ্রুত একটি পদ্ধতি। নীচে ধাপে ধাপে প্রক্রিয়া বর্ণনা করা হলো।</p>
+        
+        <h4>প্রধান ধাপসমূহ:</h4>
+        <ul>
+            <li>একটি বুটেবল পেনড্রাইভ তৈরি করুন</li>
+            <li>বায়োস/ইউইফাই থেকে USB বুট সিলেক্ট করুন</li>
+            <li>Windows সেটআপ চালিয়ে ইনস্টলেশন সম্পূর্ণ করুন</li>
+        </ul>
+
+        <div class="expanded-content" style="display: none;">
+            <h4>বিস্তারিত ধাপসমূহ:</h4>
+
+            <h4>১. বুটেবল পেনড্রাইভ তৈরি:</h4>
+            <ul>
+                <li>৮ জিবি বা তার বেশি মেমোরির একটি পেনড্রাইভ নিন।</li>
+                <li>রুফাস (Rufus) সফটওয়্যার ডাউনলোড করুন।</li>
+                <li>মাইক্রোসফট ওয়েবসাইট থেকে Windows ISO ফাইল ডাউনলোড করুন।</li>
+                <li>রুফাস চালিয়ে পেনড্রাইভ এবং ISO ফাইল সিলেক্ট করে Start চাপুন।</li>
+            </ul>
+
+            <h4>২. BIOS/UEFI সেটিংস পরিবর্তন:</h4>
+            <ul>
+                <li>কম্পিউটার চালু করে DEL/F2/F10/F12 চেপে BIOS/UEFI তে ঢুকুন।</li>
+                <li>Boot Priority তে USB Drive কে প্রথমে দিন।</li>
+                <li>সেটিংস সেভ করে কম্পিউটার রিস্টার্ট দিন।</li>
+            </ul>
+
+            <h4>৩. Windows ইনস্টল করা:</h4>
+            <ul>
+                <li>কম্পিউটার চালু হলে USB থেকে Windows সেটআপ শুরু হবে।</li>
+                <li>ভাষা এবং টাইম সিলেক্ট করুন ও “Install Now” ক্লিক করুন।</li>
+                <li>ড্রাইভ পার্টিশন নির্বাচন করে Windows ইনস্টলেশন সম্পূর্ণ করুন।</li>
+            </ul>
+
+            <p><strong>পরামর্শ:</strong> ইনস্টলেশনের আগে প্রয়োজনীয় ডেটা ব্যাকআপ নিন এবং ইন্টারনেট কানেকশন চালু রাখুন।</p>
+        </div>
+    </div>
+    <button class="read-more">বিস্তারিত পড়ুন</button>
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // Toggle expanded content
+        document.querySelectorAll('.read-more').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const article = e.target.closest('.newspaper-article');
+                const expandedContent = article.querySelector('.expanded-content');
+                
+                if (expandedContent.style.display === 'none' || expandedContent.style.display === '') {
+                    expandedContent.style.display = 'block';
+                    e.target.textContent = 'সংক্ষিপ্ত করুন';
+                    e.target.style.background = '#e74c3c';
+                } else {
+                    expandedContent.style.display = 'none';
+                    e.target.textContent = 'বিস্তারিত পড়ুন';
+                    e.target.style.background = '#2c3e50';
+                }
+            });
+        });
+
+        // Add hover effects
+        document.querySelectorAll('.newspaper-article').forEach(article => {
+            article.addEventListener('mouseenter', () => {
+                article.style.transform = 'translateY(-2px)';
+                article.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            });
+            
+            article.addEventListener('mouseleave', () => {
+                article.style.transform = 'translateY(0)';
+                article.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            });
+        });
+    </script>
+
+
+
+
+    
+</body>
+
+
+
+
+
+</html>
+
+
+
+
+
+
