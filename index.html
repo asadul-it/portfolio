@@ -61,6 +61,78 @@
 }
 </script>
 
+
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5H7RZ72M1J', {
+    // Enhanced tracking options
+    'send_page_view': true,
+    'anonymize_ip': true, // GDPR compliance
+    'allow_google_signals': false // Privacy-focused
+  });
+</script>
+
+<!-- Custom Event Tracking for Blog Interactions -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Track article expansion
+    document.querySelectorAll('.read-more').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const articleTitle = e.target.closest('.newspaper-article').querySelector('.article-title').textContent;
+            gtag('event', 'expand_article', {
+                'event_category': 'engagement',
+                'event_label': articleTitle,
+                'value': 1
+            });
+        });
+    });
+
+    // Track navigation clicks
+    document.querySelectorAll('.navbar a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            gtag('event', 'navigation_click', {
+                'event_category': 'navigation',
+                'event_label': e.target.textContent.trim(),
+                'page_location': window.location.href
+            });
+        });
+    });
+
+    // Track mobile menu usage
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+            gtag('event', 'mobile_menu_toggle', {
+                'event_category': 'ui_interaction',
+                'event_label': 'mobile_menu_opened'
+            });
+        });
+    }
+
+    // Track scroll depth
+    let maxScrollDepth = 0;
+    window.addEventListener('scroll', function() {
+        const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+            maxScrollDepth = scrollDepth;
+            gtag('event', 'scroll_depth', {
+                'event_category': 'engagement',
+                'event_label': scrollDepth + '%_scrolled',
+                'value': scrollDepth
+            });
+        }
+    });
+});
+</script>
+
+
+
 <!-- Favicon -->
 <link href="img/favicon.ico" rel="icon">
 <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
@@ -473,7 +545,7 @@ body {
                     <h5 class="d-inline text-primary">Degree:</h5> <span itemprop="educationalCredential">B.Sc. in Computer Science & Engineering</span>
                 </div>
                 <div class="col-sm-6 py-1">
-                    <h5 class="d-inline text-primary">Experience:</h5> <span itemprop="hasOccupation" itemscope itemtype="https://schema.org/Occupation"><span itemprop="name">Over 5.5 years of experience in IT Infrastructure Management</span></span>
+                    <h5 class="d-inline text-primary">Experience:</h5> <span itemprop="hasOccupation" itemscope itemtype="https://schema.org/Occupation"><span itemprop="name">Over 6 years of experience in IT Infrastructure Management</span></span>
                 </div>
             </div>
         </div>
@@ -614,31 +686,47 @@ body {
                     </div>
                     <div class="col-12">
                         <div class="border-left border-primary pt-2 pl-4 ml-2">
-                            <!-- Experience 1 -->
+                           <!-- Experience 1 -->
                             <div class="position-relative mb-4">
                                 <i class="fa fa-arrow-right text-primary position-absolute" style="top: 3px; left: -24px;"></i>
                                 <h5 class="mb-1">Junior Executive - IT</h5>
-                                <p class="mb-2">Interstoff Apparels Ltd | <small>1st July 2023 to Present</small></p>
+                                <p class="mb-2">South East Textiles (Pvt) Ltd. (Knitting Unit) | <small>1st July 2023 to Present</small></p>
                                 <ul>
-                                    <li>Managing and maintaining IT infrastructure, including servers, networks, and security systems.</li>
-                                    <li>Configuring and troubleshooting LAN/WAN connections and network security.</li>
-                                    <li>Administering Active Directory, PABX systems, biometric access control, and firewall configurations.</li>
-                                    <li>Installing and maintaining CCTV surveillance systems, NVR/DVR, and IP cameras.</li>
-                                    <li>Ensuring data security compliance and IT policy management.</li>
+                                    <li>Installed, configured, and troubleshot desktops, laptops, and operating systems.</li>
+                                    <li>Managed and monitored IT infrastructure including hardware, software, and network systems.</li>
+                                    <li>Configured and maintained MikroTik Routers, Wi-Fi access points, and network switches.</li>
+                                    <li>Set up network file sharing, printer sharing, and configured network printers.</li>
+                                    <li>Installed and maintained NVR/DVR systems and IP cameras for CCTV surveillance.</li>
+                                    <li>Provided first-level IT support for hardware, software, and networking issues.</li>
+                                    <li>Administered Microsoft 365 services including email, OneDrive, and SharePoint.</li>
+                                    <li>Managed PABX, IP phones, and PA systems for internal communication.</li>
+                                    <li>Performed regular data backups and implemented recovery procedures.</li>
+                                    <li>Installed and updated antivirus software and performed system security checks.</li>
+                                    <li>Maintained IT asset inventory, software licenses, and related documentation.</li>
+                                    <li>Coordinated with vendors for equipment purchase, repairs, and AMC services.</li>
+                                    <li>Monitored server performance, optimized storage, and reduced downtime.</li>
+                                    <li>Developed and implemented IT policies and security guidelines.</li>
+                                    <li>Assisted new employees with account setup, email configuration, and orientation.</li>
                                 </ul>
                             </div>
 
                             <!-- Experience 2 -->
                             <div class="position-relative mb-4">
                                 <i class="fa fa-arrow-right text-primary position-absolute" style="top: 3px; left: -24px;"></i>
-                                <h5 class="mb-1">IT Support Engineer</h5>
-                                <p class="mb-2">Interstoff Group - (Knitting Unit) | <small>1st Augest 2019 to 30th june 2023 </small></p>
+                                <h5 class="mb-1">Support Engineer - IT</h5>
+                                <p class="mb-2">Interstoff Apparels Ltd. (Knitting Unit) | <small>1st August 2019 to 30th June 2023</small></p>
                                 <ul>
-                                    <li>Provided hardware and software support for smooth IT operations.</li>
-                                    <li>Installed, configured, and troubleshooted operating systems and applications.</li>
-                                    <li>Maintained and optimized network infrastructure, including routers and switches.</li>
-                                    <li>Conducted regular system upgrades and preventive maintenance.</li>
-                                    <li>Resolved technical issues and provided user training.</li>
+                                    <li>Installed and troubleshot desktops, laptops, and operating systems.</li>
+                                    <li>Managed IT hardware, software, and networks.</li>
+                                    <li>Configured MikroTik Router, Wi-Fi, and switches.</li>
+                                    <li>Maintained file and printer sharing on the network.</li>
+                                    <li>Installed and monitored CCTV and IP cameras.</li>
+                                    <li>Managed PABX, IP phones, and PA systems.</li>
+                                    <li>Performed backups and security checks.</li>
+                                    <li>Maintained IT assets and licenses.</li>
+                                    <li>Coordinated with vendors for repairs and purchases.</li>
+                                    <li>Developed IT policies and guidelines.</li>
+                                    <li>Assisted new staff with IT onboarding.</li>
                                 </ul>
                             </div>
 
@@ -788,7 +876,7 @@ body {
                                 </div>
                                 <div class="portfolio-details text-center mt-2">
                                     <h5>IT Infrastructure Management</h5>
-                                    <p>Managed and maintained IT infrastructure at Interstoff Group, including hardware/software installation, networking, and security systems for over 5 years.</p>
+                                    <p>Managed and maintained IT infrastructure at Interstoff Group, including hardware/software installation, networking, and security systems for over 6 years.</p>
                                 </div>
                             </div>
 
@@ -1389,7 +1477,7 @@ body {
         <div class="footer-container">
             <div class="footer-column">
                 <h3>About ME</h3>
-                <p>I am Asadul Islam, an IT professional with over 5.5 years of experience in IT infrastructure management and an expert in hardware, software, networking, and system security. I have a passion for solving technical challenges and improving operational efficiency.</p>
+                <p>I am Asadul Islam, an IT professional with over 6 years of experience in IT infrastructure management and an expert in hardware, software, networking, and system security. I have a passion for solving technical challenges and improving operational efficiency.</p>
             </div>
 
             <div class="footer-column">
@@ -1557,5 +1645,4 @@ body {
     
 </body>
 </html>
-
 
