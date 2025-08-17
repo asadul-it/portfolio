@@ -6,10 +6,198 @@
     <title>IT Expert Blog - তথ্য প্রযুক্তি বিশেষজ্ঞ ব্লগ</title>
    
    
+   <!-- SEO Meta Tags -->
+<meta name="description" content="IT Expert Blog - তথ্য প্রযুক্তি বিশেষজ্ঞ আসাদুল ইসলামের ব্লগ। Network Security, System Administration, Hardware Troubleshooting, Database Management এবং DevOps সম্পর্কে বিস্তারিত গাইড।">
+
+<meta name="keywords" content="IT Expert Blog, Asadul Islam, তথ্য প্রযুক্তি, Network Security, System Administration, Hardware Troubleshooting, CCTV Configuration, Database Management, DevOps, Cloud Computing, Cybersecurity, Windows Installation, IT Support Bangladesh">
+
+<meta name="author" content="Asadul Islam - IT Support Specialist">
+<meta name="robots" content="index, follow">
+<meta name="language" content="Bengali">
+<meta name="revisit-after" content="7 days">
+
+<!-- Open Graph Meta Tags (Facebook) -->
+<meta property="og:title" content="IT Expert Blog - তথ্য প্রযুক্তি বিশেষজ্ঞ ব্লগ">
+<meta property="og:description" content="Network Security, System Administration, Hardware Troubleshooting এবং IT সাপোর্ট সম্পর্কে বিস্তারিত গাইড এবং টিউটোরিয়াল।">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://asadul-it.github.io/portfolio/blog.html">
+<meta property="og:image" content="https://asadul-it.github.io/portfolio/assets/blog-preview.jpg">
+<meta property="og:site_name" content="Asadul Islam Portfolio">
+<meta property="og:locale" content="bn_BD">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="IT Expert Blog - তথ্য প্রযুক্তি বিশেষজ্ঞ ব্লগ">
+<meta name="twitter:description" content="Network Security, System Administration, Hardware Troubleshooting এবং IT সাপোর্ট সম্পর্কে বিস্তারিত গাইড।">
+<meta name="twitter:image" content="https://asadul-it.github.io/portfolio/assets/blog-preview.jpg">
+<meta name="twitter:creator" content="@asadul_islam">
+
+<!-- Additional SEO Tags -->
+<meta name="geo.region" content="BD-13">
+<meta name="geo.placename" content="Dhaka, Bangladesh">
+<meta name="geo.position" content="23.8103;90.4125">
+<meta name="ICBM" content="23.8103, 90.4125">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://asadul-it.github.io/portfolio/blog.html">
+
+<!-- Hreflang for language targeting -->
+<link rel="alternate" hreflang="bn" href="https://asadul-it.github.io/portfolio/blog.html">
+<link rel="alternate" hreflang="en" href="https://asadul-it.github.io/portfolio/blog-en.html">
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "IT Expert Blog",
+  "description": "তথ্য প্রযুক্তি বিশেষজ্ঞ আসাদুল ইসলামের ব্লগ",
+  "url": "https://asadul-it.github.io/portfolio/blog.html",
+  "author": {
+    "@type": "Person",
+    "name": "Asadul Islam",
+    "jobTitle": "IT Support Specialist",
+    "url": "https://asadul-it.github.io/portfolio/",
+    "sameAs": [
+      "https://linkedin.com/in/asadul-islam",
+      "https://github.com/asadul-it"
+    ]
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Asadul Islam Portfolio",
+    "url": "https://asadul-it.github.io/portfolio/"
+  },
+  "inLanguage": "bn",
+  "blogPost": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Network Security Practices",
+      "description": "আধুনিক নেটওয়ার্ক নিরাপত্তার জন্য প্রয়োজনীয় সব কৌশল এবং বাস্তবায়ন পদ্ধতি।",
+      "datePublished": "2024-11-15",
+      "author": {
+        "@type": "Person",
+        "name": "Asadul Islam"
+      }
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Active Directory Management",
+      "description": "Active Directory পরিচালনার জন্য প্রয়োজনীয় টিপস এবং উন্নত কৌশল।",
+      "datePublished": "2024-10-28",
+      "author": {
+        "@type": "Person",
+        "name": "Asadul Islam"
+      }
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "কিভাবে পেনড্রাইভ দিয়ে Windows ইনস্টল করবেন",
+      "description": "পেনড্রাইভ ব্যবহার করে Windows ইনস্টল করার সহজ পদ্ধতি।",
+      "datePublished": "2024-07-15",
+      "author": {
+        "@type": "Person",
+        "name": "Asadul Islam"
+      }
+    }
+  ]
+}
+</script>
+
+
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5H7RZ72M1J', {
+    // Enhanced tracking options
+    'send_page_view': true,
+    'anonymize_ip': true, // GDPR compliance
+    'allow_google_signals': false // Privacy-focused
+  });
+</script>
+
+<!-- Custom Event Tracking for Blog Interactions -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Track article expansion
+    document.querySelectorAll('.read-more').forEach(button => {
+        button.addEventListener('click', function(e) {
+            const articleTitle = e.target.closest('.newspaper-article').querySelector('.article-title').textContent;
+            gtag('event', 'expand_article', {
+                'event_category': 'engagement',
+                'event_label': articleTitle,
+                'value': 1
+            });
+        });
+    });
+
+    // Track navigation clicks
+    document.querySelectorAll('.navbar a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            gtag('event', 'navigation_click', {
+                'event_category': 'navigation',
+                'event_label': e.target.textContent.trim(),
+                'page_location': window.location.href
+            });
+        });
+    });
+
+    // Track mobile menu usage
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+            gtag('event', 'mobile_menu_toggle', {
+                'event_category': 'ui_interaction',
+                'event_label': 'mobile_menu_opened'
+            });
+        });
+    }
+
+    // Track scroll depth
+    let maxScrollDepth = 0;
+    window.addEventListener('scroll', function() {
+        const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+            maxScrollDepth = scrollDepth;
+            gtag('event', 'scroll_depth', {
+                'event_category': 'engagement',
+                'event_label': scrollDepth + '%_scrolled',
+                'value': scrollDepth
+            });
+        }
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+<!-- Preconnect to external domains -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+<!-- DNS Prefetch -->
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
    
    
    
-   
+
+
+
+
+
+
+
    
    
    
@@ -1382,7 +1570,6 @@
 
 
 </html>
-
 
 
 
