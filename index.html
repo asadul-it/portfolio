@@ -513,13 +513,203 @@ body {
 <!-- About Start -->
 <div class="container bg-white py-5" itemscope itemtype="https://schema.org/Person">
     <div class="row px-3">
-        <div class="col-12">
-            <h2 class="title position-relative pb-2 mb-4">About Me</h2>
-            <p style="text-align: justify;">I am <b><span itemprop="name">Asadul Islam</span></b>, a dedicated and results-driven IT professional with over <span itemprop="worksFor" itemscope itemtype="https://schema.org/Organization">6 years of hands-on experience in managing IT infrastructure</span>. My core expertise spans across <span itemprop="knowsAbout">hardware maintenance, software configuration, networking, cybersecurity, and system security</span>. I currently serve as a <strong>Junior Executive</strong> in the IT department at <span itemprop="worksFor" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Interstoff Group (Knitting Unit)</span></span>, where I am responsible for ensuring smooth day-to-day IT operations and infrastructure stability.</p>
-            <p style="text-align: justify;">My role involves configuring and managing <strong>MikroTik routers</strong> for efficient LAN/WAN networking, setting up and troubleshooting <strong>NVR/DVR systems</strong>, and handling <strong>IP camera networks</strong> to ensure robust surveillance coverage. I also have practical experience with <strong>PABX and IP phone systems</strong>, <strong>access control</strong>, <strong>attendance management</strong>, and <strong>PA system setup</strong>. I am skilled in providing end-user technical support, maintaining IT inventory, and documenting procedures to enhance organizational efficiency.</p>
-            <p style="text-align: justify;">In addition, I possess fundamental knowledge in <strong>2D AutoCAD design</strong> and am comfortable working in demanding environments where quick thinking and multitasking are essential. I am a fast learner with a strong commitment to professional growth. I have completed certifications including <strong>Google IT Support</strong> and <strong>Google Cybersecurity Professional Certificates</strong>, as well as <strong>CCNA Routing & Switching training</strong>, which further strengthens my technical foundation.</p>
-            <p style="text-align: justify;">My strengths include clear communication, analytical thinking, and a proactive attitude toward solving complex technical issues. I am deeply passionate about exploring emerging technologies in <strong>cybersecurity</strong>, <strong>network administration</strong>, and <strong>cloud infrastructure</strong>, and I strive to bring high-quality, scalable solutions to the organizations I serve.</p>
-        </div>
+       
+
+
+
+
+
+
+
+
+
+<!-- CSS - এটা Head সেকশনে অথবা আপনার CSS ফাইলে -->
+<style>
+/* Advanced Tooltip Styling */
+[data-tooltip] {
+    position: relative;
+    cursor: pointer;
+    color: #007bff;
+    border-bottom: 2px dotted #007bff;
+    transition: all 0.3s ease;
+}
+
+[data-tooltip]:hover {
+    color: #0056b3;
+    border-bottom-color: #0056b3;
+}
+
+.custom-tooltip {
+    position: absolute;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    padding: 0;
+    min-width: 300px;
+    max-width: 400px;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
+}
+
+.custom-tooltip.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.custom-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-bottom-color: white;
+}
+
+.tooltip-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 12px 15px;
+    border-radius: 8px 8px 0 0;
+    font-weight: bold;
+    font-size: 0.95rem;
+}
+
+.tooltip-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+}
+
+.tooltip-body {
+    padding: 15px;
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.tooltip-footer {
+    background: #f8f9fa;
+    padding: 10px 15px;
+    border-radius: 0 0 8px 8px;
+    font-size: 0.85rem;
+    color: #666;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.tooltip-footer::before {
+    content: '✓';
+    color: #28a745;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+abbr {
+    text-decoration: none;
+}
+</style>
+
+<!-- HTML DIV - About Me Section -->
+<div class="col-12">
+    <h2 class="title position-relative pb-2 mb-4">About Me</h2>
+    <p style="text-align: justify;">I am <b><span itemprop="name">Asadul Islam</span></b>, a dedicated and results-driven IT professional with over <span itemprop="worksFor" itemscope itemtype="https://schema.org/Organization">6 years of hands-on experience in managing IT infrastructure</span>. My core expertise spans across <span itemprop="knowsAbout">hardware maintenance, software configuration, networking, cybersecurity, and system security</span>. I currently serve as a <strong>Executive</strong> in the IT department at <span itemprop="worksFor" itemscope itemtype="https://schema.org/Organization"><span itemprop="name">Tech Max Ltd. (A sister concern of Sterling Styles Ltd.)</span></span>, where I am responsible for ensuring smooth day-to-day IT operations and infrastructure stability.</p>
+    
+    <p style="text-align: justify;">My role involves configuring and managing <strong>MikroTik routers</strong> for efficient LAN/WAN networking, setting up and troubleshooting <strong>NVR/DVR systems</strong>, and handling <strong>IP camera networks</strong> to ensure robust surveillance coverage. I also have practical experience with <strong>PABX and IP phone systems</strong>, <strong>access control</strong>, <strong>attendance management</strong>, and <strong>PA system setup</strong>. I am skilled in providing end-user technical support, maintaining IT inventory, and documenting procedures to enhance organizational efficiency.</p>
+    
+    <p style="text-align: justify;">In addition, I possess fundamental knowledge in <strong>2D AutoCAD design</strong> and am comfortable working in demanding environments where quick thinking and multitasking are essential. I am a fast learner with a strong commitment to professional growth. I have completed certifications including <strong>Google IT Support</strong> and <strong>Google Cybersecurity Professional Certificates</strong>, as well as <strong>CCNA Routing & Switching training</strong>. I have also earned <strong data-tooltip="MikroTik Certified Network Associate" data-title="MTCNA Certification" data-image="img/certificates/mtcna.jpg" data-text="MikroTik Certified Network Associate - Foundation level certification covering MikroTik RouterOS basics, routing, wireless, and firewall configuration." data-footer="Issued by MikroTik   ;   verification-2509NA5572    "><abbr title="MikroTik Certified Network Associate">MTCNA</abbr></strong>, <strong data-tooltip="MikroTik Certified Security Engineer" data-title="MTCSE Certification" data-image="img/certificates/mtcse.jpg" data-text="MikroTik Certified Security Engineer - Advanced certification focusing on network security, firewall rules, VPN configuration, and threat prevention." data-footer="Issued by MikroTik              ;   verification-2509SE5612"><abbr title="MikroTik Certified Security Engineer">MTCSE</abbr></strong>, and <strong data-tooltip="MikroTik Certified Routing Engineer" data-title="MTCRE Certification" data-image="img/certificates/mtcre.jpg" data-text="MikroTik Certified Routing Engineer - Expert level certification covering advanced routing protocols including OSPF, BGP, and complex network architectures." data-footer="Issued by MikroTik      ;  verification-2509RE5593"><abbr title="MikroTik Certified Routing Engineer">MTCRE</abbr></strong> certifications, which further strengthens my technical foundation.</p>
+    
+    <p style="text-align: justify;">My strengths include clear communication, analytical thinking, and a proactive attitude toward solving complex technical issues. I am deeply passionate about exploring emerging technologies in <strong>cybersecurity</strong>, <strong>network administration</strong>, and <strong>cloud infrastructure</strong>, and I strive to bring high-quality, scalable solutions to the organizations I serve.</p>
+</div>
+
+<!-- JavaScript - এটা Body এর শেষে -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tooltipElements = document.querySelectorAll('[data-tooltip]');
+    let currentTooltip = null;
+    
+    tooltipElements.forEach(el => {
+        el.addEventListener('mouseenter', function(e) {
+            if (currentTooltip) {
+                currentTooltip.remove();
+            }
+            
+            const title = this.getAttribute('data-title') || 'Certification';
+            const image = this.getAttribute('data-image');
+            const text = this.getAttribute('data-text') || 'No description available';
+            const footer = this.getAttribute('data-footer') || 'Verified Certification';
+            
+            const tooltip = document.createElement('div');
+            tooltip.className = 'custom-tooltip';
+            tooltip.innerHTML = `
+                <div class="tooltip-header">${title}</div>
+                ${image ? `<img src="${image}" alt="${title}" class="tooltip-image" onerror="this.style.display='none'">` : ''}
+                <div class="tooltip-body">${text}</div>
+                <div class="tooltip-footer">${footer}</div>
+            `;
+            
+            document.body.appendChild(tooltip);
+            currentTooltip = tooltip;
+            
+            const rect = this.getBoundingClientRect();
+            const tooltipRect = tooltip.getBoundingClientRect();
+            
+            let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+            let top = rect.top - tooltipRect.height - 15;
+            
+            if (left < 10) left = 10;
+            if (left + tooltipRect.width > window.innerWidth - 10) {
+                left = window.innerWidth - tooltipRect.width - 10;
+            }
+            if (top < 10) {
+                top = rect.bottom + 15;
+            }
+            
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + window.scrollY + 'px';
+            
+            setTimeout(() => tooltip.classList.add('show'), 10);
+        });
+        
+        el.addEventListener('mouseleave', function() {
+            if (currentTooltip) {
+                currentTooltip.classList.remove('show');
+                setTimeout(() => {
+                    if (currentTooltip) {
+                        currentTooltip.remove();
+                        currentTooltip = null;
+                    }
+                }, 300);
+            }
+        });
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="col-sm-6 py-1">
             <h5 class="d-inline title position-relative pb-2 mb-4">Personal Information</h5>
         </div>
@@ -1684,6 +1874,5 @@ body {
     
 </body>
 </html>
-
 
 
