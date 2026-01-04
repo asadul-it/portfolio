@@ -5,7 +5,7 @@
 
 
   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Professional IT Certificates - Asadul Islam</title>
 
 <!-- SEO Meta Tags - এই কোডগুলো <head> ট্যাগের ভিতরে <title> ট্যাগের পরে বসান -->
@@ -194,9 +194,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     
     <style>
-        :root {
+      :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --header-height: 160px;
             --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
             --glass-bg: rgba(255, 255, 255, 0.25);
@@ -209,13 +210,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+            }
+
+        
+        html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    }
 
         body {
-            font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif;
+        
+          
             background-color: #ffffff; /* Changed background to white */
             color: var(--text-primary);
             overflow-x: hidden;
@@ -352,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         /* Main Content */
         .main-content {
-            margin-top: 200px; /* Adjusted margin to accommodate fixed header's height */
+            margin-top: var(--header-height);/* Adjusted margin to accommodate fixed header's height */
             padding: 0 20px 60px; /* Reduced bottom padding */
             flex-grow: 1; /* Added for footer to stick to bottom */
         }
@@ -867,7 +877,10 @@ document.addEventListener('DOMContentLoaded', function() {
             .gallery { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
         }
 
-        @media (max-width: 768px) {
+       @media (max-width: 768px) {
+    :root {
+        --header-height: 140px;
+        }
             .fixed-header-container { padding: 15px 0; }
             .navbar { width: 95%; padding: 10px; margin-bottom: 10px; }
             .header-title { font-size: clamp(1.5rem, 3.5vw, 2rem); margin-top: 5px;}
@@ -885,8 +898,10 @@ document.addEventListener('DOMContentLoaded', function() {
             .control-btn { width: 35px; height: 35px; font-size: 1rem; }
             .back-to-top { width: 45px; height: 45px; bottom: 20px; right: 20px; font-size: 1rem; }
         }
-
-        @media (max-width: 480px) {
+            @media (max-width: 480px) {
+    :root {
+        --header-height: 130px;
+         }
             .navbar ul { gap: 5px; justify-content: space-around; }
             .navbar ul li a { font-size: 0.75rem; padding: 6px 8px; }
             .navbar ul li a i { display: none; } /* Hide icons on very small screens */
