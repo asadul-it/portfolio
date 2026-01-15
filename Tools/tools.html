@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- <title>Online Tools - Free Web Tools</title> -->
+
+
+
+<title>Online Tools - Free Network, SEO, & Utility Web Tools</title>
+<meta name="title" content="Online Tools - Free Network, SEO, & Utility Web Tools">
+<meta name="description" content="Access a wide range of free online tools including Network diagnostics, VLSM calculators, IP lookups, Unit converters, and Developer utilities. Simple, fast, and free.">
+<meta name="keywords" content="online tools, network tools, vlsm calculator, ip lookup, dns lookup, free web tools, password generator, unit converter, technical tools">
+<meta name="robots" content="index, follow">
+<meta name="language" content="English">
+<meta name="author" content="Your Name/Brand">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yourdomain.com/tools.html">
+<meta property="og:title" content="Online Tools - Free Network, SEO, & Utility Web Tools">
+<meta property="og:description" content="One-stop solution for all your technical and daily utility tools. Free, fast and easy to use.">
+<meta property="og:image" content="https://yourdomain.com/assets/images/og-image.jpg">
+
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://yourdomain.com/tools.html">
+<meta property="twitter:title" content="Online Tools - Free Network, SEO, & Utility Web Tools">
+<meta property="twitter:description" content="Access a wide range of free online tools including Network diagnostics, VLSM calculators, and more.">
+<meta property="twitter:image" content="https://yourdomain.com/assets/images/og-image.jpg">
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="canonical" href="https://yourdomain.com/tools.html" />
+
+
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #2c3e50;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            padding: 20px 0;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .navbar ul li a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .navbar ul li a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            text-align: center;
+            padding: 20px 0;
+            font-weight: 700;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        .wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 150px;
+        }
+
+        .sidebar h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-list li a {
+            display: block;
+            padding: 12px 15px;
+            color: #5a6c7d;
+            text-decoration: none;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .category-list li a:hover {
+            background: #f0f3ff;
+            color: #667eea;
+            border-left-color: #667eea;
+            padding-left: 20px;
+        }
+
+        .category-list li a.active {
+            background: #f0f3ff;
+            color: #667eea;
+            border-left-color: #667eea;
+            font-weight: 600;
+            padding-left: 20px;
+        }
+
+        /* Main Content */
+        .main-content {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #667eea;
+        }
+
+        .section-description {
+            color: #5a6c7d;
+            margin-bottom: 30px;
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+
+        /* Tools Grid */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: #ffffff;
+            border: 1px solid #e0e4e8;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .tool-icon {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .tool-name {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+
+        .tool-description {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .tool-link {
+            display: inline-block;
+            padding: 10px 25px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #667eea;
+        }
+
+        .tool-link:hover {
+            background: #764ba2;
+            border-color: #764ba2;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #5a6c7d;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #f0f3ff;
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #e0e4e8;
+            color: #5a6c7d;
+            font-size: 0.9em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: relative;
+                top: 0;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .section-title {
+                font-size: 1.5em;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar ul {
+                gap: 10px;
+            }
+
+            .navbar ul li a {
+                font-size: 0.9em;
+                padding: 8px 10px;
+            }
+
+            .navbar ul li a i {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px 10px;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .tool-card {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .navbar ul li a {
+                font-size: 0.8em;
+                padding: 5px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="fixed-header-container">
+    <div class="navbar">
+        <h1 style="margin: 0;">ONLINE TOOLS</h1>
+    </div>
+    <div class="navbar" style="justify-content: center; padding: 10px 20px;">
+        <ul>
+            <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="../skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+            <li><a href="tools.html"><i class="fas fa-tools"></i> Tools</a></li>
+            <li><a href="../certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+            <li><a href="../contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h3><i class="fas fa-list"></i> Categories</h3>
+            <ul class="category-list">
+                <li><a href="#" class="cat-link active" data-cat="network"><i class="fas fa-network-wired"></i> Network Tools</a></li>
+                <li><a href="#" class="cat-link" data-cat="calculator"><i class="fas fa-calculator"></i> Calculator</a></li>
+                <li><a href="#" class="cat-link" data-cat="converter"><i class="fas fa-sync-alt"></i> Converter</a></li>
+                <li><a href="#" class="cat-link" data-cat="security"><i class="fas fa-shield-alt"></i> Security</a></li>
+                <li><a href="#" class="cat-link" data-cat="developer"><i class="fas fa-code"></i> Developer</a></li>
+                <li><a href="#" class="cat-link" data-cat="system"><i class="fas fa-laptop"></i> System</a></li>
+                <li><a href="#" class="cat-link" data-cat="utility"><i class="fas fa-toolbox"></i> Utility</a></li>
+
+
+
+                <li><a href="#" class="cat-link" data-cat="garments"><i class="fas fa-tshirt"></i> Garments</a></li>
+                <li><a href="#" class="cat-link" data-cat="factory"><i class="fas fa-industry"></i> Factory</a></li>
+                <li><a href="#" class="cat-link" data-cat="office"><i class="fas fa-briefcase"></i> Office</a></li>
+                <li><a href="#" class="cat-link" data-cat="finance"><i class="fas fa-chart-line"></i> Finance</a></li>
+                <li><a href="#" class="cat-link" data-cat="logistics"><i class="fas fa-truck"></i> Logistics</a></li>
+                <li><a href="#" class="cat-link" data-cat="itsupport"><i class="fas fa-headset"></i> IT Support</a></li>
+                <li><a href="#" class="cat-link" data-cat="netadmin"><i class="fas fa-network-wired"></i> Network Admin</a></li>
+                <li><a href="#" class="cat-link" data-cat="sysadmin"><i class="fas fa-server"></i> Sysadmin</a></li>
+                <li><a href="#" class="cat-link" data-cat="cybersec"><i class="fas fa-user-shield"></i> Cyber Security</a></li>
+                <li><a href="#" class="cat-link" data-cat="windows"><i class="fab fa-windows"></i> Windows</a></li>
+                <li><a href="#" class="cat-link" data-cat="linux"><i class="fab fa-linux"></i> Linux</a></li>
+                <li><a href="#" class="cat-link" data-cat="cloud"><i class="fas fa-cloud"></i> Cloud</a></li>
+                <li><a href="#" class="cat-link" data-cat="itlearning"><i class="fas fa-graduation-cap"></i> IT Learning</a></li>
+                <li><a href="#" class="cat-link" data-cat="education"><i class="fas fa-book"></i> Education</a></li>
+                <li><a href="#" class="cat-link" data-cat="bd"><i class="fas fa-flag"></i> Bangladesh</a></li>
+
+
+
+
+
+
+
+
+
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+
+            <!-- Network Tools -->
+            <div class="content-section active" id="network">
+                <h2 class="section-title"><i class="fas fa-network-wired"></i> Network Tools</h2>
+                <p class="section-description">Test your internet connection and network performance with our advanced network diagnostic tools.</p>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <i class="fas fa-globe tool-icon"></i>
+                        <p class="tool-name">My IP Address</p>
+                        <p class="tool-description">Find your public IP address and location</p>
+                        <a href="network-tools/my-ip-address.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-tachometer-alt tool-icon"></i>
+                        <p class="tool-name">Speed Test</p>
+                        <p class="tool-description">Test your internet connection speed</p>
+                        <a href="network-tools/internet-speed-test.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-map-marker-alt tool-icon"></i>
+                        <p class="tool-name">IP Location</p>
+                        <p class="tool-description">Track IP address location info</p>
+                        <a href="network-tools/ip-location.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-search tool-icon"></i>
+                        <p class="tool-name">DNS Lookup</p>
+                        <p class="tool-description">Lookup DNS records for domains</p>
+                        <a href="network-tools/dns-lookup.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-heartbeat tool-icon"></i>
+                        <p class="tool-name">Ping Test</p>
+                        <p class="tool-description">Check website connectivity</p>
+                        <a href="network-tools/ping-test.html" class="tool-link">Launch Tool</a>
+                    </div>
+
+
+
+
+
+                <div class="tool-card">
+                    <i class="fas fa-project-diagram tool-icon"></i>
+                    <p class="tool-name">VLSM Calculator</p>
+                    <p class="tool-description">Calculate Variable Length Subnet Masking</p>
+                    <a href="network-tools/vlsm-calculator.html" class="tool-link">Launch Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <i class="fas fa-network-wired tool-icon"></i>
+                    <p class="tool-name">MAC Address Lookup</p>
+                    <p class="tool-description">Find vendor details by MAC address</p>
+                    <a href="network-tools/mac-address-lookup.html" class="tool-link">Launch Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <i class="fas fa-shield-alt tool-icon"></i>
+                    <p class="tool-name">DMARC Checker</p>
+                    <p class="tool-description">Check domain DMARC record status</p>
+                    <a href="network-tools/dmarc-checker.html" class="tool-link">Launch Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <i class="fas fa-terminal tool-icon"></i>
+                    <p class="tool-name">WebSSH</p>
+                    <p class="tool-description">Access SSH via web browser</p>
+                    <a href="network-tools/web-ssh.html" class="tool-link">Launch Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <i class="fas fa-folder-open tool-icon"></i>
+                    <p class="tool-name">FTP Access</p>
+                    <p class="tool-description">Connect and manage FTP servers</p>
+                    <a href="network-tools/ftp-access.html" class="tool-link">Launch Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <i class="fas fa-globe-asia tool-icon"></i>
+                    <p class="tool-name">NS Lookup</p>
+                    <p class="tool-description">Check domain nameserver records</p>
+                    <a href="network-tools/ns-lookup.html" class="tool-link">Launch Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <i class="fas fa-lock tool-icon"></i>
+                    <p class="tool-name">SSL Certificate Checker</p>
+                    <p class="tool-description">Verify SSL certificate validity</p>
+                    <a href="network-tools/ssl-checker.html" class="tool-link">Launch Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <i class="fas fa-id-card tool-icon"></i>
+                    <p class="tool-name">Domain Whois Lookup</p>
+                    <p class="tool-description">Find domain ownership details</p>
+                    <a href="network-tools/domain-whois.html" class="tool-link">Launch Tool</a>
+                </div>
+
+                <div class="tool-card">
+                    <i class="fas fa-map-marked-alt tool-icon"></i>
+                    <p class="tool-name">IP Address Lookup</p>
+                    <p class="tool-description">Get detailed IP address information</p>
+                    <a href="network-tools/ip-address-lookup.html" class="tool-link">Launch Tool</a>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="tool-card">
+                        <i class="fas fa-door-open tool-icon"></i>
+                        <p class="tool-name">Port Checker</p>
+                        <p class="tool-description">Check if port is open</p>
+                        <a href="network-tools/port-checker.html" class="tool-link">Launch Tool</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculator Tools -->
+            <div class="content-section" id="calculator">
+                <h2 class="section-title"><i class="fas fa-calculator"></i> Calculator Tools</h2>
+                <p class="section-description">Useful calculators for everyday calculations and important computations.</p>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <i class="fas fa-birthday-cake tool-icon"></i>
+                        <p class="tool-name">Age Calculator</p>
+                        <p class="tool-description">Calculate your exact age</p>
+                        <a href="calculator-tools/age-calculator.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-weight tool-icon"></i>
+                        <p class="tool-name">BMI Calculator</p>
+                        <p class="tool-description">Calculate your body mass index</p>
+                        <a href="calculator-tools/bmi-calculator.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-percent tool-icon"></i>
+                        <p class="tool-name">Percentage Calculator</p>
+                        <p class="tool-description">Calculate percentages easily</p>
+                        <a href="calculator-tools/percentage-calculator.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-calendar tool-icon"></i>
+                        <p class="tool-name">Date Difference</p>
+                        <p class="tool-description">Calculate days between dates</p>
+                        <a href="calculator-tools/date-difference.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-money-bill tool-icon"></i>
+                        <p class="tool-name">EMI Calculator</p>
+                        <p class="tool-description">Calculate loan EMI payments</p>
+                        <a href="calculator-tools/emi-calculator.html" class="tool-link">Launch Tool</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Converter Tools -->
+            <div class="content-section" id="converter">
+                <h2 class="section-title"><i class="fas fa-sync-alt"></i> Converter Tools</h2>
+                <p class="section-description">Convert between different units and formats instantly.</p>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <i class="fas fa-database tool-icon"></i>
+                        <p class="tool-name">KB to MB</p>
+                        <p class="tool-description">Convert kilobytes to megabytes</p>
+                        <a href="converter-tools/kb-to-mb.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-database tool-icon"></i>
+                        <p class="tool-name">MB to GB</p>
+                        <p class="tool-description">Convert megabytes to gigabytes</p>
+                        <a href="converter-tools/mb-to-gb.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-dollar-sign tool-icon"></i>
+                        <p class="tool-name">Currency Converter</p>
+                        <p class="tool-description">Convert between currencies</p>
+                        <a href="converter-tools/currency-converter.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-thermometer tool-icon"></i>
+                        <p class="tool-name">Temperature</p>
+                        <p class="tool-description">Convert temperature units</p>
+                        <a href="converter-tools/temperature-converter.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-clock tool-icon"></i>
+                        <p class="tool-name">Time Converter</p>
+                        <p class="tool-description">Convert between time zones</p>
+                        <a href="converter-tools/time-converter.html" class="tool-link">Launch Tool</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Tools -->
+            <div class="content-section" id="security">
+                <h2 class="section-title"><i class="fas fa-shield-alt"></i> Security Tools</h2>
+                <p class="section-description">Security and encryption tools for protection and verification.</p>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <i class="fas fa-key tool-icon"></i>
+                        <p class="tool-name">Password Generator</p>
+                        <p class="tool-description">Generate strong passwords</p>
+                        <a href="security-tools/password-generator.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-lock tool-icon"></i>
+                        <p class="tool-name">Password Strength</p>
+                        <p class="tool-description">Check password security level</p>
+                        <a href="security-tools/password-strength.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-certificate tool-icon"></i>
+                        <p class="tool-name">SSL Checker</p>
+                        <p class="tool-description">Check SSL certificate details</p>
+                        <a href="security-tools/ssl-checker.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-ban tool-icon"></i>
+                        <p class="tool-name">IP Blacklist</p>
+                        <p class="tool-description">Check if IP is blacklisted</p>
+                        <a href="security-tools/ip-blacklist.html" class="tool-link">Launch Tool</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Developer Tools -->
+            <div class="content-section" id="developer">
+                <h2 class="section-title"><i class="fas fa-code"></i> Developer Tools</h2>
+                <p class="section-description">Tools for developers including formatters and encoders.</p>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <i class="fas fa-json tool-icon"></i>
+                        <p class="tool-name">JSON Formatter</p>
+                        <p class="tool-description">Format and validate JSON</p>
+                        <a href="developer-tools/json-formatter.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-barcode tool-icon"></i>
+                        <p class="tool-name">Base64 Encoder</p>
+                        <p class="tool-description">Encode/decode Base64 strings</p>
+                        <a href="developer-tools/base64-encode.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-link tool-icon"></i>
+                        <p class="tool-name">URL Encoder</p>
+                        <p class="tool-description">Encode/decode URLs</p>
+                        <a href="developer-tools/url-encoder.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-fingerprint tool-icon"></i>
+                        <p class="tool-name">Hash Generator</p>
+                        <p class="tool-description">Generate hash values</p>
+                        <a href="developer-tools/hash-generator.html" class="tool-link">Launch Tool</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Tools -->
+            <div class="content-section" id="system">
+                <h2 class="section-title"><i class="fas fa-laptop"></i> System Tools</h2>
+                <p class="section-description">Check your system information and device details.</p>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <i class="fas fa-browser tool-icon"></i>
+                        <p class="tool-name">Browser Info</p>
+                        <p class="tool-description">Get browser information</p>
+                        <a href="system-tools/browser-info.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-desktop tool-icon"></i>
+                        <p class="tool-name">Screen Resolution</p>
+                        <p class="tool-description">Check screen resolution</p>
+                        <a href="system-tools/screen-resolution.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fab fa-windows tool-icon"></i>
+                        <p class="tool-name">OS Detection</p>
+                        <p class="tool-description">Detect operating system</p>
+                        <a href="system-tools/os-check.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-clock tool-icon"></i>
+                        <p class="tool-name">Timezone Check</p>
+                        <p class="tool-description">Check your timezone</p>
+                        <a href="system-tools/timezone-check.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-user-secret tool-icon"></i>
+                        <p class="tool-name">User Agent</p>
+                        <p class="tool-description">View user agent string</p>
+                        <a href="system-tools/user-agent.html" class="tool-link">Launch Tool</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Utility Tools -->
+            <div class="content-section" id="utility">
+                <h2 class="section-title"><i class="fas fa-toolbox"></i> Utility Tools</h2>
+                <p class="section-description">Handy utility tools for everyday use.</p>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <i class="fas fa-qrcode tool-icon"></i>
+                        <p class="tool-name">QR Code Generator</p>
+                        <p class="tool-description">Generate QR codes</p>
+                        <a href="utility-tools/qr-code-generator.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-hashtag tool-icon"></i>
+                        <p class="tool-name">UUID Generator</p>
+                        <p class="tool-description">Generate UUIDs</p>
+                        <a href="utility-tools/uuid-generator.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-random tool-icon"></i>
+                        <p class="tool-name">Random Number</p>
+                        <p class="tool-description">Generate random numbers</p>
+                        <a href="utility-tools/random-number.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-stopwatch tool-icon"></i>
+                        <p class="tool-name">Stopwatch</p>
+                        <p class="tool-description">Simple stopwatch timer</p>
+                        <a href="utility-tools/stopwatch.html" class="tool-link">Launch Tool</a>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-hourglass-end tool-icon"></i>
+                        <p class="tool-name">Countdown Timer</p>
+                        <p class="tool-description">Set countdown timer</p>
+                        <a href="utility-tools/countdown-timer.html" class="tool-link">Launch Tool</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+<!-- Garments Tools -->
+<div class="content-section" id="garments">
+    <h2 class="section-title"><i class="fas fa-tshirt"></i> Garments Tools</h2>
+    <p class="section-description">Essential tools for garments manufacturing and costing calculations.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fas fa-calculator tool-icon"></i>
+            <p class="tool-name">Garments Costing</p>
+            <p class="tool-description">Calculate complete garment costing</p>
+            <a href="garments-tools/garments-costing.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-tape tool-icon"></i>
+            <p class="tool-name">Fabric Consumption</p>
+            <p class="tool-description">Calculate fabric consumption per garment</p>
+            <a href="garments-tools/fabric-consumption.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-thread tool-icon"></i>
+            <p class="tool-name">Yarn Consumption</p>
+            <p class="tool-description">Calculate yarn consumption for knitting</p>
+            <a href="garments-tools/yarn-consumption.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-clock tool-icon"></i>
+            <p class="tool-name">SMV Calculator</p>
+            <p class="tool-description">Calculate Standard Minute Value</p>
+            <a href="garments-tools/smv-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-dollar-sign tool-icon"></i>
+            <p class="tool-name">CM Calculator</p>
+            <p class="tool-description">Calculate cost per minute</p>
+            <a href="garments-tools/cm-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-percentage tool-icon"></i>
+            <p class="tool-name">Efficiency Calculator</p>
+            <p class="tool-description">Calculate production line efficiency</p>
+            <a href="garments-tools/efficiency-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-balance-scale tool-icon"></i>
+            <p class="tool-name">Line Balancing</p>
+            <p class="tool-description">Balance production line operations</p>
+            <a href="garments-tools/line-balancing.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-chart-bar tool-icon"></i>
+            <p class="tool-name">Production Capacity</p>
+            <p class="tool-description">Calculate production capacity</p>
+            <a href="garments-tools/production-capacity.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-file-alt tool-icon"></i>
+            <p class="tool-name">Daily Production Report</p>
+            <p class="tool-description">Generate daily production reports</p>
+            <a href="garments-tools/daily-production-report.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-trash-alt tool-icon"></i>
+            <p class="tool-name">Wastage Calculator</p>
+            <p class="tool-description">Calculate fabric wastage percentage</p>
+            <a href="garments-tools/wastage-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-shopping-cart tool-icon"></i>
+            <p class="tool-name">Order Quantity Calculator</p>
+            <p class="tool-description">Calculate order quantity with wastage</p>
+            <a href="garments-tools/order-quantity-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-ship tool-icon"></i>
+            <p class="tool-name">Shipment Planning</p>
+            <p class="tool-description">Plan shipment schedules</p>
+            <a href="garments-tools/shipment-planning.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-chart-pie tool-icon"></i>
+            <p class="tool-name">Profit Loss Calculator</p>
+            <p class="tool-description">Calculate profit and loss</p>
+            <a href="garments-tools/profit-loss-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-user-clock tool-icon"></i>
+            <p class="tool-name">Overtime Calculator</p>
+            <p class="tool-description">Calculate overtime payments</p>
+            <a href="garments-tools/overtime-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+<!-- Factory Tools -->
+<div class="content-section" id="factory">
+    <h2 class="section-title"><i class="fas fa-industry"></i> Factory Tools</h2>
+    <p class="section-description">Tools for factory management and capacity planning.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fas fa-cogs tool-icon"></i>
+            <p class="tool-name">Machine Capacity</p>
+            <p class="tool-description">Calculate machine production capacity</p>
+            <a href="factory-tools/machine-capacity.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-users tool-icon"></i>
+            <p class="tool-name">Manpower Calculator</p>
+            <p class="tool-description">Calculate required manpower</p>
+            <a href="factory-tools/manpower-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-calendar-alt tool-icon"></i>
+            <p class="tool-name">Shift Planning</p>
+            <p class="tool-description">Plan factory work shifts</p>
+            <a href="factory-tools/shift-planning.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-exclamation-triangle tool-icon"></i>
+            <p class="tool-name">Downtime Calculator</p>
+            <p class="tool-description">Calculate machine downtime cost</p>
+            <a href="factory-tools/downtime-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-wrench tool-icon"></i>
+            <p class="tool-name">Maintenance Schedule</p>
+            <p class="tool-description">Schedule machine maintenance</p>
+            <a href="factory-tools/maintenance-schedule.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+<!-- Office Tools -->
+<div class="content-section" id="office">
+    <h2 class="section-title"><i class="fas fa-briefcase"></i> Office Tools</h2>
+    <p class="section-description">Essential office calculation and management tools.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fas fa-money-check-alt tool-icon"></i>
+            <p class="tool-name">Salary Calculator</p>
+            <p class="tool-description">Calculate employee salary breakdown</p>
+            <a href="office-tools/salary-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-receipt tool-icon"></i>
+            <p class="tool-name">Tax Calculator</p>
+            <p class="tool-description">Calculate income tax</p>
+            <a href="office-tools/tax-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-user-check tool-icon"></i>
+            <p class="tool-name">Attendance Calculator</p>
+            <p class="tool-description">Calculate attendance records</p>
+            <a href="office-tools/attendance-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-calendar-check tool-icon"></i>
+            <p class="tool-name">Leave Balance</p>
+            <p class="tool-description">Track leave balance</p>
+            <a href="office-tools/leave-balance-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-file-invoice-dollar tool-icon"></i>
+            <p class="tool-name">Invoice Calculator</p>
+            <p class="tool-description">Create invoice calculations</p>
+            <a href="office-tools/invoice-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-percentage tool-icon"></i>
+            <p class="tool-name">Profit Margin</p>
+            <p class="tool-description">Calculate profit margins</p>
+            <a href="office-tools/profit-margin-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+<!-- Finance Tools -->
+<div class="content-section" id="finance">
+    <h2 class="section-title"><i class="fas fa-chart-line"></i> Finance Tools</h2>
+    <p class="section-description">Financial calculation and planning tools.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fas fa-percent tool-icon"></i>
+            <p class="tool-name">VAT Calculator</p>
+            <p class="tool-description">Calculate VAT/Tax amounts</p>
+            <a href="finance-tools/vat-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-tags tool-icon"></i>
+            <p class="tool-name">Discount Calculator</p>
+            <p class="tool-description">Calculate discounts</p>
+            <a href="finance-tools/discount-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-percentage tool-icon"></i>
+            <p class="tool-name">Interest Calculator</p>
+            <p class="tool-description">Calculate simple & compound interest</p>
+            <a href="finance-tools/interest-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-balance-scale tool-icon"></i>
+            <p class="tool-name">Break Even Analysis</p>
+            <p class="tool-description">Calculate break-even point</p>
+            <a href="finance-tools/break-even.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-money-bill-wave tool-icon"></i>
+            <p class="tool-name">Cash Flow</p>
+            <p class="tool-description">Track cash flow</p>
+            <a href="finance-tools/cash-flow.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-chart-line tool-icon"></i>
+            <p class="tool-name">Depreciation</p>
+            <p class="tool-description">Calculate asset depreciation</p>
+            <a href="finance-tools/depreciation.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+<!-- Logistics Tools -->
+<div class="content-section" id="logistics">
+    <h2 class="section-title"><i class="fas fa-truck"></i> Logistics Tools</h2>
+    <p class="section-description">Shipping and logistics calculation tools.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fas fa-shipping-fast tool-icon"></i>
+            <p class="tool-name">Shipment Cost</p>
+            <p class="tool-description">Calculate shipping costs</p>
+            <a href="logistics-tools/shipment-cost.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-box tool-icon"></i>
+            <p class="tool-name">Container Capacity</p>
+            <p class="tool-description">Calculate container load capacity</p>
+            <a href="logistics-tools/container-capacity.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-clock tool-icon"></i>
+            <p class="tool-name">Lead Time</p>
+            <p class="tool-description">Calculate delivery lead time</p>
+            <a href="logistics-tools/lead-time.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-warehouse tool-icon"></i>
+            <p class="tool-name">Inventory Turnover</p>
+            <p class="tool-description">Calculate inventory turnover ratio</p>
+            <a href="logistics-tools/inventory-turnover.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-redo tool-icon"></i>
+            <p class="tool-name">Reorder Level</p>
+            <p class="tool-description">Calculate reorder points</p>
+            <a href="logistics-tools/reorder-level.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+<!-- IT Support Tools -->
+<div class="content-section" id="itsupport">
+    <h2 class="section-title"><i class="fas fa-headset"></i> IT Support Tools</h2>
+    <p class="section-description">Technical support and troubleshooting tools.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fas fa-laptop-medical tool-icon"></i>
+            <p class="tool-name">PC Health Check</p>
+            <p class="tool-description">Check PC system health</p>
+            <a href="it-support-tools/pc-health-check.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-exclamation-circle tool-icon"></i>
+            <p class="tool-name">Common PC Problems</p>
+            <p class="tool-description">Troubleshoot common issues</p>
+            <a href="it-support-tools/common-pc-problems.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fab fa-windows tool-icon"></i>
+            <p class="tool-name">Windows Error Codes</p>
+            <p class="tool-description">Find Windows error solutions</p>
+            <a href="it-support-tools/windows-error-codes.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-print tool-icon"></i>
+            <p class="tool-name">Printer Error Codes</p>
+            <p class="tool-description">Printer troubleshooting guide</p>
+            <a href="it-support-tools/printer-error-codes.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-list-check tool-icon"></i>
+            <p class="tool-name">Troubleshooting Checklist</p>
+            <p class="tool-description">Step-by-step troubleshooting</p>
+            <a href="it-support-tools/troubleshooting-checklist.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+<!-- Network Admin Tools -->
+<div class="content-section" id="netadmin">
+    <h2 class="section-title"><i class="fas fa-network-wired"></i> Network Admin Tools</h2>
+    <p class="section-description">Network administration and planning tools.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fas fa-sitemap tool-icon"></i>
+            <p class="tool-name">Subnet Calculator</p>
+            <p class="tool-description">Calculate subnet masks</p>
+            <a href="network-admin-tools/subnet-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-network-wired tool-icon"></i>
+            <p class="tool-name">IP Range Calculator</p>
+            <p class="tool-description">Calculate IP address ranges</p>
+            <a href="network-admin-tools/ip-range-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-project-diagram tool-icon"></i>
+            <p class="tool-name">VLAN Calculator</p>
+            <p class="tool-description">Plan VLAN configurations</p>
+            <a href="network-admin-tools/vlan-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-tachometer-alt tool-icon"></i>
+            <p class="tool-name">Bandwidth Calculator</p>
+            <p class="tool-description">Calculate bandwidth requirements</p>
+            <a href="network-admin-tools/bandwidth-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-diagram-project tool-icon"></i>
+            <p class="tool-name">Network Topology Guide</p>
+            <p class="tool-description">Network design guide</p>
+            <a href="network-admin-tools/network-topology-guide.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+<!-- Sysadmin Tools -->
+<div class="content-section" id="sysadmin">
+    <h2 class="section-title"><i class="fas fa-server"></i> Sysadmin Tools</h2>
+    <p class="section-description">System administration and monitoring tools.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fas fa-heartbeat tool-icon"></i>
+            <p class="tool-name">Server Health Check</p>
+            <p class="tool-description">Monitor server health</p>
+            <a href="sysadmin-tools/server-health-check.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-hdd tool-icon"></i>
+            <p class="tool-name">Disk Usage Calculator</p>
+            <p class="tool-description">Calculate disk space usage</p>
+            <a href="sysadmin-tools/disk-usage-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-memory tool-icon"></i>
+            <p class="tool-name">RAM Usage Calculator</p>
+            <p class="tool-description">Calculate RAM requirements</p>
+            <a href="sysadmin-tools/ram-usage-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-clock tool-icon"></i>
+            <p class="tool-name">Uptime Calculator</p>
+            <p class="tool-description">Calculate system uptime</p>
+            <a href="sysadmin-tools/uptime-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-database tool-icon"></i>
+            <p class="tool-name">Backup Planning</p>
+            <p class="tool-description">Plan backup strategies</p>
+            <a href="sysadmin-tools/backup-planning.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+<!-- Cyber Security Tools -->
+<div class="content-section" id="cybersec">
+    <h2 class="section-title"><i class="fas fa-user-shield"></i> Cyber Security Tools</h2>
+    <p class="section-description">Security assessment and awareness tools.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fas fa-key tool-icon"></i>
+            <p class="tool-name">Password Policy Check</p>
+            <p class="tool-description">Verify password policy compliance</p>
+            <a href="cyber-security-tools/password-policy-check.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-shield-alt tool-icon"></i>
+            <p class="tool-name">Security Risk Checklist</p>
+            <p class="tool-description">Security assessment checklist</p>
+            <a href="cyber-security-tools/security-risk-checklist.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-virus tool-icon"></i>
+            <p class="tool-name">Malware Symptoms</p>
+            <p class="tool-description">Identify malware symptoms</p>
+            <a href="cyber-security-tools/malware-symptoms.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-graduation-cap tool-icon"></i>
+            <p class="tool-name">Security Awareness</p>
+            <p class="tool-description">Security awareness training</p>
+            <a href="cyber-security-tools/security-awareness.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+<!-- Windows Tools -->
+<div class="content-section" id="windows">
+    <h2 class="section-title"><i class="fab fa-windows"></i> Windows Tools</h2>
+    <p class="section-description">Windows system tools and guides.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fab fa-windows tool-icon"></i>
+            <p class="tool-name">Windows Version Check</p>
+            <p class="tool-description">Check Windows version info</p>
+            <a href="windows-tools/windows-version-check.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-keyboard tool-icon"></i>
+            <p class="tool-name">Windows Shortcuts</p>
+            <p class="tool-description">Keyboard shortcuts guide</p>
+            <a href="windows-tools/windows-shortcuts.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-cogs tool-icon"></i>
+            <p class="tool-name">Windows Services</p>
+            <p class="tool-description">Windows services guide</p>
+            <a href="windows-tools/windows-services-guide.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-exclamation-triangle tool-icon"></i>
+            <p class="tool-name">BSOD Error Guide</p>
+            <p class="tool-description">Blue screen error solutions</p>
+            <a href="windows-tools/bsod-error-guide.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+<!-- Linux Tools -->
+<div class="content-section" id="linux">
+    <h2 class="section-title"><i class="fab fa-linux"></i> Linux Tools</h2>
+    <p class="section-description">Linux system tools and commands.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fab fa-linux tool-icon"></i>
+            <p class="tool-name">Linux Distro Check</p>
+            <p class="tool-description">Check Linux distribution info</p>
+            <a href="linux-tools/linux-distro-check.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-terminal tool-icon"></i>
+            <p class="tool-name">Linux Commands</p>
+            <p class="tool-description">Linux command reference</p>
+            <a href="linux-tools/linux-command-reference.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-lock tool-icon"></i>
+            <p class="tool-name">Permission Calculator</p>
+            <p class="tool-description">Calculate file permissions (chmod)</p>
+            <a href="linux-tools/permission-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-clock tool-icon"></i>
+            <p class="tool-name">Cron Job Helper</p>
+            <p class="tool-description">Create cron job schedules</p>
+            <a href="linux-tools/cron-job-helper.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+<!-- Cloud Tools -->
+<div class="content-section" id="cloud">
+    <h2 class="section-title"><i class="fas fa-cloud"></i> Cloud Tools</h2>
+    <p class="section-description">Cloud computing calculation tools.</p>
+    <div class="tools-grid">
+        <div class="tool-card">
+            <i class="fas fa-dollar-sign tool-icon"></i>
+            <p class="tool-name">Cloud Cost Estimator</p>
+            <p class="tool-description">Estimate cloud service costs</p>
+            <a href="cloud-tools/cloud-cost-estimator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-server tool-icon"></i>
+            <p class="tool-name">VM Resource Calculator</p>
+            <p class="tool-description">Calculate VM resource needs</p>
+            <a href="cloud-tools/vm-resource-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-database tool-icon"></i>
+            <p class="tool-name">Backup Size Calculator</p>
+            <p class="tool-description">Calculate backup storage size</p>
+            <a href="cloud-tools/backup-size-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+        <div class="tool-card">
+            <i class="fas fa-balance-scale tool-icon"></i>
+            <p class="tool-name">Cloud Service Comparison</p>
+            <p class="tool-description">Compare cloud providers</p>
+            <a href="cloud-tools/cloud-service-comparison.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- IT Learning Tools -->
+<div class="content-section" id="itlearning">
+    <h2 class="section-title"><i class="fas fa-graduation-cap"></i> IT Learning Tools</h2>
+    <p class="section-description">Learning references for IT & Networking.</p>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <p class="tool-name">Port Numbers</p>
+            <a href="it-learning-tools/port-numbers.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <p class="tool-name">Protocol Reference</p>
+            <a href="it-learning-tools/protocol-reference.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <p class="tool-name">OSI Model</p>
+            <a href="it-learning-tools/osi-model.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <p class="tool-name">TCP/IP Model</p>
+            <a href="it-learning-tools/tcp-ip-model.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <p class="tool-name">Interview Questions</p>
+            <a href="it-learning-tools/interview-questions.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Education Tools -->
+<div class="content-section" id="education">
+    <h2 class="section-title">
+        <i class="fas fa-graduation-cap"></i> Education Tools
+    </h2>
+    <p class="section-description">Education and study-related calculation tools.</p>
+
+    <div class="tools-grid">
+
+        <div class="tool-card">
+            <i class="fas fa-calculator tool-icon"></i>
+            <p class="tool-name">CGPA Calculator</p>
+            <p class="tool-description">Calculate your cumulative GPA</p>
+            <a href="education-tools/cgpa-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <i class="fas fa-percent tool-icon"></i>
+            <p class="tool-name">GPA Calculator</p>
+            <p class="tool-description">Calculate semester GPA</p>
+            <a href="education-tools/gpa-calculator.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <i class="fas fa-chart-line tool-icon"></i>
+            <p class="tool-name">Marks to Percentage</p>
+            <p class="tool-description">Convert marks into percentage</p>
+            <a href="education-tools/marks-percentage.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <i class="fas fa-clock tool-icon"></i>
+            <p class="tool-name">Study Timer</p>
+            <p class="tool-description">Track your study time</p>
+            <a href="education-tools/study-timer.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <i class="fas fa-hourglass-half tool-icon"></i>
+            <p class="tool-name">Exam Countdown</p>
+            <p class="tool-description">Countdown to your exam date</p>
+            <a href="education-tools/exam-countdown.html" class="tool-link">Launch Tool</a>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+<!-- Bangladesh Tools -->
+<div class="content-section" id="bd">
+    <h2 class="section-title"><i class="fas fa-flag"></i> Bangladesh Tools</h2>
+    <p class="section-description">Important Bangladesh-related public information tools.</p>
+
+    <div class="tools-grid">
+        <div class="tool-card">
+            <p class="tool-name">NID Information</p>
+            <a href="bd-tools/nid-info.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <p class="tool-name">Postal Code Finder</p>
+            <a href="bd-tools/postal-code.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <p class="tool-name">Government Holidays</p>
+            <a href="bd-tools/govt-holiday.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <p class="tool-name">Minimum Wage</p>
+            <a href="bd-tools/minimum-wage.html" class="tool-link">Launch Tool</a>
+        </div>
+
+        <div class="tool-card">
+            <p class="tool-name">VAT Rules</p>
+            <a href="bd-tools/vat-rule.html" class="tool-link">Launch Tool</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Tools</h3>
+            <p>Free collection of online tools for everyday tasks. No installation required, works directly in your browser.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../skills.html">Skills</a></li>
+                <li><a href="tools.html">Tools</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:asadul.it@yahoo.com">asadul.it@yahoo.com</a></li>
+                <li><a href="tel:01706927793">01706927793</a></li>
+                <li>Savar, Dhaka</li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    document.querySelectorAll('.cat-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Remove active from all
+            document.querySelectorAll('.cat-link').forEach(l => l.classList.remove('active'));
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            
+            // Add active to clicked
+            this.classList.add('active');
+            const cat = this.getAttribute('data-cat');
+            document.getElementById(cat).classList.add('active');
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.cat-link').forEach(link => {
+    link.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        // remove active class
+        document.querySelectorAll('.cat-link').forEach(l => l.classList.remove('active'));
+        document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+
+        // add active
+        this.classList.add('active');
+        const target = this.getAttribute('data-cat');
+        document.getElementById(target).classList.add('active');
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

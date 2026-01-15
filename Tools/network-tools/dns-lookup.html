@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNS Lookup - Online Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            background: #ffffff;
+            color: #000000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            padding: 20px 0;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .navbar ul li a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .navbar ul li a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .tool-container {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.1);
+            border: 2px solid #f0f3ff;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tool-header h2 {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .tool-header p {
+            color: #5a6c7d;
+            font-size: 1.05em;
+        }
+
+        .tool-icon-large {
+            font-size: 4em;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        /* Input Section */
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e4e8;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: #a0a8b0;
+            font-style: italic;
+        }
+
+        .input-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e4e8;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 35px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05em;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #c53030;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+
+        /* Error Message */
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* Results Section */
+        .results-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .results-section.show {
+            display: block;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+        }
+
+        .result-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .record-type-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .record-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .record-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .record-value {
+            color: #2c3e50;
+            font-weight: bold;
+            word-break: break-all;
+            line-height: 1.6;
+        }
+
+        .record-ttl {
+            color: #5a6c7d;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .no-records {
+            text-align: center;
+            color: #5a6c7d;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #e6fffa;
+            border-left: 4px solid #38b2ac;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .info-box p {
+            color: #2c5282;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            margin-top: 50px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #5a6c7d;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #f0f3ff;
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #e0e4e8;
+            color: #5a6c7d;
+            font-size: 0.9em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .tool-container {
+                padding: 25px;
+            }
+
+            .tool-header h2 {
+                font-size: 1.5em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .navbar ul {
+                gap: 10px;
+            }
+
+            .navbar ul li a {
+                font-size: 0.9em;
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="fixed-header-container">
+    <div class="navbar">
+        <h1 style="margin: 0;">ONLINE TOOLS</h1>
+    </div>
+    <div class="navbar" style="justify-content: center; padding: 10px 20px;">
+        <ul>
+            <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="../skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+            <li><a href="../tools.html"><i class="fas fa-tools"></i> Tools</a></li>
+            <li><a href="../certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+            <li><a href="../contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+    <div class="tool-container">
+        <div class="tool-header">
+            <i class="fas fa-search tool-icon-large"></i>
+            <h2>DNS Lookup Tool</h2>
+            <p>Lookup DNS records for any domain name</p>
+        </div>
+
+        <!-- Info Box -->
+        <div class="info-box">
+            <p><i class="fas fa-info-circle"></i> <strong>What is DNS?</strong> DNS (Domain Name System) translates domain names into IP addresses. This tool helps you查看 various DNS records like A, AAAA, MX, NS, TXT, and more.</p>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-group">
+                <label for="domain"><i class="fas fa-globe"></i> Domain Name</label>
+                <input 
+                    type="text" 
+                    id="domain" 
+                    placeholder="Enter domain name (e.g., google.com)"
+                >
+                <span class="error-message" id="errorMessage">Please enter a valid domain name</span>
+            </div>
+
+            <div class="input-group">
+                <label for="recordType"><i class="fas fa-list"></i> Record Type</label>
+                <select id="recordType">
+                    <option value="A">A - IPv4 Address</option>
+                    <option value="AAAA">AAAA - IPv6 Address</option>
+                    <option value="MX">MX - Mail Exchange</option>
+                    <option value="NS">NS - Name Server</option>
+                    <option value="TXT">TXT - Text Records</option>
+                    <option value="CNAME">CNAME - Canonical Name</option>
+                    <option value="SOA">SOA - Start of Authority</option>
+                    <option value="PTR">PTR - Pointer Record</option>
+                    <option value="SRV">SRV - Service Record</option>
+                </select>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="lookupDNS()">
+                    <i class="fas fa-search"></i> Lookup DNS
+                </button>
+                <button class="btn btn-secondary" onclick="clearResults()">
+                    <i class="fas fa-times"></i> Clear
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 15px; color: #667eea; font-weight: bold;">Fetching DNS records...</p>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="result-card">
+                <div class="result-header">
+                    <i class="fas fa-check-circle" style="color: #48bb78;"></i>
+                    DNS Records for <span id="domainName" style="color: #667eea;">-</span>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <span class="record-type-badge" id="recordTypeBadge">A</span>
+                </div>
+
+                <div id="recordsContainer">
+                    <!-- Records will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Tools</h3>
+            <p>Free collection of online tools for everyday tasks. No installation required, works directly in your browser.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../skills.html">Skills</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:asadul.it@yahoo.com">asadul.it@yahoo.com</a></li>
+                <li><a href="tel:01706927793">01706927793</a></li>
+                <li>Savar, Dhaka</li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // Validate domain name
+    function isValidDomain(domain) {
+        const domainPattern = /^(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)$/;
+        return domainPattern.test(domain);
+    }
+
+    // Lookup DNS records
+    async function lookupDNS() {
+        const domainInput = document.getElementById('domain').value.trim();
+        const recordType = document.getElementById('recordType').value;
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Reset error
+        errorMessage.style.display = 'none';
+        
+        // Validate domain
+        if (!domainInput) {
+            errorMessage.textContent = 'Please enter a domain name';
+            errorMessage.style.display = 'block';
+            return;
+        }
+        
+        if (!isValidDomain(domainInput)) {
+            errorMessage.textContent = 'Please enter a valid domain name';
+            errorMessage.style.display = 'block';
+            return;
+        }
+        
+        // Fetch DNS records
+        await fetchDNSRecords(domainInput, recordType);
+    }
+
+    // Fetch DNS records from API
+    async function fetchDNSRecords(domain, type) {
+        const loading = document.getElementById('loading');
+        const resultsSection = document.getElementById('resultsSection');
+        
+        // Show loading, hide results
+        loading.classList.add('show');
+        resultsSection.classList.remove('show');
+        
+        try {
+            // Using Google DNS over HTTPS API
+            const apiUrl = `https://dns.google/resolve?name=${domain}&type=${type}`;
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+            
+            displayResults(domain, type, data);
+        } catch (error) {
+            console.error('Error fetching DNS records:', error);
+            alert('An error occurred while fetching DNS records. Please check your internet connection.');
+        } finally {
+            loading.classList.remove('show');
+        }
+    }
+
+    // Display DNS records
+    function displayResults(domain, type, data) {
+        const domainName = document.getElementById('domainName');
+        const recordTypeBadge = document.getElementById('recordTypeBadge');
+        const recordsContainer = document.getElementById('recordsContainer');
+        const resultsSection = document.getElementById('resultsSection');
+        
+        // Update domain name and record type
+        domainName.textContent = domain;
+        recordTypeBadge.textContent = type;
+        
+        // Clear previous records
+        recordsContainer.innerHTML = '';
+        
+        // Check if records exist
+        if (data.Answer && data.Answer.length > 0) {
+            data.Answer.forEach(record => {
+                const recordItem = document.createElement('div');
+                recordItem.className = 'record-item';
+                
+                recordItem.innerHTML = `
+                    <div class="record-value">${escapeHtml(record.data)}</div>
+                    <div class="record-ttl">TTL: ${record.TTL} seconds</div>
+                `;
+                
+                recordsContainer.appendChild(recordItem);
+            });
+        } else {
+            recordsContainer.innerHTML = '<div class="no-records"><i class="fas fa-exclamation-circle"></i> No records found for this domain and record type.</div>';
+        }
+        
+        // Show results
+        resultsSection.classList.add('show');
+    }
+
+    // Escape HTML to prevent XSS
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // Clear results
+    function clearResults() {
+        document.getElementById('domain').value = '';
+        document.getElementById('recordType').selectedIndex = 0;
+        document.getElementById('resultsSection').classList.remove('show');
+        document.getElementById('errorMessage').style.display = 'none';
+    }
+
+    // Enter key support
+    document.getElementById('domain').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            lookupDNS();
+        }
+    });
+</script>
+
+</body>
+</html>
