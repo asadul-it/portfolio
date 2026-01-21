@@ -23,7 +23,6 @@
             flex-direction: column;
         }
 
-        /* Header */
         .fixed-header-container {
             position: sticky;
             top: 0;
@@ -75,7 +74,6 @@
             font-weight: 700;
         }
 
-        /* Main Container */
         .container {
             max-width: 900px;
             margin: 40px auto;
@@ -114,7 +112,6 @@
             margin-bottom: 20px;
         }
 
-        /* Input Section */
         .input-section {
             margin-bottom: 30px;
         }
@@ -153,7 +150,6 @@
             font-style: italic;
         }
 
-        /* Buttons */
         .button-group {
             display: flex;
             gap: 15px;
@@ -198,7 +194,6 @@
             box-shadow: 0 5px 15px rgba(72, 187, 120, 0.3);
         }
 
-        /* Error Message */
         .error-message {
             color: #e53e3e;
             font-size: 0.9em;
@@ -207,7 +202,6 @@
             display: none;
         }
 
-        /* Results Section */
         .results-section {
             margin-top: 30px;
             padding: 25px;
@@ -290,7 +284,6 @@
             font-weight: bold;
         }
 
-        /* Loading Spinner */
         .loading {
             display: none;
             text-align: center;
@@ -316,7 +309,15 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Footer */
+        .warning-box {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+
         footer {
             background: #ffffff;
             padding: 40px 20px;
@@ -395,7 +396,6 @@
             font-size: 0.9em;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8em;
@@ -435,7 +435,6 @@
 </head>
 <body>
 
-<!-- Header -->
 <div class="fixed-header-container">
     <div class="navbar">
         <h1 style="margin: 0;">ONLINE TOOLS</h1>
@@ -451,7 +450,6 @@
     </div>
 </div>
 
-<!-- Main Container -->
 <div class="container">
     <div class="tool-container">
         <div class="tool-header">
@@ -460,7 +458,6 @@
             <p>Track the geographical location of any IP address</p>
         </div>
 
-        <!-- Input Section -->
         <div class="input-section">
             <div class="input-group">
                 <label for="ipAddress"><i class="fas fa-network-wired"></i> IP Address</label>
@@ -482,13 +479,11 @@
             </div>
         </div>
 
-        <!-- Loading Spinner -->
         <div class="loading" id="loading">
             <div class="spinner"></div>
             <p style="margin-top: 15px; color: #667eea; font-weight: bold;">Fetching IP location data...</p>
         </div>
 
-        <!-- Results Section -->
         <div class="results-section" id="resultsSection">
             <div class="result-header">
                 <i class="fas fa-check-circle" style="color: #48bb78;"></i>
@@ -551,7 +546,6 @@
     </div>
 </div>
 
-<!-- Footer -->
 <footer>
     <div class="footer-container">
         <div class="footer-column">
@@ -591,90 +585,192 @@
 </footer>
 
 <script>
-    // Validate IP address format
     function isValidIP(ip) {
-        const ipPattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-        return ipPattern.test(ip);
+        const ipv4Pattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        const ipv6Pattern = /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4})$/;
+        return ipv4Pattern.test(ip) || ipv6Pattern.test(ip);
     }
 
-    // Track specific IP
     async function trackIP() {
         const ipInput = document.getElementById('ipAddress').value.trim();
         const errorMessage = document.getElementById('errorMessage');
         
-        // Reset error
         errorMessage.style.display = 'none';
         
-        // If empty, track user's own IP
         if (!ipInput) {
             trackMyIP();
             return;
         }
         
-        // Validate IP
         if (!isValidIP(ipInput)) {
             errorMessage.style.display = 'block';
             return;
         }
         
-        // Fetch IP location data
         await fetchIPLocation(ipInput);
     }
 
-    // Track user's own IP
     async function trackMyIP() {
         await fetchIPLocation('');
     }
 
-    // Fetch IP location data from API
     async function fetchIPLocation(ip) {
         const loading = document.getElementById('loading');
         const resultsSection = document.getElementById('resultsSection');
         
-        // Show loading, hide results
         loading.classList.add('show');
         resultsSection.classList.remove('show');
         
-        try {
-            // Using ip-api.com free API
-            const apiUrl = ip ? `http://ip-api.com/json/${ip}` : 'http://ip-api.com/json/';
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-            
-            if (data.status === 'success') {
-                displayResults(data);
-            } else {
-                alert('Failed to fetch IP location. Please try again.');
+        // Multiple APIs with HTTPS support
+        const apis = [
+            {
+                name: 'ipapi.co',
+                getUrl: (ip) => ip ? `https://ipapi.co/${ip}/json/` : 'https://ipapi.co/json/',
+                parse: (data) => {
+                    if (data.error) throw new Error(data.reason || 'API Error');
+                    return {
+                        ip: data.ip,
+                        country: data.country_name,
+                        region: data.region,
+                        city: data.city,
+                        postal: data.postal,
+                        timezone: data.timezone,
+                        lat: data.latitude,
+                        lon: data.longitude,
+                        isp: data.org,
+                        org: data.org
+                    };
+                }
+            },
+            {
+                name: 'ipwhois.app',
+                getUrl: (ip) => ip ? `https://ipwhois.app/json/${ip}` : 'https://ipwhois.app/json/',
+                parse: (data) => {
+                    if (!data.success) throw new Error('API Error');
+                    return {
+                        ip: data.ip,
+                        country: data.country,
+                        region: data.region,
+                        city: data.city,
+                        postal: data.postal || '-',
+                        timezone: data.timezone,
+                        lat: data.latitude,
+                        lon: data.longitude,
+                        isp: data.isp,
+                        org: data.org || data.isp
+                    };
+                }
+            },
+            {
+                name: 'ip-api.com',
+                getUrl: (ip) => ip ? `http://ip-api.com/json/${ip}` : 'http://ip-api.com/json/',
+                parse: (data) => {
+                    if (data.status === 'fail') throw new Error(data.message || 'API Error');
+                    return {
+                        ip: data.query,
+                        country: data.country,
+                        region: data.regionName,
+                        city: data.city,
+                        postal: data.zip,
+                        timezone: data.timezone,
+                        lat: data.lat,
+                        lon: data.lon,
+                        isp: data.isp,
+                        org: data.org
+                    };
+                }
+            },
+            {
+                name: 'freeipapi',
+                getUrl: (ip) => ip ? `https://freeipapi.com/api/json/${ip}` : 'https://freeipapi.com/api/json/',
+                parse: (data) => ({
+                    ip: data.ipAddress,
+                    country: data.countryName,
+                    region: data.regionName,
+                    city: data.cityName,
+                    postal: data.zipCode || '-',
+                    timezone: data.timeZone,
+                    lat: data.latitude,
+                    lon: data.longitude,
+                    isp: '-',
+                    org: '-'
+                })
             }
-        } catch (error) {
-            console.error('Error fetching IP location:', error);
-            alert('An error occurred while fetching IP location. Please check your internet connection.');
-        } finally {
-            loading.classList.remove('show');
+        ];
+
+        let lastError = null;
+        
+        for (const api of apis) {
+            try {
+                console.log(`Trying ${api.name}...`);
+                const url = api.getUrl(ip);
+                
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                
+                const response = await fetch(url, {
+                    signal: controller.signal,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                clearTimeout(timeoutId);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                
+                const data = await response.json();
+                console.log(`${api.name} response:`, data);
+                
+                const parsed = api.parse(data);
+                displayResults(parsed);
+                loading.classList.remove('show');
+                return;
+                
+            } catch (error) {
+                lastError = error;
+                console.warn(`${api.name} failed:`, error.message);
+                continue;
+            }
         }
+
+        loading.classList.remove('show');
+        
+        let errorMsg = 'Unable to fetch IP location data. ';
+        if (ip) {
+            errorMsg += 'The IP address might be invalid, private, or reserved. ';
+        } else {
+            errorMsg += 'Could not detect your public IP. ';
+        }
+        errorMsg += 'Please try again or use a different IP address.';
+        
+        if (lastError && lastError.message.includes('abort')) {
+            errorMsg = 'Request timed out. Please check your internet connection and try again.';
+        }
+        
+        alert(errorMsg);
+        console.error('All APIs failed. Last error:', lastError);
     }
 
-    // Display results
     function displayResults(data) {
-        document.getElementById('resultIP').textContent = data.query || '-';
+        document.getElementById('resultIP').textContent = data.ip || '-';
         document.getElementById('resultCountry').textContent = data.country || '-';
-        document.getElementById('resultRegion').textContent = data.regionName || '-';
+        document.getElementById('resultRegion').textContent = data.region || '-';
         document.getElementById('resultCity').textContent = data.city || '-';
-        document.getElementById('resultPostal').textContent = data.zip || '-';
+        document.getElementById('resultPostal').textContent = data.postal || '-';
         document.getElementById('resultTimezone').textContent = data.timezone || '-';
         document.getElementById('resultLat').textContent = data.lat || '-';
         document.getElementById('resultLon').textContent = data.lon || '-';
         document.getElementById('resultISP').textContent = data.isp || '-';
         document.getElementById('resultOrg').textContent = data.org || '-';
         
-        // Update map coordinates
-        document.getElementById('mapCoordinates').textContent = `Lat: ${data.lat}, Lon: ${data.lon}`;
+        document.getElementById('mapCoordinates').textContent = `Lat: ${data.lat || '-'}, Lon: ${data.lon || '-'}`;
         
-        // Show results
         document.getElementById('resultsSection').classList.add('show');
     }
 
-    // Enter key support
     document.getElementById('ipAddress').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             trackIP();
