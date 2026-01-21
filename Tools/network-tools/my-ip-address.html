@@ -591,7 +591,6 @@
         </div>
 
         <div id="ipInfo" style="display: none;">
-            <!-- Primary IP Card -->
             <div class="primary-ip-card">
                 <div class="primary-ip-label">YOUR PUBLIC IP ADDRESS</div>
                 <div class="primary-ip-value" id="publicIP">--</div>
@@ -607,7 +606,6 @@
                 <i class="fas fa-exclamation-triangle"></i> <strong>Note:</strong> <span id="errorMessage"></span>
             </div>
 
-            <!-- Location & Network Info -->
             <h3 class="section-title">
                 <i class="fas fa-map-marker-alt"></i> Location & Network Information
             </h3>
@@ -649,7 +647,6 @@
                 </div>
             </div>
 
-            <!-- Device & Browser Info -->
             <h3 class="section-title">
                 <i class="fas fa-laptop"></i> Device & Browser Information
             </h3>
@@ -679,7 +676,6 @@
                 </div>
             </div>
 
-            <!-- Security Status -->
             <h3 class="section-title">
                 <i class="fas fa-shield-alt"></i> Security & Privacy Status
             </h3>
@@ -692,7 +688,6 @@
                 <p style="color: #065f46; font-weight: 600;">Your device is successfully connected to the internet.</p>
             </div>
 
-            <!-- Action Buttons -->
             <div class="button-group">
                 <button class="btn-refresh" onclick="loadIPInfo()">
                     <i class="fas fa-sync-alt"></i> Refresh Information
@@ -774,17 +769,17 @@
                 })
             },
             {
-                name: 'ip-api.com',
-                url: 'http://ip-api.com/json/',
+                name: 'ipify',
+                url: 'https://api.ipify.org?format=json',
                 parse: (data) => ({
-                    ip: data.query,
-                    country: data.country,
-                    city: data.city,
-                    region: data.regionName,
-                    isp: data.isp,
-                    timezone: data.timezone,
-                    latitude: data.lat,
-                    longitude: data.lon
+                    ip: data.ip,
+                    country: 'Not Available',
+                    city: 'Not Available',
+                    region: 'Not Available',
+                    isp: 'Not Available',
+                    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                    latitude: null,
+                    longitude: null
                 })
             }
         ];
@@ -826,7 +821,7 @@
             }
         }
 
-        errorMessage.textContent = 'Unable to fetch IP data from external APIs. This may be due to CORS restrictions or network issues. Showing device information only.';
+        errorMessage.textContent = 'Unable to fetch IP data. This may be due to network restrictions. Showing device information only.';
         errorNotice.style.display = 'block';
         
         document.getElementById('publicIP').textContent = 'Unable to fetch';
@@ -860,7 +855,6 @@
         });
     }
 
-    // Mobile menu toggle
     const hamburger = document.getElementById('hamburger');
     const navbar = document.getElementById('navbar');
     const navMenu = document.getElementById('navMenu');
