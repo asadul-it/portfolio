@@ -3,15 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAC Address Lookup - Find Vendor Details | Online Tools</title>
-    
-    <meta name="title" content="MAC Address Lookup - Find Vendor Details">
-    <meta name="description" content="Free MAC address lookup tool to find manufacturer/vendor details from MAC address using real-time API. Check OUI database for network device identification.">
-    <meta name="keywords" content="MAC address lookup, MAC vendor lookup, OUI lookup, MAC finder, network device identification, MAC address checker, OUI API">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="author" content="Online Tools">
-    
+    <title>VLSM Calculator - Online Tools</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
     <style>
@@ -23,15 +15,13 @@
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background: #ffffff;
+            background: #f5f7fa;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            color: #000000;
-            font-style: italic;
+            color: #2c3e50;
         }
 
-        /* Header - Same as portfolio */
         .fixed-header-container {
             position: sticky;
             top: 0;
@@ -39,56 +29,97 @@
             background: #ffffff;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            display: none;
+        }
+
+        h1 {
+            color: #2563eb;
+            font-size: 2.5em;
+            text-align: center;
             padding: 20px 0;
+            font-weight: 700;
         }
 
         .navbar {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
             align-items: center;
         }
 
         .navbar ul {
             list-style: none;
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
         }
 
         .navbar ul li a {
-            color: #000000;
+            color: #2c3e50;
             text-decoration: none;
             font-weight: 600;
-            padding: 10px 15px;
-            border-radius: 5px;
+            padding: 8px 0;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 5px;
-            font-style: italic;
+            gap: 8px;
+            font-size: 1em;
+            white-space: nowrap;
         }
 
         .navbar ul li a:hover {
-            background: #667eea;
-            color: white;
+            color: #2563eb;
         }
 
-        h1 {
-            color: #667eea;
-            font-size: 2.5em;
-            text-align: center;
-            padding: 20px 0;
-            font-weight: 700;
-            font-style: italic;
+        .navbar ul li a i {
+            font-size: 1.2em;
         }
 
-        /* Main Container */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: #2563eb;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 30px 20px;
             width: 100%;
@@ -98,17 +129,14 @@
         .breadcrumb {
             margin-bottom: 20px;
             color: #5a6c7d;
-            font-style: italic;
         }
 
         .breadcrumb a {
-            color: #667eea;
+            color: #2563eb;
             text-decoration: none;
             font-weight: 600;
-            font-style: italic;
         }
 
-        /* Tool Container */
         .tool-container {
             background: #ffffff;
             border-radius: 10px;
@@ -119,17 +147,15 @@
 
         .tool-title {
             font-size: 2em;
-            color: #000000;
+            color: #2c3e50;
             margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 15px;
-            font-weight: bold;
-            font-style: italic;
         }
 
         .tool-title i {
-            color: #667eea;
+            color: #2563eb;
             font-size: 2em;
         }
 
@@ -138,122 +164,148 @@
             margin-bottom: 30px;
             font-size: 1.05em;
             line-height: 1.6;
-            font-style: italic;
         }
 
-        /* Input Section */
-        .input-section {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
+        .section-title {
+            font-size: 1.4em;
+            color: #2c3e50;
+            margin: 40px 0 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f3ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #2563eb;
         }
 
         .input-group {
             margin-bottom: 25px;
         }
 
-        .input-label {
+        .input-group label {
             display: block;
+            font-weight: 600;
+            color: #2c3e50;
             margin-bottom: 8px;
-            font-weight: bold;
-            color: #000000;
-            font-size: 1.1em;
-            font-style: italic;
+            font-size: 1em;
         }
 
-        .input-field {
+        .input-group input {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid #dee2e6;
-            border-radius: 6px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
             font-size: 1em;
-            font-family: 'Montserrat', sans-serif;
             transition: all 0.3s ease;
-            font-style: italic;
+            font-family: 'Courier New', monospace;
         }
 
-        .input-field:focus {
+        .input-group input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
-        .formats {
-            margin-top: 10px;
-            color: #5a6c7d;
-            font-size: 0.9em;
-            font-style: italic;
-        }
-
-        /* Buttons */
-        .button-group {
+        .subnet-input-container {
             display: flex;
             gap: 15px;
-            flex-wrap: wrap;
-            margin: 30px 0;
+            margin-bottom: 15px;
+            align-items: flex-end;
         }
 
-        button {
-            padding: 12px 30px;
-            border: none;
+        .subnet-input-container input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
             border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
             font-size: 1em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-style: italic;
+            transition: all 0.3s ease;
+        }
+
+        .subnet-input-container input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .subnet-input-container .subnet-name-input {
             font-family: 'Montserrat', sans-serif;
         }
 
-        .btn-lookup {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        .subnet-input-container .subnet-hosts-input {
+            font-family: 'Courier New', monospace;
         }
 
-        .btn-lookup:hover {
-            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.5);
+        .btn-remove {
+            padding: 12px 20px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-remove:hover {
+            background: #dc2626;
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
         }
 
-        .btn-reset {
-            background: #6c757d;
+        .btn-add {
+            padding: 12px 25px;
+            background: #10b981;
             color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .btn-reset:hover {
-            background: #545b62;
+        .btn-add:hover {
+            background: #059669;
             transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
 
-        .btn-example {
-            background: #17a2b8;
+        .btn-calculate {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
-            padding: 8px 20px;
-            font-size: 0.9em;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .btn-example:hover {
-            background: #138496;
+        .btn-calculate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.5);
         }
 
-        .btn-batch {
-            background: #28a745;
-            color: white;
-        }
-
-        .btn-batch:hover {
-            background: #218838;
-        }
-
-        /* Results Section */
-        .results-section {
+        .results-container {
+            margin-top: 40px;
             display: none;
-            margin-top: 30px;
             animation: fadeIn 0.5s ease;
         }
 
@@ -262,192 +314,159 @@
             to { opacity: 1; }
         }
 
-        .results-section.show {
+        .results-container.show {
             display: block;
         }
 
-        .result-card {
-            background: linear-gradient(135deg, #f0f9ff 0%, #f3e8ff 100%);
-            border-left: 4px solid #667eea;
-            padding: 30px;
-            border-radius: 8px;
+        .subnet-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+            border-left: 5px solid #2563eb;
+            padding: 25px;
             margin-bottom: 20px;
+            border-radius: 10px;
             transition: all 0.3s ease;
         }
 
-        .result-card:hover {
+        .subnet-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
         }
 
-        .result-header {
+        .subnet-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
         }
 
-        .mac-display {
-            font-family: 'Courier New', monospace;
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #000000;
-            background: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            font-style: italic;
+        .subnet-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2563eb;
         }
 
-        .vendor-badge {
-            background: #667eea;
+        .subnet-badge {
+            background: #2563eb;
             color: white;
-            padding: 8px 15px;
+            padding: 6px 15px;
             border-radius: 20px;
+            font-size: 0.85em;
             font-weight: 600;
-            font-size: 0.9em;
-            font-style: italic;
         }
 
-        .result-grid {
+        .subnet-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            gap: 15px;
+            margin-top: 15px;
         }
 
-        .info-box {
+        .info-item {
             background: white;
-            padding: 20px;
-            border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
 
         .info-label {
-            font-size: 0.9em;
-            color: #5a6c7d;
-            margin-bottom: 5px;
+            font-size: 0.85em;
+            color: #64748b;
             font-weight: 600;
-            font-style: italic;
+            margin-bottom: 5px;
         }
 
         .info-value {
-            font-size: 1.2em;
-            color: #000000;
-            font-weight: bold;
-            word-break: break-word;
-            font-style: italic;
+            font-size: 1.05em;
+            color: #1e293b;
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
         }
 
-        /* Batch Results */
-        .batch-results {
-            margin-top: 30px;
-        }
-
-        .batch-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-top: 20px;
-        }
-
-        .batch-table th {
-            background: #667eea;
-            color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: bold;
-            font-style: italic;
-        }
-
-        .batch-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #dee2e6;
-            font-style: italic;
-        }
-
-        .batch-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        /* Error Messages */
         .error-message {
-            color: #dc3545;
-            font-size: 0.9em;
-            margin-top: 5px;
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 15px;
+            border-radius: 8px;
+            color: #991b1b;
+            margin-top: 20px;
             display: none;
-            font-style: italic;
+            font-weight: 600;
         }
 
         .error-message.show {
             display: block;
+            animation: shake 0.5s ease;
         }
 
-        .success-message {
-            color: #28a745;
-            font-size: 0.9em;
-            margin-top: 5px;
-            display: none;
-            font-style: italic;
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
         }
 
-        .success-message.show {
-            display: block;
+        .summary-card {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.2);
         }
 
-        /* Loading Spinner */
-        .loading {
-            display: none;
+        .summary-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .summary-item {
             text-align: center;
-            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
         }
 
-        .loading.show {
-            display: block;
+        .summary-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 8px;
         }
 
-        .spinner {
-            border: 4px solid #f0f3ff;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+        .summary-value {
+            font-size: 2em;
+            font-weight: 700;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* API Status */
-        .api-status {
-            display: flex;
+        .btn-export {
+            padding: 12px 25px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 10px;
-            font-size: 0.9em;
-            font-style: italic;
+            margin-top: 20px;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #28a745;
+        .btn-export:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         }
 
-        .status-dot.offline {
-            background: #dc3545;
-        }
-
-        /* Footer */
         footer {
             background: #ffffff;
             padding: 40px 20px;
@@ -464,26 +483,15 @@
         }
 
         .footer-column h3 {
-            color: #000000;
+            color: #2c3e50;
             margin-bottom: 15px;
             font-weight: 700;
-            font-style: italic;
         }
 
-        .footer-column p, .footer-column a {
+        .footer-column p {
             color: #5a6c7d;
             font-size: 0.95em;
             line-height: 1.6;
-            font-style: italic;
-        }
-
-        .footer-column a {
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-column a:hover {
-            color: #667eea;
         }
 
         .footer-bottom {
@@ -493,13 +501,17 @@
             border-top: 1px solid #e0e4e8;
             color: #5a6c7d;
             font-size: 0.9em;
-            font-style: italic;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8em;
+            }
+
+            .header-content {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
             }
 
             .tool-container {
@@ -510,35 +522,58 @@
                 font-size: 1.5em;
             }
 
-            .input-section {
-                padding: 20px;
-            }
-
-            .result-header {
+            .subnet-input-container {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: stretch;
             }
 
-            .mac-display {
-                font-size: 1.4em;
-            }
-
-            .result-grid {
+            .subnet-info {
                 grid-template-columns: 1fr;
             }
 
-            .batch-table th, .batch-table td {
-                padding: 8px 10px;
-                font-size: 0.9em;
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                padding: 15px 0;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            }
+
+            .navbar.active {
+                display: block;
             }
 
             .navbar ul {
-                gap: 10px;
+                flex-direction: column;
+                gap: 0;
+                padding: 0;
+            }
+
+            .navbar ul li {
+                width: 100%;
             }
 
             .navbar ul li a {
-                font-size: 0.9em;
-                padding: 8px 10px;
+                width: 100%;
+                justify-content: flex-start;
+                padding: 12px 20px;
+                border-radius: 0;
+            }
+
+            .navbar ul li a:hover {
+                background: #f0f9ff;
+                color: #2563eb;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -555,92 +590,32 @@
                 font-size: 1.5em;
             }
 
-            .button-group {
-                flex-direction: column;
-            }
-
-            button {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .mac-display {
+            .section-title {
                 font-size: 1.2em;
-                padding: 8px 15px;
             }
-        }
-
-        /* MAC Formats Examples */
-        .examples {
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 20px;
-        }
-
-        .example-list {
-            list-style: none;
-            margin-top: 10px;
-        }
-
-        .example-list li {
-            padding: 5px 0;
-            color: #5a6c7d;
-            font-family: 'Courier New', monospace;
-            font-style: italic;
-        }
-
-        .example-list li:before {
-            content: "• ";
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        /* History Section */
-        .history-section {
-            margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-
-        .history-list {
-            list-style: none;
-            margin-top: 10px;
-        }
-
-        .history-list li {
-            padding: 8px;
-            border-bottom: 1px solid #dee2e6;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-style: italic;
-        }
-
-        .history-list li:hover {
-            background: #e9ecef;
-            color: #667eea;
-        }
-
-        .history-list li:last-child {
-            border-bottom: none;
         }
     </style>
 </head>
 <body>
 
 <div class="fixed-header-container">
-    <div class="navbar">
-        <h1 style="margin: 0; text-align: left; font-size: 1.8em;">ONLINE TOOLS</h1>
-    </div>
-    <div class="navbar" style="justify-content: center; padding: 10px 20px;">
-        <ul>
-            <li><a href="../../index.html"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="../../skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
-            <li><a href="../tools.html"><i class="fas fa-tools"></i> Tools</a></li>
-            <li><a href="../../certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
-            <li><a href="../../contact.html"><i class="fas fa-phone"></i> Contact</a></li>
-        </ul>
+    <div class="header-content">
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+                    <li><a href="../tools.html"><i class="fas fa-tools"></i> Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
 </div>
 
@@ -648,186 +623,89 @@
     <div class="breadcrumb">
         <a href="../../index.html">Home</a> / 
         <a href="../tools.html">Tools</a> / 
-        <a href="../tools.html#network">Network Tools</a> / 
-        MAC Address Lookup
+        <a href="../tools.html">Network</a> / 
+        VLSM Calculator
     </div>
 
     <div class="tool-container">
         <h2 class="tool-title">
-            <i class="fas fa-network-wired"></i> MAC Address Lookup
+            <i class="fas fa-network-wired"></i> VLSM Calculator
         </h2>
         <p class="tool-description">
-            Find manufacturer/vendor details from MAC address using real-time API. Enter MAC address in any common format to get complete vendor information.
+            Variable Length Subnet Mask (VLSM) Calculator - Professional network subnetting tool for efficient IP address allocation. Calculate optimal subnets based on your host requirements with complete network details.
         </p>
 
-        <div class="input-section">
-            <!-- Single MAC Lookup -->
-            <div class="input-group">
-                <label class="input-label">Enter MAC Address</label>
-                <input type="text" id="macInput" class="input-field" placeholder="e.g., 00:1A:2B:3C:4D:5E or 00-1A-2B-3C-4D-5E">
-                <div class="error-message" id="macInputError">Please enter a valid MAC address</div>
-                <div class="success-message" id="macInputSuccess">MAC address is valid</div>
-                <div class="formats">
-                    Supported formats: 00:1A:2B:3C:4D:5E, 00-1A-2B-3C-4D-5E, 001A.2B3C.4D5E, 001A2B-3C4D5E, 001A2B3C4D5E
-                </div>
-                <div class="api-status">
-                    <span class="status-dot" id="apiStatusDot"></span>
-                    <span id="apiStatusText">Checking API status...</span>
-                </div>
-            </div>
+        <div class="section-title">
+            <i class="fas fa-cog"></i> Network Configuration
+        </div>
 
-            <!-- Batch Lookup -->
-            <div class="input-group" id="batchSection">
-                <label class="input-label">Batch Lookup (Multiple MAC addresses - one per line)</label>
-                <textarea id="batchInput" class="input-field" rows="4" placeholder="Enter multiple MAC addresses, one per line:
-00:1A:2B:3C:4D:5E
-00:1C:B3:4A:5F:6D
-08:00:27:8A:9B:CC"></textarea>
-                <div class="error-message" id="batchInputError">Please enter valid MAC addresses</div>
-            </div>
+        <div class="input-group">
+            <label for="networkIP">
+                <i class="fas fa-globe"></i> Network IP Address
+            </label>
+            <input type="text" id="networkIP" placeholder="e.g., 192.168.1.0" value="192.168.1.0">
+        </div>
 
-            <!-- Lookup History -->
-            <div class="history-section" id="historySection" style="display: none;">
-                <label class="input-label">Recent Lookups</label>
-                <ul class="history-list" id="historyList">
-                    <!-- History items will be added here -->
-                </ul>
-            </div>
+        <div class="input-group">
+            <label for="subnetMask">
+                <i class="fas fa-shield-alt"></i> Subnet Mask or CIDR Notation
+            </label>
+            <input type="text" id="subnetMask" placeholder="e.g., 255.255.255.0 or /24" value="/24">
+        </div>
 
-            <!-- Action Buttons -->
-            <div class="button-group">
-                <button class="btn-lookup" onclick="lookupMAC()">
-                    <i class="fas fa-search"></i> Lookup MAC Address
-                </button>
-                <button class="btn-batch" onclick="batchLookup()">
-                    <i class="fas fa-list"></i> Batch Lookup
-                </button>
-                <button class="btn-reset" onclick="resetTool()">
-                    <i class="fas fa-redo"></i> Reset
-                </button>
-                <button class="btn-example" onclick="fillExamples()">
-                    <i class="fas fa-vial"></i> Use Examples
+        <div class="section-title">
+            <i class="fas fa-sitemap"></i> Subnet Requirements
+        </div>
+
+        <div id="subnetsContainer">
+            <div class="subnet-input-container">
+                <input type="text" class="subnet-name-input" placeholder="Subnet Name (e.g., Sales Department)">
+                <input type="number" class="subnet-hosts-input" placeholder="Required Hosts" min="1">
+                <button class="btn-remove" onclick="removeSubnet(this)">
+                    <i class="fas fa-trash"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Examples Section -->
-        <div class="examples">
-            <p><strong>MAC Address Examples:</strong></p>
-            <ul class="example-list">
-                <li>Apple: 00:1C:B3:4A:5F:6D</li>
-                <li>Dell: 00:1D:7D:4A:5F:6D</li>
-                <li>Intel: 00:1C:C0:4A:5F:6D</li>
-                <li>Cisco: 00:1B:D5:4A:5F:6D</li>
-                <li>HP: 00:1E:68:4A:5F:6D</li>
-                <li>Samsung: 5C:3A:45:8B:9C:1D</li>
-                <li>TP-Link: 00:1B:63:4A:5F:6D</li>
-            </ul>
+        <button class="btn-add" onclick="addSubnet()">
+            <i class="fas fa-plus"></i> Add Another Subnet
+        </button>
+
+        <button class="btn-calculate" onclick="calculateVLSM()">
+            <i class="fas fa-calculator"></i> Calculate VLSM
+        </button>
+
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-triangle"></i> <span id="errorText"></span>
         </div>
 
-        <!-- Loading Indicator -->
-        <div class="loading" id="loading">
-            <div class="spinner"></div>
-            <p>Looking up MAC address...</p>
-        </div>
-
-        <!-- Single Result Section -->
-        <div class="results-section" id="singleResultSection">
-            <div class="result-card" id="singleResultCard">
-                <div class="result-header">
-                    <div class="mac-display" id="resultMAC">--</div>
-                    <span class="vendor-badge" id="resultVendorBadge">Unknown Vendor</span>
-                </div>
-                
-                <div class="result-grid">
-                    <div class="info-box">
-                        <div class="info-label">Vendor / Manufacturer</div>
-                        <div class="info-value" id="resultVendor">--</div>
+        <div class="results-container" id="resultsContainer">
+            <div class="summary-card">
+                <h3><i class="fas fa-chart-pie"></i> Network Summary</h3>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <div class="summary-label">Total Subnets</div>
+                        <div class="summary-value" id="totalSubnets">0</div>
                     </div>
-                    <div class="info-box">
-                        <div class="info-label">OUI (Organizationally Unique Identifier)</div>
-                        <div class="info-value" id="resultOUI">--</div>
+                    <div class="summary-item">
+                        <div class="summary-label">Total Hosts Allocated</div>
+                        <div class="summary-value" id="totalHosts">0</div>
                     </div>
-                    <div class="info-box">
-                        <div class="info-label">Company Address</div>
-                        <div class="info-value" id="resultCompany">--</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="info-label">Country</div>
-                        <div class="info-value" id="resultCountry">--</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="info-label">MAC Type</div>
-                        <div class="info-value" id="resultType">--</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="info-label">Block Size</div>
-                        <div class="info-value" id="resultBlock">--</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="info-label">MAC Format</div>
-                        <div class="info-value" id="resultFormat">--</div>
-                    </div>
-                    <div class="info-box">
-                        <div class="info-label">API Source</div>
-                        <div class="info-value" id="resultSource">--</div>
+                    <div class="summary-item">
+                        <div class="summary-label">Total IPs Used</div>
+                        <div class="summary-value" id="ipsUsed">0</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Additional Info -->
-            <div style="margin-top: 20px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
-                <h3 style="color: #000000; margin-bottom: 10px; font-weight: bold; font-style: italic;">
-                    <i class="fas fa-info-circle"></i> About MAC Address
-                </h3>
-                <p style="color: #5a6c7d; font-style: italic; line-height: 1.6;" id="macInfo">
-                    A MAC (Media Access Control) address is a unique identifier assigned to network interfaces for communications on the physical network segment.
-                </p>
-            </div>
-        </div>
-
-        <!-- Batch Results Section -->
-        <div class="results-section" id="batchResultSection">
-            <h3 style="color: #000000; margin-bottom: 20px; font-weight: bold; font-style: italic;">
-                <i class="fas fa-table"></i> Batch Lookup Results
-            </h3>
-            <div class="batch-results">
-                <table class="batch-table" id="batchTable">
-                    <thead>
-                        <tr>
-                            <th>MAC Address</th>
-                            <th>Vendor</th>
-                            <th>OUI</th>
-                            <th>Country</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="batchTableBody">
-                        <!-- Results will be populated here -->
-                    </tbody>
-                </table>
+            <div class="section-title">
+                <i class="fas fa-list"></i> Subnet Details
             </div>
 
-            <!-- Batch Summary -->
-            <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px;">
-                <p style="color: #5a6c7d; font-style: italic;">
-                    <strong>Results:</strong> <span id="batchSummary">0 addresses processed</span> | 
-                    <strong>Successful:</strong> <span id="batchSuccess">0</span> | 
-                    <strong>Failed:</strong> <span id="batchFailed">0</span>
-                </p>
-            </div>
-        </div>
+            <div id="subnetResults"></div>
 
-        <!-- Action Buttons for Results -->
-        <div class="button-group" id="resultActions" style="display: none;">
-            <button class="btn-lookup" onclick="copyResults()">
-                <i class="fas fa-copy"></i> Copy Results
-            </button>
-            <button class="btn-batch" onclick="exportResults()">
-                <i class="fas fa-download"></i> Export CSV
-            </button>
-            <button class="btn-reset" onclick="clearResults()">
-                <i class="fas fa-times"></i> Clear Results
+            <button class="btn-export" onclick="exportResults()">
+                <i class="fas fa-download"></i> Export Results to Text File
             </button>
         </div>
     </div>
@@ -836,16 +714,16 @@
 <footer>
     <div class="footer-container">
         <div class="footer-column">
-            <h3>About MAC Address Lookup</h3>
-            <p>MAC address lookup identifies the manufacturer of network devices using real-time API to query the OUI (Organizationally Unique Identifier) database.</p>
+            <h3>About VLSM Calculator</h3>
+            <p>This VLSM (Variable Length Subnet Mask) calculator helps network administrators efficiently divide IP networks into subnets of different sizes based on actual host requirements, minimizing IP address waste.</p>
         </div>
         <div class="footer-column">
-            <h3>Free API Services</h3>
-            <p>This tool uses free public APIs from macaddress.io and macvendors.com to provide accurate, up-to-date vendor information.</p>
+            <h3>What is VLSM?</h3>
+            <p>VLSM allows the creation of subnets with different subnet masks within the same network. This technique optimizes IP address allocation by assigning appropriately sized subnets to different network segments based on their specific needs.</p>
         </div>
         <div class="footer-column">
-            <h3>Privacy Policy</h3>
-            <p>We do not store your searched MAC addresses. All lookups are processed in real-time through secure API connections.</p>
+            <h3>How to Use</h3>
+            <p>Enter your network IP and subnet mask, then add subnets with their required host counts. The calculator automatically sorts and allocates optimal subnet sizes following VLSM best practices (largest subnets first).</p>
         </div>
     </div>
     <div class="footer-bottom">
@@ -854,521 +732,302 @@
 </footer>
 
 <script>
-    // MAC Address Validation and Formatting
-    function validateMAC(mac) {
-        // Remove all non-alphanumeric characters
-        const cleaned = mac.replace(/[^A-Fa-f0-9]/g, '').toUpperCase();
-        
-        // Check if it's a valid MAC address (12 hex characters)
-        if (!/^[A-F0-9]{12}$/.test(cleaned)) {
-            return null;
-        }
-        
-        // Format as colon-separated
-        const formatted = cleaned.match(/.{2}/g).join(':');
-        return {
-            raw: cleaned,
-            formatted: formatted,
-            oui: cleaned.substring(0, 6)
-        };
+    function addSubnet() {
+        const container = document.getElementById('subnetsContainer');
+        const div = document.createElement('div');
+        div.className = 'subnet-input-container';
+        div.innerHTML = `
+            <input type="text" class="subnet-name-input" placeholder="Subnet Name">
+            <input type="number" class="subnet-hosts-input" placeholder="Required Hosts" min="1">
+            <button class="btn-remove" onclick="removeSubnet(this)">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
+        container.appendChild(div);
     }
 
-    // Free Public APIs for MAC Address Lookup
-    const API_ENDPOINTS = [
-        {
-            name: 'macaddress.io',
-            url: (mac) => `https://api.macaddress.io/v1?apiKey=demo&output=json&search=${mac}`,
-            parse: (data) => {
-                if (data.vendorDetails && data.vendorDetails.companyName) {
-                    return {
-                        vendor: data.vendorDetails.companyName,
-                        address: data.vendorDetails.companyAddress || 'Not available',
-                        country: data.vendorDetails.countryCode || 'Unknown',
-                        block: data.blockDetails && data.blockDetails.blockSize ? 
-                               `${data.blockDetails.blockSize} addresses` : 'Unknown',
-                        source: 'macaddress.io'
-                    };
-                }
-                return null;
-            }
-        },
-        {
-            name: 'macvendors.com',
-            url: (mac) => `https://api.macvendors.com/${encodeURIComponent(mac)}`,
-            parse: async (response) => {
-                const text = await response.text();
-                if (response.ok && text && !text.includes('Not Found')) {
-                    return {
-                        vendor: text,
-                        address: 'Information from macvendors.com',
-                        country: 'Check vendor details',
-                        block: 'Standard OUI block',
-                        source: 'macvendors.com'
-                    };
-                }
-                return null;
-            },
-            isText: true
-        }
-    ];
-
-    // Alternative: Use a fallback local database
-    const LOCAL_DATABASE = {
-        "001C2B": { vendor: "Apple, Inc.", country: "United States", address: "1 Infinite Loop, Cupertino, CA" },
-        "001D7D": { vendor: "Dell Inc.", country: "United States", address: "One Dell Way, Round Rock, TX" },
-        "001CC0": { vendor: "Intel Corporate", country: "United States", address: "2200 Mission College Blvd, Santa Clara, CA" },
-        "001BD5": { vendor: "Cisco Systems, Inc", country: "United States", address: "170 West Tasman Dr., San Jose, CA" },
-        "001E68": { vendor: "Hewlett Packard", country: "United States", address: "1501 Page Mill Road, Palo Alto, CA" },
-        "0050F2": { vendor: "Microsoft Corporation", country: "United States", address: "One Microsoft Way, Redmond, WA" },
-        "000C29": { vendor: "VMware, Inc.", country: "United States", address: "3401 Hillview Ave, Palo Alto, CA" },
-        "080027": { vendor: "PCS Systemtechnik GmbH", country: "Germany", address: "Römerstrasse 47, D-71229 Leonberg" },
-        "00A0C9": { vendor: "Intel Corporation", country: "United States", address: "2200 Mission College Blvd, Santa Clara, CA" },
-        "001B63": { vendor: "TP-LINK TECHNOLOGIES CO.,LTD.", country: "China", address: "Building 24, Shenzhen Software Park, Shenzhen" },
-        "5C3A45": { vendor: "Samsung Electronics Co.,Ltd", country: "South Korea", address: "129, Samsung-ro, Yeongtong-gu, Suwon-si" },
-        "001A2B": { vendor: "ASUSTek COMPUTER INC.", country: "Taiwan", address: "No. 15, Li-Te Rd., Beitou, Taipei" },
-        "0016CB": { vendor: "Apple, Inc.", country: "United States", address: "1 Infinite Loop, Cupertino, CA" },
-        "0019E3": { vendor: "Apple, Inc.", country: "United States", address: "1 Infinite Loop, Cupertino, CA" },
-        "001D4F": { vendor: "Apple, Inc.", country: "United States", address: "1 Infinite Loop, Cupertino, CA" },
-        "001F5B": { vendor: "Apple, Inc.", country: "United States", address: "1 Infinite Loop, Cupertino, CA" },
-        "0021E9": { vendor: "Apple, Inc.", country: "United States", address: "1 Infinite Loop, Cupertino, CA" },
-        "00236C": { vendor: "Apple, Inc.", country: "United States", address: "1 Infinite Loop, Cupertino, CA" },
-        "002500": { vendor: "Apple, Inc.", country: "United States", address: "1 Infinite Loop, Cupertino, CA" },
-        "0026AB": { vendor: "Apple, Inc.", country: "United States", address: "1 Infinite Loop, Cupertino, CA" },
-        "0026BB": { vendor: "Apple, Inc.", country: "United States", address: "1 Infinite Loop, Cupertino, CA" }
-    };
-
-    // Global variables
-    let lookupHistory = JSON.parse(localStorage.getItem('macLookupHistory') || '[]');
-    let currentResults = [];
-
-    // Check API Status
-    async function checkAPIStatus() {
-        const statusDot = document.getElementById('apiStatusDot');
-        const statusText = document.getElementById('apiStatusText');
-        
-        try {
-            // Test the first API
-            const testMAC = '00:1C:B3:4A:5F:6D';
-            const response = await fetch(`https://api.macaddress.io/v1?apiKey=demo&output=json&search=${testMAC}`);
-            
-            if (response.ok) {
-                statusDot.className = 'status-dot';
-                statusText.textContent = 'API: Online (macaddress.io)';
-            } else {
-                throw new Error('API not available');
-            }
-        } catch (error) {
-            statusDot.className = 'status-dot offline';
-            statusText.textContent = 'API: Offline (Using local database)';
-        }
-    }
-
-    // Lookup MAC Address
-    async function lookupMAC() {
-        const macInput = document.getElementById('macInput').value.trim();
-        const errorElement = document.getElementById('macInputError');
-        const successElement = document.getElementById('macInputSuccess');
-        
-        // Clear previous messages
-        errorElement.classList.remove('show');
-        successElement.classList.remove('show');
-        
-        // Validate MAC address
-        const macInfo = validateMAC(macInput);
-        if (!macInfo) {
-            errorElement.textContent = 'Invalid MAC address format. Please enter a valid MAC address.';
-            errorElement.classList.add('show');
-            return;
-        }
-        
-        // Show loading
-        document.getElementById('loading').classList.add('show');
-        document.getElementById('singleResultSection').classList.remove('show');
-        document.getElementById('batchResultSection').classList.remove('show');
-        document.getElementById('resultActions').style.display = 'none';
-        
-        try {
-            // Try API first
-            const result = await lookupFromAPI(macInfo);
-            
-            if (!result) {
-                // Fallback to local database
-                const localResult = lookupFromLocal(macInfo);
-                if (localResult) {
-                    displayResult(macInfo, localResult);
-                } else {
-                    displayResult(macInfo, {
-                        vendor: 'Unknown Vendor',
-                        address: 'Not found in database',
-                        country: 'Unknown',
-                        block: 'Unknown',
-                        source: 'Local database'
-                    });
-                }
-            } else {
-                displayResult(macInfo, result);
-            }
-            
-            // Add to history
-            addToHistory(macInfo.formatted);
-            successElement.textContent = 'MAC address found!';
-            successElement.classList.add('show');
-            
-        } catch (error) {
-            errorElement.textContent = 'Error looking up MAC address. Please try again.';
-            errorElement.classList.add('show');
-            console.error('MAC lookup error:', error);
-        } finally {
-            document.getElementById('loading').classList.remove('show');
-        }
-    }
-
-    // Lookup from API
-    async function lookupFromAPI(macInfo) {
-        for (const api of API_ENDPOINTS) {
-            try {
-                const response = await fetch(api.url(macInfo.raw));
-                
-                if (api.isText) {
-                    const data = await api.parse(response);
-                    if (data) return data;
-                } else {
-                    const data = await response.json();
-                    const result = api.parse(data);
-                    if (result) return result;
-                }
-            } catch (error) {
-                console.log(`API ${api.name} failed:`, error);
-                continue;
-            }
-        }
-        return null;
-    }
-
-    // Lookup from local database
-    function lookupFromLocal(macInfo) {
-        const oui = macInfo.oui.toUpperCase();
-        const vendorInfo = LOCAL_DATABASE[oui];
-        
-        if (vendorInfo) {
-            return {
-                vendor: vendorInfo.vendor,
-                address: vendorInfo.address || 'Address not available',
-                country: vendorInfo.country || 'Unknown',
-                block: 'Standard OUI block (16.7 million addresses)',
-                source: 'Local database'
-            };
-        }
-        return null;
-    }
-
-    // Display result
-    function displayResult(macInfo, data) {
-        document.getElementById('resultMAC').textContent = macInfo.formatted;
-        document.getElementById('resultVendorBadge').textContent = data.vendor;
-        document.getElementById('resultVendor').textContent = data.vendor;
-        document.getElementById('resultOUI').textContent = macInfo.oui;
-        document.getElementById('resultCompany').textContent = data.address;
-        document.getElementById('resultCountry').textContent = data.country;
-        document.getElementById('resultType').textContent = data.vendor.includes('Apple') ? 'Global (Apple)' : 'Global';
-        document.getElementById('resultBlock').textContent = data.block;
-        document.getElementById('resultFormat').textContent = 'Colon-separated';
-        document.getElementById('resultSource').textContent = data.source;
-        
-        // Show result section
-        document.getElementById('singleResultSection').classList.add('show');
-        document.getElementById('resultActions').style.display = 'flex';
-        
-        // Update history section
-        updateHistoryDisplay();
-    }
-
-    // Batch lookup
-    async function batchLookup() {
-        const batchInput = document.getElementById('batchInput').value.trim();
-        const errorElement = document.getElementById('batchInputError');
-        
-        errorElement.classList.remove('show');
-        
-        if (!batchInput) {
-            errorElement.textContent = 'Please enter at least one MAC address';
-            errorElement.classList.add('show');
-            return;
-        }
-        
-        const macs = batchInput.split('\n')
-            .map(line => line.trim())
-            .filter(line => line.length > 0);
-        
-        if (macs.length === 0) {
-            errorElement.textContent = 'Please enter valid MAC addresses';
-            errorElement.classList.add('show');
-            return;
-        }
-        
-        // Show loading
-        document.getElementById('loading').classList.add('show');
-        document.getElementById('singleResultSection').classList.remove('show');
-        document.getElementById('batchResultSection').classList.remove('show');
-        
-        try {
-            const results = [];
-            let successCount = 0;
-            let failedCount = 0;
-            
-            for (const mac of macs) {
-                const macInfo = validateMAC(mac);
-                if (!macInfo) {
-                    results.push({
-                        mac: mac,
-                        vendor: 'Invalid format',
-                        oui: 'N/A',
-                        country: 'N/A',
-                        status: 'Error'
-                    });
-                    failedCount++;
-                    continue;
-                }
-                
-                try {
-                    const apiResult = await lookupFromAPI(macInfo);
-                    if (apiResult) {
-                        results.push({
-                            mac: macInfo.formatted,
-                            vendor: apiResult.vendor,
-                            oui: macInfo.oui,
-                            country: apiResult.country,
-                            status: 'Success'
-                        });
-                        successCount++;
-                        
-                        // Add to history
-                        addToHistory(macInfo.formatted);
-                    } else {
-                        const localResult = lookupFromLocal(macInfo);
-                        if (localResult) {
-                            results.push({
-                                mac: macInfo.formatted,
-                                vendor: localResult.vendor,
-                                oui: macInfo.oui,
-                                country: localResult.country,
-                                status: 'Success (Local)'
-                            });
-                            successCount++;
-                        } else {
-                            results.push({
-                                mac: macInfo.formatted,
-                                vendor: 'Not found',
-                                oui: macInfo.oui,
-                                country: 'Unknown',
-                                status: 'Not found'
-                            });
-                            failedCount++;
-                        }
-                    }
-                } catch (error) {
-                    results.push({
-                        mac: macInfo.formatted,
-                        vendor: 'API Error',
-                        oui: macInfo.oui,
-                        country: 'N/A',
-                        status: 'Error'
-                    });
-                    failedCount++;
-                }
-            }
-            
-            displayBatchResults(results, successCount, failedCount);
-            
-        } catch (error) {
-            errorElement.textContent = 'Error processing batch lookup';
-            errorElement.classList.add('show');
-            console.error('Batch lookup error:', error);
-        } finally {
-            document.getElementById('loading').classList.remove('show');
-        }
-    }
-
-    // Display batch results
-    function displayBatchResults(results, successCount, failedCount) {
-        const tableBody = document.getElementById('batchTableBody');
-        tableBody.innerHTML = '';
-        
-        results.forEach(result => {
-            const row = document.createElement('tr');
-            const statusClass = result.status === 'Success' ? 'status-success' : 
-                              result.status.includes('Error') ? 'status-error' : 'status-warning';
-            
-            row.innerHTML = `
-                <td><strong>${result.mac}</strong></td>
-                <td>${result.vendor}</td>
-                <td>${result.oui}</td>
-                <td>${result.country}</td>
-                <td><span class="${statusClass}">${result.status}</span></td>
-            `;
-            tableBody.appendChild(row);
-        });
-        
-        document.getElementById('batchSummary').textContent = `${results.length} addresses processed`;
-        document.getElementById('batchSuccess').textContent = successCount;
-        document.getElementById('batchFailed').textContent = failedCount;
-        
-        document.getElementById('batchResultSection').classList.add('show');
-        document.getElementById('resultActions').style.display = 'flex';
-        
-        // Update history
-        updateHistoryDisplay();
-    }
-
-    // History functions
-    function addToHistory(mac) {
-        // Remove if already exists
-        lookupHistory = lookupHistory.filter(item => item !== mac);
-        
-        // Add to beginning
-        lookupHistory.unshift(mac);
-        
-        // Keep only last 10 items
-        if (lookupHistory.length > 10) {
-            lookupHistory = lookupHistory.slice(0, 10);
-        }
-        
-        // Save to localStorage
-        localStorage.setItem('macLookupHistory', JSON.stringify(lookupHistory));
-    }
-
-    function updateHistoryDisplay() {
-        const historyList = document.getElementById('historyList');
-        const historySection = document.getElementById('historySection');
-        
-        if (lookupHistory.length > 0) {
-            historyList.innerHTML = '';
-            lookupHistory.forEach(mac => {
-                const li = document.createElement('li');
-                li.textContent = mac;
-                li.onclick = () => {
-                    document.getElementById('macInput').value = mac;
-                    lookupMAC();
-                };
-                historyList.appendChild(li);
-            });
-            historySection.style.display = 'block';
+    function removeSubnet(btn) {
+        const container = document.getElementById('subnetsContainer');
+        if (container.children.length > 1) {
+            btn.parentElement.remove();
         } else {
-            historySection.style.display = 'none';
+            alert('At least one subnet is required!');
         }
     }
 
-    // Utility functions
-    function fillExamples() {
-        document.getElementById('macInput').value = '00:1C:B3:4A:5F:6D';
-        document.getElementById('batchInput').value = `00:1C:B3:4A:5F:6D
-00:1D:7D:4A:5F:6D
-00:1C:C0:4A:5F:6D
-00:1B:D5:4A:5F:6D
-00:1E:68:4A:5F:6D`;
+    function ipToInt(ip) {
+        return ip.split('.').reduce((acc, octet) => (acc << 8) + parseInt(octet), 0) >>> 0;
     }
 
-    function resetTool() {
-        document.getElementById('macInput').value = '';
-        document.getElementById('batchInput').value = '';
-        document.getElementById('singleResultSection').classList.remove('show');
-        document.getElementById('batchResultSection').classList.remove('show');
-        document.getElementById('resultActions').style.display = 'none';
-        document.querySelectorAll('.error-message').forEach(el => el.classList.remove('show'));
-        document.querySelectorAll('.success-message').forEach(el => el.classList.remove('show'));
+    function intToIp(int) {
+        return [
+            (int >>> 24) & 255,
+            (int >>> 16) & 255,
+            (int >>> 8) & 255,
+            int & 255
+        ].join('.');
     }
 
-    function copyResults() {
-        let text = 'MAC Address Lookup Results\n\n';
-        
-        if (document.getElementById('singleResultSection').classList.contains('show')) {
-            const mac = document.getElementById('resultMAC').textContent;
-            const vendor = document.getElementById('resultVendor').textContent;
-            const country = document.getElementById('resultCountry').textContent;
-            const oui = document.getElementById('resultOUI').textContent;
-            
-            text += `MAC Address: ${mac}\n`;
-            text += `Vendor: ${vendor}\n`;
-            text += `OUI: ${oui}\n`;
-            text += `Country: ${country}\n`;
-            text += `Source: ${document.getElementById('resultSource').textContent}\n`;
-        } else if (document.getElementById('batchResultSection').classList.contains('show')) {
-            const rows = document.querySelectorAll('#batchTableBody tr');
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                text += `${cells[0].textContent} | ${cells[1].textContent} | ${cells[2].textContent} | ${cells[3].textContent}\n`;
-            });
-        }
-        
-        navigator.clipboard.writeText(text).then(() => {
-            alert('Results copied to clipboard!');
+    function cidrToMask(cidr) {
+        const mask = -1 << (32 - cidr);
+        return intToIp(mask >>> 0);
+    }
+
+    function maskToCidr(mask) {
+        return mask.split('.').map(Number).reduce((acc, octet) => 
+            acc + octet.toString(2).split('1').length - 1, 0);
+    }
+
+    function validateIP(ip) {
+        const parts = ip.split('.');
+        if (parts.length !== 4) return false;
+        return parts.every(part => {
+            const num = parseInt(part);
+            return num >= 0 && num <= 255 && !isNaN(num);
         });
+    }
+
+    function calculateVLSM() {
+        const errorMsg = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const resultsContainer = document.getElementById('resultsContainer');
+        errorMsg.classList.remove('show');
+        resultsContainer.classList.remove('show');
+
+        const networkIP = document.getElementById('networkIP').value.trim();
+        let subnetMask = document.getElementById('subnetMask').value.trim();
+
+        if (!networkIP) {
+            errorText.textContent = 'Please enter a network IP address!';
+            errorMsg.classList.add('show');
+            return;
+        }
+
+        if (!validateIP(networkIP)) {
+            errorText.textContent = 'Invalid network IP address format!';
+            errorMsg.classList.add('show');
+            return;
+        }
+
+        let cidr;
+        if (subnetMask.startsWith('/')) {
+            cidr = parseInt(subnetMask.substring(1));
+            if (isNaN(cidr) || cidr < 0 || cidr > 32) {
+                errorText.textContent = 'CIDR notation must be between /0 and /32!';
+                errorMsg.classList.add('show');
+                return;
+            }
+        } else if (validateIP(subnetMask)) {
+            cidr = maskToCidr(subnetMask);
+        } else {
+            errorText.textContent = 'Invalid subnet mask format! Use CIDR (e.g., /24) or decimal (e.g., 255.255.255.0)';
+            errorMsg.classList.add('show');
+            return;
+        }
+
+        const subnets = [];
+        const nameInputs = document.querySelectorAll('.subnet-name-input');
+        const hostsInputs = document.querySelectorAll('.subnet-hosts-input');
+
+        for (let i = 0; i < nameInputs.length; i++) {
+            const name = nameInputs[i].value.trim() || `Subnet ${i + 1}`;
+            const hosts = parseInt(hostsInputs[i].value);
+            
+            if (!hosts || hosts < 1) {
+                errorText.textContent = `Please enter a valid host count for "${name}"!`;
+                errorMsg.classList.add('show');
+                return;
+            }
+
+            subnets.push({ name, requiredHosts: hosts });
+        }
+
+        // Sort by required hosts (largest first) - VLSM best practice
+        subnets.sort((a, b) => b.requiredHosts - a.requiredHosts);
+
+        const networkInt = ipToInt(networkIP);
+        const networkMask = -1 << (32 - cidr);
+        const networkAddr = (networkInt & networkMask) >>> 0;
+        const broadcastAddr = (networkAddr | ~networkMask) >>> 0;
+        const availableIPs = broadcastAddr - networkAddr + 1;
+
+        let currentIP = networkAddr;
+        const results = [];
+        let totalAllocated = 0;
+        let totalIPsUsed = 0;
+
+        for (const subnet of subnets) {
+            const neededHosts = subnet.requiredHosts + 2; // +2 for network and broadcast
+            const hostBits = Math.ceil(Math.log2(neededHosts));
+            const subnetCidr = 32 - hostBits;
+            const subnetSize = Math.pow(2, hostBits);
+
+            if (currentIP + subnetSize - 1 > broadcastAddr) {
+                errorText.textContent = 'Not enough IP addresses in the network for all subnets! Try a larger network or fewer/smaller subnets.';
+                errorMsg.classList.add('show');
+                return;
+            }
+
+            const subnetMaskCalc = cidrToMask(subnetCidr);
+            const subnetNetwork = intToIp(currentIP);
+            const firstUsable = intToIp(currentIP + 1);
+            const lastUsable = intToIp(currentIP + subnetSize - 2);
+            const broadcast = intToIp(currentIP + subnetSize - 1);
+            const usableHosts = subnetSize - 2;
+
+            results.push({
+                name: subnet.name,
+                network: subnetNetwork,
+                mask: subnetMaskCalc,
+                cidr: subnetCidr,
+                firstUsable,
+                lastUsable,
+                broadcast,
+                usableHosts,
+                requiredHosts: subnet.requiredHosts,
+                totalIPs: subnetSize
+            });
+
+            totalAllocated += usableHosts;
+            totalIPsUsed += subnetSize;
+            currentIP += subnetSize;
+        }
+
+        displayResults(results, totalAllocated, totalIPsUsed);
+    }
+
+    function displayResults(results, totalAllocated, totalIPsUsed) {
+        const resultsContainer = document.getElementById('resultsContainer');
+        const subnetResults = document.getElementById('subnetResults');
+        
+        document.getElementById('totalSubnets').textContent = results.length;
+        document.getElementById('totalHosts').textContent = totalAllocated.toLocaleString();
+        document.getElementById('ipsUsed').textContent = totalIPsUsed.toLocaleString();
+
+        subnetResults.innerHTML = results.map((subnet, index) => `
+            <div class="subnet-card">
+                <div class="subnet-header">
+                    <div class="subnet-name"><i class="fas fa-network-wired"></i> ${subnet.name}</div>
+                    <div class="subnet-badge">${subnet.usableHosts} Usable Hosts</div>
+                </div>
+                <div class="subnet-info">
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-project-diagram"></i> Network Address</div>
+                        <div class="info-value">${subnet.network}/${subnet.cidr}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-shield-alt"></i> Subnet Mask</div>
+                        <div class="info-value">${subnet.mask}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-arrow-right"></i> First Usable IP</div>
+                        <div class="info-value">${subnet.firstUsable}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-arrow-left"></i> Last Usable IP</div>
+                        <div class="info-value">${subnet.lastUsable}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-broadcast-tower"></i> Broadcast Address</div>
+                        <div class="info-value">${subnet.broadcast}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label"><i class="fas fa-chart-bar"></i> Required / Allocated</div>
+                        <div class="info-value">${subnet.requiredHosts} / ${subnet.usableHosts}</div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        resultsContainer.classList.add('show');
+        resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     function exportResults() {
-        let csv = 'MAC Address,Vendor,OUI,Country,Status\n';
+        const networkIP = document.getElementById('networkIP').value.trim();
+        const subnetMask = document.getElementById('subnetMask').value.trim();
+        const totalSubnets = document.getElementById('totalSubnets').textContent;
+        const totalHosts = document.getElementById('totalHosts').textContent;
+        const ipsUsed = document.getElementById('ipsUsed').textContent;
         
-        if (document.getElementById('batchResultSection').classList.contains('show')) {
-            const rows = document.querySelectorAll('#batchTableBody tr');
-            rows.forEach(row => {
-                const cells = row.querySelectorAll('td');
-                csv += `"${cells[0].textContent}","${cells[1].textContent}","${cells[2].textContent}","${cells[3].textContent}","${cells[4].textContent}"\n`;
-            });
-        } else {
-            const mac = document.getElementById('resultMAC').textContent;
-            const vendor = document.getElementById('resultVendor').textContent;
-            const country = document.getElementById('resultCountry').textContent;
-            const oui = document.getElementById('resultOUI').textContent;
+        let exportText = '═══════════════════════════════════════════════════════\n';
+        exportText += '           VLSM CALCULATION RESULTS\n';
+        exportText += '═══════════════════════════════════════════════════════\n\n';
+        
+        exportText += 'NETWORK CONFIGURATION:\n';
+        exportText += '─────────────────────────────────────────────────────\n';
+        exportText += `Network IP: ${networkIP}\n`;
+        exportText += `Subnet Mask: ${subnetMask}\n\n`;
+        
+        exportText += 'SUMMARY:\n';
+        exportText += '─────────────────────────────────────────────────────\n';
+        exportText += `Total Subnets: ${totalSubnets}\n`;
+        exportText += `Total Usable Hosts: ${totalHosts}\n`;
+        exportText += `Total IPs Used: ${ipsUsed}\n\n`;
+        
+        exportText += 'SUBNET DETAILS:\n';
+        exportText += '═══════════════════════════════════════════════════════\n\n';
+        
+        const subnetCards = document.querySelectorAll('.subnet-card');
+        subnetCards.forEach((card, index) => {
+            const name = card.querySelector('.subnet-name').textContent.trim();
+            const infoItems = card.querySelectorAll('.info-item');
             
-            csv += `"${mac}","${vendor}","${oui}","${country}","Success"\n`;
-        }
+            exportText += `${index + 1}. ${name}\n`;
+            exportText += '───────────────────────────────────────────────────\n';
+            
+            infoItems.forEach(item => {
+                const label = item.querySelector('.info-label').textContent.trim();
+                const value = item.querySelector('.info-value').textContent.trim();
+                exportText += `${label}: ${value}\n`;
+            });
+            
+            exportText += '\n';
+        });
         
-        const blob = new Blob([csv], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
+        exportText += '═══════════════════════════════════════════════════════\n';
+        exportText += `Generated: ${new Date().toLocaleString()}\n`;
+        exportText += '═══════════════════════════════════════════════════════\n';
+        
+        const blob = new Blob([exportText], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'mac_address_lookup.csv';
+        a.download = `vlsm-results-${Date.now()}.txt`;
+        document.body.appendChild(a);
         a.click();
-        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
     }
 
-    function clearResults() {
-        document.getElementById('singleResultSection').classList.remove('show');
-        document.getElementById('batchResultSection').classList.remove('show');
-        document.getElementById('resultActions').style.display = 'none';
-    }
+    // Hamburger menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const navbar = document.getElementById('navbar');
+    const navMenu = document.getElementById('navMenu');
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', function() {
-        // Set return category
-        localStorage.setItem('returnToCategory', 'network');
-        
-        // Check API status
-        checkAPIStatus();
-        
-        // Load history
-        updateHistoryDisplay();
-        
-        // Real-time validation
-        document.getElementById('macInput').addEventListener('input', function() {
-            const mac = this.value.trim();
-            const errorElement = document.getElementById('macInputError');
-            const successElement = document.getElementById('macInputSuccess');
-            
-            errorElement.classList.remove('show');
-            successElement.classList.remove('show');
-            
-            if (mac.length >= 12) {
-                const macInfo = validateMAC(mac);
-                if (macInfo) {
-                    successElement.textContent = 'Valid MAC address format';
-                    successElement.classList.add('show');
-                } else {
-                    errorElement.textContent = 'Invalid MAC address format';
-                    errorElement.classList.add('show');
-                }
-            }
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navbar.classList.toggle('active');
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navbar.classList.remove('active');
         });
+    });
+
+    // Add input validation on keyup
+    document.getElementById('networkIP').addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') {
+            calculateVLSM();
+        }
+    });
+
+    document.getElementById('subnetMask').addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') {
+            calculateVLSM();
+        }
     });
 </script>
 
