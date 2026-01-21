@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printer Error Codes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header with white background */
+        .header {
+            background: white;
+            color: #2c3e50;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #667eea;
+        }
+
+        .logo h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 2em;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            background: #f5f7fa;
+        }
+
+        .nav-links a.active {
+            color: #667eea;
+            background: #f0f3ff;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f5f7fa;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-toggle:hover {
+            background: #e0e4e8;
+        }
+
+        .lang-flag {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .lang-text {
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e4e8;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .brand-filter {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .brand-btn {
+            padding: 8px 20px;
+            background: white;
+            border: 2px solid #e0e4e8;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #5a6c7d;
+            transition: all 0.3s ease;
+        }
+
+        .brand-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .brand-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .printer-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+        }
+
+        .printer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .printer-error-code {
+            background: #f0f3ff;
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1.1em;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        .printer-severity {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .severity-critical {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .severity-error {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .severity-warning {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .printer-content h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .printer-description {
+            color: #5a6c7d;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .printer-brand {
+            background: #e9ecef;
+            padding: 3px 10px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            color: #495057;
+            font-weight: 600;
+        }
+
+        .solution-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #28a745;
+            margin-top: 15px;
+        }
+
+        .solution-section h4 {
+            color: #155724;
+            margin-bottom: 10px;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .solution-section ul, .solution-section ol {
+            margin-left: 20px;
+            color: #155724;
+        }
+
+        .solution-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .printer-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #7a8a9d;
+            flex-wrap: wrap;
+        }
+
+        .printer-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .quick-fix {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #0066cc;
+            margin-top: 10px;
+        }
+
+        .quick-fix h4 {
+            color: #0066cc;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quick-fix p {
+            color: #004080;
+            font-size: 0.9em;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p, .footer-column ul li, .footer-column ul li a {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #f0f3ff;
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #e0e4e8;
+            color: #5a6c7d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero h2 {
+                font-size: 1.8em;
+            }
+
+            .printer-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .printer-error-code {
+                min-width: auto;
+                width: 100%;
+                text-align: left;
+            }
+
+            .brand-filter {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header with white background -->
+<div class="header">
+    <div class="header-container">
+        <a href="../../index.html" class="logo">
+            <i class="fas fa-print"></i>
+            <h1>Printer Error Codes</h1>
+        </a>
+        
+        <div class="nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../skills.html">Skills</a>
+            <a href="../tools.html">Tools</a>
+            <a href="../../certificate.html">Certificate</a>
+            <a href="../../contact.html">Contact</a>
+            
+            <div class="language-toggle" id="languageToggle">
+                <div class="lang-flag" id="langFlag">EN</div>
+                <span class="lang-text" id="langText">English</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<div class="hero">
+    <h2 id="heroTitle">Printer Error Codes Guide</h2>
+    <p id="heroSubtitle">Fix common printer errors with step-by-step solutions</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> <span id="backText">Back to Tools</span></a>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search printer errors or codes...">
+    </div>
+
+    <div class="brand-filter">
+        <button class="brand-btn active" data-brand="all" id="filterAll">All Brands</button>
+        <button class="brand-btn" data-brand="hp" id="filterHP">HP</button>
+        <button class="brand-btn" data-brand="canon" id="filterCanon">Canon</button>
+        <button class="brand-btn" data-brand="epson" id="filterEpson">Epson</button>
+        <button class="brand-btn" data-brand="brother" id="filterBrother">Brother</button>
+        <button class="brand-btn" data-brand="samsung" id="filterSamsung">Samsung</button>
+        <button class="brand-btn" data-brand="xerox" id="filterXerox">Xerox</button>
+    </div>
+
+    <div id="printerErrorList"></div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Tools</h3>
+            <p>Free collection of online tools for everyday tasks. No installation required, works directly in your browser.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../skills.html">Skills</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../../certificate.html">Certificate</a></li>
+                <li><a href="../../contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:asadul.it@yahoo.com">asadul.it@yahoo.com</a></li>
+                <li><a href="tel:01706927793">01706927793</a></li>
+                <li>Savar, Dhaka</li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Language data
+const translations = {
+    en: {
+        heroTitle: "Printer Error Codes Guide",
+        heroSubtitle: "Fix common printer errors with step-by-step solutions",
+        backText: "Back to Tools",
+        searchPlaceholder: "Search printer errors or codes...",
+        filterAll: "All Brands",
+        filterHP: "HP",
+        filterCanon: "Canon",
+        filterEpson: "Epson",
+        filterBrother: "Brother",
+        filterSamsung: "Samsung",
+        filterXerox: "Xerox"
+    },
+    bn: {
+        heroTitle: "প্রিন্টার Error Codes গাইড",
+        heroSubtitle: "সাধারণ প্রিন্টার errors এর ধাপে ধাপে সমাধান",
+        backText: "টুলসে ফিরে যান",
+        searchPlaceholder: "প্রিন্টার errors বা codes খুঁজুন...",
+        filterAll: "সব ব্র্যান্ড",
+        filterHP: "এইচপি",
+        filterCanon: "ক্যানন",
+        filterEpson: "এপসন",
+        filterBrother: "ব্রাদার",
+        filterSamsung: "স্যামসাং",
+        filterXerox: "জেরক্স"
+    }
+};
+
+// Current language state
+let currentLang = 'en';
+
+// Toggle language
+document.getElementById('languageToggle').addEventListener('click', function() {
+    currentLang = currentLang === 'en' ? 'bn' : 'en';
+    updateLanguage();
+    renderPrinterErrors(printerErrors);
+});
+
+// Update all text elements based on language
+function updateLanguage() {
+    // Update UI elements
+    document.getElementById('langFlag').textContent = currentLang === 'en' ? 'EN' : 'বাং';
+    document.getElementById('langText').textContent = currentLang === 'en' ? 'English' : 'বাংলা';
+    
+    // Update all translatable elements
+    document.getElementById('heroTitle').textContent = translations[currentLang].heroTitle;
+    document.getElementById('heroSubtitle').textContent = translations[currentLang].heroSubtitle;
+    document.getElementById('backText').textContent = translations[currentLang].backText;
+    document.getElementById('searchInput').placeholder = translations[currentLang].searchPlaceholder;
+    
+    // Update brand filter buttons
+    document.getElementById('filterAll').textContent = translations[currentLang].filterAll;
+    document.getElementById('filterHP').textContent = translations[currentLang].filterHP;
+    document.getElementById('filterCanon').textContent = translations[currentLang].filterCanon;
+    document.getElementById('filterEpson').textContent = translations[currentLang].filterEpson;
+    document.getElementById('filterBrother').textContent = translations[currentLang].filterBrother;
+    document.getElementById('filterSamsung').textContent = translations[currentLang].filterSamsung;
+    document.getElementById('filterXerox').textContent = translations[currentLang].filterXerox;
+}
+
+const printerErrors = [
+    {
+        code: "E-01",
+        name: "Paper Jam",
+        brand: "hp",
+        severity: "warning",
+        description: {
+            en: "Paper is stuck in the printer mechanism preventing normal operation.",
+            bn: "প্রিন্টার মেকানিজমে কাগজ আটকে আছে যা স্বাভাবিক অপারেশন বাধাগ্রস্ত করছে।"
+        },
+        quickFix: {
+            en: "Turn off printer, open all access doors, and carefully remove jammed paper.",
+            bn: "প্রিন্টার বন্ধ করুন, সব access doors খুলুন, এবং carefully আটকে থাকা কাগজ সরান।"
+        },
+        solutions: {
+            en: [
+                "Turn off the printer and unplug it from power source",
+                "Open all access doors (front, rear, and tray)",
+                "Gently pull out any jammed paper in the direction of paper path",
+                "Check for small paper pieces that might be stuck",
+                "Remove paper tray and check for paper jams",
+                "Clean rollers with lint-free cloth",
+                "Reload paper properly in tray",
+                "Turn printer back on and try printing"
+            ],
+            bn: [
+                "প্রিন্টার বন্ধ করুন এবং পাওয়ার সোর্স থেকে খুলে দিন",
+                "সব access doors খুলুন (সামনে, পিছনে, এবং ট্রে)",
+                "কাগজের পথের দিকে আটকে থাকা কাগজ gently বের করুন",
+                "ছোট কাগজের টুকরা আছে কিনা চেক করুন",
+                "কাগজ ট্রে সরিয়ে jam চেক করুন",
+                "Lint-free cloth দিয়ে rollers পরিষ্কার করুন",
+                "কাগজ ট্রেতে সঠিকভাবে reload করুন",
+                "প্রিন্টার চালু করুন এবং print করার চেষ্টা করুন"
+            ]
+        }
+    },
+    {
+        code: "Error 5100",
+        name: "Carriage Error",
+        brand: "canon",
+        severity: "error",
+        description: {
+            en: "Printer carriage is stuck or cannot move properly.",
+            bn: "প্রিন্টার carriage আটকে আছে বা সঠিকভাবে চলতে পারছে না।"
+        },
+        quickFix: {
+            en: "Turn off printer, check for obstructions in carriage path, and move carriage manually if possible.",
+            bn: "প্রিন্টার বন্ধ করুন, carriage পথে বাধা চেক করুন, এবং সম্ভব হলে manually carriage সরান।"
+        },
+        solutions: {
+            en: [
+                "Turn off printer and unplug from power",
+                "Check for paper scraps or obstructions in carriage path",
+                "Manually move carriage from side to side",
+                "Clean carriage rail with soft cloth",
+                "Check carriage belt for damage",
+                "Apply lubricant to carriage rail if needed",
+                "Reset printer to factory settings",
+                "Update printer firmware"
+            ],
+            bn: [
+                "প্রিন্টার বন্ধ করুন এবং পাওয়ার খুলে দিন",
+                "Carriage পথে কাগজের টুকরা বা বাধা চেক করুন",
+                "Manually carriage side থেকে side সরান",
+                "Soft cloth দিয়ে carriage rail পরিষ্কার করুন",
+                "Carriage belt damage চেক করুন",
+                "প্রয়োজনে carriage rail এ lubricant দিন",
+                "প্রিন্টার factory settings এ reset করুন",
+                "প্রিন্টার firmware আপডেট করুন"
+            ]
+        }
+    },
+    {
+        code: "Service Required",
+        name: "Waste Ink Pad Full",
+        brand: "epson",
+        severity: "critical",
+        description: {
+            en: "Waste ink absorber is full. Printer needs service to reset counter.",
+            bn: "Waste ink absorber পূর্ণ। কাউন্টার reset করার জন্য প্রিন্টার সার্ভিস প্রয়োজন।"
+        },
+        quickFix: {
+            en: "Use reset utility software to reset waste ink counter (if available).",
+            bn: "Waste ink counter reset করার জন্য reset utility software ব্যবহার করুন।"
+        },
+        solutions: {
+            en: [
+                "Download and install Epson reset utility software",
+                "Run waste ink pad counter reset",
+                "Replace waste ink pad if physically full",
+                "Clean waste ink pad area",
+                "Reset printer using service menu",
+                "Contact authorized service center",
+                "Consider professional cleaning service",
+                "Prevent future issues with regular maintenance"
+            ],
+            bn: [
+                "Epson reset utility software ডাউনলোড এবং ইনস্টল করুন",
+                "Waste ink pad counter reset চালান",
+                "যদি physically full হয় তাহলে waste ink pad পরিবর্তন করুন",
+                "Waste ink pad area পরিষ্কার করুন",
+                "Service menu ব্যবহার করে প্রিন্টার reset করুন",
+                "Authorized service center এ যোগাযোগ করুন",
+                "Professional cleaning service বিবেচনা করুন",
+                "নিয়মিত মেইনটেন্যান্স দিয়ে future problems প্রতিরোধ করুন"
+            ]
+        }
+    },
+    {
+        code: "Toner Low",
+        name: "Low Toner Warning",
+        brand: "brother",
+        severity: "warning",
+        description: {
+            en: "Toner cartridge is running low and may need replacement soon.",
+            bn: "টোনার কার্ট্রিজ কম আছে এবং শীঘ্রই পরিবর্তন প্রয়োজন হতে পারে।"
+        },
+        quickFix: {
+            en: "Remove and gently shake toner cartridge to redistribute remaining toner.",
+            bn: "টোনার কার্ট্রিজ সরিয়ে gently shake করুন remaining toner redistribute করার জন্য।"
+        },
+        solutions: {
+            en: [
+                "Remove toner cartridge from printer",
+                "Gently shake cartridge side to side 4-5 times",
+                "Reinstall cartridge and check toner level",
+                "Print test page to verify quality",
+                "Order replacement toner cartridge",
+                "Check genuine vs compatible toner options",
+                "Clean printer interior before installing new cartridge",
+                "Reset toner counter after replacement"
+            ],
+            bn: [
+                "প্রিন্টার থেকে টোনার কার্ট্রিজ সরান",
+                "কার্ট্রিজ gently side to side 4-5 বার shake করুন",
+                "কার্ট্রিজ পুনরায় ইনস্টল করুন এবং টোনার লেভেল চেক করুন",
+                "Quality verify করার জন্য test page print করুন",
+                "Replacement টোনার কার্ট্রিজ order করুন",
+                "Genuine vs compatible টোনার options চেক করুন",
+                "নতুন কার্ট্রিজ ইনস্টল করার আগে প্রিন্টার interior পরিষ্কার করুন",
+                "Replacement এর পর টোনার counter reset করুন"
+            ]
+        }
+    },
+    {
+        code: "PC LOAD LETTER",
+        name: "Paper Size Error",
+        brand: "hp",
+        severity: "error",
+        description: {
+            en: "Printer is expecting LETTER size paper but different size is loaded.",
+            bn: "প্রিন্টার LETTER সাইজ কাগজের জন্য অপেক্ষা করছে কিন্তু ভিন্ন সাইজ লোড করা আছে।"
+        },
+        quickFix: {
+            en: "Load LETTER size paper or change paper size settings in printer driver.",
+            bn: "LETTER সাইজ কাগজ লোড করুন অথবা প্রিন্টার driver এ কাগজ সাইজ settings পরিবর্তন করুন।"
+        },
+        solutions: {
+            en: [
+                "Check paper tray for correct paper size",
+                "Load LETTER (8.5x11 inches) size paper",
+                "Adjust paper guides in tray",
+                "Change default paper size in printer properties",
+                "Update printer driver to latest version",
+                "Check application print settings",
+                "Reset printer to factory settings",
+                "Try different paper brand/type"
+            ],
+            bn: [
+                "সঠিক কাগজ সাইজের জন্য paper tray চেক করুন",
+                "LETTER (8.5x11 inches) সাইজ কাগজ লোড করুন",
+                "Tray এ paper guides adjust করুন",
+                "প্রিন্টার properties এ default paper size পরিবর্তন করুন",
+                "প্রিন্টার driver latest version এ আপডেট করুন",
+                "অ্যাপ্লিকেশন print settings চেক করুন",
+                "প্রিন্টার factory settings এ reset করুন",
+                "ভিন্ন কাগজ ব্র্যান্ড/টাইপ চেষ্টা করুন"
+            ]
+        }
+    },
+    {
+        code: "E-08",
+        name: "Ink Cartridge Error",
+        brand: "canon",
+        severity: "error",
+        description: {
+            en: "Printer cannot detect ink cartridge or cartridge is not properly installed.",
+            bn: "প্রিন্টার ink cartridge detect করতে পারছে না অথবা কার্ট্রিজ সঠিকভাবে ইনস্টল করা নেই।"
+        },
+        quickFix: {
+            en: "Reinstall ink cartridges ensuring they click into place properly.",
+            bn: "Ink cartridges পুনরায় ইনস্টল করুন ensuring তারা properly জায়গায় click করে।"
+        },
+        solutions: {
+            en: [
+                "Open ink cartridge access door",
+                "Remove all ink cartridges",
+                "Clean electrical contacts on cartridges and printer",
+                "Reinstall cartridges with firm pressure until they click",
+                "Check for protective tape on new cartridges",
+                "Try different genuine ink cartridges",
+                "Reset printer by turning off/on",
+                "Update printer firmware"
+            ],
+            bn: [
+                "Ink cartridge access door খুলুন",
+                "সব ink cartridges সরান",
+                "কার্ট্রিজ এবং প্রিন্টারের electrical contacts পরিষ্কার করুন",
+                "Cartridges পুনরায় ইনস্টল করুন firm pressure সহিত যতক্ষণ না click করে",
+                "নতুন কার্ট্রিজে protective tape আছে কিনা চেক করুন",
+                "ভিন্ন genuine ink cartridges চেষ্টা করুন",
+                "প্রিন্টার off/on করে reset করুন",
+                "প্রিন্টার firmware আপডেট করুন"
+            ]
+        }
+    },
+    {
+        code: "Printhead Error",
+        name: "Clogged Printhead",
+        brand: "epson",
+        severity: "error",
+        description: {
+            en: "Printhead nozzles are clogged, affecting print quality.",
+            bn: "Printhead nozzles clogged হয়ে গেছে, যা print quality প্রভাবিত করছে।"
+        },
+        quickFix: {
+            en: "Run printer's built-in head cleaning utility from maintenance menu.",
+            bn: "Maintenance menu থেকে প্রিন্টারের built-in head cleaning utility চালান।"
+        },
+        solutions: {
+            en: [
+                "Run printhead cleaning utility from printer software",
+                "Perform deep cleaning if regular cleaning fails",
+                "Use printer's nozzle check utility",
+                "Soak printhead in distilled water (if removable)",
+                "Check ink levels before cleaning",
+                "Prevent clogs with regular printing",
+                "Use genuine ink cartridges",
+                "Contact service if problem persists"
+            ],
+            bn: [
+                "প্রিন্টার software থেকে printhead cleaning utility চালান",
+                "যদি regular cleaning ব্যর্থ হয় তবে deep cleaning করুন",
+                "প্রিন্টারের nozzle check utility ব্যবহার করুন",
+                "Distilled water এ printhead soak করুন (যদি removable হয়)",
+                "Cleaning এর আগে ink levels চেক করুন",
+                "নিয়মিত printing দিয়ে clogs প্রতিরোধ করুন",
+                "Genuine ink cartridges ব্যবহার করুন",
+                "যদি problem persists করে তবে service এ যোগাযোগ করুন"
+            ]
+        }
+    },
+    {
+        code: "Drum Error",
+        name: "Drum Unit Issue",
+        brand: "brother",
+        severity: "critical",
+        description: {
+            en: "Drum unit is reaching end of life or has malfunctioned.",
+            bn: "Drum unit life শেষ হয়ে আসছে অথবা malfunction হয়েছে।"
+        },
+        quickFix: {
+            en: "Replace drum unit with new genuine Brother drum unit.",
+            bn: "নতুন genuine Brother drum unit দিয়ে drum unit পরিবর্তন করুন।"
+        },
+        solutions: {
+            en: [
+                "Purchase genuine Brother drum unit",
+                "Remove old drum unit from printer",
+                "Unpack new drum unit and remove protective tape",
+                "Install new drum unit following instructions",
+                "Reset drum counter in printer settings",
+                "Print test page to verify quality",
+                "Clean printer interior during replacement",
+                "Dispose old drum unit properly"
+            ],
+            bn: [
+                "Genuine Brother drum unit ক্রয় করুন",
+                "প্রিন্টার থেকে পুরানো drum unit সরান",
+                "নতুন drum unit unpack করুন এবং protective tape সরান",
+                "নির্দেশনা অনুসারে নতুন drum unit ইনস্টল করুন",
+                "প্রিন্টার settings এ drum counter reset করুন",
+                "Quality verify করার জন্য test page print করুন",
+                "Replacement এর সময় printer interior পরিষ্কার করুন",
+                "পুরানো drum unit properly dispose করুন"
+            ]
+        }
+    }
+];
+
+function renderPrinterErrors(printerErrorsToRender) {
+    const list = document.getElementById('printerErrorList');
+    list.innerHTML = printerErrorsToRender.map(error => `
+        <div class="printer-card" data-brand="${error.brand}" data-severity="${error.severity}">
+            <div class="printer-header">
+                <div class="printer-error-code">${error.code}</div>
+                <span class="printer-severity severity-${error.severity}">
+                    ${error.severity === 'critical' ? 
+                        (currentLang === 'en' ? 'Critical' : 'ক্রিটিকাল') : 
+                     error.severity === 'error' ? 
+                        (currentLang === 'en' ? 'Error' : 'ত্রুটি') : 
+                     (currentLang === 'en' ? 'Warning' : 'সতর্কতা')}
+                </span>
+            </div>
+            <div class="printer-content">
+                <h3>
+                    ${error.name}
+                    <span class="printer-brand">${error.brand.toUpperCase()}</span>
+                </h3>
+                <div class="printer-description">${error.description[currentLang]}</div>
+                
+                <div class="quick-fix">
+                    <h4><i class="fas fa-bolt"></i> ${currentLang === 'en' ? 'Quick Fix:' : 'দ্রুত সমাধান:'}</h4>
+                    <p>${error.quickFix[currentLang]}</p>
+                </div>
+                
+                <div class="solution-section">
+                    <h4><i class="fas fa-tools"></i> ${currentLang === 'en' ? 'Detailed Solutions:' : 'বিস্তারিত সমাধান:'}</h4>
+                    <ol>
+                        ${error.solutions[currentLang].map(solution => `<li>${solution}</li>`).join('')}
+                    </ol>
+                </div>
+                
+                <div class="printer-meta">
+                    <span><i class="fas fa-print"></i> ${error.brand.toUpperCase()}</span>
+                    <span><i class="fas fa-hashtag"></i> ${error.code}</span>
+                    <span><i class="fas fa-exclamation-circle"></i> ${error.name}</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Initialize
+renderPrinterErrors(printerErrors);
+updateLanguage();
+
+// Filter functionality
+let currentBrand = 'all';
+
+document.querySelectorAll('.brand-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Update active state
+        document.querySelectorAll('.brand-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filter errors
+        currentBrand = this.dataset.brand;
+        let filteredErrors;
+        
+        if (currentBrand === 'all') {
+            filteredErrors = printerErrors;
+        } else {
+            filteredErrors = printerErrors.filter(error => error.brand === currentBrand);
+        }
+        
+        renderPrinterErrors(filteredErrors);
+    });
+});
+
+// Search functionality
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    const search = e.target.value.toLowerCase();
+    let filteredErrors;
+    
+    if (currentBrand === 'all') {
+        filteredErrors = printerErrors;
+    } else {
+        filteredErrors = printerErrors.filter(error => error.brand === currentBrand);
+    }
+    
+    const searchedErrors = filteredErrors.filter(error => 
+        error.code.toLowerCase().includes(search) ||
+        error.name.toLowerCase().includes(search) ||
+        error.brand.toLowerCase().includes(search) ||
+        error.description[currentLang].toLowerCase().includes(search) ||
+        error.quickFix[currentLang].toLowerCase().includes(search) ||
+        error.solutions[currentLang].some(solution => solution.toLowerCase().includes(search))
+    );
+    
+    renderPrinterErrors(searchedErrors);
+});
+</script>
+
+</body>
+</html>

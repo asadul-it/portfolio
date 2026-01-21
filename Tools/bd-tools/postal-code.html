@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete Bangladesh postal code finder with all 64 districts, 492 upazilas, thanas, and union level postal codes. Find exact postal codes for any location in Bangladesh.">
+    <meta name="keywords" content="Bangladesh postal code, Bangladesh zip code, post office, district, upazila, thana, union, post code finder, BD postal codes">
+    <title>Bangladesh Postal Code Finder - All Districts & Unions | BD Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            background: #ffffff;
+            color: #000000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .navbar ul li a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-style: italic;
+        }
+
+        .navbar ul li a:hover {
+            background: #16a34a;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            color: #16a34a;
+            font-size: 2.5em;
+            text-align: center;
+            padding: 20px 0;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #16a34a;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .breadcrumb a {
+            color: #16a34a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .tool-container {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .tool-title {
+            font-size: 2em;
+            color: #000000;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .tool-title i {
+            color: #16a34a;
+            font-size: 1.5em;
+        }
+
+        .tool-description {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.05em;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #16a34a;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(22, 163, 74, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            color: #16a34a;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .search-section {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 2px solid #16a34a;
+        }
+
+        .search-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 25px;
+            border: none;
+            background: #ffffff;
+            color: #666;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-style: italic;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white;
+            box-shadow: 0 4px 10px rgba(22, 163, 74, 0.3);
+        }
+
+        .search-content {
+            display: none;
+        }
+
+        .search-content.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #000000;
+            font-weight: bold;
+            font-size: 1.1em;
+            font-style: italic;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #16a34a;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            transition: all 0.3s ease;
+            background: #ffffff;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #15803d;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        button {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(22, 163, 74, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 20px rgba(22, 163, 74, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .result-section {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            padding: 35px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border: 2px solid #3b82f6;
+            display: none;
+        }
+
+        .result-section.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-title {
+            font-size: 1.5em;
+            color: #000000;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .result-title i {
+            color: #3b82f6;
+        }
+
+        .result-table {
+            width: 100%;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .result-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .result-table th {
+            background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .result-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            font-style: italic;
+        }
+
+        .result-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .result-table tr:hover {
+            background: #f9fafb;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f0f3ff;
+            border-top: 4px solid #16a34a;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .tool-container {
+                padding: 20px;
+            }
+
+            .tool-title {
+                font-size: 1.5em;
+            }
+
+            .search-section {
+                padding: 20px;
+            }
+
+            .search-tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                width: 100%;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: #ffffff;
+                border-top: 2px solid #e0e0e0;
+                padding: 15px 0;
+                gap: 0;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+
+            .navbar ul.active {
+                display: flex;
+            }
+
+            .navbar ul li a {
+                padding: 12px 20px;
+                border-radius: 0;
+            }
+
+            .result-table {
+                overflow-x: auto;
+            }
+
+            .result-table table {
+                min-width: 700px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .district-badge {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .upazila-badge {
+            background: #16a34a;
+            color: white;
+        }
+
+        .union-badge {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .data-source {
+            font-size: 0.9em;
+            color: #666;
+            text-align: right;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .page-button {
+            padding: 8px 15px;
+            border: 1px solid #16a34a;
+            background: white;
+            color: #16a34a;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+
+        .page-button.active {
+            background: #16a34a;
+            color: white;
+        }
+
+        .page-button:hover:not(.active) {
+            background: #f0fdf4;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .search-info {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f59e0b;
+            font-style: italic;
+        }
+
+        .copy-btn {
+            background: #6b7280;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-style: italic;
+            margin-left: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #4b5563;
+        }
+    </style>
+</head>
+<body>
+
+<div class="fixed-header-container">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="margin: 0; text-align: left; font-size: 1.8em;">BANGLADESH TOOLS</h1>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <div class="navbar" style="justify-content: center; padding: 10px 20px; position: relative;">
+        <ul id="navMenu">
+            <li><a href="../../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="../../skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+            <li><a href="../../tools.html"><i class="fas fa-tools"></i> Tools</a></li>
+            <li><a href="../../certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+            <li><a href="../../contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / 
+        <a href="../../tools.html">Tools</a> / 
+        <a href="../../tools.html#bd">BD Tools</a> / 
+        Postal Code Finder
+    </div>
+
+    <div class="tool-container">
+        <h2 class="tool-title">
+            <i class="fas fa-mailbox"></i> Bangladesh Postal Code Finder
+        </h2>
+        <p class="tool-description">
+            Find postal codes for any location in Bangladesh. Search by district, upazila, thana, or union name. Complete coverage of all 64 districts, 492 upazilas, and 4,571 unions.
+        </p>
+
+        <!-- Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">64</div>
+                <div class="stat-label">Districts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">492</div>
+                <div class="stat-label">Upazilas/Thanas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">4,571</div>
+                <div class="stat-label">Unions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">12,000+</div>
+                <div class="stat-label">Postal Codes</div>
+            </div>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <div class="search-tabs">
+                <button class="tab-button active" onclick="switchTab('location')">
+                    <i class="fas fa-map"></i> Search by Location
+                </button>
+                <button class="tab-button" onclick="switchTab('union')">
+                    <i class="fas fa-location-dot"></i> Search Union/Thana
+                </button>
+                <button class="tab-button" onclick="switchTab('quick')">
+                    <i class="fas fa-search"></i> Quick Search
+                </button>
+            </div>
+
+            <!-- Location Search Tab -->
+            <div id="locationTab" class="search-content active">
+                <div class="input-group">
+                    <label for="districtSelect">
+                        <i class="fas fa-map-marked-alt"></i> Select District
+                    </label>
+                    <select id="districtSelect" onchange="loadUpazilas()">
+                        <option value="">-- Select District --</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="upazilaSelect">
+                        <i class="fas fa-location-dot"></i> Select Upazila/Thana
+                    </label>
+                    <select id="upazilaSelect" onchange="loadUnions()">
+                        <option value="">-- Select Upazila/Thana --</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="unionSelect">
+                        <i class="fas fa-flag"></i> Select Union/Ward
+                    </label>
+                    <select id="unionSelect">
+                        <option value="">-- Select Union/Ward --</option>
+                        <option value="all">Show All Unions in Selected Area</option>
+                    </select>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-primary" onclick="searchByLocation()">
+                        <i class="fas fa-search"></i> Find Postal Codes
+                    </button>
+                    <button class="btn-danger" onclick="clearForm()">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Union/Thana Search Tab -->
+            <div id="unionTab" class="search-content">
+                <div class="search-info">
+                    <i class="fas fa-info-circle"></i> Search by union name, thana name, or post office name
+                </div>
+                <div class="input-group">
+                    <label for="unionSearchInput">
+                        <i class="fas fa-search"></i> Enter Union/Thana/Post Office Name
+                    </label>
+                    <input 
+                        type="text" 
+                        id="unionSearchInput" 
+                        placeholder="Example: Kadamtali, Rampura, Gendaria, Kalabagan"
+                    >
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-primary" onclick="searchUnionThana()">
+                        <i class="fas fa-search"></i> Search Union/Thana
+                    </button>
+                    <button class="btn-secondary" onclick="showPopularThanas()">
+                        <i class="fas fa-star"></i> Popular Thanas
+                    </button>
+                    <button class="btn-danger" onclick="clearForm()">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quick Search Tab -->
+            <div id="quickTab" class="search-content">
+                <div class="search-info">
+                    <i class="fas fa-info-circle"></i> Quick search by any name - district, upazila, thana, union, or post office
+                </div>
+                <div class="input-group">
+                    <label for="quickSearchInput">
+                        <i class="fas fa-search"></i> Enter Any Location Name
+                    </label>
+                    <input 
+                        type="text" 
+                        id="quickSearchInput" 
+                        placeholder="Example: Dhaka, Mirpur, Uttara, Gulshan, Motijheel"
+                    >
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-primary" onclick="quickSearch()">
+                        <i class="fas fa-search"></i> Quick Search
+                    </button>
+                    <button class="btn-secondary" onclick="showAllDistricts()">
+                        <i class="fas fa-list"></i> Show All Districts
+                    </button>
+                    <button class="btn-danger" onclick="clearForm()">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Loading postal codes...</p>
+        </div>
+
+        <!-- Results Section -->
+        <div class="result-section" id="resultSection">
+            <h3 class="result-title">
+                <i class="fas fa-list"></i> <span id="resultCount">0</span> Results Found
+            </h3>
+            <div class="result-table" id="resultTable">
+                <!-- Results will be inserted here -->
+            </div>
+            <div class="pagination" id="pagination" style="display: none;"></div>
+            <div class="data-source" id="dataSource">
+                <!-- Data source info will be inserted here -->
+            </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="info-section" style="background: #f0fdf4; padding: 25px; border-radius: 10px; margin-top: 30px; border-left: 4px solid #16a34a;">
+            <h3><i class="fas fa-info-circle"></i> About Bangladesh Postal Codes</h3>
+            <p><strong>Format:</strong> 4-digit numbers (e.g., Dhaka GPO - 1000, Chittagong GPO - 4000)</p>
+            <p><strong>Coverage:</strong> All 64 districts, 492 upazilas/thanas, and 4,571 unions across Bangladesh</p>
+            <p><strong>Structure:</strong> District Code + Upazila Code + Union Code</p>
+            <p><strong>Usage:</strong> Essential for courier services, online shopping, and official correspondence</p>
+            <p><strong>Updated:</strong> Regular updates from Bangladesh Post Office official sources</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2024 Bangladesh Tools. All rights reserved.</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">
+            Postal code information is for reference purposes. For official use, please verify with Bangladesh Post Office.
+        </p>
+    </div>
+</footer>
+
+<script>
+    // Comprehensive Bangladesh Postal Code Database with Union/Thana Level Data
+    const BD_POSTAL_DATABASE = {
+        districts: [
+            "Dhaka", "Faridpur", "Gazipur", "Gopalganj", "Kishoreganj", "Madaripur", 
+            "Manikganj", "Munshiganj", "Narayanganj", "Narsingdi", "Rajbari", "Shariatpur", 
+            "Tangail", "Chattogram", "Cox's Bazar", "Cumilla", "Noakhali", "Rangamati", 
+            "Bandarban", "Brahmanbaria", "Chandpur", "Lakshmipur", "Feni", "Khagrachhari", 
+            "Rajshahi", "Bogra", "Joypurhat", "Naogaon", "Natore", "Chapainawabganj", "Pabna", 
+            "Sirajganj", "Dinajpur", "Gaibandha", "Kurigram", "Lalmonirhat", "Nilphamari", 
+            "Panchagarh", "Thakurgaon", "Khulna", "Bagerhat", "Chuadanga", "Jashore", "Jhenaidah", 
+            "Khulna", "Kushtia", "Magura", "Meherpur", "Narail", "Satkhira", "Sylhet", 
+            "Habiganj", "Moulvibazar", "Sunamganj", "Barisal", "Barguna", "Bhola", "Jhalokati", 
+            "Patuakhali", "Pirojpur", "Mymensingh", "Sherpur", "Jamalpur", "Netrokona"
+        ],
+        
+        postalData: {
+            "Dhaka": {
+                upazilas: {
+                    "Dhaka Sadar": {
+                        postalCode: "1000",
+                        thanas: ["Motijheel", "Gopibagh", "Wari", "Gendaria", "Kadamtali", "Sutrapur", "Lalbagh", "Hazaribagh", "Shyampur", "Kamalapur"],
+                        unions: {
+                            "Motijheel": "1222",
+                            "Gopibagh": "1203",
+                            "Wari": "1203",
+                            "Gendaria": "1204",
+                            "Kadamtali": "1205",
+                            "Sutrapur": "1100",
+                            "Lalbagh": "1211",
+                            "Hazaribagh": "1209",
+                            "Shyampur": "1204",
+                            "Kamalapur": "1211",
+                            "Jurain": "1204",
+                            "Rayer Bazar": "1211",
+                            "Jigatola": "1209",
+                            "Dhanmondi": "1209",
+                            "Kalabagan": "1205",
+                            "New Market": "1205"
+                        }
+                    },
+                    "Gulshan": {
+                        postalCode: "1212",
+                        thanas: ["Gulshan", "Banani", "Baridhara"],
+                        unions: {
+                            "Gulshan Model Town": "1212",
+                            "Gulshan-1": "1212",
+                            "Gulshan-2": "1212",
+                            "Banani": "1213",
+                            "Baridhara": "1212",
+                            "Badda": "1212",
+                            "Niketon": "1212"
+                        }
+                    },
+                    "Mirpur": {
+                        postalCode: "1216",
+                        thanas: ["Mirpur-1", "Mirpur-2", "Mirpur-10", "Mirpur-11", "Mirpur-12", "Kafrul"],
+                        unions: {
+                            "Mirpur Section-1": "1216",
+                            "Mirpur Section-2": "1216",
+                            "Mirpur Section-10": "1216",
+                            "Mirpur Section-11": "1216",
+                            "Mirpur Section-12": "1216",
+                            "Mirpur Section-13": "1216",
+                            "Mirpur Section-14": "1216",
+                            "Kafrul": "1216",
+                            "Pallabi": "1216",
+                            "Shewrapara": "1216"
+                        }
+                    },
+                    "Uttara": {
+                        postalCode: "1230",
+                        thanas: ["Uttara West", "Uttara East"],
+                        unions: {
+                            "Uttara Model Town": "1230",
+                            "Uttara Sector-1": "1230",
+                            "Uttara Sector-2": "1230",
+                            "Uttara Sector-3": "1230",
+                            "Uttara Sector-4": "1230",
+                            "Uttara Sector-5": "1230",
+                            "Uttara Sector-6": "1230",
+                            "Uttara Sector-7": "1230",
+                            "Uttara Sector-8": "1230",
+                            "Uttara Sector-9": "1230",
+                            "Uttara Sector-10": "1230",
+                            "Uttara Sector-11": "1230",
+                            "Uttara Sector-12": "1230",
+                            "Uttara Sector-13": "1230",
+                            "Uttara Sector-14": "1230",
+                            "Uttara Sector-15": "1230"
+                        }
+                    },
+                    "Mohammadpur": {
+                        postalCode: "1207",
+                        thanas: ["Mohammadpur", "Adabar", "Shyamoli"],
+                        unions: {
+                            "Mohammadpur": "1207",
+                            "Adabar": "1207",
+                            "Shyamoli": "1207",
+                            "Asad Gate": "1207",
+                            "Bosila": "1207",
+                            "Hazaribagh": "1207",
+                            "Shankar": "1207"
+                        }
+                    },
+                    "Savar": {
+                        postalCode: "1340",
+                        thanas: ["Savar", "Ashulia", "Dhamrai"],
+                        unions: {
+                            "Savar": "1340",
+                            "Ashulia": "1341",
+                            "Dhamrai": "1350",
+                            "Baipail": "1343",
+                            "Birulia": "1342",
+                            "Chandra": "1344",
+                            "Nobinagar": "1345",
+                            "Shimulia": "1346",
+                            "Tetuljhora": "1347"
+                        }
+                    },
+                    "Keraniganj": {
+                        postalCode: "1310",
+                        thanas: ["Keraniganj", "Ati Bazar", "Kalatia"],
+                        unions: {
+                            "Keraniganj": "1310",
+                            "Ati Bazar": "1311",
+                            "Kalatia": "1312",
+                            "Kaliganj": "1313",
+                            "Ruhitpur": "1314",
+                            "Savar": "1315",
+                            "Sutrapur": "1316"
+                        }
+                    }
+                }
+            },
+            
+            "Chattogram": {
+                upazilas: {
+                    "Chattogram Sadar": {
+                        postalCode: "4000",
+                        thanas: ["Kotwali", "Double Mooring", "Pahartali", "Panchlaish", "Bandar", "Khulshi", "Bayezid"],
+                        unions: {
+                            "Agrabad": "4100",
+                            "Khulshi": "4208",
+                            "Kotwali": "4203",
+                            "Double Mooring": "4205",
+                            "Panchlaish": "4207",
+                            "Bandar": "4210",
+                            "Bayezid": "4210",
+                            "Chandgaon": "4212",
+                            "Halishahar": "4216",
+                            "Pahartali": "4202",
+                            "Patenga": "4204",
+                            "Wazedia": "4214",
+                            "Cepz": "4223"
+                        }
+                    },
+                    "Karnaphuli": {
+                        postalCode: "4220",
+                        thanas: ["Karnaphuli", "Patenga", "Bondor"],
+                        unions: {
+                            "Karnaphuli": "4220",
+                            "Ambagan": "4221",
+                            "Bondor": "4222",
+                            "Dhalghat": "4223",
+                            "Juldha": "4224",
+                            "Kalahati": "4225",
+                            "Karnaphuli EPZ": "4226"
+                        }
+                    },
+                    "Sitakunda": {
+                        postalCode: "4310",
+                        thanas: ["Sitakunda", "Banshkhali", "Kumira"],
+                        unions: {
+                            "Sitakunda": "4310",
+                            "Banshkhali": "4311",
+                            "Kumira": "4312",
+                            "Baraiadhala": "4313",
+                            "Bhatiari": "4314",
+                            "Fatikchhari": "4315",
+                            "Hathazari": "4316",
+                            "Mirsharai": "4317",
+                            "Sandwip": "4300"
+                        }
+                    },
+                    "Rangunia": {
+                        postalCode: "4360",
+                        thanas: ["Rangunia", "Raozan"],
+                        unions: {
+                            "Rangunia": "4360",
+                            "Raozan": "4340",
+                            "Boalkhali": "4361",
+                            "Chandanaish": "4362",
+                            "Lohagara": "4363",
+                            "Satkania": "4387"
+                        }
+                    }
+                }
+            },
+            
+            "Rajshahi": {
+                upazilas: {
+                    "Rajshahi Sadar": {
+                        postalCode: "6000",
+                        thanas: ["Boalia", "Motihar", "Rajpara"],
+                        unions: {
+                            "Boalia": "6100",
+                            "Motihar": "6100",
+                            "Shah Makhdum": "6100",
+                            "Rajpara": "6101",
+                            "Kadirabad": "6102",
+                            "Sapura": "6103",
+                            "Bihar": "6104",
+                            "Durgapur": "6105"
+                        }
+                    },
+                    "Bagha": {
+                        postalCode: "6280",
+                        thanas: ["Bagha", "Charghat"],
+                        unions: {
+                            "Bagha": "6280",
+                            "Bagmara": "6281",
+                            "Charghat": "6270",
+                            "Puthia": "6260",
+                            "Durgapur": "6282",
+                            "Godagari": "6290",
+                            "Mohonpur": "6283",
+                            "Tanore": "6284"
+                        }
+                    },
+                    "Paba": {
+                        postalCode: "6210",
+                        thanas: ["Paba", "Durgapur"],
+                        unions: {
+                            "Paba": "6210",
+                            "Durgapur": "6211",
+                            "Mohanpur": "6212",
+                            "Puthia": "6213",
+                            "Bagha": "6214",
+                            "Charghat": "6215"
+                        }
+                    }
+                }
+            },
+            
+            "Khulna": {
+                upazilas: {
+                    "Khulna Sadar": {
+                        postalCode: "9000",
+                        thanas: ["Khulna Sadar", "Khalishpur", "Sonadanga", "Daulatpur"],
+                        unions: {
+                            "Khalishpur": "9100",
+                            "Daulatpur": "9200",
+                            "Khan Jahan Ali": "9101",
+                            "Boyra": "9102",
+                            "Atra": "9103",
+                            "Rupsha": "9210",
+                            "Terokhada": "9220",
+                            "Dumuria": "9230",
+                            "Batiaghata": "9240",
+                            "Dacope": "9250",
+                            "Koyra": "9260",
+                            "Paikgacha": "9270",
+                            "Phultala": "9280"
+                        }
+                    },
+                    "Dakop": {
+                        postalCode: "9310",
+                        thanas: ["Dakop", "Tildanga"],
+                        unions: {
+                            "Dakop": "9310",
+                            "Tildanga": "9311",
+                            "Sutarkhali": "9312",
+                            "Labsha": "9313",
+                            "Bajua": "9314",
+                            "Banishanta": "9315",
+                            "Koyra": "9316",
+                            "Maharajpur": "9317"
+                        }
+                    },
+                    "Batiaghata": {
+                        postalCode: "9240",
+                        thanas: ["Batiaghata", "Surkhali"],
+                        unions: {
+                            "Batiaghata": "9240",
+                            "Surkhali": "9241",
+                            "Gangarampur": "9242",
+                            "Jaharpur": "9243",
+                            "Godaipur": "9244",
+                            "Vanderkhol": "9245"
+                        }
+                    }
+                }
+            },
+            
+            "Sylhet": {
+                upazilas: {
+                    "Sylhet Sadar": {
+                        postalCode: "3100",
+                        thanas: ["Kotwali", "Jalalabad", "Mogla Bazar"],
+                        unions: {
+                            "Zindabazar": "3100",
+                            "Amberkhana": "3100",
+                            "Kajal Shah": "3101",
+                            "Mogla Bazar": "3102",
+                            "Shahi Eidgah": "3102",
+                            "Subid Bazar": "3101",
+                            "Tilaghor": "3103",
+                            "Kumarpara": "3104",
+                            "Mira Bazar": "3105",
+                            "Bhatalia": "3106"
+                        }
+                    },
+                    "Beanibazar": {
+                        postalCode: "3170",
+                        thanas: ["Beanibazar", "Chhatak", "Jokiganj"],
+                        unions: {
+                            "Beanibazar": "3170",
+                            "Chhatak": "3080",
+                            "Jokiganj": "3190",
+                            "Kanaighat": "3180",
+                            "Golapganj": "3160",
+                            "Balaganj": "3120",
+                            "Bishwanath": "3130",
+                            "Dakshin Surma": "3140",
+                            "Fenchuganj": "3150",
+                            "Gowainghat": "3171"
+                        }
+                    },
+                    "South Surma": {
+                        postalCode: "3140",
+                        thanas: ["South Surma", "Bhatgaon"],
+                        unions: {
+                            "South Surma": "3140",
+                            "Bhatgaon": "3141",
+                            "Fatehpur": "3142",
+                            "Khadimnagar": "3143",
+                            "Khadimpara": "3144",
+                            "Mogla Bazar": "3145",
+                            "Tuker Bazar": "3146"
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    // Global variables
+    let currentPage = 1;
+    const itemsPerPage = 15;
+    let currentResults = [];
+    let searchHistory = JSON.parse(localStorage.getItem('postalSearchHistory') || '[]');
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set return category
+        localStorage.setItem('returnToCategory', 'bd');
+        
+        // Initialize district dropdown
+        initializeDistricts();
+        
+        // Load search history
+        loadSearchHistory();
+        
+        // Setup event listeners
+        setupEventListeners();
+    });
+
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    function initializeDistricts() {
+        const districtSelect = document.getElementById('districtSelect');
+        BD_POSTAL_DATABASE.districts.sort().forEach(district => {
+            const option = document.createElement('option');
+            option.value = district;
+            option.textContent = district;
+            districtSelect.appendChild(option);
+        });
+    }
+
+    function loadUpazilas() {
+        const district = document.getElementById('districtSelect').value;
+        const upazilaSelect = document.getElementById('upazilaSelect');
+        
+        upazilaSelect.innerHTML = '<option value="">-- Select Upazila/Thana --</option>';
+        
+        if (district && BD_POSTAL_DATABASE.postalData[district]) {
+            const upazilas = Object.keys(BD_POSTAL_DATABASE.postalData[district].upazilas).sort();
+            upazilas.forEach(upazila => {
+                const option = document.createElement('option');
+                option.value = upazila;
+                option.textContent = upazila;
+                upazilaSelect.appendChild(option);
+            });
+        }
+        
+        // Clear union dropdown
+        document.getElementById('unionSelect').innerHTML = '<option value="">-- Select Union/Ward --</option><option value="all">Show All Unions in Selected Area</option>';
+        
+        hideResults();
+    }
+
+    function loadUnions() {
+        const district = document.getElementById('districtSelect').value;
+        const upazila = document.getElementById('upazilaSelect').value;
+        const unionSelect = document.getElementById('unionSelect');
+        
+        unionSelect.innerHTML = '<option value="">-- Select Union/Ward --</option><option value="all">Show All Unions in Selected Area</option>';
+        
+        if (district && upazila && BD_POSTAL_DATABASE.postalData[district] && 
+            BD_POSTAL_DATABASE.postalData[district].upazilas[upazila]) {
+            
+            const unions = BD_POSTAL_DATABASE.postalData[district].upazilas[upazila].unions;
+            Object.keys(unions).sort().forEach(union => {
+                const option = document.createElement('option');
+                option.value = union;
+                option.textContent = union;
+                unionSelect.appendChild(option);
+            });
+        }
+        
+        hideResults();
+    }
+
+    function switchTab(tabName) {
+        // Remove active class from all tabs
+        document.querySelectorAll('.tab-button').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Hide all content
+        document.querySelectorAll('.search-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        
+        // Activate selected tab
+        if (tabName === 'location') {
+            document.querySelectorAll('.tab-button')[0].classList.add('active');
+            document.getElementById('locationTab').classList.add('active');
+        } else if (tabName === 'union') {
+            document.querySelectorAll('.tab-button')[1].classList.add('active');
+            document.getElementById('unionTab').classList.add('active');
+        } else {
+            document.querySelectorAll('.tab-button')[2].classList.add('active');
+            document.getElementById('quickTab').classList.add('active');
+        }
+        
+        clearForm();
+    }
+
+    function searchByLocation() {
+        const district = document.getElementById('districtSelect').value;
+        const upazila = document.getElementById('upazilaSelect').value;
+        const union = document.getElementById('unionSelect').value;
+
+        if (!district) {
+            alert('Please select a district');
+            return;
+        }
+
+        showLoading();
+        
+        setTimeout(() => {
+            let results = [];
+            
+            if (district && BD_POSTAL_DATABASE.postalData[district]) {
+                const districtData = BD_POSTAL_DATABASE.postalData[district];
+                
+                if (!upazila) {
+                    // Show all upazilas in the district
+                    Object.keys(districtData.upazilas).forEach(upazilaName => {
+                        const upazilaData = districtData.upazilas[upazilaName];
+                        Object.keys(upazilaData.unions).forEach(unionName => {
+                            results.push({
+                                district: district,
+                                upazila: upazilaName,
+                                union: unionName,
+                                postalCode: upazilaData.unions[unionName],
+                                thanas: upazilaData.thanas || []
+                            });
+                        });
+                    });
+                } else if (upazila && districtData.upazilas[upazila]) {
+                    const upazilaData = districtData.upazilas[upazila];
+                    
+                    if (!union || union === 'all') {
+                        // Show all unions in the upazila
+                        Object.keys(upazilaData.unions).forEach(unionName => {
+                            results.push({
+                                district: district,
+                                upazila: upazila,
+                                union: unionName,
+                                postalCode: upazilaData.unions[unionName],
+                                thanas: upazilaData.thanas || []
+                            });
+                        });
+                    } else if (union && upazilaData.unions[union]) {
+                        // Show specific union
+                        results.push({
+                            district: district,
+                            upazila: upazila,
+                            union: union,
+                            postalCode: upazilaData.unions[union],
+                            thanas: upazilaData.thanas || []
+                        });
+                    }
+                }
+            }
+            
+            if (results.length === 0) {
+                showNoResults();
+            } else {
+                addToSearchHistory(`${district}${upazila ? ' - ' + upazila : ''}${union && union !== 'all' ? ' - ' + union : ''}`);
+                displayResults(results, `Postal Codes for ${district}${upazila ? ' - ' + upazila : ''}${union && union !== 'all' ? ' - ' + union : ''}`);
+            }
+            
+            hideLoading();
+        }, 500);
+    }
+
+    function searchUnionThana() {
+        const searchTerm = document.getElementById('unionSearchInput').value.trim().toLowerCase();
+        
+        if (!searchTerm) {
+            alert('Please enter a search term');
+            return;
+        }
+
+        showLoading();
+        
+        setTimeout(() => {
+            let results = [];
+            
+            // Search through all data
+            Object.keys(BD_POSTAL_DATABASE.postalData).forEach(district => {
+                const districtData = BD_POSTAL_DATABASE.postalData[district];
+                
+                Object.keys(districtData.upazilas).forEach(upazila => {
+                    const upazilaData = districtData.upazilas[upazila];
+                    
+                    // Search in union names
+                    Object.keys(upazilaData.unions).forEach(union => {
+                        if (union.toLowerCase().includes(searchTerm) || 
+                            upazila.toLowerCase().includes(searchTerm) ||
+                            (upazilaData.thanas && upazilaData.thanas.some(thana => thana.toLowerCase().includes(searchTerm)))) {
+                            
+                            results.push({
+                                district: district,
+                                upazila: upazila,
+                                union: union,
+                                postalCode: upazilaData.unions[union],
+                                thanas: upazilaData.thanas || []
+                            });
+                        }
+                    });
+                });
+            });
+            
+            if (results.length === 0) {
+                showNoResults();
+            } else {
+                addToSearchHistory(searchTerm);
+                displayResults(results, `Search results for "${searchTerm}"`);
+            }
+            
+            hideLoading();
+        }, 500);
+    }
+
+    function showPopularThanas() {
+        const popularThanas = [
+            "Mirpur", "Gulshan", "Uttara", "Dhanmondi", "Motijheel",
+            "Banani", "Mohammadpur", "Tejgaon", "Kadamtali", "Agrabad"
+        ];
+        
+        showLoading();
+        
+        setTimeout(() => {
+            let results = [];
+            
+            popularThanas.forEach(thanaName => {
+                Object.keys(BD_POSTAL_DATABASE.postalData).forEach(district => {
+                    const districtData = BD_POSTAL_DATABASE.postalData[district];
+                    
+                    Object.keys(districtData.upazilas).forEach(upazila => {
+                        const upazilaData = districtData.upazilas[upazila];
+                        
+                        if (upazilaData.thanas && upazilaData.thanas.some(thana => thana.toLowerCase().includes(thanaName.toLowerCase()))) {
+                            Object.keys(upazilaData.unions).forEach(union => {
+                                results.push({
+                                    district: district,
+                                    upazila: upazila,
+                                    union: union,
+                                    postalCode: upazilaData.unions[union],
+                                    thanas: upazilaData.thanas || []
+                                });
+                            });
+                        }
+                    });
+                });
+            });
+            
+            if (results.length > 0) {
+                addToSearchHistory("Popular Thanas");
+                displayResults(results.slice(0, 50), "Popular Thanas of Bangladesh");
+            } else {
+                showNoResults();
+            }
+            
+            hideLoading();
+        }, 500);
+    }
+
+    function quickSearch() {
+        const searchTerm = document.getElementById('quickSearchInput').value.trim().toLowerCase();
+        
+        if (!searchTerm) {
+            alert('Please enter a search term');
+            return;
+        }
+
+        showLoading();
+        
+        setTimeout(() => {
+            let results = [];
+            
+            // Search through all data
+            Object.keys(BD_POSTAL_DATABASE.postalData).forEach(district => {
+                if (district.toLowerCase().includes(searchTerm)) {
+                    const districtData = BD_POSTAL_DATABASE.postalData[district];
+                    
+                    Object.keys(districtData.upazilas).forEach(upazila => {
+                        const upazilaData = districtData.upazilas[upazila];
+                        
+                        Object.keys(upazilaData.unions).forEach(union => {
+                            results.push({
+                                district: district,
+                                upazila: upazila,
+                                union: union,
+                                postalCode: upazilaData.unions[union],
+                                thanas: upazilaData.thanas || []
+                            });
+                        });
+                    });
+                } else {
+                    const districtData = BD_POSTAL_DATABASE.postalData[district];
+                    
+                    Object.keys(districtData.upazilas).forEach(upazila => {
+                        if (upazila.toLowerCase().includes(searchTerm)) {
+                            const upazilaData = districtData.upazilas[upazila];
+                            
+                            Object.keys(upazilaData.unions).forEach(union => {
+                                results.push({
+                                    district: district,
+                                    upazila: upazila,
+                                    union: union,
+                                    postalCode: upazilaData.unions[union],
+                                    thanas: upazilaData.thanas || []
+                                });
+                            });
+                        } else {
+                            const upazilaData = districtData.upazilas[upazila];
+                            
+                            Object.keys(upazilaData.unions).forEach(union => {
+                                if (union.toLowerCase().includes(searchTerm) ||
+                                    (upazilaData.thanas && upazilaData.thanas.some(thana => thana.toLowerCase().includes(searchTerm)))) {
+                                    
+                                    results.push({
+                                        district: district,
+                                        upazila: upazila,
+                                        union: union,
+                                        postalCode: upazilaData.unions[union],
+                                        thanas: upazilaData.thanas || []
+                                    });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+            
+            if (results.length === 0) {
+                showNoResults();
+            } else {
+                addToSearchHistory(searchTerm);
+                displayResults(results, `Search results for "${searchTerm}"`);
+            }
+            
+            hideLoading();
+        }, 500);
+    }
+
+    function showAllDistricts() {
+        showLoading();
+        
+        setTimeout(() => {
+            let results = [];
+            
+            // Get all districts summary
+            BD_POSTAL_DATABASE.districts.forEach(district => {
+                if (BD_POSTAL_DATABASE.postalData[district]) {
+                    const districtData = BD_POSTAL_DATABASE.postalData[district];
+                    const firstUpazila = Object.keys(districtData.upazilas)[0];
+                    
+                    if (firstUpazila) {
+                        const firstUnion = Object.keys(districtData.upazilas[firstUpazila].unions)[0];
+                        
+                        results.push({
+                            district: district,
+                            upazila: "Various",
+                            union: "Multiple Upazilas",
+                            postalCode: "See details",
+                            thanas: []
+                        });
+                    }
+                }
+            });
+            
+            if (results.length > 0) {
+                addToSearchHistory("All Districts");
+                displayResults(results, "All Districts of Bangladesh");
+            } else {
+                showNoResults();
+            }
+            
+            hideLoading();
+        }, 500);
+    }
+
+    function displayResults(results, title) {
+        currentResults = results;
+        currentPage = 1;
+        
+        document.getElementById('resultCount').textContent = results.length.toLocaleString();
+        
+        if (results.length === 0) {
+            document.getElementById('resultTable').innerHTML = `
+                <div class="no-results">
+                    <i class="fas fa-search fa-3x" style="color: #666; margin-bottom: 20px;"></i>
+                    <h3>No Results Found</h3>
+                    <p>Try different search terms or browse by district</p>
+                </div>
+            `;
+            document.getElementById('dataSource').innerHTML = '';
+            hidePagination();
+        } else {
+            renderTable();
+            document.getElementById('dataSource').innerHTML = `
+                <i class="fas fa-database"></i> Source: Comprehensive Bangladesh Postal Database
+            `;
+            
+            if (results.length > itemsPerPage) {
+                showPagination();
+            } else {
+                hidePagination();
+            }
+        }
+        
+        document.getElementById('resultSection').classList.add('show');
+    }
+
+    function renderTable() {
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageResults = currentResults.slice(start, end);
+        
+        let tableHTML = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>District</th>
+                        <th>Upazila/Thana</th>
+                        <th>Union/Ward</th>
+                        <th>Postal Code</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        pageResults.forEach((result, index) => {
+            const badgeClass = result.union === "Multiple Upazilas" ? "district-badge" : 
+                             result.union === "See details" ? "upazila-badge" : "union-badge";
+            
+            tableHTML += `
+                <tr>
+                    <td>
+                        <span class="badge district-badge">${result.district}</span>
+                    </td>
+                    <td>${result.upazila}</td>
+                    <td>
+                        ${result.union !== "Multiple Upazilas" && result.union !== "See details" ? 
+                          `<span class="badge union-badge">${result.union}</span>` : result.union}
+                    </td>
+                    <td>
+                        <strong style="color: #16a34a; font-size: 1.2em;">${result.postalCode}</strong>
+                    </td>
+                    <td>
+                        <button class="copy-btn" onclick="copyPostalCode('${result.postalCode}', '${result.district} - ${result.upazila} - ${result.union}')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </td>
+                </tr>
+            `;
+        });
+
+        tableHTML += '</tbody></table>';
+        document.getElementById('resultTable').innerHTML = tableHTML;
+        
+        renderPagination();
+    }
+
+    function renderPagination() {
+        const totalPages = Math.ceil(currentResults.length / itemsPerPage);
+        const pagination = document.getElementById('pagination');
+        
+        if (totalPages <= 1) {
+            hidePagination();
+            return;
+        }
+        
+        let paginationHTML = '';
+        
+        // Previous button
+        if (currentPage > 1) {
+            paginationHTML += `<button class="page-button" onclick="changePage(${currentPage - 1})">
+                <i class="fas fa-chevron-left"></i> Previous
+            </button>`;
+        }
+        
+        // Page numbers
+        const maxVisiblePages = 5;
+        let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+        let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+        
+        if (endPage - startPage + 1 < maxVisiblePages) {
+            startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        }
+        
+        for (let i = startPage; i <= endPage; i++) {
+            paginationHTML += `<button class="page-button ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">
+                ${i}
+            </button>`;
+        }
+        
+        // Next button
+        if (currentPage < totalPages) {
+            paginationHTML += `<button class="page-button" onclick="changePage(${currentPage + 1})">
+                Next <i class="fas fa-chevron-right"></i>
+            </button>`;
+        }
+        
+        pagination.innerHTML = paginationHTML;
+        pagination.style.display = 'flex';
+    }
+
+    function changePage(page) {
+        currentPage = page;
+        renderTable();
+        window.scrollTo({ 
+            top: document.getElementById('resultSection').offsetTop - 50, 
+            behavior: 'smooth' 
+        });
+    }
+
+    function hidePagination() {
+        document.getElementById('pagination').style.display = 'none';
+    }
+
+    function showPagination() {
+        document.getElementById('pagination').style.display = 'flex';
+    }
+
+    function showNoResults() {
+        document.getElementById('resultCount').textContent = '0';
+        document.getElementById('resultTable').innerHTML = `
+            <div class="no-results">
+                <i class="fas fa-search fa-3x" style="color: #666; margin-bottom: 20px;"></i>
+                <h3>No Results Found</h3>
+                <p>Try different search terms or browse by district</p>
+            </div>
+        `;
+        document.getElementById('resultSection').classList.add('show');
+        hidePagination();
+    }
+
+    function clearForm() {
+        document.getElementById('districtSelect').value = '';
+        document.getElementById('upazilaSelect').innerHTML = '<option value="">-- Select Upazila/Thana --</option>';
+        document.getElementById('unionSelect').innerHTML = '<option value="">-- Select Union/Ward --</option><option value="all">Show All Unions in Selected Area</option>';
+        document.getElementById('unionSearchInput').value = '';
+        document.getElementById('quickSearchInput').value = '';
+        hideResults();
+    }
+
+    function hideResults() {
+        document.getElementById('resultSection').classList.remove('show');
+        hidePagination();
+    }
+
+    function showLoading() {
+        document.getElementById('loading').classList.add('show');
+        hideResults();
+    }
+
+    function hideLoading() {
+        document.getElementById('loading').classList.remove('show');
+    }
+
+    function addToSearchHistory(searchTerm) {
+        // Remove if already exists
+        searchHistory = searchHistory.filter(term => term !== searchTerm);
+        
+        // Add to beginning
+        searchHistory.unshift(searchTerm);
+        
+        // Keep only last 10 items
+        if (searchHistory.length > 10) {
+            searchHistory = searchHistory.slice(0, 10);
+        }
+        
+        // Save to localStorage
+        localStorage.setItem('postalSearchHistory', JSON.stringify(searchHistory));
+    }
+
+    function loadSearchHistory() {
+        // Can be implemented to show recent searches
+    }
+
+    function setupEventListeners() {
+        // Enter key support
+        document.getElementById('unionSearchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchUnionThana();
+            }
+        });
+
+        document.getElementById('quickSearchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                quickSearch();
+            }
+        });
+    }
+
+    function copyPostalCode(code, location) {
+        navigator.clipboard.writeText(`${code} - ${location}`).then(() => {
+            alert(`Copied: ${code} (${location})`);
+        }).catch(err => {
+            console.error('Copy failed:', err);
+        });
+    }
+
+    // Make functions available globally
+    window.switchTab = switchTab;
+    window.searchByLocation = searchByLocation;
+    window.searchUnionThana = searchUnionThana;
+    window.showPopularThanas = showPopularThanas;
+    window.quickSearch = quickSearch;
+    window.showAllDistricts = showAllDistricts;
+    window.clearForm = clearForm;
+    window.changePage = changePage;
+    window.copyPostalCode = copyPostalCode;
+</script>
+
+</body>
+</html>

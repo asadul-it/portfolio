@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bandwidth Calculator - Network Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header with white background */
+        .header {
+            background: white;
+            color: #000000;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #000000;
+        }
+
+        .logo h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 2em;
+            color: #000000;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: #000000;
+        }
+
+        .nav-links a.active {
+            color: #ffffff;
+            background: #000000;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f5f5f5;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-toggle:hover {
+            background: #e0e0e0;
+        }
+
+        .lang-flag {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #000000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .lang-text {
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #000000;
+        }
+
+        /* Hero Section - All White */
+        .hero {
+            background: white;
+            color: #000000;
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 0;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #000000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #000000;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+
+        .back-link:hover {
+            color: #ffffff;
+            background: #000000;
+        }
+
+        /* Calculator Section */
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-section {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .result-section {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            color: #000000;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #000000;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+
+        .input-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            color: #000000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-select:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 15px;
+            background: #000000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .calculate-btn:hover {
+            background: #333333;
+            transform: translateY(-2px);
+        }
+
+        /* Bandwidth Bars */
+        .bandwidth-bars {
+            margin-top: 20px;
+        }
+
+        .bandwidth-bar {
+            margin-bottom: 15px;
+        }
+
+        .bandwidth-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .bandwidth-fill {
+            height: 20px;
+            background: #000000;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* Result Grid */
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            border: 2px solid #000000;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .result-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+
+        .result-unit {
+            font-size: 0.9em;
+            color: #666666;
+            font-weight: 600;
+        }
+
+        .result-label {
+            font-size: 0.9em;
+            color: #000000;
+            margin-top: 5px;
+        }
+
+        /* Traffic Chart */
+        .traffic-chart {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 200px;
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #000000;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .chart-bar {
+            width: 40px;
+            background: #000000;
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            transition: height 0.5s ease;
+        }
+
+        .chart-label {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #000000;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Usage Scenarios */
+        .usage-scenarios {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .scenario-item {
+            background: #f8f9fa;
+            border: 2px solid #000000;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .scenario-item.active {
+            background: #000000;
+            color: white;
+        }
+
+        .scenario-item.active .scenario-title {
+            color: white;
+        }
+
+        .scenario-title {
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .scenario-bandwidth {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        /* Info Section */
+        .info-section {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-section h3 {
+            color: #000000;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .info-section ul {
+            margin-left: 20px;
+            color: #000000;
+        }
+
+        .info-section li {
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #000000;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p, .footer-column ul li, .footer-column ul li a {
+            color: #000000;
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #000000;
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            color: #000000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #000000;
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #000000;
+            color: #000000;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero h2 {
+                font-size: 1.8em;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scenario-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-container {
+                flex-direction: column;
+                align-items: center;
+                height: auto;
+            }
+
+            .chart-bar {
+                width: 80%;
+                height: 40px !important;
+                margin-bottom: 30px;
+            }
+
+            .chart-label {
+                bottom: -30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header with white background -->
+<div class="header">
+    <div class="header-container">
+        <a href="../../index.html" class="logo">
+            <i class="fas fa-tachometer-alt"></i>
+            <h1>Bandwidth Calculator</h1>
+        </a>
+        
+        <div class="nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../skills.html">Skills</a>
+            <a href="../tools.html">Tools</a>
+            <a href="../../certificate.html">Certificate</a>
+            <a href="../../contact.html">Contact</a>
+            
+            <div class="language-toggle" id="languageToggle">
+                <div class="lang-flag" id="langFlag">EN</div>
+                <span class="lang-text" id="langText">English</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section - All White -->
+<div class="hero">
+    <h2 id="heroTitle">Bandwidth Calculator</h2>
+    <p id="heroSubtitle">Calculate network bandwidth requirements, data transfer times, and capacity planning</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> <span id="backText">Back to Tools</span></a>
+
+    <div class="calculator-container">
+        <div class="input-section">
+            <h3 class="section-title"><i class="fas fa-sliders-h"></i> <span id="inputTitle">Bandwidth Parameters</span></h3>
+            
+            <div class="input-group">
+                <label class="input-label" id="calcTypeLabel">Calculation Type:</label>
+                <select class="input-select" id="calcType">
+                    <option value="bandwidth">Bandwidth Requirements</option>
+                    <option value="transfer">Transfer Time</option>
+                    <option value="capacity">Network Capacity</option>
+                    <option value="concurrent">Concurrent Users</option>
+                </select>
+            </div>
+            
+            <div id="bandwidthInput">
+                <div class="input-group">
+                    <label class="input-label" id="dataSizeLabel">Data Size:</label>
+                    <input type="number" class="input-field" id="dataSize" placeholder="100" value="100">
+                    <select class="input-select" id="dataUnit" style="margin-top: 10px;">
+                        <option value="MB">Megabytes (MB)</option>
+                        <option value="GB" selected>Gigabytes (GB)</option>
+                        <option value="TB">Terabytes (TB)</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label" id="timeLabel">Time Available:</label>
+                    <input type="number" class="input-field" id="timeAvailable" placeholder="1" value="1">
+                    <select class="input-select" id="timeUnit" style="margin-top: 10px;">
+                        <option value="seconds">Seconds</option>
+                        <option value="minutes">Minutes</option>
+                        <option value="hours" selected>Hours</option>
+                        <option value="days">Days</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="transferInput" style="display: none;">
+                <div class="input-group">
+                    <label class="input-label" id="fileSizeLabel">File Size:</label>
+                    <input type="number" class="input-field" id="fileSize" placeholder="1" value="1">
+                    <select class="input-select" id="fileUnit" style="margin-top: 10px;">
+                        <option value="MB">MB</option>
+                        <option value="GB" selected>GB</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label" id="connectionSpeedLabel">Connection Speed:</label>
+                    <input type="number" class="input-field" id="connectionSpeed" placeholder="100" value="100">
+                    <select class="input-select" id="speedUnit" style="margin-top: 10px;">
+                        <option value="Mbps">Mbps</option>
+                        <option value="Gbps" selected>Gbps</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="capacityInput" style="display: none;">
+                <div class="input-group">
+                    <label class="input-label" id="usersLabel">Number of Users:</label>
+                    <input type="number" class="input-field" id="numUsers" placeholder="50" value="50" min="1">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label" id="activityLabel">User Activity Level:</label>
+                    <select class="input-select" id="activityLevel">
+                        <option value="light">Light (Email, Web Browsing)</option>
+                        <option value="medium" selected>Medium (Office Applications)</option>
+                        <option value="heavy">Heavy (Video Conferencing)</option>
+                        <option value="extreme">Extreme (Media Streaming, Large Transfers)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="concurrentInput" style="display: none;">
+                <div class="input-group">
+                    <label class="input-label" id="availableBandwidthLabel">Available Bandwidth:</label>
+                    <input type="number" class="input-field" id="availableBandwidth" placeholder="1000" value="1000">
+                    <select class="input-select" id="bandwidthUnit" style="margin-top: 10px;">
+                        <option value="Mbps" selected>Mbps</option>
+                        <option value="Gbps">Gbps</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label" id="appRequirementLabel">Application Requirement per User:</label>
+                    <input type="number" class="input-field" id="appRequirement" placeholder="5" value="5">
+                    <select class="input-select" id="requirementUnit" style="margin-top: 10px;">
+                        <option value="Mbps" selected>Mbps</option>
+                        <option value="Kbps">Kbps</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button class="calculate-btn" id="calculateBtn">
+                <i class="fas fa-calculator"></i> <span id="calculateText">Calculate Bandwidth</span>
+            </button>
+        </div>
+        
+        <div class="result-section">
+            <h3 class="section-title"><i class="fas fa-chart-line"></i> <span id="resultTitle">Bandwidth Results</span></h3>
+            
+            <div class="result-grid">
+                <div class="result-item">
+                    <div class="result-value" id="requiredBandwidth">94.37</div>
+                    <div class="result-unit" id="bandwidthUnitResult">Mbps</div>
+                    <div class="result-label" id="requiredLabel">Required Bandwidth</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-value" id="transferTime">2.37</div>
+                    <div class="result-unit" id="timeUnitResult">Hours</div>
+                    <div class="result-label" id="transferLabel">Transfer Time</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-value" id="dataRate">11.92</div>
+                    <div class="result-unit" id="rateUnitResult">MB/s</div>
+                    <div class="result-label" id="rateLabel">Data Rate</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-value" id="utilization">9.44</div>
+                    <div class="result-unit">%</div>
+                    <div class="result-label" id="utilizationLabel">Network Utilization</div>
+                </div>
+            </div>
+            
+            <div class="bandwidth-bars">
+                <div class="bandwidth-bar">
+                    <div class="bandwidth-label">
+                        <span id="currentUsageLabel">Current Usage:</span>
+                        <span id="currentUsageValue">9.44%</span>
+                    </div>
+                    <div class="bandwidth-fill" id="currentUsageBar" style="width: 9.44%; background: #000000;"></div>
+                </div>
+                
+                <div class="bandwidth-bar">
+                    <div class="bandwidth-label">
+                        <span id="recommendedLabel">Recommended Max:</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="bandwidth-fill" style="width: 70%; background: #666666;"></div>
+                </div>
+            </div>
+            
+            <div class="input-group" style="margin-top: 20px;">
+                <label class="input-label" id="recommendationLabel">Recommendation:</label>
+                <div style="padding: 15px; background: #f8f9fa; border: 2px solid #000000; border-radius: 5px; color: #000000; font-weight: 600;" id="recommendationText">
+                    100 Mbps connection sufficient for this requirement
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="traffic-chart">
+        <h3 class="section-title"><i class="fas fa-chart-bar"></i> <span id="chartTitle">Network Traffic Distribution</span></h3>
+        
+        <div class="chart-container" id="trafficChart">
+            <div class="chart-bar" style="height: 80%;" data-percentage="80">
+                <div class="chart-label" id="httpLabel">HTTP/Web</div>
+            </div>
+            <div class="chart-bar" style="height: 60%;" data-percentage="60">
+                <div class="chart-label" id="emailLabel">Email</div>
+            </div>
+            <div class="chart-bar" style="height: 40%;" data-percentage="40">
+                <div class="chart-label" id="videoLabel">Video</div>
+            </div>
+            <div class="chart-bar" style="height: 30%;" data-percentage="30">
+                <div class="chart-label" id="voipLabel">VoIP</div>
+            </div>
+            <div class="chart-bar" style="height: 20%;" data-percentage="20">
+                <div class="chart-label" id="fileLabel">File Transfer</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="usage-scenarios">
+        <h3 class="section-title"><i class="fas fa-laptop"></i> <span id="scenariosTitle">Common Usage Scenarios</span></h3>
+        
+        <div class="scenario-grid" id="scenarioGrid">
+            <div class="scenario-item active" data-bandwidth="100">
+                <div class="scenario-title" id="scenario1Title">Small Office</div>
+                <div class="scenario-bandwidth">100 Mbps</div>
+                <div id="scenario1Desc">10-20 users, basic applications</div>
+            </div>
+            <div class="scenario-item" data-bandwidth="500">
+                <div class="scenario-title" id="scenario2Title">Medium Business</div>
+                <div class="scenario-bandwidth">500 Mbps</div>
+                <div id="scenario2Desc">50-100 users, video conferencing</div>
+            </div>
+            <div class="scenario-item" data-bandwidth="1000">
+                <div class="scenario-title" id="scenario3Title">Large Enterprise</div>
+                <div class="scenario-bandwidth">1 Gbps</div>
+                <div id="scenario3Desc">100+ users, heavy data transfers</div>
+            </div>
+            <div class="scenario-item" data-bandwidth="10000">
+                <div class="scenario-title" id="scenario4Title">Data Center</div>
+                <div class="scenario-bandwidth">10 Gbps</div>
+                <div id="scenario4Desc">High-speed server connectivity</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-section">
+        <h3><i class="fas fa-info-circle"></i> <span id="infoTitle">Bandwidth Planning Guidelines</span></h3>
+        <ul id="infoList">
+            <li><strong>Rule of Thumb:</strong> Plan for 70% peak utilization to allow for growth and bursts.</li>
+            <li><strong>Quality of Service (QoS):</strong> Prioritize voice and video traffic for better performance.</li>
+            <li><strong>Upload vs Download:</strong> Most connections have asymmetric speeds (faster download).</li>
+            <li><strong>Overhead:</strong> Account for 10-20% protocol overhead in bandwidth calculations.</li>
+            <li><strong>Future Growth:</strong> Plan for 25-50% growth over 3 years when sizing connections.</li>
+            <li><strong>Redundancy:</strong> Consider redundant connections for critical applications.</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Tools</h3>
+            <p>Free collection of online tools for everyday tasks. No installation required, works directly in your browser.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../skills.html">Skills</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../../certificate.html">Certificate</a></li>
+                <li><a href="../../contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:asadul.it@yahoo.com">asadul.it@yahoo.com</a></li>
+                <li><a href="tel:01706927793">01706927793</a></li>
+                <li>Savar, Dhaka</li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Language data
+const translations = {
+    en: {
+        heroTitle: "Bandwidth Calculator",
+        heroSubtitle: "Calculate network bandwidth requirements, data transfer times, and capacity planning",
+        backText: "Back to Tools",
+        inputTitle: "Bandwidth Parameters",
+        calcTypeLabel: "Calculation Type:",
+        dataSizeLabel: "Data Size:",
+        timeLabel: "Time Available:",
+        fileSizeLabel: "File Size:",
+        connectionSpeedLabel: "Connection Speed:",
+        usersLabel: "Number of Users:",
+        activityLabel: "User Activity Level:",
+        availableBandwidthLabel: "Available Bandwidth:",
+        appRequirementLabel: "Application Requirement per User:",
+        calculateText: "Calculate Bandwidth",
+        resultTitle: "Bandwidth Results",
+        requiredLabel: "Required Bandwidth",
+        transferLabel: "Transfer Time",
+        rateLabel: "Data Rate",
+        utilizationLabel: "Network Utilization",
+        currentUsageLabel: "Current Usage:",
+        recommendedLabel: "Recommended Max:",
+        recommendationLabel: "Recommendation:",
+        chartTitle: "Network Traffic Distribution",
+        httpLabel: "HTTP/Web",
+        emailLabel: "Email",
+        videoLabel: "Video",
+        voipLabel: "VoIP",
+        fileLabel: "File Transfer",
+        scenariosTitle: "Common Usage Scenarios",
+        scenario1Title: "Small Office",
+        scenario1Desc: "10-20 users, basic applications",
+        scenario2Title: "Medium Business",
+        scenario2Desc: "50-100 users, video conferencing",
+        scenario3Title: "Large Enterprise",
+        scenario3Desc: "100+ users, heavy data transfers",
+        scenario4Title: "Data Center",
+        scenario4Desc: "High-speed server connectivity",
+        infoTitle: "Bandwidth Planning Guidelines",
+        infoList: [
+            "Rule of Thumb: Plan for 70% peak utilization to allow for growth and bursts.",
+            "Quality of Service (QoS): Prioritize voice and video traffic for better performance.",
+            "Upload vs Download: Most connections have asymmetric speeds (faster download).",
+            "Overhead: Account for 10-20% protocol overhead in bandwidth calculations.",
+            "Future Growth: Plan for 25-50% growth over 3 years when sizing connections.",
+            "Redundancy: Consider redundant connections for critical applications."
+        ]
+    },
+    bn: {
+        heroTitle: "ব্যান্ডউইথ ক্যালকুলেটর",
+        heroSubtitle: "নেটওয়ার্ক ব্যান্ডউইথ প্রয়োজনীয়তা, ডেটা স্থানান্তর সময় এবং ক্ষমতা পরিকল্পনা গণনা করুন",
+        backText: "টুলসে ফিরে যান",
+        inputTitle: "ব্যান্ডউইথ প্যারামিটার",
+        calcTypeLabel: "গণনা ধরন:",
+        dataSizeLabel: "ডেটা আকার:",
+        timeLabel: "সময় উপলব্ধ:",
+        fileSizeLabel: "ফাইল আকার:",
+        connectionSpeedLabel: "সংযোগ গতি:",
+        usersLabel: "ব্যবহারকারীর সংখ্যা:",
+        activityLabel: "ব্যবহারকারী কার্যকলাপ স্তর:",
+        availableBandwidthLabel: "উপলব্ধ ব্যান্ডউইথ:",
+        appRequirementLabel: "ব্যবহারকারী প্রতি অ্যাপ্লিকেশন প্রয়োজনীয়তা:",
+        calculateText: "ব্যান্ডউইথ গণনা করুন",
+        resultTitle: "ব্যান্ডউইথ ফলাফল",
+        requiredLabel: "প্রয়োজনীয় ব্যান্ডউইথ",
+        transferLabel: "স্থানান্তর সময়",
+        rateLabel: "ডেটা হার",
+        utilizationLabel: "নেটওয়ার্ক ব্যবহার",
+        currentUsageLabel: "বর্তমান ব্যবহার:",
+        recommendedLabel: "প্রস্তাবিত সর্বোচ্চ:",
+        recommendationLabel: "প্রস্তাবনা:",
+        chartTitle: "নেটওয়ার্ক ট্রাফিক বন্টন",
+        httpLabel: "HTTP/ওয়েব",
+        emailLabel: "ইমেল",
+        videoLabel: "ভিডিও",
+        voipLabel: "ভিওআইপি",
+        fileLabel: "ফাইল স্থানান্তর",
+        scenariosTitle: "সাধারণ ব্যবহারের দৃশ্যাবলী",
+        scenario1Title: "ছোট অফিস",
+        scenario1Desc: "10-20 ব্যবহারকারী, মৌলিক অ্যাপ্লিকেশন",
+        scenario2Title: "মাধ্যমিক ব্যবসা",
+        scenario2Desc: "50-100 ব্যবহারকারী, ভিডিও কনফারেন্সিং",
+        scenario3Title: "বড় এন্টারপ্রাইজ",
+        scenario3Desc: "100+ ব্যবহারকারী, ভারী ডেটা স্থানান্তর",
+        scenario4Title: "ডেটা সেন্টার",
+        scenario4Desc: "উচ্চ-গতির সার্ভার সংযোগ",
+        infoTitle: "ব্যান্ডউইথ পরিকল্পনা নির্দেশিকা",
+        infoList: [
+            "সাধারণ নিয়ম: বৃদ্ধি এবং বিস্ফোরণের জন্য 70% সর্বোচ্চ ব্যবহারের জন্য পরিকল্পনা করুন।",
+            "কোয়ালিটি অফ সার্ভিস (QoS): ভাল পারফরম্যান্সের জন্য ভয়েস এবং ভিডিও ট্রাফিক অগ্রাধিকার দিন।",
+            "আপলোড বনাম ডাউনলোড: বেশিরভাগ সংযোগের অসমমিত গতি থাকে (দ্রুত ডাউনলোড)।",
+            "ওভারহেড: ব্যান্ডউইথ গণনায় 10-20% প্রোটোকল ওভারহেড অ্যাকাউন্ট করুন।",
+            "ভবিষ্যৎ বৃদ্ধি: সংযোগ আকার দেওয়ার সময় 3 বছরে 25-50% বৃদ্ধির জন্য পরিকল্পনা করুন।",
+            "রিডান্ডেন্সি: সমালোচনামূলক অ্যাপ্লিকেশনগুলির জন্য অতিরিক্ত সংযোগ বিবেচনা করুন।"
+        ]
+    }
+};
+
+// Current language state
+let currentLang = 'en';
+
+// Toggle language
+document.getElementById('languageToggle').addEventListener('click', function() {
+    currentLang = currentLang === 'en' ? 'bn' : 'en';
+    updateLanguage();
+    updateCalculationType();
+    calculateBandwidth();
+});
+
+// Update all text elements based on language
+function updateLanguage() {
+    // Update UI elements
+    document.getElementById('langFlag').textContent = currentLang === 'en' ? 'EN' : 'বাং';
+    document.getElementById('langText').textContent = currentLang === 'en' ? 'English' : 'বাংলা';
+    
+    // Update all translatable elements
+    const elements = Object.keys(translations[currentLang]);
+    elements.forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+            if (key.includes('List')) {
+                // Handle lists separately
+                const list = document.getElementById(key);
+                const items = translations[currentLang][key];
+                list.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+            } else {
+                element.textContent = translations[currentLang][key];
+            }
+        }
+    });
+}
+
+// Unit conversion factors
+const unitFactors = {
+    // Data size factors (to bits)
+    'MB': 8 * 1024 * 1024,
+    'GB': 8 * 1024 * 1024 * 1024,
+    'TB': 8 * 1024 * 1024 * 1024 * 1024,
+    
+    // Time factors (to seconds)
+    'seconds': 1,
+    'minutes': 60,
+    'hours': 3600,
+    'days': 86400,
+    
+    // Speed factors (to bits per second)
+    'Kbps': 1000,
+    'Mbps': 1000000,
+    'Gbps': 1000000000
+};
+
+// Activity level bandwidth requirements (Mbps per user)
+const activityRequirements = {
+    'light': 0.5,    // Email, web browsing
+    'medium': 2,     // Office applications
+    'heavy': 5,      // Video conferencing
+    'extreme': 10    // Media streaming, large transfers
+};
+
+// Update calculation type inputs
+function updateCalculationType() {
+    const calcType = document.getElementById('calcType').value;
+    
+    // Hide all inputs first
+    document.getElementById('bandwidthInput').style.display = 'none';
+    document.getElementById('transferInput').style.display = 'none';
+    document.getElementById('capacityInput').style.display = 'none';
+    document.getElementById('concurrentInput').style.display = 'none';
+    
+    // Show selected input
+    document.getElementById(calcType + 'Input').style.display = 'block';
+    
+    // Update calculate button text based on type
+    const buttonText = {
+        'bandwidth': currentLang === 'en' ? 'Calculate Bandwidth Requirements' : 'ব্যান্ডউইথ প্রয়োজনীয়তা গণনা করুন',
+        'transfer': currentLang === 'en' ? 'Calculate Transfer Time' : 'স্থানান্তর সময় গণনা করুন',
+        'capacity': currentLang === 'en' ? 'Calculate Network Capacity' : 'নেটওয়ার্ক ক্ষমতা গণনা করুন',
+        'concurrent': currentLang === 'en' ? 'Calculate Concurrent Users' : 'সমবর্তী ব্যবহারকারী গণনা করুন'
+    };
+    
+    document.getElementById('calculateText').textContent = buttonText[calcType];
+}
+
+// Calculate bandwidth based on selected type
+function calculateBandwidth() {
+    try {
+        const calcType = document.getElementById('calcType').value;
+        let requiredBandwidth, transferTime, dataRate, utilization;
+        
+        switch(calcType) {
+            case 'bandwidth':
+                // Calculate required bandwidth for data transfer in given time
+                const dataSize = parseFloat(document.getElementById('dataSize').value);
+                const dataUnit = document.getElementById('dataUnit').value;
+                const timeAvailable = parseFloat(document.getElementById('timeAvailable').value);
+                const timeUnit = document.getElementById('timeUnit').value;
+                
+                if (isNaN(dataSize) || dataSize <= 0) throw new Error('Invalid data size');
+                if (isNaN(timeAvailable) || timeAvailable <= 0) throw new Error('Invalid time');
+                
+                const totalBits = dataSize * unitFactors[dataUnit];
+                const totalSeconds = timeAvailable * unitFactors[timeUnit];
+                
+                requiredBandwidth = totalBits / totalSeconds; // bits per second
+                transferTime = totalSeconds; // seconds
+                dataRate = totalBits / totalSeconds / 8; // bytes per second
+                break;
+                
+            case 'transfer':
+                // Calculate transfer time for given file size and connection speed
+                const fileSize = parseFloat(document.getElementById('fileSize').value);
+                const fileUnit = document.getElementById('fileUnit').value;
+                const connectionSpeed = parseFloat(document.getElementById('connectionSpeed').value);
+                const speedUnit = document.getElementById('speedUnit').value;
+                
+                if (isNaN(fileSize) || fileSize <= 0) throw new Error('Invalid file size');
+                if (isNaN(connectionSpeed) || connectionSpeed <= 0) throw new Error('Invalid connection speed');
+                
+                const fileBits = fileSize * unitFactors[fileUnit];
+                const speedBitsPerSec = connectionSpeed * unitFactors[speedUnit];
+                
+                transferTime = fileBits / speedBitsPerSec; // seconds
+                requiredBandwidth = speedBitsPerSec; // bits per second
+                dataRate = speedBitsPerSec / 8; // bytes per second
+                break;
+                
+            case 'capacity':
+                // Calculate bandwidth required for given number of users and activity level
+                const numUsers = parseInt(document.getElementById('numUsers').value);
+                const activityLevel = document.getElementById('activityLevel').value;
+                
+                if (isNaN(numUsers) || numUsers <= 0) throw new Error('Invalid number of users');
+                
+                const mbpsPerUser = activityRequirements[activityLevel];
+                requiredBandwidth = numUsers * mbpsPerUser * 1000000; // Convert to bits per second
+                
+                // Estimate typical transfer time for 1GB file
+                const typicalFileSize = 1 * unitFactors['GB'];
+                transferTime = typicalFileSize / requiredBandwidth;
+                dataRate = requiredBandwidth / 8; // bytes per second
+                break;
+                
+            case 'concurrent':
+                // Calculate maximum concurrent users for given bandwidth
+                const availableBandwidth = parseFloat(document.getElementById('availableBandwidth').value);
+                const bandwidthUnit = document.getElementById('bandwidthUnit').value;
+                const appRequirement = parseFloat(document.getElementById('appRequirement').value);
+                const requirementUnit = document.getElementById('requirementUnit').value;
+                
+                if (isNaN(availableBandwidth) || availableBandwidth <= 0) throw new Error('Invalid available bandwidth');
+                if (isNaN(appRequirement) || appRequirement <= 0) throw new Error('Invalid application requirement');
+                
+                const totalBandwidthBits = availableBandwidth * unitFactors[bandwidthUnit];
+                const requirementBits = appRequirement * unitFactors[requirementUnit];
+                
+                const maxUsers = Math.floor(totalBandwidthBits / requirementBits);
+                requiredBandwidth = maxUsers * requirementBits;
+                transferTime = (1 * unitFactors['GB']) / requiredBandwidth; // Time for 1GB transfer
+                dataRate = requiredBandwidth / 8;
+                
+                // Update recommendation
+                document.getElementById('recommendationText').textContent = 
+                    currentLang === 'en' 
+                    ? `Maximum ${maxUsers} concurrent users supported`
+                    : `সর্বোচ্চ ${maxUsers} সমবর্তী ব্যবহারকারী সমর্থিত`;
+                break;
+        }
+        
+        // Calculate utilization (assuming 1Gbps network)
+        const networkCapacity = 1000000000; // 1 Gbps in bits
+        utilization = (requiredBandwidth / networkCapacity) * 100;
+        
+        // Format results
+        const formattedBandwidth = formatBandwidth(requiredBandwidth);
+        const formattedTime = formatTime(transferTime);
+        const formattedRate = formatDataRate(dataRate);
+        
+        // Update results display
+        document.getElementById('requiredBandwidth').textContent = formattedBandwidth.value;
+        document.getElementById('bandwidthUnitResult').textContent = formattedBandwidth.unit;
+        document.getElementById('transferTime').textContent = formattedTime.value;
+        document.getElementById('timeUnitResult').textContent = formattedTime.unit;
+        document.getElementById('dataRate').textContent = formattedRate.value;
+        document.getElementById('rateUnitResult').textContent = formattedRate.unit;
+        document.getElementById('utilization').textContent = utilization.toFixed(2);
+        
+        // Update usage bars
+        const usagePercentage = Math.min(utilization, 100);
+        document.getElementById('currentUsageBar').style.width = `${usagePercentage}%`;
+        document.getElementById('currentUsageValue').textContent = `${usagePercentage.toFixed(2)}%`;
+        
+        // Update recommendation for non-concurrent calculations
+        if (calcType !== 'concurrent') {
+            updateRecommendation(requiredBandwidth);
+        }
+        
+        // Update traffic chart
+        updateTrafficChart(calcType);
+        
+    } catch (error) {
+        console.error('Calculation error:', error);
+        // Don't show alert for empty fields during initialization
+        if (error.message !== 'Invalid data size' && error.message !== 'Invalid time') {
+            alert(`${currentLang === 'en' ? 'Error:' : 'ত্রুটি:'} ${error.message}`);
+        }
+    }
+}
+
+// Format bandwidth value with appropriate unit
+function formatBandwidth(bitsPerSecond) {
+    if (bitsPerSecond >= 1000000000) {
+        return { value: (bitsPerSecond / 1000000000).toFixed(2), unit: 'Gbps' };
+    } else if (bitsPerSecond >= 1000000) {
+        return { value: (bitsPerSecond / 1000000).toFixed(2), unit: 'Mbps' };
+    } else if (bitsPerSecond >= 1000) {
+        return { value: (bitsPerSecond / 1000).toFixed(2), unit: 'Kbps' };
+    } else {
+        return { value: bitsPerSecond.toFixed(2), unit: 'bps' };
+    }
+}
+
+// Format time value with appropriate unit
+function formatTime(seconds) {
+    if (seconds >= 86400) {
+        return { value: (seconds / 86400).toFixed(2), unit: currentLang === 'en' ? 'Days' : 'দিন' };
+    } else if (seconds >= 3600) {
+        return { value: (seconds / 3600).toFixed(2), unit: currentLang === 'en' ? 'Hours' : 'ঘন্টা' };
+    } else if (seconds >= 60) {
+        return { value: (seconds / 60).toFixed(2), unit: currentLang === 'en' ? 'Minutes' : 'মিনিট' };
+    } else {
+        return { value: seconds.toFixed(2), unit: currentLang === 'en' ? 'Seconds' : 'সেকেন্ড' };
+    }
+}
+
+// Format data rate value with appropriate unit
+function formatDataRate(bytesPerSecond) {
+    if (bytesPerSecond >= 1073741824) {
+        return { value: (bytesPerSecond / 1073741824).toFixed(2), unit: 'GB/s' };
+    } else if (bytesPerSecond >= 1048576) {
+        return { value: (bytesPerSecond / 1048576).toFixed(2), unit: 'MB/s' };
+    } else if (bytesPerSecond >= 1024) {
+        return { value: (bytesPerSecond / 1024).toFixed(2), unit: 'KB/s' };
+    } else {
+        return { value: bytesPerSecond.toFixed(2), unit: 'B/s' };
+    }
+}
+
+// Update recommendation based on required bandwidth
+function updateRecommendation(requiredBandwidth) {
+    const mbps = requiredBandwidth / 1000000;
+    let recommendation = '';
+    
+    if (mbps <= 100) {
+        recommendation = currentLang === 'en' 
+            ? '100 Mbps connection sufficient for this requirement'
+            : 'এই প্রয়োজনীয়তার জন্য 100 Mbps সংযোগ যথেষ্ট';
+    } else if (mbps <= 500) {
+        recommendation = currentLang === 'en'
+            ? 'Consider 500 Mbps connection for better performance'
+            : 'ভাল পারফরম্যান্সের জন্য 500 Mbps সংযোগ বিবেচনা করুন';
+    } else if (mbps <= 1000) {
+        recommendation = currentLang === 'en'
+            ? '1 Gbps connection recommended for optimal performance'
+            : 'সর্বোত্তম পারফরম্যান্সের জন্য 1 Gbps সংযোগ প্রস্তাবিত';
+    } else {
+        recommendation = currentLang === 'en'
+            ? 'Consider 10 Gbps or higher for enterprise requirements'
+            : 'এন্টারপ্রাইজ প্রয়োজনীয়তার জন্য 10 Gbps বা উচ্চতর বিবেচনা করুন';
+    }
+    
+    document.getElementById('recommendationText').textContent = recommendation;
+}
+
+// Update traffic chart based on calculation type
+function updateTrafficChart(calcType) {
+    const bars = document.querySelectorAll('.chart-bar');
+    
+    // Generate random percentages based on calculation type
+    bars.forEach(bar => {
+        const basePercentage = parseInt(bar.dataset.percentage);
+        let newPercentage;
+        
+        switch(calcType) {
+            case 'bandwidth':
+                newPercentage = basePercentage * 0.8 + Math.random() * 20;
+                break;
+            case 'transfer':
+                newPercentage = basePercentage * 1.2 + Math.random() * 30;
+                break;
+            case 'capacity':
+                newPercentage = basePercentage * 0.9 + Math.random() * 25;
+                break;
+            case 'concurrent':
+                newPercentage = basePercentage * 1.1 + Math.random() * 15;
+                break;
+            default:
+                newPercentage = basePercentage;
+        }
+        
+        // Limit to 100%
+        newPercentage = Math.min(newPercentage, 100);
+        bar.style.height = `${newPercentage}%`;
+        bar.dataset.percentage = newPercentage.toFixed(0);
+    });
+}
+
+// Event Listeners
+document.getElementById('calculateBtn').addEventListener('click', calculateBandwidth);
+
+document.getElementById('calcType').addEventListener('change', function() {
+    updateCalculationType();
+    calculateBandwidth();
+});
+
+// Add input event listeners for real-time calculation
+document.getElementById('dataSize').addEventListener('input', calculateBandwidth);
+document.getElementById('dataUnit').addEventListener('change', calculateBandwidth);
+document.getElementById('timeAvailable').addEventListener('input', calculateBandwidth);
+document.getElementById('timeUnit').addEventListener('change', calculateBandwidth);
+document.getElementById('fileSize').addEventListener('input', calculateBandwidth);
+document.getElementById('fileUnit').addEventListener('change', calculateBandwidth);
+document.getElementById('connectionSpeed').addEventListener('input', calculateBandwidth);
+document.getElementById('speedUnit').addEventListener('change', calculateBandwidth);
+document.getElementById('numUsers').addEventListener('input', calculateBandwidth);
+document.getElementById('activityLevel').addEventListener('change', calculateBandwidth);
+document.getElementById('availableBandwidth').addEventListener('input', calculateBandwidth);
+document.getElementById('bandwidthUnit').addEventListener('change', calculateBandwidth);
+document.getElementById('appRequirement').addEventListener('input', calculateBandwidth);
+document.getElementById('requirementUnit').addEventListener('change', calculateBandwidth);
+
+// Scenario selection
+document.querySelectorAll('.scenario-item').forEach(item => {
+    item.addEventListener('click', function() {
+        // Remove active class from all items
+        document.querySelectorAll('.scenario-item').forEach(i => i.classList.remove('active'));
+        
+        // Add active class to clicked item
+        this.classList.add('active');
+        
+        // Update input fields based on scenario
+        const bandwidth = parseInt(this.dataset.bandwidth);
+        document.getElementById('availableBandwidth').value = bandwidth;
+        document.getElementById('bandwidthUnit').value = bandwidth >= 1000 ? 'Gbps' : 'Mbps';
+        
+        // Switch to concurrent calculation
+        document.getElementById('calcType').value = 'concurrent';
+        updateCalculationType();
+        calculateBandwidth();
+    });
+});
+
+// Initialize
+updateLanguage();
+updateCalculationType();
+calculateBandwidth();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSI Model - 7 Layer Reference Guide</title>
+    <meta name="description" content="Interactive guide to the OSI (Open Systems Interconnection) model's 7 layers.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .intro-box {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .intro-box h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .intro-box p {
+            color: #5a6c7d;
+            line-height: 1.7;
+        }
+
+        .mnemonic-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .mnemonic-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .mnemonic-text {
+            font-size: 1.3em;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .osi-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .layer-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 6px solid;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .layer-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .layer-card.layer-7 { border-left-color: #e74c3c; }
+        .layer-card.layer-6 { border-left-color: #e67e22; }
+        .layer-card.layer-5 { border-left-color: #f39c12; }
+        .layer-card.layer-4 { border-left-color: #2ecc71; }
+        .layer-card.layer-3 { border-left-color: #3498db; }
+        .layer-card.layer-2 { border-left-color: #9b59b6; }
+        .layer-card.layer-1 { border-left-color: #34495e; }
+
+        .layer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .layer-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            opacity: 0.3;
+        }
+
+        .layer-name {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .layer-card.layer-7 .layer-name { color: #e74c3c; }
+        .layer-card.layer-6 .layer-name { color: #e67e22; }
+        .layer-card.layer-5 .layer-name { color: #f39c12; }
+        .layer-card.layer-4 .layer-name { color: #2ecc71; }
+        .layer-card.layer-3 .layer-name { color: #3498db; }
+        .layer-card.layer-2 .layer-name { color: #9b59b6; }
+        .layer-card.layer-1 .layer-name { color: #34495e; }
+
+        .layer-description {
+            color: #5a6c7d;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .layer-details {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .layer-card.active .layer-details {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .detail-section {
+            margin-bottom: 15px;
+        }
+
+        .detail-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .detail-content {
+            color: #5a6c7d;
+            line-height: 1.6;
+        }
+
+        .protocol-list, .device-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .protocol-tag, .device-tag {
+            background: #f0f3ff;
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .layer-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .layer-number {
+                font-size: 1.8em;
+            }
+
+            .layer-name {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1><i class="fas fa-layer-group"></i> OSI Model</h1>
+    <p>Open Systems Interconnection - ৭ লেয়ার রেফারেন্স মডেল</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+
+    <div class="intro-box">
+        <h2>OSI Model কি?</h2>
+        <p>OSI (Open Systems Interconnection) মডেল হল একটি ধারণাগত কাঠামো যা টেলিকমিউনিকেশন বা কম্পিউটিং সিস্টেমের ফাংশনগুলিকে সাতটি বিমূর্ত স্তরে মানসম্মত করে। এটি নেটওয়ার্ক যোগাযোগের জন্য একটি সার্বজনীন প্রোটোকল সেট প্রদানের জন্য ১৯৮৪ সালে International Organization for Standardization (ISO) দ্বারা তৈরি করা হয়েছিল। প্রতিটি স্তর একটি নির্দিষ্ট কাজ সম্পাদন করে এবং সরাসরি তার উপরে এবং নীচের স্তরগুলির সাথে যোগাযোগ করে।</p>
+    </div>
+
+    <div class="mnemonic-box">
+        <h3>মনে রাখার সহজ উপায় (উপর থেকে নিচে)</h3>
+        <div class="mnemonic-text">All People Seem To Need Data Processing</div>
+        <p style="margin-top: 10px; opacity: 0.9;">Application - Presentation - Session - Transport - Network - Data Link - Physical</p>
+    </div>
+
+    <div class="osi-layers">
+        <div class="layer-card layer-7">
+            <div class="layer-header">
+                <div class="layer-number">7</div>
+                <div class="layer-name">Application Layer</div>
+            </div>
+            <div class="layer-description">
+                Application লেয়ার হল OSI লেয়ারের মধ্যে শেষ ব্যবহারকারীর সবচেয়ে কাছের স্তর। এটি সরাসরি ব্যবহারকারী অ্যাপ্লিকেশনগুলিতে নেটওয়ার্ক সেবা প্রদান করে।
+            </div>
+            <div class="layer-details">
+                <div class="detail-section">
+                    <div class="detail-title">কাজ</div>
+                    <div class="detail-content">শেষ-ব্যবহারকারী অ্যাপ্লিকেশনগুলিতে নেটওয়ার্ক সেবা প্রদান করে। উচ্চ-স্তরের প্রোটোকল, উপস্থাপনা, এনকোডিং এবং ডায়ালগ নিয়ন্ত্রণ পরিচালনা করে।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">প্রোটোকল</div>
+                    <div class="protocol-list">
+                        <span class="protocol-tag">HTTP/HTTPS</span>
+                        <span class="protocol-tag">FTP</span>
+                        <span class="protocol-tag">SMTP</span>
+                        <span class="protocol-tag">DNS</span>
+                        <span class="protocol-tag">DHCP</span>
+                        <span class="protocol-tag">POP3/IMAP</span>
+                        <span class="protocol-tag">SSH</span>
+                        <span class="protocol-tag">Telnet</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">উদাহরণ</div>
+                    <div class="detail-content">ওয়েব ব্রাউজার, ইমেইল ক্লায়েন্ট, ফাইল ট্রান্সফার অ্যাপ্লিকেশন, রিমোট ডেস্কটপ সফটওয়্যার</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card layer-6">
+            <div class="layer-header">
+                <div class="layer-number">6</div>
+                <div class="layer-name">Presentation Layer</div>
+            </div>
+            <div class="layer-description">
+                Presentation লেয়ার নেটওয়ার্কে পাঠানোর জন্য ডেটা ফরম্যাট এবং এনক্রিপ্ট করে। এটি নেটওয়ার্কের জন্য একটি অনুবাদক হিসাবে কাজ করে।
+            </div>
+            <div class="layer-details">
+                <div class="detail-section">
+                    <div class="detail-title">কাজ</div>
+                    <div class="detail-content">ডেটা অনুবাদ, এনক্রিপশন/ডিক্রিপশন, কম্প্রেশন/ডিকম্প্রেশন এবং ফরম্যাট রূপান্তর যাতে application লেয়ারে ডেটা পাঠযোগ্য হয়।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">প্রোটোকল ও স্ট্যান্ডার্ড</div>
+                    <div class="protocol-list">
+                        <span class="protocol-tag">SSL/TLS</span>
+                        <span class="protocol-tag">JPEG</span>
+                        <span class="protocol-tag">GIF</span>
+                        <span class="protocol-tag">MPEG</span>
+                        <span class="protocol-tag">ASCII</span>
+                        <span class="protocol-tag">EBCDIC</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">উদাহরণ</div>
+                    <div class="detail-content">এনক্রিপশন (SSL/TLS), ডেটা কম্প্রেশন, ক্যারেক্টার এনকোডিং, ইমেজ/ভিডিও ফরম্যাটিং</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card layer-5">
+            <div class="layer-header">
+                <div class="layer-number">5</div>
+                <div class="layer-name">Session Layer</div>
+            </div>
+            <div class="layer-description">
+                Session লেয়ার অ্যাপ্লিকেশনগুলির মধ্যে সংযোগ স্থাপন, পরিচালনা এবং সমাপ্ত করে।
+            </div>
+            <div class="layer-details">
+                <div class="detail-section">
+                    <div class="detail-title">কাজ</div>
+                    <div class="detail-content">কম্পিউটারগুলির মধ্যে ডায়ালগ (সংযোগ) নিয়ন্ত্রণ করে। অ্যাপ্লিকেশনগুলির মধ্যে সেশন স্থাপন, পরিচালনা এবং সমাপ্ত করে। সিঙ্ক্রোনাইজেশন এবং চেকপয়েন্ট পুনরুদ্ধার প্রদান করে।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">প্রোটোকল</div>
+                    <div class="protocol-list">
+                        <span class="protocol-tag">NetBIOS</span>
+                        <span class="protocol-tag">RPC</span>
+                        <span class="protocol-tag">PPTP</span>
+                        <span class="protocol-tag">SIP</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">উদাহরণ</div>
+                    <div class="detail-content">ভিডিও কনফারেন্সিংয়ে সেশন স্থাপনা, রিমোট প্রসিডিউর কল, ডাটাবেস সেশন</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card layer-4">
+            <div class="layer-header">
+                <div class="layer-number">4</div>
+                <div class="layer-name">Transport Layer</div>
+            </div>
+            <div class="layer-description">
+                Transport লেয়ার উপরের স্তরগুলিতে নির্ভরযোগ্য ডেটা ট্রান্সফার সেবা প্রদান করে এবং ত্রুটি পুনরুদ্ধার এবং প্রবাহ নিয়ন্ত্রণ পরিচালনা করে।
+            </div>
+            <div class="layer-details">
+                <div class="detail-section">
+                    <div class="detail-title">কাজ</div>
+                    <div class="detail-content">শেষ সিস্টেমগুলির মধ্যে নির্ভরযোগ্য ডেটা স্থানান্তর প্রদান করে। সেগমেন্টেশন, প্রবাহ নিয়ন্ত্রণ, ত্রুটি পরীক্ষা এবং ডেটা পুনরুদ্ধার পরিচালনা করে। অ্যাপ্লিকেশন সনাক্ত করতে পোর্ট নম্বর ব্যবহার করে।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">প্রোটোকল</div>
+                    <div class="protocol-list">
+                        <span class="protocol-tag">TCP (নির্ভরযোগ্য)</span>
+                        <span class="protocol-tag">UDP (দ্রুত)</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">PDU (Protocol Data Unit)</div>
+                    <div class="detail-content">Segment (TCP) বা Datagram (UDP)</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">উদাহরণ</div>
+                    <div class="detail-content">পোর্ট-ভিত্তিক যোগাযোগ, সংযোগ স্থাপনা (TCP 3-way handshake), ত্রুটি পুনরুদ্ধার, প্রবাহ নিয়ন্ত্রণ</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card layer-3">
+            <div class="layer-header">
+                <div class="layer-number">3</div>
+                <div class="layer-name">Network Layer</div>
+            </div>
+            <div class="layer-description">
+                Network লেয়ার প্যাকেট ফরওয়ার্ডিং পরিচালনা করে যার মধ্যে মধ্যবর্তী রাউটার এবং লজিক্যাল ঠিকানা দিয়ে রাউটিং অন্তর্ভুক্ত।
+            </div>
+            <div class="layer-details">
+                <div class="detail-section">
+                    <div class="detail-title">কাজ</div>
+                    <div class="detail-content">লজিক্যাল ঠিকানা (IP ঠিকানা), রাউটিং এবং পাথ নির্ধারণ প্রদান করে। প্যাকেট ফরওয়ার্ডিং এবং ফ্র্যাগমেন্টেশন পরিচালনা করে। বিভিন্ন নেটওয়ার্ক জুড়ে ডেটা রুট করে।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">প্রোটোকল</div>
+                    <div class="protocol-list">
+                        <span class="protocol-tag">IP (IPv4/IPv6)</span>
+                        <span class="protocol-tag">ICMP</span>
+                        <span class="protocol-tag">ARP</span>
+                        <span class="protocol-tag">OSPF</span>
+                        <span class="protocol-tag">BGP</span>
+                        <span class="protocol-tag">RIP</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">ডিভাইস</div>
+                    <div class="device-list">
+                        <span class="device-tag">Routers</span>
+                        <span class="device-tag">Layer 3 Switches</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">PDU (Protocol Data Unit)</div>
+                    <div class="detail-content">Packet</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card layer-2">
+            <div class="layer-header">
+                <div class="layer-number">2</div>
+                <div class="layer-name">Data Link Layer</div>
+            </div>
+            <div class="layer-description">
+                Data Link লেয়ার নোড-টু-নোড ডেটা ট্রান্সফার প্রদান করে এবং ফিজিক্যাল লেয়ার থেকে ত্রুটি সংশোধন পরিচালনা করে।
+            </div>
+            <div class="layer-details">
+                <div class="detail-section">
+                    <div class="detail-title">কাজ</div>
+                    <div class="detail-content">ফিজিক্যাল ঠিকানা (MAC ঠিকানা), ত্রুটি সনাক্তকরণ এবং সংশোধন, ফ্রেম সিঙ্ক্রোনাইজেশন এবং ফিজিক্যাল মাধ্যমে অ্যাক্সেস নিয়ন্ত্রণ প্রদান করে। দুটি উপ-স্তরে বিভক্ত: LLC (Logical Link Control) এবং MAC (Media Access Control)।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">প্রোটোকল</div>
+                    <div class="protocol-list">
+                        <span class="protocol-tag">Ethernet</span>
+                        <span class="protocol-tag">PPP</span>
+                        <span class="protocol-tag">HDLC</span>
+                        <span class="protocol-tag">Frame Relay</span>
+                        <span class="protocol-tag">Wi-Fi (802.11)</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">ডিভাইস</div>
+                    <div class="device-list">
+                        <span class="device-tag">Switches</span>
+                        <span class="device-tag">Bridges</span>
+                        <span class="device-tag">NICs</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">PDU (Protocol Data Unit)</div>
+                    <div class="detail-content">Frame</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card layer-1">
+            <div class="layer-header">
+                <div class="layer-number">1</div>
+                <div class="layer-name">Physical Layer</div>
+            </div>
+            <div class="layer-description">
+                Physical লেয়ার একটি ফিজিক্যাল মাধ্যমের উপর কাঁচা বিট স্ট্রিম প্রেরণ করে। এটি হার্ডওয়্যার স্পেসিফিকেশন নির্ধারণ করে।
+            </div>
+            <div class="layer-details">
+                <div class="detail-section">
+                    <div class="detail-title">কাজ</div>
+                    <div class="detail-content">ফিজিক্যাল মাধ্যমের উপর কাঁচা বিট প্রেরণ করে। ফিজিক্যাল লিংক সক্রিয়, বজায় রাখা এবং নিষ্ক্রিয় করার জন্য বৈদ্যুতিক, যান্ত্রিক এবং পদ্ধতিগত স্পেসিফিকেশন সংজ্ঞায়িত করে। ভোল্টেজ স্তর, টাইমিং, ডেটা রেট এবং ফিজিক্যাল কানেক্টর পরিচালনা করে।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">উপাদান</div>
+                    <div class="protocol-list">
+                        <span class="protocol-tag">ক্যাবল (UTP, Fiber)</span>
+                        <span class="protocol-tag">কানেক্টর (RJ45, SC)</span>
+                        <span class="protocol-tag">Hubs</span>
+                        <span class="protocol-tag">Repeaters</span>
+                        <span class="protocol-tag">Network Adapters</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">স্ট্যান্ডার্ড</div>
+                    <div class="detail-content">RS-232, V.35, Ethernet ফিজিক্যাল লেয়ার স্পেসিফিকেশন, USB, DSL, ISDN</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">PDU (Protocol Data Unit)</div>
+                    <div class="detail-content">Bits</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('.layer-card').forEach(card => {
+    card.addEventListener('click', function() {
+        this.classList.toggle('active');
+    });
+});
+</script>
+
+</body>
+</html>

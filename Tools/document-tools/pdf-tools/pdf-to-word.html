@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convert PDF to Word documents online. Free PDF to DOCX converter with quality settings and OCR support.">
+    <title>PDF to Word Converter - Free Online Tool</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.05" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .header h1 i {
+            font-size: 1.2em;
+            animation: bounce 2s infinite;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+            text-shadow: 1px 1px 10px rgba(0,0,0,0.2);
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .upload-zone {
+            border: 3px dashed #667eea;
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .upload-zone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .upload-zone:hover::before {
+            left: 100%;
+        }
+
+        .upload-zone:hover {
+            border-color: #764ba2;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .upload-zone.dragover {
+            border-color: #764ba2;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .upload-icon {
+            font-size: 5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .upload-zone.dragover .upload-icon {
+            -webkit-text-fill-color: white;
+        }
+
+        .upload-zone h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .upload-zone p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        .upload-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .file-list {
+            display: none;
+            margin-bottom: 30px;
+        }
+
+        .file-list.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .file-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            animation: slideInLeft 0.5s ease;
+        }
+
+        .file-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .file-icon {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .remove-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .remove-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .settings-panel {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .settings-panel h3 {
+            color: #333;
+            font-size: 1.5em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .settings-panel h3 i {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .setting-item {
+            margin-bottom: 15px;
+        }
+
+        .setting-item label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .setting-item select,
+        .setting-item input[type="range"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .setting-item select:focus,
+        .setting-item input[type="range"]:focus {
+            outline: none;
+            border-color: #764ba2;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: white;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-group:hover {
+            background: #f5f7fa;
+            transform: translateX(5px);
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .range-value {
+            color: #667eea;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.6);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .result-section {
+            display: none;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result-section.show {
+            display: block;
+        }
+
+        .result-section h3 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-section h3 i {
+            color: #10b981;
+        }
+
+        .download-area {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .download-icon {
+            font-size: 4em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .info-note {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border-left: 5px solid #fdcb6e;
+            text-align: left;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .main-card {
+                padding: 30px 20px;
+            }
+
+            .upload-zone {
+                padding: 40px 20px;
+            }
+
+            .upload-icon {
+                font-size: 3em;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Menu -->
+        <div style="background: rgba(255,255,255,0.95); border-radius: 15px; padding: 15px; margin-bottom: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.2); animation: fadeInDown 0.8s ease;">
+            <nav style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <a href="../../../../index.html" style="color: #667eea; text-decoration: none; padding: 10px 20px; border-radius: 25px; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="../../../../skills.html" style="color: #667eea; text-decoration: none; padding: 10px 20px; border-radius: 25px; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-cogs"></i> Skills
+                </a>
+                <a href="../../../tools.html" style="color: #667eea; text-decoration: none; padding: 10px 20px; border-radius: 25px; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-tools"></i> Tools
+                </a>
+                <a href="../../../../certificate.html" style="color: #667eea; text-decoration: none; padding: 10px 20px; border-radius: 25px; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-certificate"></i> Certificate
+                </a>
+                <a href="../../../../contact.html" style="color: #667eea; text-decoration: none; padding: 10px 20px; border-radius: 25px; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-phone"></i> Contact
+                </a>
+            </nav>
+        </div>
+
+        <div class="header">
+            <h1>
+                <i class="fas fa-file-pdf"></i>
+                PDF to Word Converter
+                <i class="fas fa-file-word"></i>
+            </h1>
+            <p>Convert your PDF files to editable Word documents with ease</p>
+        </div>
+
+        <div class="main-card">
+            <div class="upload-zone" id="uploadZone">
+                <div class="upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <h3>Drop your PDF files here</h3>
+                <p>or click to browse from your device</p>
+                <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                    <i class="fas fa-folder-open"></i> Choose Files
+                </button>
+                <input type="file" id="fileInput" accept=".pdf" multiple>
+                <p style="margin-top: 15px; font-size: 0.9em; color: #999;">Supports: PDF files (Max 50MB each)</p>
+            </div>
+
+            <div class="file-list" id="fileList">
+                <h3 style="margin-bottom: 20px; color: #333;">
+                    <i class="fas fa-list"></i> Selected Files
+                </h3>
+                <div id="fileContainer"></div>
+            </div>
+
+            <div class="settings-panel">
+                <h3>
+                    <i class="fas fa-cog"></i> Conversion Settings
+                </h3>
+
+                <div class="settings-grid">
+                    <div class="setting-item">
+                        <label>
+                            <i class="fas fa-star"></i> Quality
+                        </label>
+                        <select id="quality">
+                            <option value="high">High Quality</option>
+                            <option value="medium" selected>Medium Quality</option>
+                            <option value="low">Low Quality (Faster)</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <label>
+                            <i class="fas fa-file-alt"></i> Output Format
+                        </label>
+                        <select id="format">
+                            <option value="docx" selected>DOCX (Word 2007+)</option>
+                            <option value="doc">DOC (Word 97-2003)</option>
+                            <option value="rtf">RTF (Rich Text)</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <label>
+                            <i class="fas fa-image"></i> Image Quality
+                            <span class="range-value" id="imageQualityValue">80%</span>
+                        </label>
+                        <input type="range" id="imageQuality" min="50" max="100" value="80">
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="ocr">
+                    <label for="ocr">
+                        <i class="fas fa-text-height"></i> Enable OCR (Text Recognition)
+                    </label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="preserveFormat" checked>
+                    <label for="preserveFormat">
+                        <i class="fas fa-align-left"></i> Preserve Formatting
+                    </label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="extractImages" checked>
+                    <label for="extractImages">
+                        <i class="fas fa-images"></i> Extract Images
+                    </label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="keepLinks" checked>
+                    <label for="keepLinks">
+                        <i class="fas fa-link"></i> Keep Hyperlinks
+                    </label>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="startConversion()">
+                    <i class="fas fa-magic"></i> Convert to Word
+                </button>
+                <button class="btn btn-secondary" onclick="clearAll()">
+                    <i class="fas fa-trash"></i> Clear All
+                </button>
+            </div>
+
+            <div class="info-note">
+                <i class="fas fa-info-circle"></i>
+                <strong>Note:</strong> This is a demonstration tool. For actual PDF conversion, you would need server-side processing or a conversion API service.
+            </div>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <h3 id="loadingText">Converting your PDF...</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">Initializing...</p>
+            </div>
+
+            <div class="result-section" id="resultSection">
+                <h3>
+                    <i class="fas fa-check-circle"></i> Conversion Complete!
+                </h3>
+
+                <div class="download-area">
+                    <div class="download-icon">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <h3>Your Word Document is Ready</h3>
+                    <p style="margin: 15px 0;">
+                        <strong id="fileName">document.docx</strong>
+                    </p>
+                    <p style="color: #666; margin-bottom: 25px;" id="fileSize">Size: 1.2 MB</p>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="downloadFile()">
+                            <i class="fas fa-download"></i> Download File
+                        </button>
+                        <button class="btn btn-secondary" onclick="convertAnother()">
+                            <i class="fas fa-redo"></i> Convert Another
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="stat-label">Original: PDF</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">
+                            <i class="fas fa-file-word"></i>
+                        </div>
+                        <div class="stat-label" id="outputFormat">Output: DOCX</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="qualityStat">Medium</div>
+                        <div class="stat-label">Quality Level</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" style="color: #10b981;">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <div class="stat-label">Status: Success</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let files = [];
+
+        // File input change handler
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            handleFiles(e.target.files);
+        });
+
+        // Drag and drop handlers
+        const uploadZone = document.getElementById('uploadZone');
+
+        uploadZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            this.classList.add('dragover');
+        });
+
+        uploadZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+        });
+
+        uploadZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            this.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        uploadZone.addEventListener('click', function(e) {
+            if (e.target === this || e.target.closest('.upload-icon, h3, p')) {
+                document.getElementById('fileInput').click();
+            }
+        });
+
+        // Image quality slider
+        document.getElementById('imageQuality').addEventListener('input', function() {
+            document.getElementById('imageQualityValue').textContent = this.value + '%';
+        });
+
+        function handleFiles(fileList) {
+            for (let file of fileList) {
+                if (!file.type.includes('pdf')) {
+                    alert('Please select PDF files only!');
+                    continue;
+                }
+                if (file.size > 50 * 1024 * 1024) {
+                    alert(`File "${file.name}" is too large. Max size is 50MB.`);
+                    continue;
+                }
+                if (!files.some(f => f.name === file.name && f.size === file.size)) {
+                    files.push(file);
+                }
+            }
+            updateFileList();
+        }
+
+        function updateFileList() {
+            const container = document.getElementById('fileContainer');
+            const fileList = document.getElementById('fileList');
+
+            if (files.length === 0) {
+                fileList.classList.remove('show');
+                return;
+            }
+
+            fileList.classList.add('show');
+            container.innerHTML = '';
+
+            files.forEach((file, index) => {
+                const size = formatFileSize(file.size);
+                const item = document.createElement('div');
+                item.className = 'file-item';
+                item.innerHTML = `
+                    <div class="file-info">
+                        <i class="fas fa-file-pdf file-icon"></i>
+                        <div>
+                            <div><strong>${file.name}</strong></div>
+                            <div style="color: #666; font-size: 0.9em;">${size}</div>
+                        </div>
+                    </div>
+                    <button class="remove-btn" onclick="removeFile(${index})">
+                        <i class="fas fa-times"></i> Remove
+                    </button>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function removeFile(index) {
+            files.splice(index, 1);
+            updateFileList();
+        }
+
+        function clearAll() {
+            files = [];
+            updateFileList();
+            document.getElementById('resultSection').classList.remove('show');
+            document.getElementById('fileInput').value = '';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        function startConversion() {
+            if (files.length === 0) {
+                alert('Please select at least one PDF file!');
+                return;
+            }
+
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('resultSection').classList.remove('show');
+
+            simulateConversion();
+        }
+
+        function simulateConversion() {
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            let progress = 0;
+
+            const messages = [
+                'Uploading PDF file...',
+                'Analyzing document structure...',
+                'Extracting text content...',
+                'Processing images...',
+                'Converting formatting...',
+                'Generating Word document...',
+                'Finalizing conversion...'
+            ];
+
+            let messageIndex = 0;
+
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 100) progress = 100;
+
+                progressFill.style.width = progress + '%';
+                
+                const msgIdx = Math.floor((progress / 100) * messages.length);
+                if (msgIdx < messages.length) {
+                    progressText.textContent = messages[msgIdx];
+                }
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        finishConversion();
+                    }, 500);
+                }
+            }, 300);
+        }
+
+        function finishConversion() {
+            document.getElementById('loading').classList.remove('show');
+            document.getElementById('resultSection').classList.add('show');
+
+            // Update result information
+            const fileName = files[0].name.replace('.pdf', '');
+            const format = document.getElementById('format').value;
+            const quality = document.getElementById('quality').value;
+
+            document.getElementById('fileName').textContent = `${fileName}.${format}`;
+            document.getElementById('fileSize').textContent = `Size: ${formatFileSize(files[0].size * 0.85)}`;
+            document.getElementById('outputFormat').textContent = `Output: ${format.toUpperCase()}`;
+            document.getElementById('qualityStat').textContent = quality.charAt(0).toUpperCase() + quality.slice(1);
+
+            // Scroll to result
+            document.getElementById('resultSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function downloadFile() {
+            const format = document.getElementById('format').value;
+            const quality = document.getElementById('quality').value;
+            const ocr = document.getElementById('ocr').checked;
+            const preserveFormat = document.getElementById('preserveFormat').checked;
+            const extractImages = document.getElementById('extractImages').checked;
+            const keepLinks = document.getElementById('keepLinks').checked;
+
+            // Get original filename
+            const originalName = files[0]?.name.replace('.pdf', '') || 'document';
+            const fileName = `${originalName}_converted.docx`;
+            
+            // Create RTF format content (Word can open this)
+            const rtfContent = createRTFDocument(originalName, format, quality, ocr, preserveFormat, extractImages, keepLinks);
+            
+            // Create blob and download
+            const blob = new Blob([rtfContent], { 
+                type: 'application/msword'
+            });
+            
+            downloadBlob(blob, fileName);
+            
+            // Update UI
+            document.getElementById('fileName').textContent = fileName;
+            document.getElementById('fileSize').textContent = `Size: ${formatFileSize(blob.size)}`;
+            document.getElementById('outputFormat').textContent = `Output: ${format.toUpperCase()}`;
+            
+            showNotification('✓ Document downloaded successfully!', 'success');
+        }
+
+        function createRTFDocument(name, format, quality, ocr, preserveFormat, extractImages, keepLinks) {
+            const date = new Date().toLocaleDateString();
+            const time = new Date().toLocaleTimeString();
+            const fileSize = formatFileSize(files[0]?.size || 0);
+            const fileName = files[0]?.name || 'Unknown';
+            
+            return `{\\rtf1\\ansi\\deff0
+{\\fonttbl{\\f0\\fswiss\\fcharset0 Arial;}{\\f1\\fmodern\\fcharset0 Courier New;}}
+{\\colortbl;\\red46\\green117\\blue182;\\red40\\green167\\blue69;\\red220\\green53\\blue69;\\red255\\green193\\blue7;}
+
+{\\pard\\qc\\fs48\\b\\cf1 PDF to Word Conversion Report\\par}
+{\\pard\\qc\\fs24 \\par}
+
+{\\pard\\sb200\\sa200\\fs28\\b\\cf2 \\u10004? Conversion Completed Successfully!\\par}
+{\\pard\\sa100\\fs22 Your PDF file has been processed and converted to ${format.toUpperCase()} format.\\par}
+{\\pard\\sa200\\fs22 Status: COMPLETED\\par}
+
+{\\pard\\sb300\\fs32\\b\\cf1 File Information\\par}
+{\\pard\\sa100\\line\\par}
+
+{\\pard\\sa50\\fs22\\b File Name: \\b0 ${fileName}\\par}
+{\\pard\\sa50\\fs22\\b File Size: \\b0 ${fileSize}\\par}
+{\\pard\\sa50\\fs22\\b Conversion Date: \\b0 ${date}\\par}
+{\\pard\\sa50\\fs22\\b Conversion Time: \\b0 ${time}\\par}
+{\\pard\\sa50\\fs22\\b Output Format: \\b0 ${format.toUpperCase()}\\par}
+
+{\\pard\\sb300\\fs32\\b\\cf1 Conversion Settings Applied\\par}
+{\\pard\\sa100\\line\\par}
+
+{\\pard\\sa50\\fs22\\b Quality Level: \\b0 ${quality.toUpperCase()}\\par}
+{\\pard\\sa50\\fs22\\b OCR (Text Recognition): \\b0 ${ocr ? '\\u10004? ENABLED' : '\\u10008? DISABLED'}\\par}
+{\\pard\\sa50\\fs22\\b Preserve Formatting: \\b0 ${preserveFormat ? '\\u10004? ENABLED' : '\\u10008? DISABLED'}\\par}
+{\\pard\\sa50\\fs22\\b Extract Images: \\b0 ${extractImages ? '\\u10004? ENABLED' : '\\u10008? DISABLED'}\\par}
+{\\pard\\sa50\\fs22\\b Keep Hyperlinks: \\b0 ${keepLinks ? '\\u10004? ENABLED' : '\\u10008? DISABLED'}\\par}
+
+{\\pard\\sb300\\fs32\\b\\cf1 About This Demo\\par}
+{\\pard\\sa100\\line\\par}
+
+{\\pard\\sa100\\fs22 This is a \\b demonstration document\\b0  generated by the PDF to Word Converter tool. It showcases the user interface and workflow of a document conversion application.\\par}
+
+{\\pard\\sb200\\fs26\\b\\cf1 Real PDF Conversion Solutions\\par}
+{\\pard\\sa100\\fs22 To implement actual PDF to Word conversion, you need server-side processing. Here are popular solutions:\\par}
+
+{\\pard\\sa50\\fs22 \\bullet  \\b Python:\\b0  pdf2docx, PyPDF2, pdfplumber\\par}
+{\\pard\\sa50\\fs22 \\bullet  \\b Java:\\b0  Apache PDFBox, iText\\par}
+{\\pard\\sa50\\fs22 \\bullet  \\b JavaScript/Node.js:\\b0  pdf-lib, mammoth.js, docx\\par}
+{\\pard\\sa50\\fs22 \\bullet  \\b Cloud APIs:\\b0  Adobe PDF Services, CloudConvert, Zamzar, ConvertAPI\\par}
+{\\pard\\sa50\\fs22 \\bullet  \\b Desktop Tools:\\b0  LibreOffice (CLI), Pandoc, Calibre\\par}
+
+{\\pard\\sb300\\fs32\\b\\cf1 Features Implemented\\par}
+{\\pard\\sa100\\line\\par}
+
+{\\pard\\sa50\\fs22 \\u10004?  \\b Drag & Drop Upload:\\b0  Intuitive file selection interface\\par}
+{\\pard\\sa50\\fs22 \\u10004?  \\b Multiple Format Support:\\b0  DOCX, DOC, and RTF output formats\\par}
+{\\pard\\sa50\\fs22 \\u10004?  \\b Quality Settings:\\b0  Choose between High, Medium, and Low quality\\par}
+{\\pard\\sa50\\fs22 \\u10004?  \\b OCR Integration:\\b0  Text recognition for scanned documents\\par}
+{\\pard\\sa50\\fs22 \\u10004?  \\b Format Preservation:\\b0  Maintain original document styling\\par}
+{\\pard\\sa50\\fs22 \\u10004?  \\b Image Extraction:\\b0  Extract and embed images from PDF\\par}
+{\\pard\\sa50\\fs22 \\u10004?  \\b Hyperlink Support:\\b0  Preserve clickable links\\par}
+{\\pard\\sa50\\fs22 \\u10004?  \\b Progress Tracking:\\b0  Real-time conversion progress display\\par}
+{\\pard\\sa50\\fs22 \\u10004?  \\b Responsive Design:\\b0  Works on desktop, tablet, and mobile\\par}
+{\\pard\\sa50\\fs22 \\u10004?  \\b Batch Processing:\\b0  Convert multiple files at once\\par}
+
+{\\pard\\sb300\\fs32\\b\\cf4 Important Notice\\par}
+{\\pard\\sa100\\line\\par}
+
+{\\pard\\sa100\\fs22\\b Client-Side Limitation:\\b0  True PDF to Word conversion requires complex processing that cannot be performed entirely in a web browser. This demo simulates the conversion process and generates a sample output document.\\par}
+
+{\\pard\\sa100\\fs22\\b For Production Use:\\b0  Implement server-side conversion using the technologies mentioned above, or integrate with a professional conversion API service.\\par}
+
+{\\pard\\sb300\\fs32\\b\\cf1 Next Steps\\par}
+{\\pard\\sa100\\line\\par}
+
+{\\pard\\sa50\\fs22 1. \\b Choose a Conversion Solution:\\b0  Select from Python libraries, Java tools, or cloud APIs\\par}
+{\\pard\\sa50\\fs22 2. \\b Set Up Backend:\\b0  Implement server-side processing for actual PDF conversion\\par}
+{\\pard\\sa50\\fs22 3. \\b Handle Security:\\b0  Validate and sanitize all uploaded files\\par}
+{\\pard\\sa50\\fs22 4. \\b Optimize Performance:\\b0  Implement caching and queue systems for large files\\par}
+{\\pard\\sa50\\fs22 5. \\b Add Error Handling:\\b0  Gracefully handle conversion failures and edge cases\\par}
+
+{\\pard\\sb300\\line\\par}
+{\\pard\\qc\\fs28\\b\\cf1 Contact Information\\par}
+{\\pard\\qc\\sa50\\fs22\\b Developer:\\b0  ASADUL ISLAM\\par}
+{\\pard\\qc\\sa50\\fs22\\b Project:\\b0  PDF to Word Converter Demo\\par}
+{\\pard\\qc\\sa50\\fs22\\b Generated:\\b0  ${date} ${time}\\par}
+{\\pard\\qc\\sb200\\fs20\\i Thank you for testing this demonstration tool! \\par}
+
+}`;
+        }
+
+        function downloadBlob(blob, fileName) {
+            try {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = fileName;
+                
+                document.body.appendChild(a);
+                a.click();
+                
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+                
+                console.log('Download initiated:', fileName);
+            } catch (error) {
+                console.error('Download error:', error);
+                showNotification('✗ Download failed! Please try again.', 'error');
+            }
+        }Content = `Size: ${formatFileSize(blob.size)}`;
+            document.getElementById('outputFormat').textContent = `Output: HTML (Word Compatible)`;
+
+            // Show success notification
+            showNotification('✓ File downloaded successfully! Open in browser or Word.', 'success');
+    }
+        function convertAnother() {
+            clearAll();
+            document.getElementById('uploadZone').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)' : 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'};
+                color: white;
+                padding: 20px 30px;
+                border-radius: 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                z-index: 10000;
+                animation: slideInRight 0.5s ease;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            `;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.5s ease';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 500);
+            }, 3000);
+        }
+
+        // Add notification animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

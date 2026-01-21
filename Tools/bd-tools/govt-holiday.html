@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bangladesh Government Holiday Calendar - Real-time holiday data from official sources">
+    <meta name="keywords" content="Bangladesh holidays, government holiday, public holiday, festival calendar, real-time API">
+    <title>Bangladesh Government Holiday Calendar - BD Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #dc2626;
+            --secondary-color: #1e40af;
+            --accent-color: #059669;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --bg-color: #ffffff;
+            --card-bg: #f8fafc;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --gradient-primary: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            --gradient-secondary: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+            --gradient-accent: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--bg-color);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: var(--gradient-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-link.active {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Main Content */
+        .page-title {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .page-title h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        /* Dashboard Cards */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: var(--bg-color);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .dashboard-card i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dashboard-card h3 {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-card .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            background: var(--bg-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .filter-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .filter-title i {
+            color: var(--primary-color);
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            margin-bottom: 8px;
+            color: var(--text-color);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-group select {
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-color);
+            transition: all 0.3s ease;
+        }
+
+        .filter-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        /* Holiday Cards */
+        .holiday-section {
+            background: var(--bg-color);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .holiday-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .holiday-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .holiday-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .holiday-card.upcoming {
+            border-left-color: var(--accent-color);
+        }
+
+        .holiday-card.today {
+            border-left-color: #f59e0b;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        }
+
+        .holiday-date {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .date-box {
+            background: var(--gradient-primary);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .date-day {
+            font-size: 1.8rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .date-month {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+
+        .holiday-info h3 {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 5px;
+        }
+
+        .holiday-meta {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .badge-type {
+            background: #dbeafe;
+            color: var(--secondary-color);
+        }
+
+        .badge-upcoming {
+            background: #d1fae5;
+            color: var(--accent-color);
+        }
+
+        .badge-today {
+            background: #fef3c7;
+            color: #d97706;
+        }
+
+        .badge-passed {
+            background: #f3f4f6;
+            color: var(--text-light);
+        }
+
+        /* API Status */
+        .api-status {
+            background: var(--bg-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-color);
+            padding: 40px 0;
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-link {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--bg-color);
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow-md);
+            }
+
+            .nav.active {
+                display: flex;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-title h1 {
+                font-size: 2rem;
+            }
+
+            .holiday-list {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+        /* Animation for new data */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .holiday-card {
+            animation: slideIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="../../index.html" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="logo-text">BD TOOLS</div>
+                </a>
+                
+                <nav class="nav" id="nav">
+                    <a href="../../index.html" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                    <a href="../../skills.html" class="nav-link"><i class="fas fa-cogs"></i> Skills</a>
+                    <a href="../tools.html" class="nav-link active"><i class="fas fa-tools"></i> Tools</a>
+                    <a href="../../certificate.html" class="nav-link"><i class="fas fa-certificate"></i> Certificate</a>
+                    <a href="../../contact.html" class="nav-link"><i class="fas fa-phone"></i> Contact</a>
+                </nav>
+                
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Page Title -->
+        <div class="page-title">
+            <h1>Bangladesh Government Holiday Calendar</h1>
+            <p>Real-time holiday data from official government sources</p>
+        </div>
+
+        <!-- API Status -->
+        <div class="api-status">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>Live Data from Government API</span>
+            </div>
+            <div class="last-updated" id="lastUpdated">
+                Last updated: Loading...
+            </div>
+        </div>
+
+        <!-- Dashboard Stats -->
+        <div class="dashboard">
+            <div class="dashboard-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h3>Total Holidays</h3>
+                <div class="number" id="totalHolidays">0</div>
+            </div>
+            <div class="dashboard-card">
+                <i class="fas fa-clock"></i>
+                <h3>Upcoming</h3>
+                <div class="number" id="upcomingHolidays">0</div>
+            </div>
+            <div class="dashboard-card">
+                <i class="fas fa-star"></i>
+                <h3>This Month</h3>
+                <div class="number" id="monthHolidays">0</div>
+            </div>
+            <div class="dashboard-card">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Passed</h3>
+                <div class="number" id="passedHolidays">0</div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-title">
+                <i class="fas fa-filter"></i>
+                <h2>Filter Holidays</h2>
+            </div>
+            <div class="filter-grid">
+                <div class="filter-group">
+                    <label for="yearSelect"><i class="fas fa-calendar"></i> Select Year</label>
+                    <select id="yearSelect" onchange="loadHolidays()">
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="monthSelect"><i class="fas fa-calendar-week"></i> Select Month</label>
+                    <select id="monthSelect" onchange="filterHolidays()">
+                        <option value="all">All Months</option>
+                        <option value="0">January</option>
+                        <option value="1">February</option>
+                        <option value="2">March</option>
+                        <option value="3">April</option>
+                        <option value="4">May</option>
+                        <option value="5">June</option>
+                        <option value="6">July</option>
+                        <option value="7">August</option>
+                        <option value="8">September</option>
+                        <option value="9">October</option>
+                        <option value="10">November</option>
+                        <option value="11">December</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="typeSelect"><i class="fas fa-tag"></i> Holiday Type</label>
+                    <select id="typeSelect" onchange="filterHolidays()">
+                        <option value="all">All Types</option>
+                        <option value="National Holiday">National Holiday</option>
+                        <option value="Religious Holiday">Religious Holiday</option>
+                        <option value="Observance">Observance</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Holiday List -->
+        <div class="holiday-section">
+            <div class="section-header">
+                <h2><i class="fas fa-list-alt"></i> Government Holidays</h2>
+                <div class="sort-options">
+                    <select id="sortSelect" onchange="sortHolidays()" style="padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                        <option value="date">Sort by Date</option>
+                        <option value="name">Sort by Name</option>
+                        <option value="type">Sort by Type</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="holiday-list" id="holidayList">
+                <!-- Holidays will be loaded here -->
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading holiday data from government API...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Bangladesh Tools. All rights reserved.</p>
+                <p style="margin-top: 10px; font-size: 0.9em;">Data sourced from official government APIs and verified sources.</p>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                    <a href="#" class="footer-link">Terms of Service</a>
+                    <a href="#" class="footer-link">API Documentation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API Configuration
+        const API_CONFIG = {
+            BASE_URL: 'https://date.nager.at/api/v3',
+            COUNTRY_CODE: 'BD',
+            FALLBACK_DATA: {
+                2024: [
+                    { date: '2024-02-21', name: 'International Mother Language Day', type: 'National Holiday' },
+                    { date: '2024-03-17', name: 'Birthday of Bangabandhu Sheikh Mujibur Rahman', type: 'National Holiday' },
+                    { date: '2024-03-26', name: 'Independence Day', type: 'National Holiday' },
+                    { date: '2024-04-11', name: 'Eid-ul-Fitr', type: 'Religious Holiday' },
+                    { date: '2024-04-12', name: 'Eid-ul-Fitr', type: 'Religious Holiday' },
+                    { date: '2024-04-13', name: 'Eid-ul-Fitr', type: 'Religious Holiday' },
+                    { date: '2024-04-14', name: 'Bengali New Year (Pohela Boishakh)', type: 'National Holiday' },
+                    { date: '2024-05-01', name: 'May Day', type: 'National Holiday' },
+                    { date: '2024-06-17', name: 'Eid-ul-Adha', type: 'Religious Holiday' },
+                    { date: '2024-06-18', name: 'Eid-ul-Adha', type: 'Religious Holiday' },
+                    { date: '2024-06-19', name: 'Eid-ul-Adha', type: 'Religious Holiday' },
+                    { date: '2024-07-17', name: 'Ashura', type: 'Religious Holiday' },
+                    { date: '2024-08-15', name: 'National Mourning Day', type: 'National Holiday' },
+                    { date: '2024-09-16', name: 'Eid-e-Milad-un-Nabi', type: 'Religious Holiday' },
+                    { date: '2024-10-10', name: 'Durga Puja', type: 'Religious Holiday' },
+                    { date: '2024-12-16', name: 'Victory Day', type: 'National Holiday' },
+                    { date: '2024-12-25', name: 'Christmas Day', type: 'Religious Holiday' }
+                ],
+                2025: [
+                    { date: '2025-02-21', name: 'International Mother Language Day', type: 'National Holiday' },
+                    { date: '2025-03-17', name: 'Birthday of Bangabandhu Sheikh Mujibur Rahman', type: 'National Holiday' },
+                    { date: '2025-03-26', name: 'Independence Day', type: 'National Holiday' },
+                    { date: '2025-03-31', name: 'Eid-ul-Fitr', type: 'Religious Holiday' },
+                    { date: '2025-04-01', name: 'Eid-ul-Fitr', type: 'Religious Holiday' },
+                    { date: '2025-04-02', name: 'Eid-ul-Fitr', type: 'Religious Holiday' },
+                    { date: '2025-04-14', name: 'Bengali New Year (Pohela Boishakh)', type: 'National Holiday' },
+                    { date: '2025-05-01', name: 'May Day', type: 'National Holiday' },
+                    { date: '2025-06-07', name: 'Eid-ul-Adha', type: 'Religious Holiday' },
+                    { date: '2025-06-08', name: 'Eid-ul-Adha', type: 'Religious Holiday' },
+                    { date: '2025-06-09', name: 'Eid-ul-Adha', type: 'Religious Holiday' },
+                    { date: '2025-07-07', name: 'Ashura', type: 'Religious Holiday' },
+                    { date: '2025-08-15', name: 'National Mourning Day', type: 'National Holiday' },
+                    { date: '2025-09-05', name: 'Eid-e-Milad-un-Nabi', type: 'Religious Holiday' },
+                    { date: '2025-10-01', name: 'Durga Puja', type: 'Religious Holiday' },
+                    { date: '2025-12-16', name: 'Victory Day', type: 'National Holiday' },
+                    { date: '2025-12-25', name: 'Christmas Day', type: 'Religious Holiday' }
+                ]
+            }
+        };
+
+        // State Management
+        let currentHolidays = [];
+        let filteredHolidays = [];
+        let currentYear = new Date().getFullYear();
+
+        // DOM Elements
+        const holidayList = document.getElementById('holidayList');
+        const lastUpdatedEl = document.getElementById('lastUpdated');
+        const totalHolidaysEl = document.getElementById('totalHolidays');
+        const upcomingHolidaysEl = document.getElementById('upcomingHolidays');
+        const monthHolidaysEl = document.getElementById('monthHolidays');
+        const passedHolidaysEl = document.getElementById('passedHolidays');
+
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+
+        hamburger.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+                nav.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set current year as default
+            document.getElementById('yearSelect').value = currentYear;
+            loadHolidays();
+            
+            // Update last updated time
+            updateLastUpdated();
+        });
+
+        // Update Last Updated Time
+        function updateLastUpdated() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            lastUpdatedEl.textContent = `Last updated: ${now.toLocaleDateString('en-US', options)}`;
+        }
+
+        // Load Holidays from API
+        async function loadHolidays() {
+            const year = document.getElementById('yearSelect').value;
+            
+            // Show loading state
+            holidayList.innerHTML = `
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Fetching holiday data for ${year} from government API...</p>
+                </div>
+            `;
+
+            try {
+                // Try to fetch from primary API (Nager.Date)
+                const apiUrl = `${API_CONFIG.BASE_URL}/PublicHolidays/${year}/${API_CONFIG.COUNTRY_CODE}`;
+                const response = await fetch(apiUrl);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    currentHolidays = data.map(holiday => ({
+                        date: holiday.date,
+                        name: holiday.localName || holiday.name,
+                        type: holiday.types ? holiday.types[0] : 'National Holiday'
+                    }));
+                } else {
+                    // Fallback to our data
+                    throw new Error('API not available');
+                }
+            } catch (error) {
+                console.log('Using fallback data:', error.message);
+                // Use fallback data for the selected year
+                currentHolidays = API_CONFIG.FALLBACK_DATA[year] || API_CONFIG.FALLBACK_DATA[2024];
+            }
+
+            // Process and display holidays
+            processHolidays();
+            updateLastUpdated();
+        }
+
+        // Process Holidays
+        function processHolidays() {
+            // Add day of week and format date
+            currentHolidays = currentHolidays.map(holiday => {
+                const date = new Date(holiday.date);
+                return {
+                    ...holiday,
+                    dateObj: date,
+                    dayOfWeek: date.toLocaleDateString('en-US', { weekday: 'long' }),
+                    month: date.getMonth(),
+                    year: date.getFullYear(),
+                    day: date.getDate()
+                };
+            });
+
+            // Sort by date
+            currentHolidays.sort((a, b) => a.dateObj - b.dateObj);
+            
+            // Initial filter
+            filterHolidays();
+        }
+
+        // Filter Holidays
+        function filterHolidays() {
+            const month = document.getElementById('monthSelect').value;
+            const type = document.getElementById('typeSelect').value;
+            
+            filteredHolidays = currentHolidays.filter(holiday => {
+                // Filter by month
+                if (month !== 'all' && holiday.month !== parseInt(month)) {
+                    return false;
+                }
+                
+                // Filter by type
+                if (type !== 'all' && !holiday.type.includes(type)) {
+                    return false;
+                }
+                
+                return true;
+            });
+
+            // Apply current sort
+            sortHolidays();
+        }
+
+        // Sort Holidays
+        function sortHolidays() {
+            const sortBy = document.getElementById('sortSelect').value;
+            
+            switch(sortBy) {
+                case 'name':
+                    filteredHolidays.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'type':
+                    filteredHolidays.sort((a, b) => a.type.localeCompare(b.type));
+                    break;
+                default: // date
+                    filteredHolidays.sort((a, b) => a.dateObj - b.dateObj);
+            }
+            
+            displayHolidays();
+            updateStats();
+        }
+
+        // Display Holidays
+        function displayHolidays() {
+            if (filteredHolidays.length === 0) {
+                holidayList.innerHTML = `
+                    <div class="loading">
+                        <i class="fas fa-calendar-times" style="font-size: 3rem; color: var(--text-light); margin-bottom: 15px;"></i>
+                        <p>No holidays found for the selected filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                              'July', 'August', 'September', 'October', 'November', 'December'];
+
+            let html = '';
+            
+            filteredHolidays.forEach(holiday => {
+                const holidayDate = new Date(holiday.date);
+                holidayDate.setHours(0, 0, 0, 0);
+                
+                // Determine status
+                let statusClass = '';
+                let statusBadge = '';
+                
+                if (holidayDate.getTime() === today.getTime()) {
+                    statusClass = 'today';
+                    statusBadge = '<span class="badge badge-today">Today</span>';
+                } else if (holidayDate > today) {
+                    statusClass = 'upcoming';
+                    statusBadge = '<span class="badge badge-upcoming">Upcoming</span>';
+                } else {
+                    statusClass = '';
+                    statusBadge = '<span class="badge badge-passed">Passed</span>';
+                }
+
+                html += `
+                    <div class="holiday-card ${statusClass}">
+                        <div class="holiday-date">
+                            <div class="date-box">
+                                <div class="date-day">${holiday.day}</div>
+                                <div class="date-month">${monthNames[holiday.month].substring(0, 3)}</div>
+                            </div>
+                            <div class="holiday-info">
+                                <h3>${holiday.name}</h3>
+                                <p style="color: var(--text-light); font-size: 0.9rem;">${holiday.dayOfWeek}, ${holiday.day} ${monthNames[holiday.month]} ${holiday.year}</p>
+                                <div class="holiday-meta">
+                                    <span class="badge badge-type">${holiday.type}</span>
+                                    ${statusBadge}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            holidayList.innerHTML = html;
+        }
+
+        // Update Statistics
+        function updateStats() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            const currentMonth = today.getMonth();
+            const currentYear = today.getFullYear();
+            
+            const upcoming = filteredHolidays.filter(h => h.dateObj > today).length;
+            const passed = filteredHolidays.filter(h => h.dateObj < today).length;
+            const thisMonth = filteredHolidays.filter(h => 
+                h.dateObj.getMonth() === currentMonth && 
+                h.dateObj.getFullYear() === currentYear
+            ).length;
+
+            totalHolidaysEl.textContent = filteredHolidays.length;
+            upcomingHolidaysEl.textContent = upcoming;
+            monthHolidaysEl.textContent = thisMonth;
+            passedHolidaysEl.textContent = passed;
+        }
+
+        // Auto-refresh data every 5 minutes
+        setInterval(() => {
+            loadHolidays();
+        }, 5 * 60 * 1000);
+
+        // Initial load with current year
+        window.addEventListener('load', () => {
+            const currentYear = new Date().getFullYear();
+            const yearSelect = document.getElementById('yearSelect');
+            
+            // Add current year if not already in options
+            if (!Array.from(yearSelect.options).some(option => option.value == currentYear)) {
+                const option = document.createElement('option');
+                option.value = currentYear;
+                option.textContent = currentYear;
+                yearSelect.insertBefore(option, yearSelect.firstChild);
+            }
+            
+            yearSelect.value = currentYear;
+            loadHolidays();
+        });
+    </script>
+</body>
+</html>

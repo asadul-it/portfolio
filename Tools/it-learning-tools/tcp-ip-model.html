@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCP/IP Model - 4 Layer Reference Guide</title>
+    <meta name="description" content="Interactive guide to the TCP/IP (Internet Protocol Suite) 4-layer model.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .intro-box {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .intro-box h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .intro-box p {
+            color: #5a6c7d;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .comparison-box {
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .comparison-box h3 {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .comparison-item h4 {
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .comparison-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .comparison-item li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .comparison-item li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+        }
+
+        .tcpip-layers {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .layer-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 6px solid;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .layer-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .layer-card.layer-4 { border-left-color: #e74c3c; }
+        .layer-card.layer-3 { border-left-color: #3498db; }
+        .layer-card.layer-2 { border-left-color: #2ecc71; }
+        .layer-card.layer-1 { border-left-color: #f39c12; }
+
+        .layer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .layer-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            opacity: 0.3;
+        }
+
+        .layer-name {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .layer-card.layer-4 .layer-name { color: #e74c3c; }
+        .layer-card.layer-3 .layer-name { color: #3498db; }
+        .layer-card.layer-2 .layer-name { color: #2ecc71; }
+        .layer-card.layer-1 .layer-name { color: #f39c12; }
+
+        .osi-equivalent {
+            background: #f0f3ff;
+            color: #667eea;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .layer-description {
+            color: #5a6c7d;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .layer-details {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .layer-card.active .layer-details {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .detail-section {
+            margin-bottom: 15px;
+        }
+
+        .detail-title {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .detail-content {
+            color: #5a6c7d;
+            line-height: 1.6;
+        }
+
+        .protocol-list, .device-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .protocol-tag, .device-tag {
+            background: #f0f3ff;
+            color: #667eea;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .layer-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .layer-number {
+                font-size: 1.8em;
+            }
+
+            .layer-name {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1><i class="fas fa-network-wired"></i> TCP/IP Model</h1>
+    <p>Internet Protocol Suite - ৪ লেয়ার মডেল</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+
+    <div class="intro-box">
+        <h2>TCP/IP Model কি?</h2>
+        <p>TCP/IP মডেল, যা Internet Protocol Suite নামেও পরিচিত, হল OSI মডেলের একটি সংক্ষিপ্ত সংস্করণ। এতে চারটি স্তর রয়েছে, OSI মডেলের সাতটি স্তরের বিপরীতে। TCP/IP মডেল আধুনিক ইন্টারনেট নেটওয়ার্কিংয়ে ব্যবহৃত ব্যবহারিক কাঠামো।</p>
+        <p>১৯৭০-এর দশকে Department of Defense (DoD) দ্বারা তৈরি, এই মডেল নেটওয়ার্কের উপর ডেটা কীভাবে প্রেরণ করা হয় তার উপর ফোকাস করে এবং আজকের ইন্টারনেটের ভিত্তি।</p>
+    </div>
+
+    <div class="comparison-box">
+        <h3>TCP/IP বনাম OSI Model তুলনা</h3>
+        <div class="comparison-grid">
+            <div class="comparison-item">
+                <h4>TCP/IP (৪ লেয়ার)</h4>
+                <ul>
+                    <li>Application Layer</li>
+                    <li>Transport Layer</li>
+                    <li>Internet Layer</li>
+                    <li>Network Access Layer</li>
+                </ul>
+            </div>
+            <div class="comparison-item">
+                <h4>OSI (৭ লেয়ার)</h4>
+                <ul>
+                    <li>Application, Presentation, Session</li>
+                    <li>Transport</li>
+                    <li>Network</li>
+                    <li>Data Link, Physical</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tcpip-layers">
+        <div class="layer-card layer-4">
+            <div class="layer-header">
+                <div class="layer-number">4</div>
+                <div class="layer-name">Application Layer</div>
+                <div class="osi-equivalent">OSI: 5, 6, 7</div>
+            </div>
+            <div class="layer-description">
+                Application লেয়ার OSI মডেলের Application, Presentation এবং Session লেয়ারকে একত্রিত করে। এটি সরাসরি শেষ-ব্যবহারকারী অ্যাপ্লিকেশনগুলিতে নেটওয়ার্ক সেবা প্রদান করে।
+            </div>
+            <div class="layer-details">
+                <div class="detail-section">
+                    <div class="detail-title">কাজ</div>
+                    <div class="detail-content">উচ্চ-স্তরের প্রোটোকল, উপস্থাপনা, এনকোডিং এবং ডায়ালগ নিয়ন্ত্রণ পরিচালনা করে। অ্যাপ্লিকেশনগুলিতে নেটওয়ার্ক সেবা প্রদান করে এবং ব্যবহারকারী সেশন পরিচালনা করে। ডেটা ফরম্যাটিং, এনক্রিপশন এবং অ্যাপ্লিকেশন-নির্দিষ্ট কাজের জন্য দায়ী।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">প্রোটোকল</div>
+                    <div class="protocol-list">
+                        <span class="protocol-tag">HTTP/HTTPS</span>
+                        <span class="protocol-tag">FTP/SFTP</span>
+                        <span class="protocol-tag">SMTP</span>
+                        <span class="protocol-tag">POP3/IMAP</span>
+                        <span class="protocol-tag">DNS</span>
+                        <span class="protocol-tag">DHCP</span>
+                        <span class="protocol-tag">SSH</span>
+                        <span class="protocol-tag">Telnet</span>
+                        <span class="protocol-tag">SNMP</span>
+                        <span class="protocol-tag">NTP</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">উদাহরণ</div>
+                    <div class="detail-content">ওয়েব ব্রাউজার, ইমেইল ক্লায়েন্ট, ফাইল ট্রান্সফার অ্যাপ্লিকেশন, রিমোট এক্সেস টুলস, নেটওয়ার্ক ম্যানেজমেন্ট সফটওয়্যার</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">প্রধান দায়িত্ব</div>
+                    <div class="detail-content">
+                        • ব্যবহারকারী authentication এবং authorization<br>
+                        • ডেটা এনক্রিপশন এবং কম্প্রেশন<br>
+                        • সেশন স্থাপনা এবং ম্যানেজমেন্ট<br>
+                        • অ্যাপ্লিকেশন-নির্দিষ্ট ডেটা ফরম্যাটিং
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card layer-3">
+            <div class="layer-header">
+                <div class="layer-number">3</div>
+                <div class="layer-name">Transport Layer</div>
+                <div class="osi-equivalent">OSI: 4</div>
+            </div>
+            <div class="layer-description">
+                Transport লেয়ার অ্যাপ্লিকেশনের জন্য end-to-end যোগাযোগ সেবা প্রদান করে। এটি নির্ভরযোগ্য ডেটা স্থানান্তর এবং ত্রুটি পুনরুদ্ধারের জন্য দায়ী।
+            </div>
+            <div class="layer-details">
+                <div class="detail-section">
+                    <div class="detail-title">কাজ</div>
+                    <div class="detail-content">অ্যাপ্লিকেশনগুলির মধ্যে নির্ভরযোগ্য বা অনির্ভরযোগ্য ডেটা সরবরাহ প্রদান করে। সেগমেন্টেশন, প্রবাহ নিয়ন্ত্রণ, ত্রুটি পরীক্ষা এবং স্বীকৃতি পরিচালনা করে। নির্দিষ্ট অ্যাপ্লিকেশন এবং সেবা সনাক্ত করতে পোর্ট নম্বর ব্যবহার করে।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">প্রোটোকল</div>
+                    <div class="protocol-list">
+                        <span class="protocol-tag">TCP (Transmission Control Protocol)</span>
+                        <span class="protocol-tag">UDP (User Datagram Protocol)</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">TCP বনাম UDP</div>
+                    <div class="detail-content">
+                        <strong>TCP (Connection-oriented):</strong> নির্ভরযোগ্য, ক্রমবদ্ধ delivery ত্রুটি পরীক্ষা, acknowledgment এবং retransmission সহ। ওয়েব ব্রাউজিং, ইমেইল, ফাইল ট্রান্সফারের জন্য ব্যবহৃত।<br><br>
+                        <strong>UDP (Connectionless):</strong> দ্রুত, হালকা, delivery এর কোন গ্যারান্টি নেই। streaming, gaming, VoIP, DNS query-এর জন্য ব্যবহৃত।
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">পোর্ট নম্বর</div>
+                    <div class="detail-content">
+                        • Well-known ports: 0-1023 (HTTP: 80, HTTPS: 443, SSH: 22)<br>
+                        • Registered ports: 1024-49151<br>
+                        • Dynamic/Private ports: 49152-65535
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card layer-2">
+            <div class="layer-header">
+                <div class="layer-number">2</div>
+                <div class="layer-name">Internet Layer</div>
+                <div class="osi-equivalent">OSI: 3</div>
+            </div>
+            <div class="layer-description">
+                Internet লেয়ার নেটওয়ার্কের মধ্যে প্যাকেট রাউটিং এর জন্য দায়ী। এটি লজিক্যাল ঠিকানা এবং পাথ নির্ধারণ পরিচালনা করে।
+            </div>
+            <div class="layer-details">
+                <div class="detail-section">
+                    <div class="detail-title">কাজ</div>
+                    <div class="detail-content">লজিক্যাল ঠিকানা (IP ঠিকানা), রাউটিং এবং একাধিক নেটওয়ার্ক জুড়ে প্যাকেট ফরওয়ার্ডিং প্রদান করে। প্যাকেট fragmentation এবং reassembly পরিচালনা করে। উৎস থেকে গন্তব্যে ডেটা ট্রান্সমিশনের জন্য সেরা পাথ নির্ধারণ করে।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">প্রোটোকল</div>
+                    <div class="protocol-list">
+                        <span class="protocol-tag">IP (IPv4/IPv6)</span>
+                        <span class="protocol-tag">ICMP</span>
+                        <span class="protocol-tag">ARP</span>
+                        <span class="protocol-tag">IGMP</span>
+                        <span class="protocol-tag">Routing Protocols (OSPF, BGP, RIP)</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">IP ঠিকানা</div>
+                    <div class="detail-content">
+                        <strong>IPv4:</strong> 32-bit ঠিকানা (যেমন, 192.168.1.1), প্রায় 4.3 বিলিয়ন ঠিকানা<br>
+                        <strong>IPv6:</strong> 128-bit ঠিকানা (যেমন, 2001:0db8:85a3::8a2e:0370:7334), কার্যত সীমাহীন ঠিকানা
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">ডিভাইস</div>
+                    <div class="device-list">
+                        <span class="device-tag">Routers</span>
+                        <span class="device-tag">Layer 3 Switches</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layer-card layer-1">
+            <div class="layer-header">
+                <div class="layer-number">1</div>
+                <div class="layer-name">Network Access Layer</div>
+                <div class="osi-equivalent">OSI: 1, 2</div>
+            </div>
+            <div class="layer-description">
+                Network Access লেয়ার OSI মডেলের Physical এবং Data Link লেয়ারকে একত্রিত করে। এটি নেটওয়ার্ক হার্ডওয়্যারের উপর ডেটার ফিজিক্যাল ট্রান্সমিশন পরিচালনা করে।
+            </div>
+            <div class="layer-details">
+                <div class="detail-section">
+                    <div class="detail-title">কাজ</div>
+                    <div class="detail-content">নেটওয়ার্ক মিডিয়ার উপর ডেটার ফিজিক্যাল ট্রান্সমিশন পরিচালনা করে। নেটওয়ার্কের মাধ্যমে ডেটা কীভাবে physically পাঠানো হয় তা সংজ্ঞায়িত করে, যার মধ্যে হার্ডওয়্যার ঠিকানা (MAC ঠিকানা), ত্রুটি সনাক্তকরণ এবং ফ্রেম ফরম্যাটিং অন্তর্ভুক্ত। ফিজিক্যাল মাধ্যমে অ্যাক্সেস পরিচালনা করে।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">প্রোটোকল ও প্রযুক্তি</div>
+                    <div class="protocol-list">
+                        <span class="protocol-tag">Ethernet</span>
+                        <span class="protocol-tag">Wi-Fi (802.11)</span>
+                        <span class="protocol-tag">PPP</span>
+                        <span class="protocol-tag">Token Ring</span>
+                        <span class="protocol-tag">FDDI</span>
+                        <span class="protocol-tag">Frame Relay</span>
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">ফিজিক্যাল উপাদান</div>
+                    <div class="detail-content">
+                        • নেটওয়ার্ক ক্যাবল (UTP, STP, Fiber optic)<br>
+                        • ওয়্যারলেস রেডিও ফ্রিকোয়েন্সি<br>
+                        • নেটওয়ার্ক ইন্টারফেস কার্ড (NICs)<br>
+                        • কানেক্টর (RJ45, SC, LC)<br>
+                        • Hubs, Switches, Bridges
+                    </div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">MAC ঠিকানা</div>
+                    <div class="detail-content">48-bit হার্ডওয়্যার ঠিকানা (যেমন, 00:1A:2B:3C:4D:5E) নেটওয়ার্ক ইন্টারফেসগুলিতে বরাদ্দ করা। স্থানীয় নেটওয়ার্ক যোগাযোগ এবং ডিভাইস সনাক্তকরণের জন্য ব্যবহৃত।</div>
+                </div>
+                <div class="detail-section">
+                    <div class="detail-title">ডিভাইস</div>
+                    <div class="device-list">
+                        <span class="device-tag">Switches</span>
+                        <span class="device-tag">Bridges</span>
+                        <span class="device-tag">Network Interface Cards</span>
+                        <span class="device-tag">Hubs</span>
+                        <span class="device-tag">Repeaters</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('.layer-card').forEach(card => {
+    card.addEventListener('click', function() {
+        this.classList.toggle('active');
+    });
+});
+</script>
+
+</body>
+</html>

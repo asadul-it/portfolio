@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ping Test - Online Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            background: #ffffff;
+            color: #000000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            padding: 20px 0;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .navbar ul li a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .navbar ul li a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .tool-container {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.1);
+            border: 2px solid #f0f3ff;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .tool-header h2 {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .tool-header p {
+            color: #5a6c7d;
+            font-size: 1.05em;
+        }
+
+        .tool-icon-large {
+            font-size: 4em;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        /* Input Section */
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e4e8;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-group input::placeholder {
+            color: #a0a8b0;
+            font-style: italic;
+        }
+
+        /* Quick Test Buttons */
+        .quick-test-section {
+            margin-bottom: 25px;
+        }
+
+        .quick-test-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            font-size: 1.05em;
+        }
+
+        .quick-test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .quick-test-btn {
+            padding: 12px 20px;
+            border: 2px solid #e0e4e8;
+            border-radius: 8px;
+            background: white;
+            color: #2c3e50;
+            font-size: 0.95em;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .quick-test-btn:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 35px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05em;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:disabled {
+            background: #a0a8b0;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #c53030;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+
+        /* Error Message */
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.9em;
+            font-style: italic;
+            margin-top: 8px;
+            display: none;
+        }
+
+        /* Status Display */
+        .status-display {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+
+        .status-display.show {
+            display: block;
+        }
+
+        .status-display.success {
+            background: #f0fdf4;
+            border-left-color: #48bb78;
+        }
+
+        .status-display.error {
+            background: #fef2f2;
+            border-left-color: #e53e3e;
+        }
+
+        .status-text {
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+
+        /* Results Section */
+        .results-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .results-section.show {
+            display: block;
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+        }
+
+        .result-header {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .result-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .result-label {
+            font-size: 0.9em;
+            color: #5a6c7d;
+            margin-bottom: 5px;
+        }
+
+        .result-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .result-value.success {
+            color: #48bb78;
+        }
+
+        .result-value.error {
+            color: #e53e3e;
+        }
+
+        /* Ping History */
+        .ping-history {
+            margin-top: 20px;
+        }
+
+        .history-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .history-list {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            padding: 10px;
+            border-bottom: 1px solid #e0e4e8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.95em;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-time {
+            color: #5a6c7d;
+        }
+
+        .history-result {
+            font-weight: bold;
+        }
+
+        /* Loading Spinner */
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            margin-top: 50px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #5a6c7d;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #f0f3ff;
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #e0e4e8;
+            color: #5a6c7d;
+            font-size: 0.9em;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .tool-container {
+                padding: 25px;
+            }
+
+            .tool-header h2 {
+                font-size: 1.5em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .quick-test-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar ul {
+                gap: 10px;
+            }
+
+            .navbar ul li a {
+                font-size: 0.9em;
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="fixed-header-container">
+    <div class="navbar">
+        <h1 style="margin: 0;">ONLINE TOOLS</h1>
+    </div>
+    <div class="navbar" style="justify-content: center; padding: 10px 20px;">
+        <ul>
+            <li><a href="../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="../skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+            <li><a href="../tools.html"><i class="fas fa-tools"></i> Tools</a></li>
+            <li><a href="../certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+            <li><a href="../contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+    <div class="tool-container">
+        <div class="tool-header">
+            <i class="fas fa-heartbeat tool-icon-large"></i>
+            <h2>Ping Test Tool</h2>
+            <p>Check website connectivity and response time</p>
+        </div>
+
+        <!-- Quick Test Section -->
+        <div class="quick-test-section">
+            <div class="quick-test-title"><i class="fas fa-bolt"></i> Quick Test</div>
+            <div class="quick-test-grid">
+                <button class="quick-test-btn" onclick="quickTest('google.com')">
+                    <i class="fab fa-google"></i> Google
+                </button>
+                <button class="quick-test-btn" onclick="quickTest('cloudflare.com')">
+                    <i class="fas fa-cloud"></i> Cloudflare
+                </button>
+                <button class="quick-test-btn" onclick="quickTest('github.com')">
+                    <i class="fab fa-github"></i> GitHub
+                </button>
+                <button class="quick-test-btn" onclick="quickTest('facebook.com')">
+                    <i class="fab fa-facebook"></i> Facebook
+                </button>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <div class="input-group">
+                <label for="hostname"><i class="fas fa-server"></i> Hostname or IP Address</label>
+                <input 
+                    type="text" 
+                    id="hostname" 
+                    placeholder="Enter hostname (e.g., google.com) or IP address"
+                >
+                <span class="error-message" id="errorMessage">Please enter a valid hostname or IP address</span>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" id="pingBtn" onclick="startPing()">
+                    <i class="fas fa-play"></i> Start Ping
+                </button>
+                <button class="btn btn-secondary" onclick="clearResults()">
+                    <i class="fas fa-times"></i> Clear
+                </button>
+            </div>
+        </div>
+
+        <!-- Status Display -->
+        <div class="status-display" id="statusDisplay">
+            <div class="status-text" id="statusText"></div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 15px; color: #667eea; font-weight: bold;">Pinging server...</p>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="resultsSection">
+            <div class="result-card">
+                <div class="result-header">
+                    <i class="fas fa-chart-line"></i>
+                    Ping Results for <span id="targetHost" style="color: #667eea;">-</span>
+                </div>
+                
+                <div class="result-grid">
+                    <div class="result-item">
+                        <div class="result-label">Status</div>
+                        <div class="result-value" id="resultStatus">-</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Response Time</div>
+                        <div class="result-value" id="resultTime">-</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">IP Address</div>
+                        <div class="result-value" id="resultIP">-</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">HTTP Status</div>
+                        <div class="result-value" id="resultHTTP">-</div>
+                    </div>
+                </div>
+
+                <!-- Ping History -->
+                <div class="ping-history">
+                    <div class="history-title"><i class="fas fa-history"></i> Ping History</div>
+                    <div class="history-list" id="historyList">
+                        <!-- History items will be added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Tools</h3>
+            <p>Free collection of online tools for everyday tasks. No installation required, works directly in your browser.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../skills.html">Skills</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:asadul.it@yahoo.com">asadul.it@yahoo.com</a></li>
+                <li><a href="tel:01706927793">01706927793</a></li>
+                <li>Savar, Dhaka</li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    let pingHistory = [];
+
+    // Validate hostname or IP
+    function isValidHostname(hostname) {
+        const domainPattern = /^(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)*[a-zA-Z0-9](?:[a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?)$/;
+        const ipPattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        return domainPattern.test(hostname) || ipPattern.test(hostname);
+    }
+
+    // Quick test function
+    function quickTest(hostname) {
+        document.getElementById('hostname').value = hostname;
+        startPing();
+    }
+
+    // Start ping test
+    async function startPing() {
+        const hostnameInput = document.getElementById('hostname').value.trim();
+        const errorMessage = document.getElementById('errorMessage');
+        
+        // Reset error
+        errorMessage.style.display = 'none';
+        
+        // Validate hostname
+        if (!hostnameInput) {
+            errorMessage.textContent = 'Please enter a hostname or IP address';
+            errorMessage.style.display = 'block';
+            return;
+        }
+        
+        if (!isValidHostname(hostnameInput)) {
+            errorMessage.textContent = 'Please enter a valid hostname or IP address';
+            errorMessage.style.display = 'block';
+            return;
+        }
+        
+        // Perform ping test
+        await performPing(hostnameInput);
+    }
+
+    // Perform ping test using multiple methods
+    async function performPing(hostname) {
+        const loading = document.getElementById('loading');
+        const resultsSection = document.getElementById('resultsSection');
+        const statusDisplay = document.getElementById('statusDisplay');
+        const pingBtn = document.getElementById('pingBtn');
+        
+        // Show loading, hide results
+        loading.classList.add('show');
+        resultsSection.classList.remove('show');
+        statusDisplay.classList.remove('show');
+        pingBtn.disabled = true;
+        
+        try {
+            // Method 1: HTTP fetch with timing
+            const startTime = performance.now();
+            const url = hostname.startsWith('http') ? hostname : `https://${hostname}`;
+            
+            try {
+                const response = await fetch(url, { 
+                    method: 'HEAD',
+                    mode: 'no-cors' // Allow checking connectivity even with CORS
+                });
+                const endTime = performance.now();
+                const responseTime = Math.round(endTime - startTime);
+                
+                // Get IP using DNS API
+                let ipAddress = 'N/A';
+                try {
+                    const dnsResponse = await fetch(`https://dns.google/resolve?name=${hostname}&type=A`);
+                    const dnsData = await dnsResponse.json();
+                    if (dnsData.Answer && dnsData.Answer.length > 0) {
+                        ipAddress = dnsData.Answer[0].data;
+                    }
+                } catch (e) {
+                    console.log('DNS lookup failed:', e);
+                }
+                
+                displayResults({
+                    hostname: hostname,
+                    status: 'Online',
+                    responseTime: responseTime,
+                    ipAddress: ipAddress,
+                    httpStatus: response.status || 'Accessible'
+                });
+                
+                showStatus('Server is reachable!', 'success');
+                
+            } catch (error) {
+                // Try alternative method
+                const endTime = performance.now();
+                const responseTime = Math.round(endTime - startTime);
+                
+                displayResults({
+                    hostname: hostname,
+                    status: 'Timeout',
+                    responseTime: responseTime,
+                    ipAddress: 'N/A',
+                    httpStatus: 'No Response'
+                });
+                
+                showStatus('Server is not responding or blocked by CORS', 'error');
+            }
+            
+        } catch (error) {
+            console.error('Ping error:', error);
+            showStatus('Failed to perform ping test', 'error');
+        } finally {
+            loading.classList.remove('show');
+            pingBtn.disabled = false;
+        }
+    }
+
+    // Display results
+    function displayResults(data) {
+        document.getElementById('targetHost').textContent = data.hostname;
+        
+        const statusEl = document.getElementById('resultStatus');
+        statusEl.textContent = data.status;
+        statusEl.className = 'result-value ' + (data.status === 'Online' ? 'success' : 'error');
+        
+        document.getElementById('resultTime').textContent = data.responseTime + ' ms';
+        document.getElementById('resultIP').textContent = data.ipAddress;
+        document.getElementById('resultHTTP').textContent = data.httpStatus;
+        
+        // Add to history
+        addToHistory(data);
+        
+        // Show results
+        document.getElementById('resultsSection').classList.add('show');
+    }
+
+    // Add to ping history
+    function addToHistory(data) {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString();
+        
+        pingHistory.unshift({
+            time: timeString,
+            status: data.status,
+            responseTime: data.responseTime
+        });
+        
+        // Keep only last 10 entries
+        if (pingHistory.length > 10) {
+            pingHistory.pop();
+        }
+        
+        updateHistoryDisplay();
+    }
+
+    // Update history display
+    function updateHistoryDisplay() {
+        const historyList = document.getElementById('historyList');
+        historyList.innerHTML = '';
+        
+        if (pingHistory.length === 0) {
+            historyList.innerHTML = '<div style="text-align: center; color: #5a6c7d; padding: 10px;">No ping history yet</div>';
+            return;
+        }
+        
+        pingHistory.forEach(item => {
+            const historyItem = document.createElement('div');
+            historyItem.className = 'history-item';
+            
+            const resultClass = item.status === 'Online' ? 'success' : 'error';
+            
+            historyItem.innerHTML = `
+                <span class="history-time">${item.time}</span>
+                <span class="history-result" style="color: ${item.status === 'Online' ? '#48bb78' : '#e53e3e'}">
+                    ${item.status} - ${item.responseTime}ms
+                </span>
+            `;
+            
+            historyList.appendChild(historyItem);
+        });
+    }
+
+    // Show status message
+    function showStatus(message, type) {
+        const statusDisplay = document.getElementById('statusDisplay');
+        const statusText = document.getElementById('statusText');
+        
+        statusText.textContent = message;
+        statusDisplay.className = 'status-display show ' + type;
+        
+        // Auto hide after 5 seconds
+        setTimeout(() => {
+            statusDisplay.classList.remove('show');
+        }, 5000);
+    }
+
+    // Clear results
+    function clearResults() {
+        document.getElementById('hostname').value = '';
+        document.getElementById('resultsSection').classList.remove('show');
+        document.getElementById('statusDisplay').classList.remove('show');
+        document.getElementById('errorMessage').style.display = 'none';
+        pingHistory = [];
+        updateHistoryDisplay();
+    }
+
+    // Enter key support
+    document.getElementById('hostname').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            startPing();
+        }
+    });
+</script>
+
+</body>
+</html>

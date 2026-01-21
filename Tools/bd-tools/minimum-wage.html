@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bangladesh Minimum Wage Calculator - Calculate minimum wages for different sectors including RMG, tea gardens, and other industries">
+    <meta name="keywords" content="Bangladesh minimum wage, RMG salary, garments wages, labor law, minimum salary calculator">
+    <title>Bangladesh Minimum Wage Calculator - BD Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            background: #ffffff;
+            color: #000000;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            padding: 20px 0;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .navbar ul li a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            background: #f59e0b;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            color: #f59e0b;
+            font-size: 2.5em;
+            text-align: center;
+            padding: 20px 0;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #f59e0b;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            color: #666;
+            font-style: italic;
+        }
+
+        .breadcrumb a {
+            color: #f59e0b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .tool-container {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .tool-title {
+            font-size: 2em;
+            color: #000000;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .tool-title i {
+            color: #f59e0b;
+            font-size: 1.5em;
+        }
+
+        .tool-description {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.05em;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .input-section {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 2px solid #f59e0b;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: #000000;
+            font-weight: bold;
+            font-size: 1.1em;
+            font-style: italic;
+        }
+
+        .input-group select,
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+            transition: all 0.3s ease;
+            background: #ffffff;
+        }
+
+        .input-group select:focus,
+        .input-group input:focus {
+            outline: none;
+            border-color: #d97706;
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        button {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-style: italic;
+        }
+
+        .btn-calculate {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-calculate:hover {
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-clear {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-clear:hover {
+            box-shadow: 0 6px 20px rgba(239, 68, 68, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .result-section {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            padding: 35px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border: 2px solid #10b981;
+            display: none;
+        }
+
+        .result-section.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-title {
+            font-size: 1.5em;
+            color: #000000;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .result-title i {
+            color: #10b981;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .result-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .result-label {
+            color: #666;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .result-value {
+            color: #000000;
+            font-size: 1.5em;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .wage-breakdown {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-style: italic;
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #f59e0b;
+        }
+
+        .breakdown-label {
+            color: #666;
+        }
+
+        .breakdown-value {
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .info-section {
+            background: #dbeafe;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .info-section h3 {
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sector-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .sector-item {
+            background: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #3b82f6;
+            font-style: italic;
+        }
+
+        .sector-name {
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 5px;
+        }
+
+        .sector-wage {
+            color: #f59e0b;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .tool-container {
+                padding: 20px;
+            }
+
+            .tool-title {
+                font-size: 1.5em;
+            }
+
+            .input-section {
+                padding: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: #ffffff;
+                border-top: 2px solid #e0e0e0;
+                padding: 15px 0;
+                gap: 0;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+
+            .navbar ul.active {
+                display: flex;
+            }
+
+            .navbar ul li a {
+                padding: 12px 20px;
+                border-radius: 0;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sector-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="fixed-header-container">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="margin: 0; text-align: left; font-size: 1.8em;">BANGLADESH TOOLS</h1>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <div class="navbar" style="justify-content: center; padding: 10px 20px; position: relative;">
+        <ul id="navMenu">
+            <li><a href="../../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="../../skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+            <li><a href="../tools.html"><i class="fas fa-tools"></i> Tools</a></li>
+            <li><a href="../../certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+            <li><a href="../../contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / 
+        <a href="../tools.html">Tools</a> / 
+        <a href="../tools.html">BD Tools</a> / 
+        Minimum Wage
+    </div>
+
+    <div class="tool-container">
+        <h2 class="tool-title">
+            <i class="fas fa-money-bill-wave"></i> Bangladesh Minimum Wage Calculator
+        </h2>
+        <p class="tool-description">
+            Calculate minimum wages for different sectors in Bangladesh including RMG, tea gardens, agriculture, and other industries. Includes basic pay, allowances, and total package breakdown.
+        </p>
+
+        <div class="input-section">
+            <div class="input-group">
+                <label for="sectorSelect">
+                    <i class="fas fa-industry"></i> Select Sector/Industry
+                </label>
+                <select id="sectorSelect" onchange="updateGradeOptions()">
+                    <option value="">-- Choose Sector --</option>
+                    <option value="rmg">Ready Made Garments (RMG)</option>
+                    <option value="tea">Tea Garden</option>
+                    <option value="agriculture">Agriculture</option>
+                    <option value="construction">Construction</option>
+                    <option value="transport">Transport</option>
+                    <option value="hotel">Hotel & Restaurant</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="gradeSelect">
+                    <i class="fas fa-layer-group"></i> Select Grade/Position
+                </label>
+                <select id="gradeSelect">
+                    <option value="">-- Choose Grade --</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="workingDays">
+                    <i class="fas fa-calendar-check"></i> Working Days Per Month
+                </label>
+                <input 
+                    type="number" 
+                    id="workingDays" 
+                    value="26" 
+                    min="1" 
+                    max="31"
+                    placeholder="Enter working days"
+                >
+            </div>
+
+            <div class="button-group">
+                <button class="btn-calculate" onclick="calculateWage()">
+                    <i class="fas fa-calculator"></i> Calculate Wage
+                </button>
+                <button class="btn-clear" onclick="clearForm()">
+                    <i class="fas fa-times"></i> Clear
+                </button>
+            </div>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <h3 class="result-title">
+                <i class="fas fa-chart-line"></i> Wage Calculation Results
+            </h3>
+            <div class="result-grid">
+                <div class="result-card">
+                    <div class="result-label">Basic Salary</div>
+                    <div class="result-value" id="basicSalary">৳ 0</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">House Rent (50%)</div>
+                    <div class="result-value" id="houseRent">৳ 0</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">Medical Allowance</div>
+                    <div class="result-value" id="medicalAllowance">৳ 0</div>
+                </div>
+                <div class="result-card">
+                    <div class="result-label">Transport Allowance</div>
+                    <div class="result-value" id="transportAllowance">৳ 0</div>
+                </div>
+            </div>
+
+            <div class="wage-breakdown">
+                <h4 style="margin-bottom: 15px; font-weight: bold; font-style: italic; color: #000000;">
+                    <i class="fas fa-list"></i> Wage Breakdown
+                </h4>
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Basic Salary</span>
+                    <span class="breakdown-value" id="breakdown-basic">৳ 0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label">House Rent (50% of Basic)</span>
+                    <span class="breakdown-value" id="breakdown-house">৳ 0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Medical Allowance</span>
+                    <span class="breakdown-value" id="breakdown-medical">৳ 0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Transport Allowance</span>
+                    <span class="breakdown-value" id="breakdown-transport">৳ 0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label">Food Allowance</span>
+                    <span class="breakdown-value" id="breakdown-food">৳ 0</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label"><i class="fas fa-check-circle"></i> Total Monthly Wage</span>
+                    <span class="breakdown-value" id="breakdown-total">৳ 0</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 20px; background: #eff6ff; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                <p style="font-style: italic; color: #666; margin-bottom: 10px;">
+                    <strong style="color: #000000;">Per Day Wage:</strong> <span id="perDayWage" style="color: #f59e0b; font-weight: bold;">৳ 0</span>
+                </p>
+                <p style="font-style: italic; color: #666;">
+                    <strong style="color: #000000;">Overtime Rate (1.5x):</strong> <span id="overtimeRate" style="color: #f59e0b; font-weight: bold;">৳ 0/hour</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3><i class="fas fa-info-circle"></i> Minimum Wage by Sector (2024)</h3>
+            <div class="sector-list" id="sectorList">
+                <div class="sector-item">
+                    <div class="sector-name">RMG - Grade 7 (Helper)</div>
+                    <div class="sector-wage">৳ 12,500/month</div>
+                </div>
+                <div class="sector-item">
+                    <div class="sector-name">Tea Garden Worker</div>
+                    <div class="sector-wage">৳ 170/day</div>
+                </div>
+                <div class="sector-item">
+                    <div class="sector-name">Agriculture Worker</div>
+                    <div class="sector-wage">৳ 500/day</div>
+                </div>
+                <div class="sector-item">
+                    <div class="sector-name">Construction Worker</div>
+                    <div class="sector-wage">৳ 550/day</div>
+                </div>
+                <div class="sector-item">
+                    <div class="sector-name">Transport (Helper)</div>
+                    <div class="sector-wage">৳ 11,000/month</div>
+                </div>
+                <div class="sector-item">
+                    <div class="sector-name">Hotel & Restaurant</div>
+                    <div class="sector-wage">৳ 10,000/month</div>
+                </div>
+            </div>
+            <p style="margin-top: 20px; color: #666; font-style: italic; font-size: 0.95em;">
+                <strong>Note:</strong> Minimum wages are set by the Bangladesh Government and may vary by location and industry. These rates are for reference and may be updated through official government notifications.
+            </p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <p>&copy; 2024 Bangladesh Tools. All rights reserved.</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">Minimum wage information is for reference purposes. Please verify with official government sources.</p>
+    </div>
+</footer>
+
+<script>
+    // Wage data structure
+    const wageData = {
+        rmg: {
+            name: "Ready Made Garments",
+            grades: {
+                "Grade 7 (Helper)": { basic: 12500 },
+                "Grade 6 (Operator)": { basic: 13200 },
+                "Grade 5 (Junior Operator)": { basic: 13750 },
+                "Grade 4 (Operator)": { basic: 14575 },
+                "Grade 3 (Technician)": { basic: 16260 },
+                "Grade 2 (Supervisor)": { basic: 19415 },
+                "Grade 1 (Manager)": { basic: 23490 }
+            }
+        },
+        tea: {
+            name: "Tea Garden",
+            grades: {
+                "Field Worker": { basic: 4420, daily: 170 },
+                "Factory Worker": { basic: 5200 },
+                "Supervisor": { basic: 8500 }
+            }
+        },
+        agriculture: {
+            name: "Agriculture",
+            grades: {
+                "Farm Worker": { basic: 13000, daily: 500 },
+                "Skilled Worker": { basic: 15000, daily: 600 }
+            }
+        },
+        construction: {
+            name: "Construction",
+            grades: {
+                "Helper": { basic: 12000, daily: 500 },
+                "Mason": { basic: 16500, daily: 650 },
+                "Electrician": { basic: 18000, daily: 700 }
+            }
+        },
+        transport: {
+            name: "Transport",
+            grades: {
+                "Helper": { basic: 11000 },
+                "Driver": { basic: 18000 },
+                "Supervisor": { basic: 22000 }
+            }
+        },
+        hotel: {
+            name: "Hotel & Restaurant",
+            grades: {
+                "Waiter": { basic: 10000 },
+                "Cook": { basic: 15000 },
+                "Chef": { basic: 25000 }
+            }
+        }
+    };
+
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    function updateGradeOptions() {
+        const sector = document.getElementById('sectorSelect').value;
+        const gradeSelect = document.getElementById('gradeSelect');
+        
+        gradeSelect.innerHTML = '<option value="">-- Choose Grade --</option>';
+
+        if (sector && wageData[sector]) {
+            Object.keys(wageData[sector].grades).forEach(grade => {
+                const option = document.createElement('option');
+                option.value = grade;
+                option.textContent = grade;
+                gradeSelect.appendChild(option);
+            });
+        }
+
+        document.getElementById('resultSection').classList.remove('show');
+    }
+
+    function calculateWage() {
+        const sector = document.getElementById('sectorSelect').value;
+        const grade = document.getElementById('gradeSelect').value;
+        const workingDays = parseInt(document.getElementById('workingDays').value);
+
+        if (!sector || !grade) {
+            alert('Please select both sector and grade');
+            return;
+        }
+
+        if (!workingDays || workingDays < 1) {
+            alert('Please enter valid working days');
+            return;
+        }
+
+        const gradeData = wageData[sector].grades[grade];
+        const basicSalary = gradeData.basic;
+
+        // Calculate allowances
+        const houseRent = Math.round(basicSalary * 0.5);
+        const medicalAllowance = Math.round(basicSalary * 0.05);
+        const transportAllowance = Math.round(basicSalary * 0.03);
+        const foodAllowance = Math.round(basicSalary * 0.02);
+
+        // Calculate total
+        const totalWage = basicSalary + houseRent + medicalAllowance + transportAllowance + foodAllowance;
+        const perDay = Math.round(totalWage / workingDays);
+        const overtimeHourly = Math.round((basicSalary / workingDays / 8) * 1.5);
+
+        // Display results
+        document.getElementById('basicSalary').textContent = `৳ ${basicSalary.toLocaleString()}`;
+        document.getElementById('houseRent').textContent = `৳ ${houseRent.toLocaleString()}`;
+        document.getElementById('medicalAllowance').textContent = `৳ ${medicalAllowance.toLocaleString()}`;
+        document.getElementById('transportAllowance').textContent = `৳ ${transportAllowance.toLocaleString()}`;
+
+        // Breakdown
+        document.getElementById('breakdown-basic').textContent = `৳ ${basicSalary.toLocaleString()}`;
+        document.getElementById('breakdown-house').textContent = `৳ ${houseRent.toLocaleString()}`;
+        document.getElementById('breakdown-medical').textContent = `৳ ${medicalAllowance.toLocaleString()}`;
+        document.getElementById('breakdown-transport').textContent = `৳ ${transportAllowance.toLocaleString()}`;
+        document.getElementById('breakdown-food').textContent = `৳ ${foodAllowance.toLocaleString()}`;
+        document.getElementById('breakdown-total').textContent = `৳ ${totalWage.toLocaleString()}`;
+
+        document.getElementById('perDayWage').textContent = `৳ ${perDay.toLocaleString()}`;
+        document.getElementById('overtimeRate').textContent = `৳ ${overtimeHourly.toLocaleString()}/hour`;
+
+        document.getElementById('resultSection').classList.add('show');
+    }
+
+    function clearForm() {
+        document.getElementById('sectorSelect').value = '';
+        document.getElementById('gradeSelect').innerHTML = '<option value="">-- Choose Grade --</option>';
+        document.getElementById('workingDays').value = '26';
+        document.getElementById('resultSection').classList.remove('show');
+    }
+</script>
+
+</body>
+</html>

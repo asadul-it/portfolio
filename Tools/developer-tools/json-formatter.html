@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Formatter - Online Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #2c3e50;
+        }
+
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            padding: 20px 0;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .navbar ul li a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar ul li a:hover {
+            background: #2563eb;
+            color: white;
+        }
+
+        h1 {
+            color: #2563eb;
+            font-size: 2.5em;
+            text-align: center;
+            padding: 20px 0;
+            font-weight: 700;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #2563eb;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(10px, 10px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            color: #5a6c7d;
+        }
+
+        .breadcrumb a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .tool-header {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tool-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tool-title i {
+            color: #2563eb;
+            font-size: 2em;
+        }
+
+        .tool-description {
+            color: #5a6c7d;
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+
+        .editor-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .editor-panel {
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .editor-header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 15px 20px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .editor-header-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .editor-header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-small {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.85em;
+        }
+
+        .btn-small:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        textarea {
+            flex: 1;
+            padding: 20px;
+            border: none;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            line-height: 1.6;
+            resize: none;
+            background: #f8f9fa;
+        }
+
+        #jsonInput {
+            background: #ffffff;
+            color: #2c3e50;
+        }
+
+        #jsonOutput {
+            background: #f8f9fa;
+            color: #2c3e50;
+            padding: 20px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border: none;
+        }
+
+        .controls {
+            background: #ffffff;
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #f0f3ff;
+            color: #2563eb;
+            border: 2px solid #2563eb;
+        }
+
+        .btn-secondary:hover {
+            background: #e8f0ff;
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            box-shadow: 0 8px 16px rgba(16, 185, 129, 0.5);
+        }
+
+        .status-message {
+            padding: 15px 20px;
+            border-radius: 6px;
+            display: none;
+            margin-bottom: 20px;
+            font-weight: 600;
+            animation: slideDown 0.3s ease;
+        }
+
+        .status-message.show {
+            display: block;
+        }
+
+        .status-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+
+        .status-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+
+        .status-info {
+            background: #dbeafe;
+            color: #1e40af;
+            border-left: 4px solid #2563eb;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stats {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #f3e8ff 100%);
+            border-radius: 6px;
+            border-left: 3px solid #2563eb;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: #5a6c7d;
+            margin-top: 5px;
+        }
+
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p, .footer-column a {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .footer-column a {
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #e0e4e8;
+            color: #5a6c7d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 1200px) {
+            .editor-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .tool-header {
+                padding: 20px;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: #ffffff;
+                border-top: 2px solid #e0e4e8;
+                padding: 15px 0;
+                gap: 0;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            }
+
+            .navbar ul.active {
+                display: flex;
+            }
+
+            .navbar ul li a {
+                padding: 12px 20px;
+                border-radius: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px 10px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            textarea {
+                padding: 15px;
+                font-size: 0.85em;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .editor-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="fixed-header-container">
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="margin: 0; text-align: left; font-size: 1.8em;">JSON FORMATTER</h1>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <div class="navbar" style="justify-content: center; padding: 10px 20px; position: relative;">
+        <ul id="navMenu">
+            <li><a href="../../index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="../../skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+            <li><a href="../tools.html"><i class="fas fa-tools"></i> Tools</a></li>
+            <li><a href="../../certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+            <li><a href="../../contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / 
+        <a href="../tools.html">Tools</a> / 
+        <a href="../tools.html">Developer</a> / 
+        JSON Formatter
+    </div>
+
+    <div class="tool-header">
+        <h2 class="tool-title">
+            <i class="fas fa-code"></i> JSON Formatter & Validator
+        </h2>
+        <p class="tool-description">
+            Format, validate, and beautify JSON data. Check for syntax errors, minify or prettify your JSON, and copy formatted results instantly.
+        </p>
+    </div>
+
+    <div class="status-message" id="statusMessage"></div>
+
+    <div class="controls">
+        <button class="btn-primary" onclick="formatJSON()">
+            <i class="fas fa-magic"></i> Format
+        </button>
+        <button class="btn-primary" onclick="minifyJSON()">
+            <i class="fas fa-compress"></i> Minify
+        </button>
+        <button class="btn-success" onclick="validateJSON()">
+            <i class="fas fa-check-circle"></i> Validate
+        </button>
+        <button class="btn-secondary" onclick="copyOutput()">
+            <i class="fas fa-copy"></i> Copy
+        </button>
+        <button class="btn-secondary" onclick="clearAll()">
+            <i class="fas fa-trash"></i> Clear
+        </button>
+    </div>
+
+    <div class="editor-wrapper">
+        <div class="editor-panel">
+            <div class="editor-header">
+                <div class="editor-header-title">
+                    <i class="fas fa-edit"></i> Input JSON
+                </div>
+                <div class="editor-header-actions">
+                    <button class="btn-small" onclick="pasteJSON()">Paste</button>
+                </div>
+            </div>
+            <textarea id="jsonInput" placeholder="Paste your JSON here..."></textarea>
+        </div>
+
+        <div class="editor-panel">
+            <div class="editor-header">
+                <div class="editor-header-title">
+                    <i class="fas fa-file-code"></i> Output JSON
+                </div>
+                <div class="editor-header-actions">
+                    <button class="btn-small" onclick="copyOutput()">Copy</button>
+                    <button class="btn-small" onclick="downloadJSON()">Download</button>
+                </div>
+            </div>
+            <div id="jsonOutput" style="color: #2c3e50;">Output will appear here...</div>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat-item">
+            <div class="stat-value" id="jsonSize">0</div>
+            <div class="stat-label">Size (bytes)</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="jsonLines">0</div>
+            <div class="stat-label">Lines</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="jsonKeys">0</div>
+            <div class="stat-label">Keys</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value" id="jsonStatus">-</div>
+            <div class="stat-label">Status</div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About JSON Formatter</h3>
+            <p>Format, validate, and beautify JSON data. Perfect for developers, API testers, and data analysts who work with JSON regularly.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Features</h3>
+            <p>✓ Format & Beautify<br>✓ Minify<br>✓ Validate<br>✓ Error Detection<br>✓ Copy & Download</p>
+        </div>
+        <div class="footer-column">
+            <h3>Use Cases</h3>
+            <p>API Development, Data Processing, Config Files, Web Development, Data Analysis</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function showStatus(message, type) {
+        const status = document.getElementById('statusMessage');
+        status.textContent = message;
+        status.className = `status-message show status-${type}`;
+        setTimeout(() => {
+            status.classList.remove('show');
+        }, 3000);
+    }
+
+    function formatJSON() {
+        const input = document.getElementById('jsonInput').value.trim();
+        
+        if (!input) {
+            showStatus('Please enter JSON data', 'error');
+            return;
+        }
+
+        try {
+            const parsed = JSON.parse(input);
+            const formatted = JSON.stringify(parsed, null, 2);
+            document.getElementById('jsonOutput').textContent = formatted;
+            updateStats(formatted, true);
+            showStatus('JSON formatted successfully', 'success');
+        } catch (error) {
+            showStatus(`Error: ${error.message}`, 'error');
+            document.getElementById('jsonStatus').textContent = 'Invalid';
+        }
+    }
+
+    function minifyJSON() {
+        const input = document.getElementById('jsonInput').value.trim();
+        
+        if (!input) {
+            showStatus('Please enter JSON data', 'error');
+            return;
+        }
+
+        try {
+            const parsed = JSON.parse(input);
+            const minified = JSON.stringify(parsed);
+            document.getElementById('jsonOutput').textContent = minified;
+            updateStats(minified, true);
+            showStatus('JSON minified successfully', 'success');
+        } catch (error) {
+            showStatus(`Error: ${error.message}`, 'error');
+        }
+    }
+
+    function validateJSON() {
+        const input = document.getElementById('jsonInput').value.trim();
+        
+        if (!input) {
+            showStatus('Please enter JSON data', 'error');
+            return;
+        }
+
+        try {
+            JSON.parse(input);
+            document.getElementById('jsonStatus').textContent = 'Valid';
+            showStatus('✓ JSON is valid', 'success');
+        } catch (error) {
+            document.getElementById('jsonStatus').textContent = 'Invalid';
+            showStatus(`✗ Invalid JSON: ${error.message}`, 'error');
+        }
+    }
+
+    function updateStats(json, isValid) {
+        const size = new Blob([json]).size;
+        const lines = json.split('\n').length;
+        
+        let keyCount = 0;
+        try {
+            const parsed = JSON.parse(json);
+            keyCount = Object.keys(JSON.parse(JSON.stringify(parsed))).length;
+        } catch (e) {}
+
+        document.getElementById('jsonSize').textContent = size;
+        document.getElementById('jsonLines').textContent = lines;
+        document.getElementById('jsonKeys').textContent = keyCount;
+        if (isValid) {
+            document.getElementById('jsonStatus').textContent = 'Valid';
+        }
+    }
+
+    function copyOutput() {
+        const output = document.getElementById('jsonOutput').textContent;
+        
+        if (output === 'Output will appear here...') {
+            showStatus('Nothing to copy', 'error');
+            return;
+        }
+
+        navigator.clipboard.writeText(output).then(() => {
+            showStatus('Copied to clipboard', 'success');
+        });
+    }
+
+    function downloadJSON() {
+        const output = document.getElementById('jsonOutput').textContent;
+        
+        if (output === 'Output will appear here...') {
+            showStatus('Nothing to download', 'error');
+            return;
+        }
+
+        const blob = new Blob([output], { type: 'application/json' });
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = 'formatted.json';
+        link.click();
+        window.URL.revokeObjectURL(url);
+        showStatus('Downloaded successfully', 'success');
+    }
+
+    function pasteJSON() {
+        navigator.clipboard.readText().then(text => {
+            document.getElementById('jsonInput').value = text;
+            showStatus('Pasted from clipboard', 'info');
+        }).catch(() => {
+            showStatus('Failed to read clipboard', 'error');
+        });
+    }
+
+    function clearAll() {
+        document.getElementById('jsonInput').value = '';
+        document.getElementById('jsonOutput').textContent = 'Output will appear here...';
+        document.getElementById('jsonSize').textContent = '0';
+        document.getElementById('jsonLines').textContent = '0';
+        document.getElementById('jsonKeys').textContent = '0';
+        document.getElementById('jsonStatus').textContent = '-';
+        showStatus('Cleared successfully', 'info');
+    }
+
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+    });
+
+    // Auto-validate on input
+    document.getElementById('jsonInput').addEventListener('input', function() {
+        if (this.value.trim()) {
+            try {
+                JSON.parse(this.value);
+                document.getElementById('jsonStatus').textContent = 'Valid';
+            } catch (e) {
+                document.getElementById('jsonStatus').textContent = 'Invalid';
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

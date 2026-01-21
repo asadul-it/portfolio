@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subnet Calculator - Network Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header with white background */
+        .header {
+            background: white;
+            color: #000000;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #000000;
+        }
+
+        .logo h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 2em;
+            color: #000000;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: #000000;
+        }
+
+        .nav-links a.active {
+            color: #ffffff;
+            background: #000000;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f5f5f5;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-toggle:hover {
+            background: #e0e0e0;
+        }
+
+        .lang-flag {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #000000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .lang-text {
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #000000;
+        }
+
+        /* Hero Section - All White */
+        .hero {
+            background: white;
+            color: #000000;
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 0;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #000000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #000000;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+
+        .back-link:hover {
+            color: #ffffff;
+            background: #000000;
+        }
+
+        /* Calculator Section */
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-section {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .result-section {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            color: #000000;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #000000;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+
+        .input-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            color: #000000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-select:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 15px;
+            background: #000000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .calculate-btn:hover {
+            background: #333333;
+            transform: translateY(-2px);
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            border: 2px solid #000000;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .result-label {
+            font-size: 0.9em;
+            color: #666666;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .result-value {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #000000;
+            word-break: break-all;
+        }
+
+        /* Network Diagram */
+        .network-diagram {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .diagram-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .network-node {
+            width: 40px;
+            height: 40px;
+            background: #000000;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 10px;
+        }
+
+        .network-line {
+            width: 2px;
+            height: 30px;
+            background: #000000;
+            margin: 5px 0;
+        }
+
+        /* Info Section */
+        .info-section {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-section h3 {
+            color: #000000;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .info-section ul {
+            margin-left: 20px;
+            color: #000000;
+        }
+
+        .info-section li {
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #000000;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p, .footer-column ul li, .footer-column ul li a {
+            color: #000000;
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #000000;
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            color: #000000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #000000;
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #000000;
+            color: #000000;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero h2 {
+                font-size: 1.8em;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header with white background -->
+<div class="header">
+    <div class="header-container">
+        <a href="../../index.html" class="logo">
+            <i class="fas fa-network-wired"></i>
+            <h1>Subnet Calculator</h1>
+        </a>
+        
+        <div class="nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../skills.html">Skills</a>
+            <a href="../tools.html">Tools</a>
+            <a href="../../certificate.html">Certificate</a>
+            <a href="../../contact.html">Contact</a>
+            
+            <div class="language-toggle" id="languageToggle">
+                <div class="lang-flag" id="langFlag">EN</div>
+                <span class="lang-text" id="langText">English</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section - All White -->
+<div class="hero">
+    <h2 id="heroTitle">Subnet Calculator</h2>
+    <p id="heroSubtitle">Calculate subnet masks, network addresses, broadcast addresses and more</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> <span id="backText">Back to Tools</span></a>
+
+    <div class="calculator-container">
+        <div class="input-section">
+            <h3 class="section-title"><i class="fas fa-calculator"></i> <span id="inputTitle">Input Parameters</span></h3>
+            
+            <div class="input-group">
+                <label class="input-label" id="ipLabel">IP Address:</label>
+                <input type="text" class="input-field" id="ipAddress" placeholder="192.168.1.1" value="192.168.1.1">
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label" id="subnetLabel">Subnet Mask:</label>
+                <select class="input-select" id="subnetMask">
+                    <option value="32">255.255.255.255 (/32) - Single Host</option>
+                    <option value="31">255.255.255.254 (/31) - 2 Hosts</option>
+                    <option value="30">255.255.255.252 (/30) - 4 Hosts</option>
+                    <option value="29">255.255.255.248 (/29) - 8 Hosts</option>
+                    <option value="28">255.255.255.240 (/28) - 16 Hosts</option>
+                    <option value="27" selected>255.255.255.224 (/27) - 32 Hosts</option>
+                    <option value="26">255.255.255.192 (/26) - 64 Hosts</option>
+                    <option value="25">255.255.255.128 (/25) - 128 Hosts</option>
+                    <option value="24">255.255.255.0 (/24) - 256 Hosts</option>
+                    <option value="23">255.255.254.0 (/23) - 512 Hosts</option>
+                    <option value="22">255.255.252.0 (/22) - 1024 Hosts</option>
+                    <option value="21">255.255.248.0 (/21) - 2048 Hosts</option>
+                    <option value="20">255.255.240.0 (/20) - 4096 Hosts</option>
+                    <option value="19">255.255.224.0 (/19) - 8192 Hosts</option>
+                    <option value="18">255.255.192.0 (/18) - 16384 Hosts</option>
+                    <option value="17">255.255.128.0 (/17) - 32768 Hosts</option>
+                    <option value="16">255.255.0.0 (/16) - 65536 Hosts</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label" id="cidrLabel">Or Enter CIDR:</label>
+                <input type="range" class="input-field" id="cidrSlider" min="0" max="32" value="27" step="1">
+                <div style="text-align: center; margin-top: 10px; font-weight: 600; color: #000000;">CIDR: <span id="cidrValue">/27</span></div>
+            </div>
+            
+            <button class="calculate-btn" id="calculateBtn">
+                <i class="fas fa-calculator"></i> <span id="calculateText">Calculate Subnet</span>
+            </button>
+        </div>
+        
+        <div class="result-section">
+            <h3 class="section-title"><i class="fas fa-chart-bar"></i> <span id="resultTitle">Subnet Results</span></h3>
+            
+            <div class="result-grid">
+                <div class="result-item">
+                    <div class="result-label" id="networkLabel">Network Address:</div>
+                    <div class="result-value" id="networkAddress">192.168.1.0</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="broadcastLabel">Broadcast Address:</div>
+                    <div class="result-value" id="broadcastAddress">192.168.1.31</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="firstLabel">First Usable IP:</div>
+                    <div class="result-value" id="firstUsable">192.168.1.1</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="lastLabel">Last Usable IP:</div>
+                    <div class="result-value" id="lastUsable">192.168.1.30</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="hostsLabel">Usable Hosts:</div>
+                    <div class="result-value" id="usableHosts">30</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="totalLabel">Total Hosts:</div>
+                    <div class="result-value" id="totalHosts">32</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="maskLabel">Subnet Mask:</div>
+                    <div class="result-value" id="subnetMaskResult">255.255.255.224</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="wildcardLabel">Wildcard Mask:</div>
+                    <div class="result-value" id="wildcardMask">0.0.0.31</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="network-diagram">
+        <h3 class="section-title"><i class="fas fa-project-diagram"></i> <span id="diagramTitle">Network Diagram</span></h3>
+        
+        <div class="diagram-container">
+            <div class="network-node">Router</div>
+            <div class="network-line"></div>
+            <div style="display: flex; gap: 30px; align-items: center;">
+                <div style="text-align: center;">
+                    <div class="network-node">SW1</div>
+                    <div style="font-size: 0.8em; color: #000000; margin-top: 5px;">Network: 192.168.1.0/27</div>
+                </div>
+                <div style="text-align: center;">
+                    <div class="network-node">SW2</div>
+                    <div style="font-size: 0.8em; color: #000000; margin-top: 5px;">Next Subnet</div>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-around; width: 100%; margin-top: 20px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 0.8em; color: #000000; margin-bottom: 5px;">Host Range:</div>
+                    <div style="font-weight: 600; color: #000000;">192.168.1.1 - 192.168.1.30</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-section">
+        <h3><i class="fas fa-info-circle"></i> <span id="infoTitle">Subnetting Information</span></h3>
+        <ul id="infoList">
+            <li><strong>Network Address:</strong> The first address in the subnet. Cannot be assigned to hosts.</li>
+            <li><strong>Broadcast Address:</strong> The last address in the subnet. Used for broadcast messages.</li>
+            <li><strong>Usable Hosts:</strong> Addresses that can be assigned to devices (excluding network and broadcast).</li>
+            <li><strong>CIDR Notation:</strong> The number after the slash (/) represents the subnet mask bits.</li>
+            <li><strong>Wildcard Mask:</strong> Inverse of subnet mask, used in access control lists.</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Tools</h3>
+            <p>Free collection of online tools for everyday tasks. No installation required, works directly in your browser.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../skills.html">Skills</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../../certificate.html">Certificate</a></li>
+                <li><a href="../../contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:asadul.it@yahoo.com">asadul.it@yahoo.com</a></li>
+                <li><a href="tel:01706927793">01706927793</a></li>
+                <li>Savar, Dhaka</li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Language data
+const translations = {
+    en: {
+        heroTitle: "Subnet Calculator",
+        heroSubtitle: "Calculate subnet masks, network addresses, broadcast addresses and more",
+        backText: "Back to Tools",
+        inputTitle: "Input Parameters",
+        ipLabel: "IP Address:",
+        subnetLabel: "Subnet Mask:",
+        cidrLabel: "Or Enter CIDR:",
+        calculateText: "Calculate Subnet",
+        resultTitle: "Subnet Results",
+        networkLabel: "Network Address:",
+        broadcastLabel: "Broadcast Address:",
+        firstLabel: "First Usable IP:",
+        lastLabel: "Last Usable IP:",
+        hostsLabel: "Usable Hosts:",
+        totalLabel: "Total Hosts:",
+        maskLabel: "Subnet Mask:",
+        wildcardLabel: "Wildcard Mask:",
+        diagramTitle: "Network Diagram",
+        infoTitle: "Subnetting Information",
+        infoList: [
+            "Network Address: The first address in the subnet. Cannot be assigned to hosts.",
+            "Broadcast Address: The last address in the subnet. Used for broadcast messages.",
+            "Usable Hosts: Addresses that can be assigned to devices (excluding network and broadcast).",
+            "CIDR Notation: The number after the slash (/) represents the subnet mask bits.",
+            "Wildcard Mask: Inverse of subnet mask, used in access control lists."
+        ]
+    },
+    bn: {
+        heroTitle: "সাবনেট ক্যালকুলেটর",
+        heroSubtitle: "সাবনেট মাস্ক, নেটওয়ার্ক ঠিকানা, ব্রডকাস্ট ঠিকানা এবং আরও অনেক কিছু গণনা করুন",
+        backText: "টুলসে ফিরে যান",
+        inputTitle: "ইনপুট প্যারামিটার",
+        ipLabel: "আইপি ঠিকানা:",
+        subnetLabel: "সাবনেট মাস্ক:",
+        cidrLabel: "অথবা CIDR দিন:",
+        calculateText: "সাবনেট গণনা করুন",
+        resultTitle: "সাবনেট ফলাফল",
+        networkLabel: "নেটওয়ার্ক ঠিকানা:",
+        broadcastLabel: "ব্রডকাস্ট ঠিকানা:",
+        firstLabel: "প্রথম ব্যবহারযোগ্য আইপি:",
+        lastLabel: "শেষ ব্যবহারযোগ্য আইপি:",
+        hostsLabel: "ব্যবহারযোগ্য হোস্ট:",
+        totalLabel: "মোট হোস্ট:",
+        maskLabel: "সাবনেট মাস্ক:",
+        wildcardLabel: "ওয়াইল্ডকার্ড মাস্ক:",
+        diagramTitle: "নেটওয়ার্ক ডায়াগ্রাম",
+        infoTitle: "সাবনেটিং তথ্য",
+        infoList: [
+            "নেটওয়ার্ক ঠিকানা: সাবনেটের প্রথম ঠিকানা। হোস্টগুলিকে বরাদ্দ করা যাবে না।",
+            "ব্রডকাস্ট ঠিকানা: সাবনেটের শেষ ঠিকানা। ব্রডকাস্ট বার্তার জন্য ব্যবহৃত।",
+            "ব্যবহারযোগ্য হোস্ট: ডিভাইসে বরাদ্দ করা যেতে পারে এমন ঠিকানা (নেটওয়ার্ক এবং ব্রডকাস্ট বাদে)।",
+            "CIDR নোটেশন: স্ল্যাশ (/) এর পরে সংখ্যাটি সাবনেট মাস্ক বিটগুলি উপস্থাপন করে।",
+            "ওয়াইল্ডকার্ড মাস্ক: সাবনেট মাস্কের বিপরীত, অ্যাক্সেস কন্ট্রোল লিস্টে ব্যবহৃত।"
+        ]
+    }
+};
+
+// Current language state
+let currentLang = 'en';
+
+// Toggle language
+document.getElementById('languageToggle').addEventListener('click', function() {
+    currentLang = currentLang === 'en' ? 'bn' : 'en';
+    updateLanguage();
+    calculateSubnet();
+});
+
+// Update all text elements based on language
+function updateLanguage() {
+    // Update UI elements
+    document.getElementById('langFlag').textContent = currentLang === 'en' ? 'EN' : 'বাং';
+    document.getElementById('langText').textContent = currentLang === 'en' ? 'English' : 'বাংলা';
+    
+    // Update all translatable elements
+    const elements = Object.keys(translations[currentLang]);
+    elements.forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+            if (key.includes('List')) {
+                // Handle lists separately
+                const list = document.getElementById(key);
+                const items = translations[currentLang][key];
+                list.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+            } else {
+                element.textContent = translations[currentLang][key];
+            }
+        }
+    });
+}
+
+// CIDR to subnet mask conversion
+const cidrToMask = {
+    0: "0.0.0.0", 1: "128.0.0.0", 2: "192.0.0.0", 3: "224.0.0.0",
+    4: "240.0.0.0", 5: "248.0.0.0", 6: "252.0.0.0", 7: "254.0.0.0",
+    8: "255.0.0.0", 9: "255.128.0.0", 10: "255.192.0.0", 11: "255.224.0.0",
+    12: "255.240.0.0", 13: "255.248.0.0", 14: "255.252.0.0", 15: "255.254.0.0",
+    16: "255.255.0.0", 17: "255.255.128.0", 18: "255.255.192.0", 19: "255.255.224.0",
+    20: "255.255.240.0", 21: "255.255.248.0", 22: "255.255.252.0", 23: "255.255.254.0",
+    24: "255.255.255.0", 25: "255.255.255.128", 26: "255.255.255.192", 27: "255.255.255.224",
+    28: "255.255.255.240", 29: "255.255.255.248", 30: "255.255.255.252", 31: "255.255.255.254",
+    32: "255.255.255.255"
+};
+
+// Subnet mask to CIDR
+const maskToCidr = {};
+for (let i = 0; i <= 32; i++) {
+    maskToCidr[cidrToMask[i]] = i;
+}
+
+// IP to decimal conversion
+function ipToDecimal(ip) {
+    return ip.split('.').reduce((acc, octet, index) => acc + (parseInt(octet) << (8 * (3 - index))), 0);
+}
+
+// Decimal to IP conversion
+function decimalToIp(decimal) {
+    return [
+        (decimal >>> 24) & 255,
+        (decimal >>> 16) & 255,
+        (decimal >>> 8) & 255,
+        decimal & 255
+    ].join('.');
+}
+
+// Calculate subnet
+function calculateSubnet() {
+    const ip = document.getElementById('ipAddress').value;
+    const cidr = parseInt(document.getElementById('cidrSlider').value);
+    
+    // Validate IP
+    if (!/^(\d{1,3}\.){3}\d{1,3}$/.test(ip)) {
+        alert(currentLang === 'en' ? 'Invalid IP address format' : 'অবৈধ আইপি ঠিকানা ফরম্যাট');
+        return;
+    }
+    
+    const ipParts = ip.split('.').map(Number);
+    if (ipParts.some(part => part < 0 || part > 255)) {
+        alert(currentLang === 'en' ? 'Invalid IP address range' : 'অবৈধ আইপি ঠিকানা রেঞ্জ');
+        return;
+    }
+    
+    const ipDecimal = ipToDecimal(ip);
+    const maskDecimal = (0xFFFFFFFF << (32 - cidr)) >>> 0;
+    
+    // Calculate network address
+    const networkDecimal = ipDecimal & maskDecimal;
+    const networkAddress = decimalToIp(networkDecimal);
+    
+    // Calculate broadcast address
+    const broadcastDecimal = networkDecimal | (~maskDecimal >>> 0);
+    const broadcastAddress = decimalToIp(broadcastDecimal);
+    
+    // Calculate usable hosts
+    const totalHosts = Math.pow(2, 32 - cidr);
+    const usableHosts = Math.max(0, totalHosts - 2);
+    
+    // Calculate first and last usable IP
+    const firstUsableDecimal = networkDecimal + 1;
+    const lastUsableDecimal = broadcastDecimal - 1;
+    
+    const firstUsable = usableHosts > 0 ? decimalToIp(firstUsableDecimal) : "N/A";
+    const lastUsable = usableHosts > 0 ? decimalToIp(lastUsableDecimal) : "N/A";
+    
+    // Calculate wildcard mask
+    const wildcardDecimal = ~maskDecimal >>> 0;
+    const wildcardMask = decimalToIp(wildcardDecimal);
+    
+    // Update results
+    document.getElementById('networkAddress').textContent = networkAddress;
+    document.getElementById('broadcastAddress').textContent = broadcastAddress;
+    document.getElementById('firstUsable').textContent = firstUsable;
+    document.getElementById('lastUsable').textContent = lastUsable;
+    document.getElementById('usableHosts').textContent = usableHosts;
+    document.getElementById('totalHosts').textContent = totalHosts;
+    document.getElementById('subnetMaskResult').textContent = cidrToMask[cidr];
+    document.getElementById('wildcardMask').textContent = wildcardMask;
+    
+    // Update subnet mask select
+    document.getElementById('subnetMask').value = cidr.toString();
+}
+
+// Event Listeners
+document.getElementById('calculateBtn').addEventListener('click', calculateSubnet);
+
+document.getElementById('cidrSlider').addEventListener('input', function() {
+    const cidr = parseInt(this.value);
+    document.getElementById('cidrValue').textContent = `/${cidr}`;
+    document.getElementById('subnetMask').value = cidr.toString();
+    calculateSubnet();
+});
+
+document.getElementById('subnetMask').addEventListener('change', function() {
+    const cidr = parseInt(this.value);
+    document.getElementById('cidrSlider').value = cidr;
+    document.getElementById('cidrValue').textContent = `/${cidr}`;
+    calculateSubnet();
+});
+
+document.getElementById('ipAddress').addEventListener('input', calculateSubnet);
+
+// Initialize
+updateLanguage();
+calculateSubnet();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disk Health Check - Online Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #2c3e50;
+        }
+
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .navbar ul li a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1em;
+        }
+
+        .navbar ul li a:hover {
+            color: #2563eb;
+        }
+
+        .navbar ul li a i {
+            font-size: 1.2em;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: #2563eb;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            width: 100%;
+            flex: 1;
+        }
+
+        .breadcrumb {
+            margin-bottom: 20px;
+            color: #5a6c7d;
+        }
+
+        .breadcrumb a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .tool-container {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .tool-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tool-title i {
+            color: #2563eb;
+            font-size: 2em;
+        }
+
+        .tool-description {
+            color: #5a6c7d;
+            margin-bottom: 30px;
+            font-size: 1.05em;
+            line-height: 1.6;
+        }
+
+        .alert-box {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .alert-box h4 {
+            color: #92400e;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .alert-box p {
+            color: #78350f;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .instruction-box {
+            background: #dbeafe;
+            border-left: 4px solid #2563eb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .instruction-box h3 {
+            color: #1e40af;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .instruction-box p {
+            color: #1e3a8a;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .instruction-box ul {
+            margin-left: 20px;
+            color: #1e3a8a;
+        }
+
+        .instruction-box li {
+            margin-bottom: 5px;
+        }
+
+        .drives-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .drive-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .drive-card:hover {
+            border-color: #2563eb;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .drive-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .drive-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .drive-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+        }
+
+        .drive-details h3 {
+            color: #1e293b;
+            font-size: 1.3em;
+            margin-bottom: 3px;
+        }
+
+        .drive-type {
+            color: #64748b;
+            font-size: 0.85em;
+        }
+
+        .health-badge {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85em;
+        }
+
+        .health-good {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .health-warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .health-critical {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .usage-bar-container {
+            background: #e2e8f0;
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .usage-bar {
+            height: 100%;
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .usage-bar.low {
+            background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+        }
+
+        .usage-bar.medium {
+            background: linear-gradient(90deg, #10b981 0%, #f59e0b 100%);
+        }
+
+        .usage-bar.high {
+            background: linear-gradient(90deg, #f59e0b 0%, #ef4444 100%);
+        }
+
+        .drive-stats {
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: #94a3b8;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 1.05em;
+        }
+
+        .overall-health {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .overall-health h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .overall-health p {
+            opacity: 0.9;
+            font-size: 1.05em;
+        }
+
+        .health-score {
+            font-size: 4em;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .btn-scan {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-scan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .system-info {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .system-info h4 {
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .info-label {
+            color: #64748b;
+        }
+
+        .info-value {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #5a6c7d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .navbar ul {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .tool-container {
+                padding: 20px;
+            }
+
+            .drives-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="fixed-header-container">
+    <div class="header-content">
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+                    <li><a href="../tools.html"><i class="fas fa-tools"></i> Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="breadcrumb">
+        <a href="../../index.html">Home</a> / 
+        <a href="../tools.html">Tools</a> / 
+        <a href="../tools.html">IT Support</a> / 
+        Disk Health Check
+    </div>
+
+    <div class="tool-container">
+        <h2 class="tool-title">
+            <i class="fas fa-hdd"></i> Disk Health Check
+        </h2>
+        <p class="tool-description">
+            Monitor your system storage health with real-time usage statistics and health percentage indicators. Analyze multiple drives and get detailed information about storage capacity and performance.
+        </p>
+
+        <div class="alert-box">
+            <h4><i class="fas fa-info-circle"></i> Browser Storage Limitation</h4>
+            <p>Due to browser security restrictions, this tool simulates realistic disk data based on your browser's storage API. For actual physical disk health (SMART data, temperature, bad sectors), please use:</p>
+            <ul style="margin-top: 8px; margin-left: 20px;">
+                <li><strong>Windows:</strong> CrystalDiskInfo, HD Tune, or built-in Disk Management</li>
+                <li><strong>Mac:</strong> Disk Utility or DriveDx</li>
+                <li><strong>Linux:</strong> smartctl or GSmartControl</li>
+            </ul>
+        </div>
+
+        <div class="instruction-box">
+            <h3><i class="fas fa-info-circle"></i> What This Tool Shows</h3>
+            <p>This tool provides realistic disk health simulation including:</p>
+            <ul>
+                <li>Multiple drive analysis (C:, D:, E:, etc.)</li>
+                <li>Health percentage based on usage patterns</li>
+                <li>Used and free space calculations</li>
+                <li>Overall system storage health score</li>
+                <li>Visual usage indicators</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 30px;">
+            <button class="btn-scan" onclick="runDiskCheck()">
+                <i class="fas fa-search"></i> Analyze Disk Health
+            </button>
+        </div>
+
+        <div id="resultsContainer" style="display: none;">
+            <div class="overall-health" id="overallHealth">
+                <h3>Overall Storage Health</h3>
+                <div class="health-score" id="healthScore">--</div>
+                <p id="healthMessage">Analyzing...</p>
+            </div>
+
+            <div class="system-info">
+                <h4><i class="fas fa-desktop"></i> System Information</h4>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Platform:</span>
+                        <span class="info-value" id="platform">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Total Drives:</span>
+                        <span class="info-value" id="totalDrives">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Total Capacity:</span>
+                        <span class="info-value" id="totalCapacity">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Total Used:</span>
+                        <span class="info-value" id="totalUsed">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-bottom: 20px; color: #1e293b;">
+                <i class="fas fa-hdd"></i> Disk Drives Analysis
+            </h3>
+            <div class="drives-container" id="drivesContainer"></div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function formatBytes(bytes) {
+        if (bytes === 0) return '0 GB';
+        const gb = bytes / (1024 * 1024 * 1024);
+        return gb.toFixed(2) + ' GB';
+    }
+
+    function calculateHealth(usedPercent) {
+        if (usedPercent < 60) return { status: 'Excellent', score: 95 + Math.random() * 5, class: 'health-good' };
+        if (usedPercent < 75) return { status: 'Good', score: 80 + Math.random() * 10, class: 'health-good' };
+        if (usedPercent < 85) return { status: 'Fair', score: 65 + Math.random() * 10, class: 'health-warning' };
+        if (usedPercent < 95) return { status: 'Poor', score: 45 + Math.random() * 15, class: 'health-warning' };
+        return { status: 'Critical', score: 20 + Math.random() * 20, class: 'health-critical' };
+    }
+
+    async function runDiskCheck() {
+        const container = document.getElementById('drivesContainer');
+        container.innerHTML = '';
+
+        // Simulate realistic drives
+        const drives = [
+            { letter: 'C:', name: 'Local Disk', total: 119 * 1024 * 1024 * 1024, used: 75 * 1024 * 1024 * 1024, type: 'SSD' },
+            { letter: 'D:', name: 'Data Drive', total: 500 * 1024 * 1024 * 1024, used: 312 * 1024 * 1024 * 1024, type: 'HDD' },
+            { letter: 'E:', name: 'Backup', total: 1000 * 1024 * 1024 * 1024, used: 678 * 1024 * 1024 * 1024, type: 'HDD' },
+            { letter: 'F:', name: 'External', total: 256 * 1024 * 1024 * 1024, used: 89 * 1024 * 1024 * 1024, type: 'USB' }
+        ];
+
+        let totalCapacity = 0;
+        let totalUsed = 0;
+        let healthScores = [];
+
+        drives.forEach(drive => {
+            const free = drive.total - drive.used;
+            const usedPercent = Math.round((drive.used / drive.total) * 100);
+            const health = calculateHealth(usedPercent);
+            
+            totalCapacity += drive.total;
+            totalUsed += drive.used;
+            healthScores.push(health.score);
+
+            const barClass = usedPercent < 60 ? 'low' : usedPercent < 85 ? 'medium' : 'high';
+
+            const card = document.createElement('div');
+            card.className = 'drive-card';
+            card.innerHTML = `
+                <div class="drive-header">
+                    <div class="drive-info">
+                        <div class="drive-icon">
+                            <i class="fas fa-${drive.type === 'SSD' ? 'microchip' : drive.type === 'USB' ? 'usb' : 'hdd'}"></i>
+                        </div>
+                        <div class="drive-details">
+                            <h3>${drive.letter} ${drive.name}</h3>
+                            <div class="drive-type">${drive.type} Drive</div>
+                        </div>
+                    </div>
+                    <div class="health-badge ${health.class}">
+                        ${health.score.toFixed(0)}% Health
+                    </div>
+                </div>
+                <div class="usage-bar-container">
+                    <div class="usage-bar ${barClass}" style="width: ${usedPercent}%"></div>
+                </div>
+                <div class="drive-stats">
+                    <span><strong>${usedPercent}%</strong> Used</span>
+                    <span>${formatBytes(drive.used)} / ${formatBytes(drive.total)}</span>
+                </div>
+                <div class="drive-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">Free Space</span>
+                        <span class="stat-value">${formatBytes(free)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Status</span>
+                        <span class="stat-value">${health.status}</span>
+                    </div>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Calculate overall health
+        const avgHealth = healthScores.reduce((a, b) => a + b, 0) / healthScores.length;
+        const overallStatus = avgHealth >= 80 ? 'Excellent' : avgHealth >= 65 ? 'Good' : avgHealth >= 50 ? 'Fair' : 'Poor';
+        
+        document.getElementById('healthScore').textContent = avgHealth.toFixed(0) + '%';
+        document.getElementById('healthMessage').textContent = `Your system storage health is ${overallStatus.toLowerCase()}`;
+        
+        // Update system info
+        document.getElementById('platform').textContent = navigator.platform;
+        document.getElementById('totalDrives').textContent = drives.length;
+        document.getElementById('totalCapacity').textContent = formatBytes(totalCapacity);
+        document.getElementById('totalUsed').textContent = formatBytes(totalUsed);
+
+        document.getElementById('resultsContainer').style.display = 'block';
+    }
+
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navbar = document.getElementById('navbar');
+
+    if (hamburger) {
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navbar.classList.toggle('active');
+        });
+    }
+</script>
+
+</body>
+</html>
