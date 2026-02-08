@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipment Planning - Garments Production Tool</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Asadul Islam - Professional IT Engineer Portfolio. Expert in IT Infrastructure, Networking, Security, and Technical Support. Garments Shipment Planning tool for production scheduling and delivery management.">
+    <meta name="keywords"
+        content="Asadul Islam, asadul islam, asadul, asadul islam asad, Asadul Islam Asad, আসাদুল, আসাদুল ইসলাম, আসাদুল ইসলাম আছাদ, IT Engineer, Shipment Planning, Garments Shipping, Production Planning, Delivery Schedule, Bangladesh">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali, English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Shipment Planning - Asadul Islam">
+    <meta property="og:description"
+        content="Professional Shipment Planning tool for garments production. Plan and manage shipment schedules, carton details, and delivery timelines.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/profile.jpg">
+    <meta property="og:site_name" content="Asadul Islam Portfolio">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Shipment Planning - Asadul Islam">
+    <meta name="twitter:description"
+        content="Professional Shipment Planning tool for garments production scheduling and delivery management.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/profile.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Asadul Islam",
+        "alternateName": ["asadul islam", "asadul", "asadul islam asad", "Asadul Islam Asad"],
+        "jobTitle": "IT Engineer",
+        "url": "https://asadul-it.github.io/portfolio/",
+        "image": "https://asadul-it.github.io/portfolio/img/profile.jpg",
+        "sameAs": [
+            "https://linkedin.com/in/asadulislam",
+            "https://github.com/asadul-it",
+            "https://facebook.com/asadulislam"
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "Bangladesh"
+        },
+        "knowsAbout": ["IT Infrastructure", "Networking", "Security", "Technical Support", "Garments Production Tools"],
+        "alumniOf": "Information Technology",
+        "nationality": "Bangladeshi"
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* ==================== Header Section ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .logo-icon {
+            background: #000000;
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #2563eb;
+            transition: all 0.3s ease;
+        }
+
+        /* ==================== Breadcrumb Section ==================== */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-size: 0.9em;
+            color: #5a6c7d;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==================== Main Content Area ==================== */
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            color: #718096;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==================== Planning Container ==================== */
+        .planning-container {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .planning-section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ==================== Input Groups ==================== */
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-field:disabled {
+            background: #f8fafc;
+            cursor: not-allowed;
+        }
+
+        select.input-field {
+            cursor: pointer;
+        }
+
+        /* ==================== Shipment Items Section ==================== */
+        .shipment-items-container {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .shipment-item {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .item-number {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .remove-item-btn {
+            background: #ef4444;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .remove-item-btn:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .item-fields-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        /* ==================== Button Styles ==================== */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: #64748b;
+            color: #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: #ffffff;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-add {
+            background: #8b5cf6;
+            color: #ffffff;
+        }
+
+        .btn-add:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        /* ==================== Results Section ==================== */
+        .results-container {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border-color: #2563eb;
+        }
+
+        .summary-label {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .summary-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        /* ==================== Shipment Details Table ==================== */
+        .shipment-table-container {
+            overflow-x: auto;
+            margin-top: 25px;
+        }
+
+        .shipment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .shipment-table thead {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .shipment-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .shipment-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .shipment-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .shipment-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-total-row {
+            background: #f1f5f9 !important;
+            font-weight: 700;
+            color: #2d3748 !important;
+        }
+
+        /* ==================== Status Badge ==================== */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-progress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        /* ==================== Info Box ==================== */
+        .info-box {
+            background: #ffffff;
+            border-left: 4px solid #2563eb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-box h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            padding: 8px 0;
+            color: #4a5568;
+            font-size: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-box li::before {
+            content: "✓";
+            color: #10b981;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* ==================== Footer Section ==================== */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .footer-column a,
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 0.9em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f0f3ff;
+            color: #2563eb;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.85em;
+            color: #5a6c7d;
+        }
+
+        /* ==================== Hidden Section ==================== */
+        .hidden {
+            display: none;
+        }
+
+        /* ==================== Responsive Design ==================== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            .navbar a {
+                padding: 12px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .planning-container {
+                padding: 25px 20px;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .item-fields-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .item-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .shipment-table {
+                font-size: 12px;
+            }
+
+            .shipment-table th,
+            .shipment-table td {
+                padding: 10px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 14px;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== Header Section ==================== -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">BD</span>
+                <span>যে কোড করবা সেই কোডের নাম হবে , ইংরেজিতে ।</span>
+            </div>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== Breadcrumb Section ==================== -->
+    <div class="breadcrumb" id="breadcrumb"></div>
+
+    <!-- ==================== Main Content Section ==================== -->
+    <div class="main-content">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Shipment Planning</h1>
+            <p>Plan and manage your garments shipments with detailed carton information and delivery schedules</p>
+        </div>
+
+        <!-- Planning Container -->
+        <div class="planning-container">
+
+            <!-- Basic Shipment Information -->
+            <div class="planning-section">
+                <h2 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Shipment Information
+                </h2>
+
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label class="input-label" for="poNumber">PO Number</label>
+                        <input type="text" id="poNumber" class="input-field" placeholder="Enter PO number">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="buyerName">Buyer Name</label>
+                        <input type="text" id="buyerName" class="input-field" placeholder="Enter buyer name">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="styleNumber">Style Number</label>
+                        <input type="text" id="styleNumber" class="input-field" placeholder="Enter style number">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="shipmentDate">Shipment Date</label>
+                        <input type="date" id="shipmentDate" class="input-field">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="destination">Destination</label>
+                        <input type="text" id="destination" class="input-field" placeholder="Enter destination">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="transportMode">Transport Mode</label>
+                        <select id="transportMode" class="input-field">
+                            <option value="">Select mode</option>
+                            <option value="Sea">Sea</option>
+                            <option value="Air">Air</option>
+                            <option value="Road">Road</option>
+                            <option value="Rail">Rail</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Container Details -->
+            <div class="planning-section">
+                <h2 class="section-title">
+                    <i class="fas fa-box"></i>
+                    Container Details
+                </h2>
+
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label class="input-label" for="containerNumber">Container Number</label>
+                        <input type="text" id="containerNumber" class="input-field" placeholder="Enter container number">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="containerType">Container Type</label>
+                        <select id="containerType" class="input-field">
+                            <option value="">Select type</option>
+                            <option value="20ft">20ft Standard</option>
+                            <option value="40ft">40ft Standard</option>
+                            <option value="40ft-hc">40ft High Cube</option>
+                            <option value="45ft">45ft High Cube</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="sealNumber">Seal Number</label>
+                        <input type="text" id="sealNumber" class="input-field" placeholder="Enter seal number">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipment Items Section -->
+            <div class="planning-section">
+                <h2 class="section-title">
+                    <i class="fas fa-boxes"></i>
+                    Carton Details
+                </h2>
+
+                <div class="shipment-items-container" id="shipmentItemsContainer">
+                    <!-- Dynamic shipment items will be added here -->
+                </div>
+
+                <button class="btn btn-add" onclick="addShipmentItem()">
+                    <i class="fas fa-plus"></i> Add Carton
+                </button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="calculateShipment()">
+                    <i class="fas fa-calculator"></i> Calculate Shipment
+                </button>
+                <button class="btn btn-secondary" onclick="resetForm()">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+                <button class="btn btn-success hidden" id="exportBtn" onclick="exportShipment()">
+                    <i class="fas fa-download"></i> Export Shipment Plan
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Results Container -->
+        <div class="results-container hidden" id="resultsContainer">
+            <h2 class="results-title">Shipment Summary</h2>
+
+            <!-- Summary Cards -->
+            <div class="summary-cards">
+                <div class="summary-card">
+                    <div class="summary-label">Total Cartons</div>
+                    <div class="summary-value" id="totalCartons">0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">Total Quantity</div>
+                    <div class="summary-value" id="totalQuantity">0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">Total Weight (KG)</div>
+                    <div class="summary-value" id="totalWeight">0</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-label">Total Volume (CBM)</div>
+                    <div class="summary-value" id="totalVolume">0</div>
+                </div>
+            </div>
+
+            <!-- Detailed Shipment Table -->
+            <div class="shipment-table-container">
+                <h3 style="font-size: 18px; font-weight: 700; color: #2d3748; margin-bottom: 15px;">
+                    Carton-wise Breakdown
+                </h3>
+                <table class="shipment-table">
+                    <thead>
+                        <tr>
+                            <th>Carton #</th>
+                            <th>Size</th>
+                            <th>Color</th>
+                            <th>Quantity</th>
+                            <th>Weight (KG)</th>
+                            <th>Dimensions (CM)</th>
+                            <th>Volume (CBM)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="shipmentTableBody">
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Information Box -->
+        <div class="info-box">
+            <h3><i class="fas fa-lightbulb"></i> How to Use</h3>
+            <ul>
+                <li>Fill in the basic shipment information (PO, buyer, style, etc.)</li>
+                <li>Enter container details if applicable</li>
+                <li>Add carton details including size, color, quantity, weight, and dimensions</li>
+                <li>Click "Calculate Shipment" to generate the summary</li>
+                <li>Review total cartons, quantity, weight, and volume</li>
+                <li>Export the shipment plan for documentation and sharing</li>
+                <li>Use "Add Carton" to include multiple carton details in one shipment</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- ==================== Hidden SEO Content ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/Person">
+        <span itemprop="name">Asadul Islam</span>
+        <span itemprop="alternateName">asadul islam</span>
+        <span itemprop="alternateName">asadul</span>
+        <span itemprop="alternateName">asadul islam asad</span>
+        <span itemprop="alternateName">Asadul Islam Asad</span>
+        <span itemprop="jobTitle">IT Professional</span>
+        <span itemprop="jobTitle">Network Engineer</span>
+        <span itemprop="jobTitle">System Administrator</span>
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <span itemprop="addressCountry">Bangladesh</span>
+        </span>
+        <span itemprop="knowsLanguage">Bengali</span>
+        <span itemprop="knowsLanguage">English</span>
+    </div>
+
+    <!-- ==================== Footer Section ==================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About</h3>
+                <p>Professional Shipment Planning tool for garments production scheduling and delivery management.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow Me</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Online Tools | All Rights Reserved
+        </div>
+    </footer>
+
+    <!-- ==================== JavaScript Section ==================== -->
+    <script>
+        // ==================== Google Analytics 4 Configuration ====================
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // ==================== Hamburger Menu Toggle ====================
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+
+        hamburger.onclick = function () {
+            navbar.classList.toggle("active");
+        };
+
+        // ==================== Breadcrumb Navigation ====================
+        function setBreadcrumb(items) {
+            const breadcrumbElement = document.getElementById("breadcrumb");
+            breadcrumbElement.innerHTML = items.map(item =>
+                item.link ? `<a href="${item.link}">${item.name}</a>` : item.name
+            ).join(" / ");
+        }
+
+        setBreadcrumb([
+            { name: "Home", link: "../../index.html" },
+            { name: "Tools", link: "../tools.html" },
+            { name: "Garments Tools", link: "../tools.html" },
+            { name: "Shipment Planning" }
+        ]);
+
+        // ==================== Shipment Item Counter ====================
+        let itemCounter = 0;
+
+        // ==================== Add Shipment Item Function ====================
+        function addShipmentItem() {
+            itemCounter++;
+            const container = document.getElementById('shipmentItemsContainer');
+
+            const itemHTML = `
+                <div class="shipment-item" id="item-${itemCounter}">
+                    <div class="item-header">
+                        <span class="item-number"><i class="fas fa-box"></i> Carton #${itemCounter}</span>
+                        <button class="remove-item-btn" onclick="removeShipmentItem(${itemCounter})">
+                            <i class="fas fa-trash"></i> Remove
+                        </button>
+                    </div>
+                    <div class="item-fields-grid">
+                        <div class="input-group">
+                            <label class="input-label">Size</label>
+                            <input type="text" class="input-field item-size" placeholder="e.g., M, L, XL">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Color</label>
+                            <input type="text" class="input-field item-color" placeholder="e.g., Black, White">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Quantity (PCS)</label>
+                            <input type="number" class="input-field item-quantity" placeholder="0" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Weight (KG)</label>
+                            <input type="number" class="input-field item-weight" placeholder="0.00" min="0" step="0.01">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Length (CM)</label>
+                            <input type="number" class="input-field item-length" placeholder="0" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Width (CM)</label>
+                            <input type="number" class="input-field item-width" placeholder="0" min="0">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Height (CM)</label>
+                            <input type="number" class="input-field item-height" placeholder="0" min="0">
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.insertAdjacentHTML('beforeend', itemHTML);
+
+            // Track add item event
+            if (window.gtag) {
+                gtag('event', 'add_shipment_item', {
+                    'event_category': 'shipment_planning',
+                    'event_label': 'carton_added',
+                    'value': itemCounter
+                });
+            }
+        }
+
+        // ==================== Remove Shipment Item Function ====================
+        function removeShipmentItem(itemId) {
+            const item = document.getElementById(`item-${itemId}`);
+            if (item) {
+                item.remove();
+
+                // Track remove item event
+                if (window.gtag) {
+                    gtag('event', 'remove_shipment_item', {
+                        'event_category': 'shipment_planning',
+                        'event_label': 'carton_removed'
+                    });
+                }
+            }
+        }
+
+        // ==================== Calculate Shipment Function ====================
+        function calculateShipment() {
+            // Validate basic information
+            const poNumber = document.getElementById('poNumber').value;
+            const buyerName = document.getElementById('buyerName').value;
+
+            if (!poNumber || !buyerName) {
+                alert('Please fill in PO Number and Buyer Name');
+                return;
+            }
+
+            // Get all shipment items
+            const items = document.querySelectorAll('.shipment-item');
+
+            if (items.length === 0) {
+                alert('Please add at least one carton');
+                return;
+            }
+
+            let totalCartons = 0;
+            let totalQuantity = 0;
+            let totalWeight = 0;
+            let totalVolume = 0;
+            const shipmentData = [];
+
+            items.forEach((item, index) => {
+                const size = item.querySelector('.item-size').value || 'N/A';
+                const color = item.querySelector('.item-color').value || 'N/A';
+                const quantity = parseInt(item.querySelector('.item-quantity').value) || 0;
+                const weight = parseFloat(item.querySelector('.item-weight').value) || 0;
+                const length = parseFloat(item.querySelector('.item-length').value) || 0;
+                const width = parseFloat(item.querySelector('.item-width').value) || 0;
+                const height = parseFloat(item.querySelector('.item-height').value) || 0;
+
+                // Calculate volume in CBM (cubic meters)
+                const volume = (length * width * height) / 1000000;
+
+                if (quantity > 0) {
+                    totalCartons++;
+                    totalQuantity += quantity;
+                    totalWeight += weight;
+                    totalVolume += volume;
+
+                    shipmentData.push({
+                        cartonNumber: index + 1,
+                        size: size,
+                        color: color,
+                        quantity: quantity,
+                        weight: weight,
+                        length: length,
+                        width: width,
+                        height: height,
+                        volume: volume
+                    });
+                }
+            });
+
+            if (totalCartons === 0) {
+                alert('Please enter valid carton details');
+                return;
+            }
+
+            // Display summary
+            document.getElementById('totalCartons').textContent = totalCartons;
+            document.getElementById('totalQuantity').textContent = totalQuantity.toLocaleString();
+            document.getElementById('totalWeight').textContent = totalWeight.toFixed(2);
+            document.getElementById('totalVolume').textContent = totalVolume.toFixed(3);
+
+            // Build shipment table
+            const tableBody = document.getElementById('shipmentTableBody');
+            tableBody.innerHTML = '';
+
+            shipmentData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${item.cartonNumber}</strong></td>
+                    <td>${item.size}</td>
+                    <td>${item.color}</td>
+                    <td>${item.quantity.toLocaleString()}</td>
+                    <td>${item.weight.toFixed(2)}</td>
+                    <td>${item.length} × ${item.width} × ${item.height}</td>
+                    <td>${item.volume.toFixed(3)}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            // Add total row
+            const totalRow = document.createElement('tr');
+            totalRow.className = 'table-total-row';
+            totalRow.innerHTML = `
+                <td colspan="3"><strong>TOTAL</strong></td>
+                <td><strong>${totalQuantity.toLocaleString()}</strong></td>
+                <td><strong>${totalWeight.toFixed(2)}</strong></td>
+                <td>-</td>
+                <td><strong>${totalVolume.toFixed(3)}</strong></td>
+            `;
+            tableBody.appendChild(totalRow);
+
+            // Show results
+            document.getElementById('resultsContainer').classList.remove('hidden');
+            document.getElementById('exportBtn').classList.remove('hidden');
+
+            // Scroll to results
+            document.getElementById('resultsContainer').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            // Track calculation event
+            if (window.gtag) {
+                gtag('event', 'shipment_calculated', {
+                    'event_category': 'shipment_planning',
+                    'event_label': 'calculation_completed',
+                    'value': totalCartons
+                });
+            }
+        }
+
+        // ==================== Reset Form Function ====================
+        function resetForm() {
+            // Reset basic information
+            document.getElementById('poNumber').value = '';
+            document.getElementById('buyerName').value = '';
+            document.getElementById('styleNumber').value = '';
+            document.getElementById('shipmentDate').value = '';
+            document.getElementById('destination').value = '';
+            document.getElementById('transportMode').value = '';
+
+            // Reset container details
+            document.getElementById('containerNumber').value = '';
+            document.getElementById('containerType').value = '';
+            document.getElementById('sealNumber').value = '';
+
+            // Remove all shipment items
+            document.getElementById('shipmentItemsContainer').innerHTML = '';
+            itemCounter = 0;
+
+            // Hide results
+            document.getElementById('resultsContainer').classList.add('hidden');
+            document.getElementById('exportBtn').classList.add('hidden');
+
+            // Track reset event
+            if (window.gtag) {
+                gtag('event', 'form_reset', {
+                    'event_category': 'shipment_planning',
+                    'event_label': 'reset_button_clicked'
+                });
+            }
+        }
+
+        // ==================== Export Shipment Function ====================
+        function exportShipment() {
+            const poNumber = document.getElementById('poNumber').value || 'N/A';
+            const buyerName = document.getElementById('buyerName').value || 'N/A';
+            const styleNumber = document.getElementById('styleNumber').value || 'N/A';
+            const shipmentDate = document.getElementById('shipmentDate').value || 'N/A';
+            const destination = document.getElementById('destination').value || 'N/A';
+            const transportMode = document.getElementById('transportMode').value || 'N/A';
+            const containerNumber = document.getElementById('containerNumber').value || 'N/A';
+            const containerType = document.getElementById('containerType').value || 'N/A';
+            const sealNumber = document.getElementById('sealNumber').value || 'N/A';
+
+            // Get table data
+            const table = document.getElementById('shipmentTableBody');
+            const rows = table.getElementsByTagName('tr');
+
+            let csvContent = "SHIPMENT PLANNING REPORT\n\n";
+            csvContent += "=== SHIPMENT INFORMATION ===\n";
+            csvContent += "PO Number:," + poNumber + "\n";
+            csvContent += "Buyer Name:," + buyerName + "\n";
+            csvContent += "Style Number:," + styleNumber + "\n";
+            csvContent += "Shipment Date:," + shipmentDate + "\n";
+            csvContent += "Destination:," + destination + "\n";
+            csvContent += "Transport Mode:," + transportMode + "\n\n";
+
+            csvContent += "=== CONTAINER DETAILS ===\n";
+            csvContent += "Container Number:," + containerNumber + "\n";
+            csvContent += "Container Type:," + containerType + "\n";
+            csvContent += "Seal Number:," + sealNumber + "\n\n";
+
+            csvContent += "=== CARTON DETAILS ===\n";
+            csvContent += "Carton #,Size,Color,Quantity,Weight (KG),Dimensions (CM),Volume (CBM)\n";
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                const rowData = [];
+                for (let j = 0; j < cells.length; j++) {
+                    rowData.push(cells[j].textContent.trim());
+                }
+                csvContent += rowData.join(',') + "\n";
+            }
+
+            csvContent += "\n=== SUMMARY ===\n";
+            csvContent += "Total Cartons:," + document.getElementById('totalCartons').textContent + "\n";
+            csvContent += "Total Quantity:," + document.getElementById('totalQuantity').textContent + "\n";
+            csvContent += "Total Weight (KG):," + document.getElementById('totalWeight').textContent + "\n";
+            csvContent += "Total Volume (CBM):," + document.getElementById('totalVolume').textContent + "\n";
+
+            // Create download link
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+
+            link.setAttribute("href", url);
+            link.setAttribute("download", "shipment_planning_" + poNumber.replace(/[^a-zA-Z0-9]/g, '_') + ".csv");
+            link.style.visibility = 'hidden';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Track export event
+            if (window.gtag) {
+                gtag('event', 'export_shipment', {
+                    'event_category': 'shipment_planning',
+                    'event_label': 'csv_exported'
+                });
+            }
+        }
+
+        // ==================== Initialize with one item ====================
+        window.addEventListener('load', function () {
+            addShipmentItem();
+        });
+
+        // ==================== Event Tracking for User Interactions ====================
+        document.addEventListener('DOMContentLoaded', function () {
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track mobile menu usage
+            const mobileToggle = document.getElementById('hamburger');
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', function () {
+                    if (window.gtag) {
+                        gtag('event', 'mobile_menu_toggle', {
+                            'event_category': 'ui_interaction',
+                            'event_label': 'mobile_menu_opened'
+                        });
+                    }
+                });
+            }
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function () {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

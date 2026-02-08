@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yarn Consumption Calculator - Garment Manufacturing Tool</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Professional yarn consumption calculator for knitting mills and garment manufacturers. Calculate exact yarn requirements for different fabric types and knitting patterns.">
+    <meta name="keywords"
+        content="yarn consumption calculator, knitting yarn calculation, yarn requirement, textile calculation, garment manufacturing, knitting mill, yarn weight calculator">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali, English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Yarn Consumption Calculator - Garment Manufacturing Tool">
+    <meta property="og:description"
+        content="Calculate precise yarn requirements for knitting production. Optimize yarn usage and reduce waste in garment manufacturing.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/tools/garments-tools/yarn-consumption.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/tools/yarn-calculator.jpg">
+    <meta property="og:site_name" content="Asadul Islam Portfolio">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Yarn Consumption Calculator">
+    <meta name="twitter:description"
+        content="Professional yarn consumption calculator for knitting mills and textile manufacturers.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/tools/yarn-calculator.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/tools/garments-tools/yarn-consumption.html">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Yarn Consumption Calculator",
+        "description": "Professional yarn consumption calculation tool for knitting mills and garment manufacturers",
+        "url": "https://asadul-it.github.io/portfolio/tools/garments-tools/yarn-consumption.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "author": {
+            "@type": "Person",
+            "name": "Asadul Islam"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==================== BASE STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* ==================== HEADER STYLES ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: #10b981;
+            color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+        }
+
+        .logo-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #10b981;
+        }
+
+        .navbar a.active {
+            color: #10b981;
+        }
+
+        .navbar a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #10b981;
+            border-radius: 2px;
+        }
+
+        .navbar i {
+            font-size: 16px;
+        }
+
+        /* ==================== HAMBURGER MENU ==================== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #10b981;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ==================== BREADCRUMB ==================== */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 25px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #10b981;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            color: #0da271;
+        }
+
+        .breadcrumb span {
+            margin: 0 8px;
+            color: #cbd5e1;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 25px;
+        }
+
+        /* ==================== TOOL HEADER ==================== */
+        .tool-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tool-header h1 {
+            font-size: 36px;
+            color: #1e293b;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .tool-header p {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ==================== CALCULATOR CONTAINER ==================== */
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==================== INPUT SECTION ==================== */
+        .input-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 22px;
+            color: #1e293b;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 10px;
+        }
+
+        .input-label i {
+            color: #10b981;
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            color: #1e293b;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: #94a3b8;
+        }
+
+        .select-field {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23475569' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 16px;
+            padding-right: 45px;
+        }
+
+        .unit-container {
+            display: flex;
+            gap: 15px;
+        }
+
+        .unit-option {
+            flex: 1;
+            text-align: center;
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .unit-option:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+        .unit-option.active {
+            border-color: #10b981;
+            background: #d1fae5;
+            color: #10b981;
+        }
+
+        .fabric-type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .fabric-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .fabric-option:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+        .fabric-option.active {
+            border-color: #10b981;
+            background: #d1fae5;
+        }
+
+        .fabric-icon {
+            font-size: 28px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        .fabric-option.active .fabric-icon {
+            color: #10b981;
+        }
+
+        .fabric-name {
+            font-weight: 600;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .fabric-option.active .fabric-name {
+            color: #10b981;
+        }
+
+        .knitting-type-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .knitting-option {
+            text-align: center;
+            padding: 15px 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .knitting-option:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+        .knitting-option.active {
+            border-color: #10b981;
+            background: #d1fae5;
+            color: #10b981;
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .calculate-btn {
+            flex: 1;
+            padding: 16px;
+            background: #10b981;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .calculate-btn:hover {
+            background: #0da271;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.2);
+        }
+
+        .reset-btn {
+            flex: 1;
+            padding: 16px;
+            background: #f1f5f9;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .reset-btn:hover {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        /* ==================== RESULTS SECTION ==================== */
+        .results-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .results-title {
+            font-size: 22px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .results-status {
+            padding: 8px 16px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .results-status.active {
+            background: #d1fae5;
+            color: #10b981;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .result-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .result-value {
+            font-size: 24px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .result-unit {
+            font-size: 16px;
+            color: #64748b;
+            font-weight: 500;
+            margin-left: 4px;
+        }
+
+        .yarn-details {
+            background: #f0f9ff;
+            border: 1px solid #e0f2fe;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .yarn-title {
+            font-size: 16px;
+            color: #0284c7;
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .yarn-text {
+            font-size: 14px;
+            color: #0c4a6e;
+            line-height: 1.6;
+        }
+
+        /* ==================== CALCULATION DETAILS ==================== */
+        .calculation-details {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .detail-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-size: 18px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .formula-display {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .formula-title {
+            font-size: 16px;
+            color: #475569;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* ==================== COMPARISON TABLE ==================== */
+        .comparison-table {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th {
+            background: #f8fafc;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #64748b;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        /* ==================== FOOTER STYLES ==================== */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 45px 25px 35px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-column p {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .footer-column a {
+            color: #64748b;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #10b981;
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f8fafc;
+            color: #475569;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .social-links a:hover {
+            background: #10b981;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.2);
+            border-color: #10b981;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 15px;
+            color: #64748b;
+            background: #f8fafc;
+        }
+
+        /* ==================== RESPONSIVE STYLES ==================== */
+        @media (max-width: 992px) {
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .navbar {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                border-radius: 0 0 12px 12px;
+                z-index: 999;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar li {
+                width: 100%;
+            }
+
+            .navbar a {
+                padding: 15px 20px;
+                border-bottom: 1px solid #f1f5f9;
+            }
+
+            .navbar a:last-child {
+                border-bottom: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .tool-header h1 {
+                font-size: 28px;
+            }
+
+            .tool-header p {
+                font-size: 16px;
+                padding: 0 15px;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fabric-type-grid,
+            .knitting-type-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .input-section,
+            .results-section,
+            .calculation-details,
+            .comparison-table {
+                padding: 25px 20px;
+            }
+
+            .tool-header {
+                padding: 30px 20px;
+            }
+
+            .logo-text {
+                font-size: 14px;
+            }
+
+            .logo-icon {
+                min-width: 36px;
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==================== PRINT STYLES ==================== */
+        @media print {
+            .fixed-header-container,
+            .breadcrumb,
+            .button-group,
+            .social-links,
+            footer {
+                display: none;
+            }
+
+            .main-content {
+                margin: 0;
+                padding: 0;
+            }
+
+            .input-section,
+            .results-section,
+            .calculation-details,
+            .comparison-table {
+                box-shadow: none;
+                border: 1px solid #000;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo">
+                <span class="logo-icon">YCC</span>
+                <span class="logo-text">Yarn Consumption Calculator</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html" class="active"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== BREADCRUMB ==================== -->
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="../../index.html">Home</a><span>/</span>
+        <a href="../tools.html">Tools</a><span>/</span>
+        <a href="garments-tools.html">Garment Tools</a><span>/</span>
+        <span>Yarn Consumption Calculator</span>
+    </div>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <div class="main-content">
+        <!-- Tool Header -->
+        <div class="tool-header">
+            <h1><i class="fas fa-weight-hanging"></i> Yarn Consumption Calculator</h1>
+            <p>Calculate precise yarn requirements for knitting production. Optimize yarn usage, reduce waste, and improve production efficiency for knitting mills.</p>
+        </div>
+
+        <!-- Calculator Container -->
+        <div class="calculator-container">
+            <!-- Input Section -->
+            <div class="input-section">
+                <h2 class="section-title"><i class="fas fa-edit"></i> Input Parameters</h2>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-tshirt"></i> Fabric Type</label>
+                    <div class="fabric-type-grid">
+                        <div class="fabric-option active" data-type="single-jersey">
+                            <i class="fas fa-layer-group fabric-icon"></i>
+                            <span class="fabric-name">Single Jersey</span>
+                        </div>
+                        <div class="fabric-option" data-type="rib">
+                            <i class="fas fa-grip-lines fabric-icon"></i>
+                            <span class="fabric-name">Rib Fabric</span>
+                        </div>
+                        <div class="fabric-option" data-type="interlock">
+                            <i class="fas fa-th-large fabric-icon"></i>
+                            <span class="fabric-name">Interlock</span>
+                        </div>
+                        <div class="fabric-option" data-type="fleece">
+                            <i class="fas fa-vest fabric-icon"></i>
+                            <span class="fabric-name">Fleece</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-cogs"></i> Knitting Type</label>
+                    <div class="knitting-type-grid">
+                        <div class="knitting-option active" data-knit="circular">Circular</div>
+                        <div class="knitting-option" data-knit="flat">Flat</div>
+                        <div class="knitting-option" data-knit="warp">Warp</div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-ruler-combined"></i> Fabric Specifications</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <input type="number" id="fabric-gsm" class="input-field" placeholder="Fabric GSM" value="180" min="1" step="1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">GSM</small>
+                        </div>
+                        <div>
+                            <input type="number" id="fabric-width" class="input-field" placeholder="Fabric Width" value="60" min="1" step="0.1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Width (cm)</small>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <input type="number" id="yarn-count" class="input-field" placeholder="Yarn Count" value="30" min="1" step="0.1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Ne (English)</small>
+                        </div>
+                        <div>
+                            <input type="number" id="stitch-density" class="input-field" placeholder="Stitch Density" value="12" min="1" step="0.1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Loops/cm²</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-calculator"></i> Production Details</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <input type="number" id="garment-weight" class="input-field" placeholder="Garment Weight" value="200" min="1" step="1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Grams</small>
+                        </div>
+                        <div>
+                            <input type="number" id="production-qty" class="input-field" placeholder="Quantity" value="1000" min="1" step="1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Pieces</small>
+                        </div>
+                    </div>
+                    <input type="number" id="wastage" class="input-field" placeholder="Wastage Percentage" value="8" min="0" max="50" step="0.1">
+                    <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">% Wastage</small>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-balance-scale"></i> Unit Preference</label>
+                    <div class="unit-container">
+                        <div class="unit-option active" data-unit="kg">Kilograms</div>
+                        <div class="unit-option" data-unit="lbs">Pounds</div>
+                        <div class="unit-option" data-unit="cones">Cones</div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="calculate-btn" id="calculateBtn">
+                        <i class="fas fa-calculator"></i> Calculate Yarn Required
+                    </button>
+                    <button class="reset-btn" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <div class="results-header">
+                    <h2 class="results-title"><i class="fas fa-chart-bar"></i> Calculation Results</h2>
+                    <div class="results-status" id="resultsStatus">Awaiting Input</div>
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-label">Per Piece Yarn</div>
+                        <div class="result-value">0.00 <span class="result-unit" id="perPieceUnit">kg</span></div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Total Yarn Required</div>
+                        <div class="result-value">0.00 <span class="result-unit" id="totalUnit">kg</span></div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Including Wastage</div>
+                        <div class="result-value">0.00 <span class="result-unit" id="wastageUnit">kg</span></div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Estimated Cost</div>
+                        <div class="result-value">$<span id="estimatedCost">0.00</span></div>
+                    </div>
+                </div>
+
+                <div class="yarn-details">
+                    <div class="yarn-title"><i class="fas fa-info-circle"></i> Yarn Requirement Details</div>
+                    <div class="yarn-text" id="yarnDetails">
+                        Enter fabric specifications and click Calculate to get detailed yarn consumption analysis for your production.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculation Details -->
+        <div class="calculation-details">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Calculation Details</h2>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="detail-label">Fabric Type</div>
+                    <div class="detail-value" id="detailFabricType">Single Jersey</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Knitting Type</div>
+                    <div class="detail-value" id="detailKnittingType">Circular</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Yarn Count</div>
+                    <div class="detail-value" id="detailYarnCount">30 Ne</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Fabric GSM</div>
+                    <div class="detail-value" id="detailFabricGSM">180</div>
+                </div>
+            </div>
+
+            <div class="formula-display">
+                <div class="formula-title">Calculation Formula</div>
+                <div id="formulaText">
+                    Yarn Required (kg) = (Garment Weight × Production Quantity × (1 + Wastage%)) / 1000
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-table">
+            <h2 class="section-title"><i class="fas fa-exchange-alt"></i> Fabric Type Comparison</h2>
+            <p style="color: #64748b; margin-bottom: 20px;">Yarn consumption varies by fabric type and knitting structure.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fabric Type</th>
+                            <th>Yarn Consumption Factor</th>
+                            <th>Typical GSM Range</th>
+                            <th>Common Uses</th>
+                            <th>Efficiency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Single Jersey</strong></td>
+                            <td>1.0x</td>
+                            <td>120-220 GSM</td>
+                            <td>T-shirts, Undergarments</td>
+                            <td><span style="color: #10b981; font-weight: 600;">High</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rib Fabric</strong></td>
+                            <td>1.2x</td>
+                            <td>180-300 GSM</td>
+                            <td>Collar, Cuffs, Ribbed wear</td>
+                            <td><span style="color: #f59e0b; font-weight: 600;">Medium</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interlock</strong></td>
+                            <td>1.4x</td>
+                            <td>160-280 GSM</td>
+                            <td>Sportswear, Casual wear</td>
+                            <td><span style="color: #f59e0b; font-weight: 600;">Medium</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fleece</strong></td>
+                            <td>1.6x</td>
+                            <td>220-400 GSM</td>
+                            <td>Winter wear, Hoodies</td>
+                            <td><span style="color: #ef4444; font-weight: 600;">Low</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Twill</strong></td>
+                            <td>1.3x</td>
+                            <td>200-350 GSM</td>
+                            <td>Jeans, Workwear</td>
+                            <td><span style="color: #10b981; font-weight: 600;">High</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== HIDDEN SEO CONTENT ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/Person">
+        <span itemprop="name">Asadul Islam</span>
+        <span itemprop="alternateName">asadul islam</span>
+        <span itemprop="alternateName">asadul</span>
+        <span itemprop="alternateName">asadul islam asad</span>
+        <span itemprop="alternateName">Asadul Islam Asad</span>
+        <span itemprop="jobTitle">IT Professional</span>
+        <span itemprop="jobTitle">Network Engineer</span>
+        <span itemprop="jobTitle">System Administrator</span>
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <span itemprop="addressCountry">Bangladesh</span>
+        </span>
+        <span itemprop="knowsLanguage">Bengali</span>
+        <span itemprop="knowsLanguage">English</span>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About This Tool</h3>
+                <p>Professional yarn consumption calculator designed for knitting mills, garment manufacturers, and textile professionals to optimize yarn usage and reduce production costs.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Connect With Me</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Yarn Consumption Calculator | Professional Knitting Mill Tool | All Rights Reserved
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // DOM Elements
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        const calculateBtn = document.getElementById("calculateBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const fabricOptions = document.querySelectorAll(".fabric-option");
+        const knittingOptions = document.querySelectorAll(".knitting-option");
+        const unitOptions = document.querySelectorAll(".unit-option");
+        const resultsStatus = document.getElementById("resultsStatus");
+        const perPieceUnit = document.getElementById("perPieceUnit");
+        const totalUnit = document.getElementById("totalUnit");
+        const wastageUnit = document.getElementById("wastageUnit");
+        const estimatedCost = document.getElementById("estimatedCost");
+        const yarnDetails = document.getElementById("yarnDetails");
+        const detailFabricType = document.getElementById("detailFabricType");
+        const detailKnittingType = document.getElementById("detailKnittingType");
+        const detailYarnCount = document.getElementById("detailYarnCount");
+        const detailFabricGSM = document.getElementById("detailFabricGSM");
+        const formulaText = document.getElementById("formulaText");
+
+        // Current state
+        let currentFabricType = "single-jersey";
+        let currentKnittingType = "circular";
+        let currentUnit = "kg";
+        let calculationPerformed = false;
+
+        // Fabric type selection
+        fabricOptions.forEach(option => {
+            option.addEventListener("click", function() {
+                fabricOptions.forEach(opt => opt.classList.remove("active"));
+                this.classList.add("active");
+                currentFabricType = this.dataset.type;
+                detailFabricType.textContent = this.querySelector(".fabric-name").textContent;
+                
+                if (calculationPerformed) {
+                    calculateYarnConsumption();
+                }
+            });
+        });
+
+        // Knitting type selection
+        knittingOptions.forEach(option => {
+            option.addEventListener("click", function() {
+                knittingOptions.forEach(opt => opt.classList.remove("active"));
+                this.classList.add("active");
+                currentKnittingType = this.dataset.knit;
+                detailKnittingType.textContent = this.textContent;
+                
+                if (calculationPerformed) {
+                    calculateYarnConsumption();
+                }
+            });
+        });
+
+        // Unit selection
+        unitOptions.forEach(option => {
+            option.addEventListener("click", function() {
+                unitOptions.forEach(opt => opt.classList.remove("active"));
+                this.classList.add("active");
+                currentUnit = this.dataset.unit;
+                
+                // Update unit labels
+                const unitLabels = {
+                    "kg": "kg",
+                    "lbs": "lbs",
+                    "cones": "cones"
+                };
+                perPieceUnit.textContent = unitLabels[currentUnit];
+                totalUnit.textContent = unitLabels[currentUnit];
+                wastageUnit.textContent = unitLabels[currentUnit];
+                
+                if (calculationPerformed) {
+                    calculateYarnConsumption();
+                }
+            });
+        });
+
+        // Calculate yarn consumption
+        function calculateYarnConsumption() {
+            // Get input values
+            const fabricGSM = parseFloat(document.getElementById("fabric-gsm").value) || 0;
+            const fabricWidth = parseFloat(document.getElementById("fabric-width").value) || 0;
+            const yarnCount = parseFloat(document.getElementById("yarn-count").value) || 0;
+            const stitchDensity = parseFloat(document.getElementById("stitch-density").value) || 0;
+            const garmentWeight = parseFloat(document.getElementById("garment-weight").value) || 0;
+            const productionQty = parseInt(document.getElementById("production-qty").value) || 0;
+            const wastagePercent = parseFloat(document.getElementById("wastage").value) || 0;
+
+            // Validate inputs
+            if (!fabricGSM || !garmentWeight || !productionQty) {
+                alert("Please fill in all required fields with valid numbers.");
+                return;
+            }
+
+            // Fabric type coefficients
+            const fabricCoefficients = {
+                "single-jersey": 1.0,
+                "rib": 1.2,
+                "interlock": 1.4,
+                "fleece": 1.6
+            };
+
+            const coefficient = fabricCoefficients[currentFabricType] || 1.0;
+
+            // Knitting type efficiency
+            const knittingEfficiency = {
+                "circular": 0.95,
+                "flat": 0.90,
+                "warp": 0.85
+            };
+
+            const efficiency = knittingEfficiency[currentKnittingType] || 0.95;
+
+            // Calculate yarn per piece in grams
+            let yarnPerPieceGrams;
+            
+            if (garmentWeight > 0) {
+                // Method 1: Using garment weight
+                yarnPerPieceGrams = garmentWeight * coefficient;
+            } else if (fabricGSM > 0 && fabricWidth > 0) {
+                // Method 2: Using GSM and fabric width (simplified calculation)
+                const fabricAreaPerMeter = fabricWidth / 100; // Convert cm to meters width
+                yarnPerPieceGrams = fabricGSM * fabricAreaPerMeter * 1.5 * coefficient; // Approx 1.5m length
+            } else {
+                yarnPerPieceGrams = 200 * coefficient; // Default calculation
+            }
+
+            // Adjust for knitting efficiency
+            yarnPerPieceGrams = yarnPerPieceGrams / efficiency;
+
+            // Calculate total yarn in grams
+            let totalYarnGrams = yarnPerPieceGrams * productionQty;
+            
+            // Add wastage
+            const wastageFactor = 1 + (wastagePercent / 100);
+            let totalYarnWithWastageGrams = totalYarnGrams * wastageFactor;
+
+            // Convert to selected unit
+            let yarnPerPiece, totalYarn, totalYarnWithWastage;
+            let coneWeight = 1.5; // Average cone weight in kg
+
+            if (currentUnit === "kg") {
+                yarnPerPiece = yarnPerPieceGrams / 1000;
+                totalYarn = totalYarnGrams / 1000;
+                totalYarnWithWastage = totalYarnWithWastageGrams / 1000;
+            } else if (currentUnit === "lbs") {
+                // Convert grams to pounds (1 gram = 0.00220462 pounds)
+                yarnPerPiece = yarnPerPieceGrams * 0.00220462;
+                totalYarn = totalYarnGrams * 0.00220462;
+                totalYarnWithWastage = totalYarnWithWastageGrams * 0.00220462;
+            } else {
+                // Convert to cones (assuming 1.5kg per cone)
+                yarnPerPiece = yarnPerPieceGrams / 1000 / coneWeight;
+                totalYarn = totalYarnGrams / 1000 / coneWeight;
+                totalYarnWithWastage = totalYarnWithWastageGrams / 1000 / coneWeight;
+            }
+
+            // Calculate estimated cost (assume $3 per kg as average yarn cost)
+            const costPerKg = 3.0;
+            const totalCost = ((totalYarnWithWastageGrams / 1000) * costPerKg).toFixed(2);
+
+            // Update results display
+            document.querySelectorAll(".result-value")[0].innerHTML = 
+                `<span class="result-value">${yarnPerPiece.toFixed(3)} <span class="result-unit">${perPieceUnit.textContent}</span></span>`;
+            
+            document.querySelectorAll(".result-value")[1].innerHTML = 
+                `<span class="result-value">${totalYarn.toFixed(2)} <span class="result-unit">${totalUnit.textContent}</span></span>`;
+            
+            document.querySelectorAll(".result-value")[2].innerHTML = 
+                `<span class="result-value">${totalYarnWithWastage.toFixed(2)} <span class="result-unit">${wastageUnit.textContent}</span></span>`;
+            
+            estimatedCost.textContent = totalCost;
+
+            // Update details
+            detailYarnCount.textContent = yarnCount + " Ne";
+            detailFabricGSM.textContent = fabricGSM;
+
+            // Update yarn details
+            const yarnSuggestions = [
+                `Based on ${currentFabricType} fabric with ${currentKnittingType} knitting`,
+                `Recommended yarn count for ${fabricGSM} GSM: ${yarnCount} Ne`,
+                `Wastage allowance: ${wastagePercent}% (industry average: 5-10%)`,
+                `Knitting efficiency: ${(efficiency * 100).toFixed(1)}%`,
+                `Consider buffer: Add 2-3% extra for machine adjustments`
+            ];
+            
+            yarnDetails.textContent = yarnSuggestions.join(". ");
+
+            // Update formula display
+            const formulaMap = {
+                "single-jersey": "Yarn (kg) = (Garment Weight × Qty × 1.0 × (1 + Wastage%)) / (1000 × Efficiency)",
+                "rib": "Yarn (kg) = (Garment Weight × Qty × 1.2 × (1 + Wastage%)) / (1000 × Efficiency)",
+                "interlock": "Yarn (kg) = (Garment Weight × Qty × 1.4 × (1 + Wastage%)) / (1000 × Efficiency)",
+                "fleece": "Yarn (kg) = (Garment Weight × Qty × 1.6 × (1 + Wastage%)) / (1000 × Efficiency)"
+            };
+            
+            formulaText.textContent = formulaMap[currentFabricType] || formulaMap["single-jersey"];
+
+            // Update status
+            resultsStatus.textContent = "Calculated";
+            resultsStatus.classList.add("active");
+            calculationPerformed = true;
+
+            // Track calculation event
+            if (window.gtag) {
+                gtag('event', 'yarn_calculation', {
+                    'event_category': 'tool_usage',
+                    'event_label': currentFabricType,
+                    'value': productionQty
+                });
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById("fabric-gsm").value = 180;
+            document.getElementById("fabric-width").value = 60;
+            document.getElementById("yarn-count").value = 30;
+            document.getElementById("stitch-density").value = 12;
+            document.getElementById("garment-weight").value = 200;
+            document.getElementById("production-qty").value = 1000;
+            document.getElementById("wastage").value = 8;
+
+            // Reset fabric type to Single Jersey
+            fabricOptions.forEach(opt => opt.classList.remove("active"));
+            fabricOptions[0].classList.add("active");
+            currentFabricType = "single-jersey";
+            detailFabricType.textContent = "Single Jersey";
+
+            // Reset knitting type to Circular
+            knittingOptions.forEach(opt => opt.classList.remove("active"));
+            knittingOptions[0].classList.add("active");
+            currentKnittingType = "circular";
+            detailKnittingType.textContent = "Circular";
+
+            // Reset unit to kg
+            unitOptions.forEach(opt => opt.classList.remove("active"));
+            unitOptions[0].classList.add("active");
+            currentUnit = "kg";
+            perPieceUnit.textContent = "kg";
+            totalUnit.textContent = "kg";
+            wastageUnit.textContent = "kg";
+
+            // Reset results
+            document.querySelectorAll(".result-value")[0].innerHTML = 
+                '<span class="result-value">0.00 <span class="result-unit">kg</span></span>';
+            
+            document.querySelectorAll(".result-value")[1].innerHTML = 
+                '<span class="result-value">0.00 <span class="result-unit">kg</span></span>';
+            
+            document.querySelectorAll(".result-value")[2].innerHTML = 
+                '<span class="result-value">0.00 <span class="result-unit">kg</span></span>';
+            
+            estimatedCost.textContent = "0.00";
+
+            // Reset details
+            detailYarnCount.textContent = "30 Ne";
+            detailFabricGSM.textContent = "180";
+
+            // Reset yarn details
+            yarnDetails.textContent = "Enter fabric specifications and click Calculate to get detailed yarn consumption analysis for your production.";
+
+            // Reset formula
+            formulaText.textContent = "Yarn Required (kg) = (Garment Weight × Production Quantity × (1 + Wastage%)) / 1000";
+
+            // Reset status
+            resultsStatus.textContent = "Awaiting Input";
+            resultsStatus.classList.remove("active");
+            calculationPerformed = false;
+
+            // Track reset event
+            if (window.gtag) {
+                gtag('event', 'form_reset', {
+                    'event_category': 'tool_usage',
+                    'event_label': 'yarn_calculator'
+                });
+            }
+        }
+
+        // Event Listeners
+        hamburger.addEventListener("click", function() {
+            this.classList.toggle("active");
+            navbar.classList.toggle("active");
+            
+            // Track mobile menu usage
+            if (window.gtag) {
+                gtag('event', 'mobile_menu_toggle', {
+                    'event_category': 'ui_interaction',
+                    'event_label': 'yarn_calculator_menu'
+                });
+            }
+        });
+
+        calculateBtn.addEventListener("click", calculateYarnConsumption);
+        resetBtn.addEventListener("click", resetForm);
+
+        // Initialize details
+        detailYarnCount.textContent = "30 Ne";
+        detailFabricGSM.textContent = "180";
+
+        // Track page view
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.gtag) {
+                gtag('event', 'page_view', {
+                    'page_title': 'Yarn Consumption Calculator',
+                    'page_location': window.location.href
+                });
+            }
+
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function() {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNavbar = navbar.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (!isClickInsideNavbar && !isClickOnHamburger && navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            // Ctrl + Enter to calculate
+            if (event.ctrlKey && event.key === 'Enter') {
+                event.preventDefault();
+                calculateYarnConsumption();
+            }
+            
+            // Escape to reset
+            if (event.key === 'Escape') {
+                resetForm();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

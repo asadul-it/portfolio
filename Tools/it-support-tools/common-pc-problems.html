@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Common PC Problems & Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header with white background */
+        .header {
+            background: white;
+            color: #2c3e50;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #667eea;
+        }
+
+        .logo h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 2em;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            background: #f5f7fa;
+        }
+
+        .nav-links a.active {
+            color: #667eea;
+            background: #f0f3ff;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f5f7fa;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-toggle:hover {
+            background: #e0e4e8;
+        }
+
+        .lang-flag {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .lang-text {
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e4e8;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .problem-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .problem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .problem-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .problem-icon {
+            color: #667eea;
+        }
+
+        .toggle-icon {
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .problem-card.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .problem-solution {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .problem-card.active .problem-solution {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .solution-section {
+            margin-bottom: 15px;
+        }
+
+        .solution-title {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .solution-content {
+            color: #5a6c7d;
+            line-height: 1.7;
+        }
+
+        .solution-content ul, .solution-content ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .solution-content li {
+            margin-bottom: 8px;
+        }
+
+        .severity {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .severity-low {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .severity-medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .severity-high {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p, .footer-column ul li, .footer-column ul li a {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #f0f3ff;
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #e0e4e8;
+            color: #5a6c7d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero h2 {
+                font-size: 1.8em;
+            }
+
+            .problem-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header with white background -->
+<div class="header">
+    <div class="header-container">
+        <a href="../../index.html" class="logo">
+            <i class="fas fa-laptop-medical"></i>
+            <h1>PC Problems & Solutions</h1>
+        </a>
+        
+        <div class="nav-links">
+            <a href="../../index.html" class="active">Home</a>
+            <a href="../../skills.html">Skills</a>
+            <a href="../tools.html">Tools</a>
+            <a href="../../certificate.html">Certificate</a>
+            <a href="../../contact.html">Contact</a>
+            
+            <div class="language-toggle" id="languageToggle">
+                <div class="lang-flag" id="langFlag">EN</div>
+                <span class="lang-text" id="langText">English</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<div class="hero">
+    <h2 id="heroTitle">Common PC Problems & Solutions</h2>
+    <p id="heroSubtitle">Find solutions to common computer problems</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> <span id="backText">Back to Tools</span></a>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search problems...">
+    </div>
+
+    <div id="problemList"></div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Tools</h3>
+            <p>Free collection of online tools for everyday tasks. No installation required, works directly in your browser.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../skills.html">Skills</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../../certificate.html">Certificate</a></li>
+                <li><a href="../../contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:asadul.it@yahoo.com">asadul.it@yahoo.com</a></li>
+                <li><a href="tel:01706927793">01706927793</a></li>
+                <li>Savar, Dhaka</li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Language data
+const translations = {
+    en: {
+        heroTitle: "Common PC Problems & Solutions",
+        heroSubtitle: "Find solutions to common computer problems",
+        backText: "Back to Tools",
+        searchPlaceholder: "Search problems...",
+        severityLabels: {
+            high: "Critical",
+            medium: "Medium",
+            low: "Low"
+        }
+    },
+    bn: {
+        heroTitle: "সাধারণ PC সমস্যা এবং সমাধান",
+        heroSubtitle: "সাধারণ কম্পিউটার সমস্যার সমাধান খুঁজুন",
+        backText: "টুলসে ফিরে যান",
+        searchPlaceholder: "সমস্যা খুঁজুন...",
+        severityLabels: {
+            high: "জরুরি",
+            medium: "মাঝারি",
+            low: "সাধারণ"
+        }
+    }
+};
+
+// Current language state
+let currentLang = 'en';
+
+// Toggle language
+document.getElementById('languageToggle').addEventListener('click', function() {
+    currentLang = currentLang === 'en' ? 'bn' : 'en';
+    updateLanguage();
+    renderProblems(problems);
+});
+
+// Update all text elements based on language
+function updateLanguage() {
+    // Update UI elements
+    document.getElementById('langFlag').textContent = currentLang === 'en' ? 'EN' : 'বাং';
+    document.getElementById('langText').textContent = currentLang === 'en' ? 'English' : 'বাংলা';
+    
+    // Update all translatable elements
+    const elements = Object.keys(translations[currentLang]);
+    elements.forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+            element.textContent = translations[currentLang][key];
+        }
+    });
+    
+    // Update search placeholder
+    document.getElementById('searchInput').placeholder = translations[currentLang].searchPlaceholder;
+}
+
+const problems = [
+    {
+        title: "Computer won't turn on",
+        titleBn: "কম্পিউটার চালু হচ্ছে না",
+        severity: "high",
+        icon: "power-off",
+        solutions: {
+            en: [
+                {
+                    title: "Possible Causes",
+                    content: "Power supply issues, hardware failure, or BIOS settings problems."
+                },
+                {
+                    title: "Solutions",
+                    content: `<ol>
+                        <li>Check power cable and all connections</li>
+                        <li>Test power socket with another device</li>
+                        <li>Hold power button for 30 seconds, then release and try again</li>
+                        <li>Remove and reinsert RAM sticks</li>
+                        <li>Reset CMOS battery</li>
+                        <li>Check if monitor cable is properly connected</li>
+                        <li>Consult a technician if problem persists</li>
+                    </ol>`
+                }
+            ],
+            bn: [
+                {
+                    title: "কারণ",
+                    content: "পাওয়ার সাপ্লাই সমস্যা, হার্ডওয়্যার failure, অথবা BIOS সেটিংস সমস্যা হতে পারে।"
+                },
+                {
+                    title: "সমাধান",
+                    content: `<ol>
+                        <li>পাওয়ার কেবল এবং সকল সংযোগ চেক করুন</li>
+                        <li>পাওয়ার সকেট অন্য ডিভাইস দিয়ে টেস্ট করুন</li>
+                        <li>পাওয়ার সুইচ ৩০ সেকেন্ড চেপে ধরুন, তারপর ছেড়ে আবার চালু করুন</li>
+                        <li>RAM স্টিক খুলে আবার লাগান</li>
+                        <li>CMOS ব্যাটারি রিসেট করুন</li>
+                        <li>মনিটর কেবল ঠিকমতো লাগানো আছে কিনা চেক করুন</li>
+                        <li>সমস্যা থাকলে টেকনিশিয়ানের সাহায্য নিন</li>
+                    </ol>`
+                }
+            ]
+        }
+    },
+    {
+        title: "Computer running very slow",
+        titleBn: "কম্পিউটার খুব ধীর চলছে",
+        severity: "medium",
+        icon: "hourglass-half",
+        solutions: {
+            en: [
+                {
+                    title: "Possible Causes",
+                    content: "Too many startup programs, low RAM, virus/malware, or hard disk full."
+                },
+                {
+                    title: "Solutions",
+                    content: `<ol>
+                        <li>Open Task Manager (Ctrl+Shift+Esc) and close high resource programs</li>
+                        <li>Disable startup programs (Task Manager > Startup)</li>
+                        <li>Run Disk Cleanup (Windows + R → cleanmgr)</li>
+                        <li>Delete temporary files</li>
+                        <li>Run antivirus scan</li>
+                        <li>Clear browser cache</li>
+                        <li>Uninstall unnecessary programs</li>
+                        <li>Update Windows</li>
+                        <li>Consider RAM upgrade</li>
+                    </ol>`
+                }
+            ],
+            bn: [
+                {
+                    title: "কারণ",
+                    content: "অনেক startup program, কম RAM, ভাইরাস/ম্যালওয়্যার, বা হার্ড ডিস্ক পূর্ণ।"
+                },
+                {
+                    title: "সমাধান",
+                    content: `<ol>
+                        <li>Task Manager খুলুন (Ctrl+Shift+Esc) এবং high resource ব্যবহারকারী program বন্ধ করুন</li>
+                        <li>Startup programs disable করুন (Task Manager > Startup)</li>
+                        <li>Disk Cleanup চালান (Windows + R → cleanmgr)</li>
+                        <li>Temporary files মুছুন</li>
+                        <li>Antivirus scan চালান</li>
+                        <li>Browser cache clear করুন</li>
+                        <li>অপ্রয়োজনীয় programs uninstall করুন</li>
+                        <li>Windows Update করুন</li>
+                        <li>RAM upgrade বিবেচনা করুন</li>
+                    </ol>`
+                }
+            ]
+        }
+    },
+    {
+        title: "Blue Screen of Death (BSOD)",
+        titleBn: "ব্লু স্ক্রিন সমস্যা",
+        severity: "high",
+        icon: "desktop",
+        solutions: {
+            en: [
+                {
+                    title: "Possible Causes",
+                    content: "Driver issues, hardware failure, or software conflicts."
+                },
+                {
+                    title: "Solutions",
+                    content: `<ol>
+                        <li>Note the error code (e.g., IRQL_NOT_LESS_OR_EQUAL)</li>
+                        <li>Boot in Safe Mode (press F8 during restart)</li>
+                        <li>Uninstall recently installed software/drivers</li>
+                        <li>Check Windows Update</li>
+                        <li>Run System File Checker: sfc /scannow</li>
+                        <li>Run memory test (Windows Memory Diagnostic)</li>
+                        <li>Update drivers</li>
+                        <li>Perform System Restore</li>
+                    </ol>`
+                }
+            ],
+            bn: [
+                {
+                    title: "কারণ",
+                    content: "Driver সমস্যা, হার্ডওয়্যার failure, বা সফটওয়্যার conflict।"
+                },
+                {
+                    title: "সমাধান",
+                    content: `<ol>
+                        <li>Error code নোট করুন (যেমন: IRQL_NOT_LESS_OR_EQUAL)</li>
+                        <li>Safe Mode এ বুট করুন (Restart করে F8 চাপুন)</li>
+                        <li>সর্বশেষ ইনস্টল করা software/driver uninstall করুন</li>
+                        <li>Windows Update চেক করুন</li>
+                        <li>System File Checker চালান: sfc /scannow</li>
+                        <li>Memory test চালান (Windows Memory Diagnostic)</li>
+                        <li>Driver update করুন</li>
+                        <li>System Restore করুন</li>
+                    </ol>`
+                }
+            ]
+        }
+    },
+    {
+        title: "No Internet Connection",
+        titleBn: "ইন্টারনেট সংযোগ নেই",
+        severity: "medium",
+        icon: "wifi",
+        solutions: {
+            en: [
+                {
+                    title: "Possible Causes",
+                    content: "Network adapter issues, router problems, or ISP issues."
+                },
+                {
+                    title: "Solutions",
+                    content: `<ol>
+                        <li>Restart router (keep off for 2 minutes)</li>
+                        <li>Check network cable</li>
+                        <li>Check if WiFi is turned on</li>
+                        <li>Turn off airplane mode</li>
+                        <li>Run Network Troubleshooter</li>
+                        <li>Reset network adapter: netsh winsock reset</li>
+                        <li>Flush DNS: ipconfig /flushdns</li>
+                        <li>Reset IP config: ipconfig /release and ipconfig /renew</li>
+                        <li>Update network driver</li>
+                    </ol>`
+                }
+            ],
+            bn: [
+                {
+                    title: "কারণ",
+                    content: "Network adapter সমস্যা, Router সমস্যা, বা ISP সমস্যা।"
+                },
+                {
+                    title: "সমাধান",
+                    content: `<ol>
+                        <li>Router restart করুন (২ মিনিট অফ রাখুন)</li>
+                        <li>Network cable চেক করুন</li>
+                        <li>WiFi অন আছে কিনা চেক করুন</li>
+                        <li>Airplane mode off করুন</li>
+                        <li>Network Troubleshooter চালান</li>
+                        <li>Network adapter reset করুন: netsh winsock reset</li>
+                        <li>DNS flush করুন: ipconfig /flushdns</li>
+                        <li>IP config reset করুন: ipconfig /release এবং ipconfig /renew</li>
+                        <li>Network driver update করুন</li>
+                    </ol>`
+                }
+            ]
+        }
+    },
+    {
+        title: "No Sound",
+        titleBn: "আওয়াজ না আসা",
+        severity: "low",
+        icon: "volume-mute",
+        solutions: {
+            en: [
+                {
+                    title: "Possible Causes",
+                    content: "Audio driver issues, speaker disconnected, or volume muted."
+                },
+                {
+                    title: "Solutions",
+                    content: `<ol>
+                        <li>Check volume (speaker icon in taskbar)</li>
+                        <li>Check mute button</li>
+                        <li>Check if speaker/headphone is properly connected</li>
+                        <li>Check default playback device (Sound Settings)</li>
+                        <li>Run Audio Troubleshooter</li>
+                        <li>Update audio driver</li>
+                        <li>Check if audio services are running</li>
+                        <li>Test with another speaker/headphone</li>
+                    </ol>`
+                }
+            ],
+            bn: [
+                {
+                    title: "কারণ",
+                    content: "Audio driver সমস্যা, Speaker disconnect, বা Volume muted।"
+                },
+                {
+                    title: "সমাধান",
+                    content: `<ol>
+                        <li>Volume চেক করুন (Taskbar এ speaker icon)</li>
+                        <li>Mute button চেক করুন</li>
+                        <li>Speaker/Headphone সঠিকভাবে connect আছে কিনা দেখুন</li>
+                        <li>Default playback device চেক করুন (Sound Settings)</li>
+                        <li>Audio Troubleshooter চালান</li>
+                        <li>Audio driver update করুন</li>
+                        <li>Audio services চালু আছে কিনা চেক করুন</li>
+                        <li>অন্য speaker/headphone দিয়ে test করুন</li>
+                    </ol>`
+                }
+            ]
+        }
+    },
+    {
+        title: "USB Device not working",
+        titleBn: "USB ডিভাইস কাজ করছে না",
+        severity: "medium",
+        icon: "usb",
+        solutions: {
+            en: [
+                {
+                    title: "Possible Causes",
+                    content: "USB port issues, driver problems, or device damage."
+                },
+                {
+                    title: "Solutions",
+                    content: `<ol>
+                        <li>Try another USB port</li>
+                        <li>Test device on another computer</li>
+                        <li>Restart computer</li>
+                        <li>Update USB driver</li>
+                        <li>In Device Manager, uninstall USB controller and scan for hardware changes</li>
+                        <li>Check power management settings</li>
+                        <li>Check USB cable</li>
+                        <li>Check USB settings in BIOS/UEFI</li>
+                    </ol>`
+                }
+            ],
+            bn: [
+                {
+                    title: "কারণ",
+                    content: "USB port সমস্যা, Driver সমস্যা, বা Device damage।"
+                },
+                {
+                    title: "সমাধান",
+                    content: `<ol>
+                        <li>অন্য USB port এ চেষ্টা করুন</li>
+                        <li>অন্য কম্পিউটারে device test করুন</li>
+                        <li>কম্পিউটার restart করুন</li>
+                        <li>USB driver update করুন</li>
+                        <li>Device Manager এ USB controller uninstall করে আবার scan করুন</li>
+                        <li>Power management settings চেক করুন</li>
+                        <li>USB cable চেক করুন</li>
+                        <li>BIOS/UEFI তে USB settings চেক করুন</li>
+                    </ol>`
+                }
+            ]
+        }
+    },
+    {
+        title: "Overheating problem",
+        titleBn: "অতিরিক্ত গরম হওয়া",
+        severity: "high",
+        icon: "temperature-high",
+        solutions: {
+            en: [
+                {
+                    title: "Possible Causes",
+                    content: "Fan issues, dust accumulation, or dried thermal paste."
+                },
+                {
+                    title: "Solutions",
+                    content: `<ol>
+                        <li>Turn off computer and let it cool down</li>
+                        <li>Clean fans (with compressed air)</li>
+                        <li>Check ventilation - keep computer in open space</li>
+                        <li>Check if fans are spinning properly</li>
+                        <li>Replace thermal paste (if needed)</li>
+                        <li>Add extra cooling fan</li>
+                        <li>Reduce heavy programs/games usage</li>
+                        <li>Use laptop cooling pad</li>
+                    </ol>`
+                }
+            ],
+            bn: [
+                {
+                    title: "কারণ",
+                    content: "Fan সমস্যা, Dust জমা, বা Thermal paste শুকিয়ে যাওয়া।"
+                },
+                {
+                    title: "সমাধান",
+                    content: `<ol>
+                        <li>কম্পিউটার বন্ধ করে ঠান্ডা হতে দিন</li>
+                        <li>Fan পরিষ্কার করুন (compressed air দিয়ে)</li>
+                        <li>Ventilation চেক করুন - কম্পিউটার খোলা জায়গায় রাখুন</li>
+                        <li>Fan ঠিকমতো ঘুরছে কিনা চেক করুন</li>
+                        <li>Thermal paste পরিবর্তন করুন (প্রয়োজনে)</li>
+                        <li>Extra cooling fan যুক্ত করুন</li>
+                        <li>Heavy program/game কম চালান</li>
+                        <li>Laptop cooling pad ব্যবহার করুন</li>
+                    </ol>`
+                }
+            ]
+        }
+    }
+];
+
+function renderProblems(problemsToRender) {
+    const list = document.getElementById('problemList');
+    list.innerHTML = problemsToRender.map(p => `
+        <div class="problem-card">
+            <div class="problem-header">
+                <div class="problem-title">
+                    <i class="fas fa-${p.icon} problem-icon"></i>
+                    ${currentLang === 'en' ? p.title : p.titleBn}
+                    <span class="severity severity-${p.severity}">
+                        ${translations[currentLang].severityLabels[p.severity]}
+                    </span>
+                </div>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="problem-solution">
+                ${p.solutions[currentLang].map(s => `
+                    <div class="solution-section">
+                        <div class="solution-title">${s.title}</div>
+                        <div class="solution-content">${s.content}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+
+    document.querySelectorAll('.problem-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+            if (!e.target.closest('a')) {
+                this.classList.toggle('active');
+            }
+        });
+    });
+}
+
+// Initialize
+renderProblems(problems);
+updateLanguage();
+
+// Search functionality
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    const search = e.target.value.toLowerCase();
+    const filtered = problems.filter(p => 
+        (currentLang === 'en' ? p.title : p.titleBn).toLowerCase().includes(search) ||
+        p.solutions[currentLang].some(s => 
+            s.title.toLowerCase().includes(search) || 
+            s.content.toLowerCase().includes(search)
+        )
+    );
+    renderProblems(filtered);
+});
+</script>
+
+</body>
+</html>

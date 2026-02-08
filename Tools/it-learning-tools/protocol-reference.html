@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Protocol Reference Guide</title>
+    <meta name="description" content="Comprehensive guide to common network protocols used in IT and networking.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e4e8;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .layer-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .protocol-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .protocol-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .protocol-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .protocol-name {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .protocol-layer {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .protocol-full-name {
+            font-size: 1.1em;
+            color: #5a6c7d;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .protocol-description {
+            color: #7a8a9d;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .protocol-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e4e8;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            font-size: 0.85em;
+            color: #7a8a9d;
+            margin-bottom: 3px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .protocol-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1><i class="fas fa-project-diagram"></i> Network Protocol Reference</h1>
+    <p>সাধারণ নেটওয়ার্ক প্রোটোকলের বিস্তারিত গাইড</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="নাম, লেয়ার বা বর্ণনা দিয়ে প্রোটোকল সার্চ করুন...">
+    </div>
+
+    <div class="layer-tabs">
+        <button class="tab-btn active" data-layer="all">সব প্রোটোকল</button>
+        <button class="tab-btn" data-layer="application">Application Layer</button>
+        <button class="tab-btn" data-layer="transport">Transport Layer</button>
+        <button class="tab-btn" data-layer="network">Network Layer</button>
+        <button class="tab-btn" data-layer="datalink">Data Link Layer</button>
+    </div>
+
+    <div id="protocolList"></div>
+</div>
+
+<script>
+const protocols = [
+    {
+        name: "HTTP",
+        fullName: "Hypertext Transfer Protocol",
+        layer: "application",
+        port: "80",
+        transport: "TCP",
+        description: "ওয়েব পেজ এবং অন্যান্য ওয়েব কন্টেন্ট ট্রান্সমিট করার জন্য প্রোটোকল। ওয়ার্ল্ড ওয়াইড ওয়েবে ডাটা কমিউনিকেশনের ভিত্তি তৈরি করে।",
+        usage: "ওয়েব ব্রাউজিং, API কমিউনিকেশন"
+    },
+    {
+        name: "HTTPS",
+        fullName: "HTTP Secure",
+        layer: "application",
+        port: "443",
+        transport: "TCP",
+        description: "HTTP এর সিকিউর ভার্সন যা SSL/TLS এনক্রিপশন ব্যবহার করে ট্রানজিটে ডাটা সুরক্ষিত রাখে। নিরাপদ ওয়েব কমিউনিকেশনের জন্য অপরিহার্য।",
+        usage: "নিরাপদ ওয়েব ব্রাউজিং, অনলাইন লেনদেন"
+    },
+    {
+        name: "FTP",
+        fullName: "File Transfer Protocol",
+        layer: "application",
+        port: "20, 21",
+        transport: "TCP",
+        description: "ক্লায়েন্ট এবং সার্ভারের মধ্যে ফাইল ট্রান্সফার করার জন্য স্ট্যান্ডার্ড প্রোটোকল। কন্ট্রোল এবং ডাটার জন্য আলাদা চ্যানেল ব্যবহার করে।",
+        usage: "ফাইল আপলোড/ডাউনলোড, ওয়েবসাইট ম্যানেজমেন্ট"
+    },
+    {
+        name: "SMTP",
+        fullName: "Simple Mail Transfer Protocol",
+        layer: "application",
+        port: "25, 587",
+        transport: "TCP",
+        description: "সার্ভারগুলির মধ্যে ইমেইল মেসেজ পাঠানোর জন্য প্রোটোকল। ইমেইল ক্লায়েন্ট দ্বারা মেইল সার্ভারে মেসেজ পাঠাতে ব্যবহৃত হয়।",
+        usage: "ইমেইল পাঠানো এবং রাউটিং"
+    },
+    {
+        name: "POP3",
+        fullName: "Post Office Protocol v3",
+        layer: "application",
+        port: "110",
+        transport: "TCP",
+        description: "মেইল সার্ভার থেকে ইমেইল রিট্রিভ করার জন্য প্রোটোকল। স্থানীয় ডিভাইসে মেসেজ ডাউনলোড করে এবং সাধারণত সার্ভার থেকে সরিয়ে দেয়।",
+        usage: "ইমেইল রিট্রিভাল"
+    },
+    {
+        name: "IMAP",
+        fullName: "Internet Message Access Protocol",
+        layer: "application",
+        port: "143",
+        transport: "TCP",
+        description: "আরও উন্নত ইমেইল প্রোটোকল যা সার্ভারে মেসেজ রাখে। একাধিক ডিভাইস থেকে সিঙ্ক্রোনাইজেশন সহ এক্সেস করার সুবিধা দেয়।",
+        usage: "ইমেইল এক্সেস এবং ম্যানেজমেন্ট"
+    },
+    {
+        name: "DNS",
+        fullName: "Domain Name System",
+        layer: "application",
+        port: "53",
+        transport: "UDP/TCP",
+        description: "মানব-পাঠযোগ্য ডোমেইন নামকে IP ঠিকানায় রূপান্তরিত করে। ইন্টারনেটের জন্য গুরুত্বপূর্ণ অবকাঠামো সেবা।",
+        usage: "ডোমেইন নাম রেজল্যুশন"
+    },
+    {
+        name: "DHCP",
+        fullName: "Dynamic Host Configuration Protocol",
+        layer: "application",
+        port: "67, 68",
+        transport: "UDP",
+        description: "স্বয়ংক্রিয়ভাবে একটি নেটওয়ার্কের ডিভাইসগুলিতে IP ঠিকানা এবং নেটওয়ার্ক কনফিগারেশন বরাদ্দ করে।",
+        usage: "স্বয়ংক্রিয় IP ঠিকানা প্রদান"
+    },
+    {
+        name: "SSH",
+        fullName: "Secure Shell",
+        layer: "application",
+        port: "22",
+        transport: "TCP",
+        description: "নিরাপদ রিমোট লগইন এবং কমান্ড এক্সিকিউশনের জন্য ক্রিপ্টোগ্রাফিক নেটওয়ার্ক প্রোটোকল। অনিরাপদ Telnet প্রতিস্থাপন করে।",
+        usage: "রিমোট সার্ভার অ্যাডমিনিস্ট্রেশন"
+    },
+    {
+        name: "Telnet",
+        fullName: "Telnet Protocol",
+        layer: "application",
+        port: "23",
+        transport: "TCP",
+        description: "দ্বিমুখী ইন্টারঅ্যাক্টিভ টেক্সট কমিউনিকেশন প্রদান করে। অনিরাপদ বলে মনে করা হয় এবং SSH দ্বারা প্রতিস্থাপিত হয়েছে।",
+        usage: "লিগ্যাসি রিমোট এক্সেস (অপ্রচলিত)"
+    },
+    {
+        name: "SNMP",
+        fullName: "Simple Network Management Protocol",
+        layer: "application",
+        port: "161, 162",
+        transport: "UDP",
+        description: "IP নেটওয়ার্কে পরিচালিত ডিভাইস সম্পর্কে তথ্য সংগ্রহ এবং সংগঠিত করার জন্য প্রোটোকল।",
+        usage: "নেটওয়ার্ক মনিটরিং এবং ম্যানেজমেন্ট"
+    },
+    {
+        name: "LDAP",
+        fullName: "Lightweight Directory Access Protocol",
+        layer: "application",
+        port: "389",
+        transport: "TCP",
+        description: "নেটওয়ার্কের মাধ্যমে বিতরণ করা ডিরেক্টরি তথ্য সেবা এক্সেস এবং বজায় রাখার জন্য প্রোটোকল।",
+        usage: "ডিরেক্টরি সার্ভিস, অথেন্টিকেশন"
+    },
+    {
+        name: "TCP",
+        fullName: "Transmission Control Protocol",
+        layer: "transport",
+        port: "N/A",
+        transport: "N/A",
+        description: "সংযোগ-ভিত্তিক প্রোটোকল যা নির্ভরযোগ্য, ক্রমবদ্ধ ডাটা ডেলিভারি প্রদান করে। ত্রুটি পরীক্ষা এবং প্রবাহ নিয়ন্ত্রণ অন্তর্ভুক্ত করে।",
+        usage: "নির্ভরযোগ্য ডাটা ট্রান্সমিশন"
+    },
+    {
+        name: "UDP",
+        fullName: "User Datagram Protocol",
+        layer: "transport",
+        port: "N/A",
+        transport: "N/A",
+        description: "সংযোগ ছাড়াই ডাটা পাঠায় এমন কানেকশনলেস প্রোটোকল। TCP এর চেয়ে দ্রুত কিন্তু কম নির্ভরযোগ্য।",
+        usage: "স্ট্রিমিং, গেমিং, VoIP"
+    },
+    {
+        name: "IP",
+        fullName: "Internet Protocol",
+        layer: "network",
+        port: "N/A",
+        transport: "N/A",
+        description: "নেটওয়ার্ক সীমানা জুড়ে ডেটাগ্রাম রিলে করার প্রাথমিক প্রোটোকল। IP ঠিকানার উপর ভিত্তি করে উৎস থেকে গন্তব্যে প্যাকেট সরবরাহ করে।",
+        usage: "প্যাকেট রাউটিং এবং ঠিকানা প্রদান"
+    },
+    {
+        name: "ICMP",
+        fullName: "Internet Control Message Protocol",
+        layer: "network",
+        port: "N/A",
+        transport: "N/A",
+        description: "নেটওয়ার্ক ডিভাইস দ্বারা ত্রুটি বার্তা এবং অপারেশনাল তথ্য পাঠাতে ব্যবহৃত হয়। ping এবং traceroute ইউটিলিটি চালায়।",
+        usage: "নেটওয়ার্ক ডায়াগনস্টিক্স, ত্রুটি রিপোর্টিং"
+    },
+    {
+        name: "ARP",
+        fullName: "Address Resolution Protocol",
+        layer: "datalink",
+        port: "N/A",
+        transport: "N/A",
+        description: "স্থানীয় নেটওয়ার্কে IP ঠিকানাগুলিকে MAC ঠিকানায় সমাধান করে। LAN এর মধ্যে যোগাযোগের জন্য অপরিহার্য।",
+        usage: "IP থেকে MAC ঠিকানা ম্যাপিং"
+    },
+    {
+        name: "Ethernet",
+        fullName: "Ethernet Protocol",
+        layer: "datalink",
+        port: "N/A",
+        transport: "N/A",
+        description: "সবচেয়ে ব্যাপকভাবে ব্যবহৃত LAN প্রযুক্তি। ফিজিক্যাল লেয়ারের জন্য ওয়্যারিং এবং সিগন্যালিং স্ট্যান্ডার্ড নির্ধারণ করে।",
+        usage: "লোকাল এরিয়া নেটওয়ার্কিং"
+    },
+    {
+        name: "RDP",
+        fullName: "Remote Desktop Protocol",
+        layer: "application",
+        port: "3389",
+        transport: "TCP",
+        description: "Windows সিস্টেমে রিমোট ডেস্কটপ সংযোগের জন্য Microsoft দ্বারা উন্নত মালিকানাধীন প্রোটোকল।",
+        usage: "Windows রিমোট ডেস্কটপ এক্সেস"
+    },
+    {
+        name: "NTP",
+        fullName: "Network Time Protocol",
+        layer: "application",
+        port: "123",
+        transport: "UDP",
+        description: "প্যাকেট-সুইচড নেটওয়ার্কের মাধ্যমে কম্পিউটার সিস্টেমের ঘড়ি সিঙ্ক্রোনাইজ করার জন্য প্রোটোকল।",
+        usage: "সময় সিঙ্ক্রোনাইজেশন"
+    }
+];
+
+function renderProtocols(filteredProtocols) {
+    const list = document.getElementById('protocolList');
+    list.innerHTML = filteredProtocols.map(p => `
+        <div class="protocol-card">
+            <div class="protocol-header">
+                <div class="protocol-name">${p.name}</div>
+                <div class="protocol-layer">${p.layer.charAt(0).toUpperCase() + p.layer.slice(1)} Layer</div>
+            </div>
+            <div class="protocol-full-name">${p.fullName}</div>
+            <div class="protocol-description">${p.description}</div>
+            <div class="protocol-details">
+                <div class="detail-item">
+                    <span class="detail-label">Port(s)</span>
+                    <span class="detail-value">${p.port}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Transport</span>
+                    <span class="detail-value">${p.transport}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">ব্যবহার</span>
+                    <span class="detail-value">${p.usage}</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+renderProtocols(protocols);
+
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    const search = e.target.value.toLowerCase();
+    const filtered = protocols.filter(p => 
+        p.name.toLowerCase().includes(search) ||
+        p.fullName.toLowerCase().includes(search) ||
+        p.description.toLowerCase().includes(search) ||
+        p.layer.toLowerCase().includes(search)
+    );
+    renderProtocols(filtered);
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const layer = this.getAttribute('data-layer');
+        if (layer === 'all') {
+            renderProtocols(protocols);
+        } else {
+            const filtered = protocols.filter(p => p.layer === layer);
+            renderProtocols(filtered);
+        }
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Production Report - Garment Manufacturing Tool</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Professional daily production report generator for garment manufacturing. Generate comprehensive daily production reports with efficiency analysis and key performance indicators.">
+    <meta name="keywords"
+        content="daily production report, garment production report, factory production report, daily output report, production tracking, manufacturing report">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali, English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Daily Production Report - Garment Manufacturing Tool">
+    <meta property="og:description"
+        content="Generate professional daily production reports for garment manufacturing with comprehensive analysis and KPIs.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/tools/garments-tools/daily-production-report.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/tools/production-report.jpg">
+    <meta property="og:site_name" content="Asadul Islam Portfolio">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Daily Production Report - Garment Factory">
+    <meta name="twitter:description"
+        content="Professional daily production report generator for garment manufacturers and factory managers.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/tools/production-report.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/tools/garments-tools/daily-production-report.html">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Daily Production Report Generator - Garment Manufacturing",
+        "description": "Professional daily production report generation tool for garment manufacturing industry",
+        "url": "https://asadul-it.github.io/portfolio/tools/garments-tools/daily-production-report.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "author": {
+            "@type": "Person",
+            "name": "Asadul Islam"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==================== BASE STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* ==================== HEADER STYLES ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: #ef4444;
+            color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+        }
+
+        .logo-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #ef4444;
+        }
+
+        .navbar a.active {
+            color: #ef4444;
+        }
+
+        .navbar a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #ef4444;
+            border-radius: 2px;
+        }
+
+        .navbar i {
+            font-size: 16px;
+        }
+
+        /* ==================== HAMBURGER MENU ==================== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #ef4444;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ==================== BREADCRUMB ==================== */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 25px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #ef4444;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            color: #dc2626;
+        }
+
+        .breadcrumb span {
+            margin: 0 8px;
+            color: #cbd5e1;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 25px;
+        }
+
+        /* ==================== TOOL HEADER ==================== */
+        .tool-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tool-header h1 {
+            font-size: 36px;
+            color: #1e293b;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .tool-header p {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ==================== REPORT CONTAINER ==================== */
+        .report-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .report-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==================== INPUT SECTION ==================== */
+        .input-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 22px;
+            color: #1e293b;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 10px;
+        }
+
+        .input-label i {
+            color: #ef4444;
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            color: #1e293b;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: #94a3b8;
+        }
+
+        .select-field {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23475569' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 16px;
+            padding-right: 45px;
+        }
+
+        .line-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .line-input-group {
+            text-align: center;
+        }
+
+        .line-input-group .input-field {
+            text-align: center;
+        }
+
+        .line-input-label {
+            display: block;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .generate-btn {
+            flex: 1;
+            padding: 16px;
+            background: #ef4444;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .generate-btn:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.2);
+        }
+
+        .reset-btn {
+            flex: 1;
+            padding: 16px;
+            background: #f1f5f9;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .reset-btn:hover {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        .print-btn {
+            flex: 1;
+            padding: 16px;
+            background: #10b981;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .print-btn:hover {
+            background: #0da271;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(16, 185, 129, 0.2);
+        }
+
+        /* ==================== REPORT SECTION ==================== */
+        .report-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .report-title {
+            font-size: 22px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .report-status {
+            padding: 8px 16px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .report-status.active {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        /* ==================== REPORT SUMMARY ==================== */
+        .report-summary {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .summary-title {
+            font-size: 16px;
+            color: #dc2626;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #fecaca;
+        }
+
+        .summary-label {
+            font-size: 14px;
+            color: #7f1d1d;
+            font-weight: 500;
+        }
+
+        .summary-value {
+            font-size: 14px;
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        /* ==================== PERFORMANCE METRICS ==================== */
+        .performance-metrics {
+            margin-bottom: 30px;
+        }
+
+        .metrics-title {
+            font-size: 16px;
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .metric-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            color: #1e293b;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .metric-unit {
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .metric-change {
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .positive-change {
+            color: #10b981;
+        }
+
+        .negative-change {
+            color: #ef4444;
+        }
+
+        /* ==================== DETAILED REPORT ==================== */
+        .detailed-report {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        .report-table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        .report-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .report-table th {
+            background: #f8fafc;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .report-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #64748b;
+        }
+
+        .report-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .highlight-cell {
+            font-weight: 600;
+            color: #ef4444;
+        }
+
+        .good-performance {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .average-performance {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+
+        .poor-performance {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        /* ==================== PRINT STYLES ==================== */
+        @media print {
+            .fixed-header-container,
+            .breadcrumb,
+            .input-section,
+            .button-group,
+            .social-links,
+            footer,
+            .report-status {
+                display: none;
+            }
+
+            .main-content {
+                margin: 0;
+                padding: 0;
+            }
+
+            .report-section,
+            .detailed-report {
+                box-shadow: none;
+                border: 1px solid #000;
+                page-break-inside: avoid;
+            }
+
+            .tool-header {
+                display: none;
+            }
+
+            .report-header {
+                border: none;
+                padding-bottom: 0;
+            }
+
+            .report-title {
+                font-size: 24px;
+            }
+
+            body {
+                font-size: 12px;
+            }
+
+            .metric-value {
+                font-size: 18px;
+            }
+        }
+
+        /* ==================== FOOTER STYLES ==================== */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 45px 25px 35px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-column p {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .footer-column a {
+            color: #64748b;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #ef4444;
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f8fafc;
+            color: #475569;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .social-links a:hover {
+            background: #ef4444;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.2);
+            border-color: #ef4444;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 15px;
+            color: #64748b;
+            background: #f8fafc;
+        }
+
+        /* ==================== RESPONSIVE STYLES ==================== */
+        @media (max-width: 992px) {
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .navbar {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                border-radius: 0 0 12px 12px;
+                z-index: 999;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar li {
+                width: 100%;
+            }
+
+            .navbar a {
+                padding: 15px 20px;
+                border-bottom: 1px solid #f1f5f9;
+            }
+
+            .navbar a:last-child {
+                border-bottom: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .tool-header h1 {
+                font-size: 28px;
+            }
+
+            .tool-header p {
+                font-size: 16px;
+                padding: 0 15px;
+            }
+
+            .summary-grid,
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .line-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .input-section,
+            .report-section,
+            .detailed-report {
+                padding: 25px 20px;
+            }
+
+            .tool-header {
+                padding: 30px 20px;
+            }
+
+            .logo-text {
+                font-size: 14px;
+            }
+
+            .logo-icon {
+                min-width: 36px;
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo">
+                <span class="logo-icon">DPR</span>
+                <span class="logo-text">Daily Production Report</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html" class="active"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== BREADCRUMB ==================== -->
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="../../index.html">Home</a><span>/</span>
+        <a href="../tools.html">Tools</a><span>/</span>
+        <a href="garments-tools.html">Garment Tools</a><span>/</span>
+        <span>Daily Production Report</span>
+    </div>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <div class="main-content">
+        <!-- Tool Header -->
+        <div class="tool-header">
+            <h1><i class="fas fa-file-alt"></i> Daily Production Report</h1>
+            <p>Generate professional daily production reports for garment manufacturing. Track performance, analyze efficiency, and monitor factory output with comprehensive reporting.</p>
+        </div>
+
+        <!-- Report Container -->
+        <div class="report-container">
+            <!-- Input Section -->
+            <div class="input-section">
+                <h2 class="section-title"><i class="fas fa-edit"></i> Production Data</h2>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-calendar"></i> Report Date</label>
+                    <input type="date" id="reportDate" class="input-field" value="2024-12-01">
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-industry"></i> Factory Information</label>
+                    <input type="text" id="factoryName" class="input-field" placeholder="Factory Name" value="ABC Garments Ltd.">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                        <div>
+                            <input type="text" id="department" class="input-field" placeholder="Department" value="Sewing">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Department</small>
+                        </div>
+                        <div>
+                            <input type="text" id="shift" class="input-field" placeholder="Shift" value="Day Shift">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Shift</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-users"></i> Manpower & Time</label>
+                    <div class="line-grid">
+                        <div class="line-input-group">
+                            <input type="number" id="totalOperators" class="input-field" placeholder="Total" value="250" min="1" step="1">
+                            <span class="line-input-label">Operators</span>
+                        </div>
+                        <div class="line-input-group">
+                            <input type="number" id="totalHelpers" class="input-field" placeholder="Total" value="50" min="0" step="1">
+                            <span class="line-input-label">Helpers</span>
+                        </div>
+                        <div class="line-input-group">
+                            <input type="number" id="workingHours" class="input-field" placeholder="Hours" value="8" min="1" max="12" step="0.5">
+                            <span class="line-input-label">Working Hours</span>
+                        </div>
+                        <div class="line-input-group">
+                            <input type="number" id="breakTime" class="input-field" placeholder="Minutes" value="60" min="0" max="240" step="5">
+                            <span class="line-input-label">Break Time (min)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-chart-line"></i> Production Details</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <input type="number" id="targetProduction" class="input-field" placeholder="Target" value="12000" min="1" step="1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Target Pieces</small>
+                        </div>
+                        <div>
+                            <input type="number" id="actualProduction" class="input-field" placeholder="Actual" value="11500" min="0" step="1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Actual Pieces</small>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <input type="number" id="rejectionQty" class="input-field" placeholder="Rejection" value="230" min="0" step="1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Rejection Pieces</small>
+                        </div>
+                        <div>
+                            <input type="number" id="averageSMV" class="input-field" placeholder="SMV" value="2.5" min="0.1" max="50" step="0.1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Average SMV</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-exclamation-triangle"></i> Downtime & Issues</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <input type="number" id="machineDowntime" class="input-field" placeholder="Machine" value="45" min="0" max="240" step="5">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Machine Downtime (min)</small>
+                        </div>
+                        <div>
+                            <input type="number" id="powerOutage" class="input-field" placeholder="Power" value="15" min="0" max="240" step="5">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Power Outage (min)</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="generate-btn" id="generateBtn">
+                        <i class="fas fa-file-alt"></i> Generate Report
+                    </button>
+                    <button class="print-btn" id="printBtn">
+                        <i class="fas fa-print"></i> Print Report
+                    </button>
+                    <button class="reset-btn" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Report Section -->
+            <div class="report-section">
+                <div class="report-header">
+                    <h2 class="report-title"><i class="fas fa-file-pdf"></i> Daily Production Report</h2>
+                    <div class="report-status" id="reportStatus">Awaiting Data</div>
+                </div>
+
+                <!-- Report Summary -->
+                <div class="report-summary">
+                    <div class="summary-title"><i class="fas fa-info-circle"></i> Report Summary</div>
+                    <div class="summary-grid" id="reportSummary">
+                        <div class="summary-item">
+                            <span class="summary-label">Report Date:</span>
+                            <span class="summary-value" id="summaryDate">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Department:</span>
+                            <span class="summary-value" id="summaryDepartment">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Shift:</span>
+                            <span class="summary-value" id="summaryShift">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Total Manpower:</span>
+                            <span class="summary-value" id="summaryManpower">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Working Hours:</span>
+                            <span class="summary-value" id="summaryHours">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Net Production:</span>
+                            <span class="summary-value" id="summaryProduction">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics -->
+                <div class="performance-metrics">
+                    <div class="metrics-title"><i class="fas fa-chart-bar"></i> Key Performance Indicators</div>
+                    <div class="metrics-grid" id="performanceMetrics">
+                        <div class="metric-item">
+                            <div class="metric-label">Target Achievement</div>
+                            <div class="metric-value">0.0%</div>
+                            <div class="metric-unit">of Target</div>
+                            <div class="metric-change positive-change">+0.0% vs Yesterday</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Line Efficiency</div>
+                            <div class="metric-value">0.0%</div>
+                            <div class="metric-unit">Efficiency</div>
+                            <div class="metric-change positive-change">+0.0% vs Target</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Rejection Rate</div>
+                            <div class="metric-value">0.0%</div>
+                            <div class="metric-unit">of Production</div>
+                            <div class="metric-change negative-change">+0.0% vs Target</div>
+                        </div>
+                        <div class="metric-item">
+                            <div class="metric-label">Productivity</div>
+                            <div class="metric-value">0.0</div>
+                            <div class="metric-unit">Pieces/Hour</div>
+                            <div class="metric-change positive-change">+0.0% vs Yesterday</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div style="background: #f0f9ff; border: 1px solid #e0f2fe; border-radius: 12px; padding: 20px; margin-top: 20px;">
+                    <div style="font-size: 16px; color: #0284c7; margin-bottom: 10px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-lightbulb"></i> Daily Insights
+                    </div>
+                    <div style="font-size: 14px; color: #0c4a6e; line-height: 1.6;" id="dailyInsights">
+                        Enter production data and click Generate Report to get detailed daily insights and recommendations.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Report Table -->
+        <div class="detailed-report">
+            <h2 class="section-title"><i class="fas fa-table"></i> Detailed Production Analysis</h2>
+            <p style="color: #64748b; margin-bottom: 20px;">Comprehensive breakdown of daily production performance by key metrics.</p>
+            
+            <div class="report-table-container">
+                <table class="report-table" id="detailedTable">
+                    <thead>
+                        <tr>
+                            <th>Performance Metric</th>
+                            <th>Today's Value</th>
+                            <th>Target</th>
+                            <th>Achievement %</th>
+                            <th>Yesterday</th>
+                            <th>Change</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="detailedTableBody">
+                        <tr>
+                            <td>Total Production</td>
+                            <td class="highlight-cell">0 pieces</td>
+                            <td>0 pieces</td>
+                            <td>0.0%</td>
+                            <td>0 pieces</td>
+                            <td class="positive-change">+0.0%</td>
+                            <td class="poor-performance">Not Met</td>
+                        </tr>
+                        <tr>
+                            <td>Line Efficiency</td>
+                            <td class="highlight-cell">0.0%</td>
+                            <td>75.0%</td>
+                            <td>0.0%</td>
+                            <td>0.0%</td>
+                            <td class="positive-change">+0.0%</td>
+                            <td class="poor-performance">Low</td>
+                        </tr>
+                        <tr>
+                            <td>Rejection Rate</td>
+                            <td class="highlight-cell">0.0%</td>
+                            <td>2.0%</td>
+                            <td>0.0%</td>
+                            <td>0.0%</td>
+                            <td class="negative-change">+0.0%</td>
+                            <td class="good-performance">Good</td>
+                        </tr>
+                        <tr>
+                            <td>Productivity</td>
+                            <td class="highlight-cell">0.0/hr</td>
+                            <td>0.0/hr</td>
+                            <td>0.0%</td>
+                            <td>0.0/hr</td>
+                            <td class="positive-change">+0.0%</td>
+                            <td class="poor-performance">Low</td>
+                        </tr>
+                        <tr>
+                            <td>Capacity Utilization</td>
+                            <td class="highlight-cell">0.0%</td>
+                            <td>85.0%</td>
+                            <td>0.0%</td>
+                            <td>0.0%</td>
+                            <td class="positive-change">+0.0%</td>
+                            <td class="poor-performance">Underutilized</td>
+                        </tr>
+                        <tr>
+                            <td>SMH Efficiency</td>
+                            <td class="highlight-cell">0.0%</td>
+                            <td>80.0%</td>
+                            <td>0.0%</td>
+                            <td>0.0%</td>
+                            <td class="positive-change">+0.0%</td>
+                            <td class="poor-performance">Low</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== HIDDEN SEO CONTENT ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/Person">
+        <span itemprop="name">Asadul Islam</span>
+        <span itemprop="alternateName">asadul islam</span>
+        <span itemprop="alternateName">asadul</span>
+        <span itemprop="alternateName">asadul islam asad</span>
+        <span itemprop="alternateName">Asadul Islam Asad</span>
+        <span itemprop="jobTitle">IT Professional</span>
+        <span itemprop="jobTitle">Network Engineer</span>
+        <span itemprop="jobTitle">System Administrator</span>
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <span itemprop="addressCountry">Bangladesh</span>
+        </span>
+        <span itemprop="knowsLanguage">Bengali</span>
+        <span itemprop="knowsLanguage">English</span>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About This Tool</h3>
+                <p>Professional daily production report generator for garment manufacturers, factory managers, and production supervisors to track and analyze daily performance.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Connect With Me</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Daily Production Report | Professional Garment Manufacturing Tool | All Rights Reserved
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // DOM Elements
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        const generateBtn = document.getElementById("generateBtn");
+        const printBtn = document.getElementById("printBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const reportStatus = document.getElementById("reportStatus");
+        const reportSummary = document.getElementById("reportSummary");
+        const performanceMetrics = document.getElementById("performanceMetrics");
+        const dailyInsights = document.getElementById("dailyInsights");
+        const detailedTableBody = document.getElementById("detailedTableBody");
+
+        // Generate daily production report with validation
+        function generateReport() {
+            // Get input values
+            const reportDate = document.getElementById("reportDate").value;
+            const factoryName = document.getElementById("factoryName").value || "ABC Garments Ltd.";
+            const department = document.getElementById("department").value || "Sewing";
+            const shift = document.getElementById("shift").value || "Day Shift";
+            const totalOperators = parseFloat(document.getElementById("totalOperators").value) || 0;
+            const totalHelpers = parseFloat(document.getElementById("totalHelpers").value) || 0;
+            const workingHours = parseFloat(document.getElementById("workingHours").value) || 0;
+            const breakTime = parseFloat(document.getElementById("breakTime").value) || 0;
+            const targetProduction = parseFloat(document.getElementById("targetProduction").value) || 0;
+            const actualProduction = parseFloat(document.getElementById("actualProduction").value) || 0;
+            const rejectionQty = parseFloat(document.getElementById("rejectionQty").value) || 0;
+            const averageSMV = parseFloat(document.getElementById("averageSMV").value) || 0;
+            const machineDowntime = parseFloat(document.getElementById("machineDowntime").value) || 0;
+            const powerOutage = parseFloat(document.getElementById("powerOutage").value) || 0;
+
+            // Validate inputs
+            let validationErrors = [];
+            
+            if (!reportDate) validationErrors.push("Please select a report date");
+            if (totalOperators <= 0) validationErrors.push("Total operators must be greater than 0");
+            if (workingHours <= 0 || workingHours > 12) validationErrors.push("Working hours must be between 1-12");
+            if (targetProduction <= 0) validationErrors.push("Target production must be greater than 0");
+            if (actualProduction < 0) validationErrors.push("Actual production cannot be negative");
+            if (rejectionQty < 0) validationErrors.push("Rejection quantity cannot be negative");
+            if (rejectionQty > actualProduction) validationErrors.push("Rejection quantity cannot exceed actual production");
+            if (averageSMV <= 0 || averageSMV > 50) validationErrors.push("Average SMV must be between 0.1-50 minutes");
+            if (breakTime < 0 || breakTime > 240) validationErrors.push("Break time must be between 0-240 minutes");
+            if (machineDowntime < 0 || machineDowntime > 240) validationErrors.push("Machine downtime must be between 0-240 minutes");
+            if (powerOutage < 0 || powerOutage > 240) validationErrors.push("Power outage must be between 0-240 minutes");
+            
+            if (validationErrors.length > 0) {
+                alert("Please fix the following errors:\n\n" + validationErrors.join("\n"));
+                return;
+            }
+
+            // Calculate totals
+            const totalManpower = totalOperators + totalHelpers;
+            const netProduction = actualProduction - rejectionQty;
+            const netWorkingMinutes = (workingHours * 60) - breakTime - machineDowntime - powerOutage;
+            const totalWorkingMinutes = totalOperators * netWorkingMinutes;
+            
+            // Calculate performance metrics
+            const targetAchievement = (actualProduction / targetProduction) * 100;
+            const rejectionRate = (rejectionQty / actualProduction) * 100;
+            const earnedMinutes = actualProduction * averageSMV;
+            const lineEfficiency = (earnedMinutes / totalWorkingMinutes) * 100;
+            const productivity = actualProduction / workingHours;
+            
+            // Calculate capacity utilization
+            const theoreticalCapacity = (totalWorkingMinutes * 0.85) / averageSMV;
+            const capacityUtilization = (actualProduction / theoreticalCapacity) * 100;
+            
+            // Calculate SMH efficiency
+            const smhEfficiency = (earnedMinutes / (totalWorkingMinutes * 0.95)) * 100;
+            
+            // Generate random comparison data (for demonstration)
+            const yesterdayProduction = Math.max(0, actualProduction * (0.8 + Math.random() * 0.4));
+            const yesterdayEfficiency = Math.max(0, lineEfficiency * (0.8 + Math.random() * 0.4));
+            const yesterdayRejectionRate = Math.max(0, rejectionRate * (0.6 + Math.random() * 0.8));
+            const yesterdayProductivity = Math.max(0, productivity * (0.8 + Math.random() * 0.4));
+            
+            // Calculate changes vs yesterday
+            const productionChange = ((actualProduction - yesterdayProduction) / yesterdayProduction) * 100;
+            const efficiencyChange = lineEfficiency - yesterdayEfficiency;
+            const rejectionChange = rejectionRate - yesterdayRejectionRate;
+            const productivityChange = ((productivity - yesterdayProductivity) / yesterdayProductivity) * 100;
+
+            // Format date
+            const dateObj = new Date(reportDate);
+            const formattedDate = dateObj.toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            // Update report summary
+            document.getElementById("summaryDate").textContent = formattedDate;
+            document.getElementById("summaryDepartment").textContent = department;
+            document.getElementById("summaryShift").textContent = shift;
+            document.getElementById("summaryManpower").textContent = totalManpower.toLocaleString() + " persons";
+            document.getElementById("summaryHours").textContent = workingHours + " hours";
+            document.getElementById("summaryProduction").textContent = netProduction.toLocaleString() + " pieces";
+
+            // Update performance metrics
+            const metricItems = performanceMetrics.querySelectorAll(".metric-item");
+            
+            // Target Achievement
+            metricItems[0].innerHTML = `
+                <div class="metric-label">Target Achievement</div>
+                <div class="metric-value">${targetAchievement.toFixed(1)}%</div>
+                <div class="metric-unit">of Target</div>
+                <div class="metric-change ${productionChange >= 0 ? 'positive-change' : 'negative-change'}">
+                    ${productionChange >= 0 ? '+' : ''}${productionChange.toFixed(1)}% vs Yesterday
+                </div>
+            `;
+            
+            // Line Efficiency
+            metricItems[1].innerHTML = `
+                <div class="metric-label">Line Efficiency</div>
+                <div class="metric-value">${lineEfficiency.toFixed(1)}%</div>
+                <div class="metric-unit">Efficiency</div>
+                <div class="metric-change ${efficiencyChange >= 0 ? 'positive-change' : 'negative-change'}">
+                    ${efficiencyChange >= 0 ? '+' : ''}${efficiencyChange.toFixed(1)}% vs Target
+                </div>
+            `;
+            
+            // Rejection Rate
+            metricItems[2].innerHTML = `
+                <div class="metric-label">Rejection Rate</div>
+                <div class="metric-value">${rejectionRate.toFixed(1)}%</div>
+                <div class="metric-unit">of Production</div>
+                <div class="metric-change ${rejectionChange <= 0 ? 'positive-change' : 'negative-change'}">
+                    ${rejectionChange <= 0 ? '' : '+'}${rejectionChange.toFixed(1)}% vs Target
+                </div>
+            `;
+            
+            // Productivity
+            metricItems[3].innerHTML = `
+                <div class="metric-label">Productivity</div>
+                <div class="metric-value">${productivity.toFixed(1)}</div>
+                <div class="metric-unit">Pieces/Hour</div>
+                <div class="metric-change ${productivityChange >= 0 ? 'positive-change' : 'negative-change'}">
+                    ${productivityChange >= 0 ? '+' : ''}${productivityChange.toFixed(1)}% vs Yesterday
+                </div>
+            `;
+
+            // Update daily insights
+            let insights = [];
+            
+            if (targetAchievement >= 100) {
+                insights.push("Excellent! Production target exceeded.");
+            } else if (targetAchievement >= 90) {
+                insights.push("Good performance. Close to target.");
+            } else {
+                insights.push("Need improvement to meet production target.");
+            }
+            
+            if (lineEfficiency >= 80) {
+                insights.push("Line efficiency is at optimal level.");
+            } else if (lineEfficiency >= 70) {
+                insights.push("Line efficiency needs slight improvement.");
+            } else {
+                insights.push("Line efficiency requires immediate attention.");
+            }
+            
+            if (rejectionRate <= 2) {
+                insights.push("Quality control is excellent.");
+            } else if (rejectionRate <= 5) {
+                insights.push("Quality needs improvement to reduce rejection.");
+            } else {
+                insights.push("High rejection rate - investigate quality issues.");
+            }
+            
+            if (capacityUtilization >= 85) {
+                insights.push("Factory capacity is well utilized.");
+            } else if (capacityUtilization >= 70) {
+                insights.push("Capacity utilization is good.");
+            } else {
+                insights.push("Consider improving capacity utilization.");
+            }
+            
+            // Add downtime analysis
+            const totalDowntime = machineDowntime + powerOutage;
+            if (totalDowntime > 60) {
+                insights.push(`High downtime (${totalDowntime} minutes) affecting production.`);
+            }
+            
+            dailyInsights.innerHTML = insights.map(insight => `• ${insight}`).join('<br>');
+
+            // Update detailed table
+            detailedTableBody.innerHTML = `
+                <tr>
+                    <td>Total Production</td>
+                    <td class="highlight-cell">${actualProduction.toLocaleString()} pieces</td>
+                    <td>${targetProduction.toLocaleString()} pieces</td>
+                    <td>${targetAchievement.toFixed(1)}%</td>
+                    <td>${yesterdayProduction.toLocaleString()} pieces</td>
+                    <td class="${productionChange >= 0 ? 'positive-change' : 'negative-change'}">
+                        ${productionChange >= 0 ? '+' : ''}${productionChange.toFixed(1)}%
+                    </td>
+                    <td class="${targetAchievement >= 100 ? 'good-performance' : targetAchievement >= 90 ? 'average-performance' : 'poor-performance'}">
+                        ${targetAchievement >= 100 ? 'Exceeded' : targetAchievement >= 90 ? 'Almost Met' : 'Not Met'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Line Efficiency</td>
+                    <td class="highlight-cell">${lineEfficiency.toFixed(1)}%</td>
+                    <td>75.0%</td>
+                    <td>${((lineEfficiency / 75) * 100).toFixed(1)}%</td>
+                    <td>${yesterdayEfficiency.toFixed(1)}%</td>
+                    <td class="${efficiencyChange >= 0 ? 'positive-change' : 'negative-change'}">
+                        ${efficiencyChange >= 0 ? '+' : ''}${efficiencyChange.toFixed(1)}%
+                    </td>
+                    <td class="${lineEfficiency >= 80 ? 'good-performance' : lineEfficiency >= 70 ? 'average-performance' : 'poor-performance'}">
+                        ${lineEfficiency >= 80 ? 'High' : lineEfficiency >= 70 ? 'Average' : 'Low'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Rejection Rate</td>
+                    <td class="highlight-cell">${rejectionRate.toFixed(1)}%</td>
+                    <td>2.0%</td>
+                    <td>${((rejectionRate / 2) * 100).toFixed(1)}%</td>
+                    <td>${yesterdayRejectionRate.toFixed(1)}%</td>
+                    <td class="${rejectionChange <= 0 ? 'positive-change' : 'negative-change'}">
+                        ${rejectionChange <= 0 ? '' : '+'}${rejectionChange.toFixed(1)}%
+                    </td>
+                    <td class="${rejectionRate <= 2 ? 'good-performance' : rejectionRate <= 5 ? 'average-performance' : 'poor-performance'}">
+                        ${rejectionRate <= 2 ? 'Good' : rejectionRate <= 5 ? 'Average' : 'Poor'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Productivity</td>
+                    <td class="highlight-cell">${productivity.toFixed(1)}/hr</td>
+                    <td>${(targetProduction / workingHours).toFixed(1)}/hr</td>
+                    <td>${((productivity / (targetProduction / workingHours)) * 100).toFixed(1)}%</td>
+                    <td>${yesterdayProductivity.toFixed(1)}/hr</td>
+                    <td class="${productivityChange >= 0 ? 'positive-change' : 'negative-change'}">
+                        ${productivityChange >= 0 ? '+' : ''}${productivityChange.toFixed(1)}%
+                    </td>
+                    <td class="${productivity >= (targetProduction / workingHours) ? 'good-performance' : 'poor-performance'}">
+                        ${productivity >= (targetProduction / workingHours) ? 'Good' : 'Low'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Capacity Utilization</td>
+                    <td class="highlight-cell">${capacityUtilization.toFixed(1)}%</td>
+                    <td>85.0%</td>
+                    <td>${((capacityUtilization / 85) * 100).toFixed(1)}%</td>
+                    <td>${(capacityUtilization * (0.8 + Math.random() * 0.4)).toFixed(1)}%</td>
+                    <td class="positive-change">+${(Math.random() * 10).toFixed(1)}%</td>
+                    <td class="${capacityUtilization >= 85 ? 'good-performance' : capacityUtilization >= 70 ? 'average-performance' : 'poor-performance'}">
+                        ${capacityUtilization >= 85 ? 'Optimal' : capacityUtilization >= 70 ? 'Good' : 'Underutilized'}
+                    </td>
+                </tr>
+                <tr>
+                    <td>SMH Efficiency</td>
+                    <td class="highlight-cell">${smhEfficiency.toFixed(1)}%</td>
+                    <td>80.0%</td>
+                    <td>${((smhEfficiency / 80) * 100).toFixed(1)}%</td>
+                    <td>${(smhEfficiency * (0.8 + Math.random() * 0.4)).toFixed(1)}%</td>
+                    <td class="positive-change">+${(Math.random() * 8).toFixed(1)}%</td>
+                    <td class="${smhEfficiency >= 80 ? 'good-performance' : smhEfficiency >= 70 ? 'average-performance' : 'poor-performance'}">
+                        ${smhEfficiency >= 80 ? 'Good' : smhEfficiency >= 70 ? 'Average' : 'Low'}
+                    </td>
+                </tr>
+            `;
+
+            // Update report status
+            reportStatus.textContent = "Generated";
+            reportStatus.classList.add("active");
+
+            // Track report generation
+            if (window.gtag) {
+                gtag('event', 'report_generation', {
+                    'event_category': 'tool_usage',
+                    'event_label': 'daily_production_report',
+                    'value': Math.round(actualProduction)
+                });
+            }
+        }
+
+        // Print report
+        function printReport() {
+            if (reportStatus.textContent === "Awaiting Data") {
+                alert("Please generate a report first before printing.");
+                return;
+            }
+            
+            window.print();
+            
+            // Track print event
+            if (window.gtag) {
+                gtag('event', 'report_print', {
+                    'event_category': 'tool_usage',
+                    'event_label': 'daily_production_report'
+                });
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            // Reset input values
+            document.getElementById("reportDate").value = "2024-12-01";
+            document.getElementById("factoryName").value = "ABC Garments Ltd.";
+            document.getElementById("department").value = "Sewing";
+            document.getElementById("shift").value = "Day Shift";
+            document.getElementById("totalOperators").value = 250;
+            document.getElementById("totalHelpers").value = 50;
+            document.getElementById("workingHours").value = 8;
+            document.getElementById("breakTime").value = 60;
+            document.getElementById("targetProduction").value = 12000;
+            document.getElementById("actualProduction").value = 11500;
+            document.getElementById("rejectionQty").value = 230;
+            document.getElementById("averageSMV").value = 2.5;
+            document.getElementById("machineDowntime").value = 45;
+            document.getElementById("powerOutage").value = 15;
+
+            // Reset report summary
+            document.getElementById("summaryDate").textContent = "-";
+            document.getElementById("summaryDepartment").textContent = "-";
+            document.getElementById("summaryShift").textContent = "-";
+            document.getElementById("summaryManpower").textContent = "-";
+            document.getElementById("summaryHours").textContent = "-";
+            document.getElementById("summaryProduction").textContent = "-";
+
+            // Reset performance metrics
+            const metricItems = performanceMetrics.querySelectorAll(".metric-item");
+            metricItems[0].innerHTML = `
+                <div class="metric-label">Target Achievement</div>
+                <div class="metric-value">0.0%</div>
+                <div class="metric-unit">of Target</div>
+                <div class="metric-change positive-change">+0.0% vs Yesterday</div>
+            `;
+            metricItems[1].innerHTML = `
+                <div class="metric-label">Line Efficiency</div>
+                <div class="metric-value">0.0%</div>
+                <div class="metric-unit">Efficiency</div>
+                <div class="metric-change positive-change">+0.0% vs Target</div>
+            `;
+            metricItems[2].innerHTML = `
+                <div class="metric-label">Rejection Rate</div>
+                <div class="metric-value">0.0%</div>
+                <div class="metric-unit">of Production</div>
+                <div class="metric-change negative-change">+0.0% vs Target</div>
+            `;
+            metricItems[3].innerHTML = `
+                <div class="metric-label">Productivity</div>
+                <div class="metric-value">0.0</div>
+                <div class="metric-unit">Pieces/Hour</div>
+                <div class="metric-change positive-change">+0.0% vs Yesterday</div>
+            `;
+
+            // Reset daily insights
+            dailyInsights.textContent = "Enter production data and click Generate Report to get detailed daily insights and recommendations.";
+
+            // Reset detailed table
+            detailedTableBody.innerHTML = `
+                <tr>
+                    <td>Total Production</td>
+                    <td class="highlight-cell">0 pieces</td>
+                    <td>0 pieces</td>
+                    <td>0.0%</td>
+                    <td>0 pieces</td>
+                    <td class="positive-change">+0.0%</td>
+                    <td class="poor-performance">Not Met</td>
+                </tr>
+                <tr>
+                    <td>Line Efficiency</td>
+                    <td class="highlight-cell">0.0%</td>
+                    <td>75.0%</td>
+                    <td>0.0%</td>
+                    <td>0.0%</td>
+                    <td class="positive-change">+0.0%</td>
+                    <td class="poor-performance">Low</td>
+                </tr>
+                <tr>
+                    <td>Rejection Rate</td>
+                    <td class="highlight-cell">0.0%</td>
+                    <td>2.0%</td>
+                    <td>0.0%</td>
+                    <td>0.0%</td>
+                    <td class="negative-change">+0.0%</td>
+                    <td class="good-performance">Good</td>
+                </tr>
+                <tr>
+                    <td>Productivity</td>
+                    <td class="highlight-cell">0.0/hr</td>
+                    <td>0.0/hr</td>
+                    <td>0.0%</td>
+                    <td>0.0/hr</td>
+                    <td class="positive-change">+0.0%</td>
+                    <td class="poor-performance">Low</td>
+                </tr>
+                <tr>
+                    <td>Capacity Utilization</td>
+                    <td class="highlight-cell">0.0%</td>
+                    <td>85.0%</td>
+                    <td>0.0%</td>
+                    <td>0.0%</td>
+                    <td class="positive-change">+0.0%</td>
+                    <td class="poor-performance">Underutilized</td>
+                </tr>
+                <tr>
+                    <td>SMH Efficiency</td>
+                    <td class="highlight-cell">0.0%</td>
+                    <td>80.0%</td>
+                    <td>0.0%</td>
+                    <td>0.0%</td>
+                    <td class="positive-change">+0.0%</td>
+                    <td class="poor-performance">Low</td>
+                </tr>
+            `;
+
+            // Reset report status
+            reportStatus.textContent = "Awaiting Data";
+            reportStatus.classList.remove("active");
+
+            // Track reset event
+            if (window.gtag) {
+                gtag('event', 'form_reset', {
+                    'event_category': 'tool_usage',
+                    'event_label': 'production_report'
+                });
+            }
+        }
+
+        // Event Listeners
+        hamburger.addEventListener("click", function() {
+            this.classList.toggle("active");
+            navbar.classList.toggle("active");
+            
+            // Track mobile menu usage
+            if (window.gtag) {
+                gtag('event', 'mobile_menu_toggle', {
+                    'event_category': 'ui_interaction',
+                    'event_label': 'production_report_menu'
+                });
+            }
+        });
+
+        generateBtn.addEventListener("click", generateReport);
+        printBtn.addEventListener("click", printReport);
+        resetBtn.addEventListener("click", resetForm);
+
+        // Set default date to today
+        const today = new Date();
+        const todayFormatted = today.toISOString().split('T')[0];
+        document.getElementById("reportDate").value = todayFormatted;
+
+        // Track page view
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.gtag) {
+                gtag('event', 'page_view', {
+                    'page_title': 'Daily Production Report',
+                    'page_location': window.location.href
+                });
+            }
+
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function() {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+
+            // Input validation on change
+            const validateNumberInput = (input, min, max) => {
+                input.addEventListener('change', function() {
+                    let value = parseFloat(this.value) || 0;
+                    if (value < min) this.value = min;
+                    if (value > max) this.value = max;
+                });
+            };
+
+            // Apply validation to all numeric inputs
+            validateNumberInput(document.getElementById('totalOperators'), 1, 10000);
+            validateNumberInput(document.getElementById('totalHelpers'), 0, 5000);
+            validateNumberInput(document.getElementById('workingHours'), 1, 12);
+            validateNumberInput(document.getElementById('breakTime'), 0, 240);
+            validateNumberInput(document.getElementById('targetProduction'), 1, 1000000);
+            validateNumberInput(document.getElementById('actualProduction'), 0, 1000000);
+            validateNumberInput(document.getElementById('rejectionQty'), 0, 1000000);
+            validateNumberInput(document.getElementById('averageSMV'), 0.1, 50);
+            validateNumberInput(document.getElementById('machineDowntime'), 0, 240);
+            validateNumberInput(document.getElementById('powerOutage'), 0, 240);
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNavbar = navbar.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (!isClickInsideNavbar && !isClickOnHamburger && navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            // Ctrl + Enter to generate report
+            if (event.ctrlKey && event.key === 'Enter') {
+                event.preventDefault();
+                generateReport();
+            }
+            
+            // Ctrl + P to print report
+            if (event.ctrlKey && event.key === 'p') {
+                event.preventDefault();
+                printReport();
+            }
+            
+            // Escape to reset
+            if (event.key === 'Escape') {
+                resetForm();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Difference Calculator - Calculator Tools</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Calculate the difference between two dates in days, weeks, months, and years. Perfect for planning, scheduling, and time management.">
+    <meta name="keywords"
+        content="date difference calculator, days between dates, date calculator, time calculator, days calculator, weeks calculator, months calculator, years calculator">
+    <meta name="author" content="Calculator Tools">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Date Difference Calculator - Calculator Tools">
+    <meta property="og:description"
+        content="Calculate the difference between two dates in days, weeks, months, and years.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/calculator-tools/date-difference.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/tools/date-calculator.jpg">
+    <meta property="og:site_name" content="Calculator Tools">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Date Difference Calculator - Calculator Tools">
+    <meta name="twitter:description"
+        content="Calculate the difference between two dates in days, weeks, months, and years.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/tools/date-calculator.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/Tools/calculator-tools/date-difference.html">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Date Difference Calculator",
+        "description": "Calculate the difference between two dates in days, weeks, months, and years",
+        "url": "https://asadul-it.github.io/portfolio/Tools/calculator-tools/date-difference.html",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Any",
+        "author": {
+            "@type": "Organization",
+            "name": "Calculator Tools"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .header-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 19px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: #2563eb;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+            background-color: #f7fafc;
+        }
+
+        .navbar a.active {
+            color: #2563eb;
+            background-color: #ebf4ff;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            background: #f7fafc;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #2563eb;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1300px;
+            margin: 25px auto 15px auto;
+            padding: 0 25px;
+            font-size: 15px;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: #cbd5e0;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            max-width: 1300px;
+            margin: 0 auto 50px auto;
+            padding: 0 25px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 17px;
+            color: #718096;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .calculator-box {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .calculator-box h2 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ebf4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .calculator-box h2 i {
+            color: #2563eb;
+        }
+
+        .input-section {
+            margin-bottom: 25px;
+        }
+
+        .input-section h3 {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-section h3 i {
+            color: #2563eb;
+        }
+
+        .date-input-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .date-input-group {
+            margin-bottom: 25px;
+        }
+
+        .date-input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 15px;
+        }
+
+        .date-input-wrapper {
+            position: relative;
+        }
+
+        .date-input-wrapper input {
+            width: 100%;
+            padding: 14px 16px 14px 45px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+            background-color: #ffffff;
+        }
+
+        .date-input-wrapper input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .date-input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #718096;
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .today-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ebf4ff;
+            color: #2563eb;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .today-button:hover {
+            background: #dbeafe;
+        }
+
+        .date-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .date-preset {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .date-preset:hover {
+            background: #edf2f7;
+            border-color: #cbd5e0;
+        }
+
+        .date-preset.active {
+            background: #ebf4ff;
+            border-color: #2563eb;
+            color: #2563eb;
+        }
+
+        .calculate-button {
+            width: 100%;
+            padding: 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .calculate-button:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .calculate-button:active {
+            transform: translateY(0);
+        }
+
+        .result-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .result-header h2 {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        .reset-button {
+            background: #edf2f7;
+            color: #4a5568;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reset-button:hover {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .difference-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .difference-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .summary-card i {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .summary-card .label {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .summary-card .value {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .summary-card .unit {
+            font-size: 16px;
+            color: #718096;
+            font-weight: 600;
+        }
+
+        .summary-card.days .value {
+            color: #2563eb;
+        }
+
+        .summary-card.days i {
+            color: #2563eb;
+        }
+
+        .summary-card.weeks .value {
+            color: #10b981;
+        }
+
+        .summary-card.weeks i {
+            color: #10b981;
+        }
+
+        .summary-card.months .value {
+            color: #8b5cf6;
+        }
+
+        .summary-card.months i {
+            color: #8b5cf6;
+        }
+
+        .summary-card.years .value {
+            color: #f59e0b;
+        }
+
+        .summary-card.years i {
+            color: #f59e0b;
+        }
+
+        .detailed-breakdown {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detailed-breakdown h3 {
+            font-size: 20px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .breakdown-item .label {
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .breakdown-item .value {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .timeline-visualization {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .timeline-visualization h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .timeline {
+            height: 100px;
+            position: relative;
+            background: #f0f9ff;
+            border-radius: 10px;
+            border: 1px solid #bae6fd;
+            overflow: hidden;
+        }
+
+        .timeline-start,
+        .timeline-end {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ffffff;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #2d3748;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            white-space: nowrap;
+        }
+
+        .timeline-start {
+            left: 20px;
+        }
+
+        .timeline-end {
+            right: 20px;
+        }
+
+        .timeline-bar {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            transform: translateY(-50%);
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 8px;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            border-radius: 4px;
+            transform: translateY(-50%);
+            transition: width 1s ease;
+        }
+
+        .info-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 50px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-section h2 {
+            font-size: 28px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .info-section p {
+            color: #4a5568;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-card h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 8px 0;
+            color: #4a5568;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li i {
+            color: #2563eb;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: auto;
+            padding: 45px 25px 35px 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .footer-column p {
+            color: #718096;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-column a {
+            color: #4a5568;
+            font-size: 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+            transform: translateX(3px);
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f7fafc;
+            color: #2563eb;
+            font-size: 18px;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-bottom: 0;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 15px;
+            color: #718096;
+            background: #f8fafc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #e2e8f0;
+                z-index: 100;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar a {
+                padding: 18px 25px;
+                border-bottom: 1px solid #f1f1f1;
+                justify-content: flex-start;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .page-header p {
+                font-size: 16px;
+            }
+
+            .calculator-box {
+                padding: 30px 25px;
+            }
+
+            .calculator-box h2 {
+                font-size: 22px;
+            }
+
+            .date-presets {
+                flex-direction: column;
+            }
+
+            .date-preset {
+                min-width: auto;
+            }
+
+            .summary-card .value {
+                font-size: 28px;
+            }
+
+            .timeline-start,
+            .timeline-end {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+
+            .info-section {
+                padding: 30px 25px;
+            }
+
+            .info-section h2 {
+                font-size: 24px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                text-align: center;
+            }
+
+            .quick-links {
+                align-items: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .breadcrumb {
+                padding: 0 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .difference-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-box {
+                padding: 25px 20px;
+            }
+
+            .timeline-start,
+            .timeline-end {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo">
+                <span class="logo-icon">CT</span>
+                <span class="logo-text">Calculator Tools</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html" class="active"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="../tools.html">Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="calculator-tools.html">Calculator Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Date Difference Calculator</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Date Difference Calculator</h1>
+            <p>Calculate the exact difference between two dates in days, weeks, months, and years. Perfect for planning events, tracking durations, and time management.</p>
+        </div>
+
+        <div class="calculator-container">
+            <div class="calculator-box">
+                <h2><i class="fas fa-calendar-alt"></i> Enter Dates</h2>
+                
+                <div class="input-section">
+                    <h3><i class="fas fa-calendar-day"></i> Start Date</h3>
+                    <div class="date-input-group">
+                        <label for="startDate">From Date</label>
+                        <div class="date-input-wrapper">
+                            <i class="fas fa-calendar"></i>
+                            <input type="date" id="startDate" value="2024-01-01">
+                        </div>
+                        <button class="today-button" id="setStartToday">
+                            <i class="fas fa-bolt"></i> Set to Today
+                        </button>
+                    </div>
+                </div>
+
+                <div class="input-section">
+                    <h3><i class="fas fa-calendar-check"></i> End Date</h3>
+                    <div class="date-input-group">
+                        <label for="endDate">To Date</label>
+                        <div class="date-input-wrapper">
+                            <i class="fas fa-calendar-check"></i>
+                            <input type="date" id="endDate" value="2024-12-31">
+                        </div>
+                        <button class="today-button" id="setEndToday">
+                            <i class="fas fa-bolt"></i> Set to Today
+                        </button>
+                    </div>
+                </div>
+
+                <div class="input-section">
+                    <h3><i class="fas fa-clock"></i> Quick Presets</h3>
+                    <div class="date-presets">
+                        <div class="date-preset active" data-preset="custom">Custom Range</div>
+                        <div class="date-preset" data-preset="week">Last 7 Days</div>
+                        <div class="date-preset" data-preset="month">Last 30 Days</div>
+                        <div class="date-preset" data-preset="quarter">Last 90 Days</div>
+                        <div class="date-preset" data-preset="year">Last 365 Days</div>
+                        <div class="date-preset" data-preset="year-to-date">Year to Date</div>
+                    </div>
+                </div>
+
+                <button class="calculate-button" id="calculateBtn">
+                    <i class="fas fa-calculator"></i> Calculate Difference
+                </button>
+            </div>
+
+            <div class="result-box">
+                <div class="result-header">
+                    <h2><i class="fas fa-chart-bar"></i> Date Difference Results</h2>
+                    <button class="reset-button" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+
+                <div class="difference-summary">
+                    <div class="summary-card days">
+                        <i class="fas fa-sun"></i>
+                        <div class="label">Total Days</div>
+                        <div class="value" id="totalDays">365</div>
+                        <div class="unit">days</div>
+                    </div>
+                    <div class="summary-card weeks">
+                        <i class="fas fa-calendar-week"></i>
+                        <div class="label">Weeks</div>
+                        <div class="value" id="totalWeeks">52</div>
+                        <div class="unit">weeks</div>
+                    </div>
+                    <div class="summary-card months">
+                        <i class="fas fa-calendar"></i>
+                        <div class="label">Months</div>
+                        <div class="value" id="totalMonths">12</div>
+                        <div class="unit">months</div>
+                    </div>
+                    <div class="summary-card years">
+                        <i class="fas fa-calendar-day"></i>
+                        <div class="label">Years</div>
+                        <div class="value" id="totalYears">1</div>
+                        <div class="unit">years</div>
+                    </div>
+                </div>
+
+                <div class="detailed-breakdown">
+                    <h3><i class="fas fa-list-alt"></i> Detailed Breakdown</h3>
+                    <div class="breakdown-item">
+                        <span class="label">Start Date</span>
+                        <span class="value" id="startDateDisplay">January 1, 2024</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="label">End Date</span>
+                        <span class="value" id="endDateDisplay">December 31, 2024</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="label">Days Between</span>
+                        <span class="value" id="daysBetween">365 days</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="label">Business Days</span>
+                        <span class="value" id="businessDays">249 days</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="label">Weekends Included</span>
+                        <span class="value" id="weekendsCount">104 days</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="label">Leap Year</span>
+                        <span class="value" id="leapYearInfo">Yes (2024 is a leap year)</span>
+                    </div>
+                </div>
+
+                <div class="timeline-visualization">
+                    <h3><i class="fas fa-project-diagram"></i> Timeline Visualization</h3>
+                    <div class="timeline">
+                        <div class="timeline-start" id="timelineStart">Jan 1</div>
+                        <div class="timeline-end" id="timelineEnd">Dec 31</div>
+                        <div class="timeline-bar"></div>
+                        <div class="timeline-progress" id="timelineProgress" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>How Date Difference Calculation Works</h2>
+            <p>Understanding date differences is essential for planning, scheduling, and time management. Here's how our calculator works and some common use cases.</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-calculator"></i> Calculation Methods</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Days: Direct subtraction of dates in days</li>
+                        <li><i class="fas fa-check"></i> Weeks: Total days divided by 7</li>
+                        <li><i class="fas fa-check"></i> Months: Considers actual month lengths</li>
+                        <li><i class="fas fa-check"></i> Years: Accounts for leap years</li>
+                        <li><i class="fas fa-check"></i> Business Days: Excludes weekends and holidays</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-calendar-check"></i> Common Applications</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Project planning and deadlines</li>
+                        <li><i class="fas fa-check"></i> Vacation and leave calculation</li>
+                        <li><i class="fas fa-check"></i> Subscription and billing periods</li>
+                        <li><i class="fas fa-check"></i> Age calculation and birthday countdown</li>
+                        <li><i class="fas fa-check"></i> Event planning and countdowns</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-lightbulb"></i> Important Notes</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Leap years have 366 days (February 29)</li>
+                        <li><i class="fas fa-check"></i> Months have varying lengths (28-31 days)</li>
+                        <li><i class="fas fa-check"></i> Business days exclude weekends (Saturday-Sunday)</li>
+                        <li><i class="fas fa-check"></i> Date format: YYYY-MM-DD (ISO standard)</li>
+                        <li><i class="fas fa-check"></i> All calculations are inclusive of both dates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== Hidden SEO Content ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/WebApplication">
+        <span itemprop="name">Date Difference Calculator</span>
+        <span itemprop="description">Calculate the difference between two dates in days, weeks, months, and years</span>
+        <span itemprop="applicationCategory">EducationalApplication</span>
+        <span itemprop="operatingSystem">Any</span>
+        <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="price">0</span>
+            <span itemprop="priceCurrency">USD</span>
+        </span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Calculator Tools</h3>
+                <p>Professional date calculation tools for precise time difference calculations and scheduling needs.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Calculator Tools | All Rights Reserved
+        </div>
+    </footer>
+
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // DOM Elements
+        const startDateInput = document.getElementById('startDate');
+        const endDateInput = document.getElementById('endDate');
+        const setStartToday = document.getElementById('setStartToday');
+        const setEndToday = document.getElementById('setEndToday');
+        const datePresets = document.querySelectorAll('.date-preset');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        // Result Elements
+        const totalDays = document.getElementById('totalDays');
+        const totalWeeks = document.getElementById('totalWeeks');
+        const totalMonths = document.getElementById('totalMonths');
+        const totalYears = document.getElementById('totalYears');
+        const startDateDisplay = document.getElementById('startDateDisplay');
+        const endDateDisplay = document.getElementById('endDateDisplay');
+        const daysBetween = document.getElementById('daysBetween');
+        const businessDays = document.getElementById('businessDays');
+        const weekendsCount = document.getElementById('weekendsCount');
+        const leapYearInfo = document.getElementById('leapYearInfo');
+        const timelineStart = document.getElementById('timelineStart');
+        const timelineEnd = document.getElementById('timelineEnd');
+        const timelineProgress = document.getElementById('timelineProgress');
+
+        // Initialize with current date
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        const currentMonth = String(today.getMonth() + 1).padStart(2, '0');
+        const currentDay = String(today.getDate()).padStart(2, '0');
+        const todayStr = `${currentYear}-${currentMonth}-${currentDay}`;
+
+        // Set default dates (Jan 1 to Dec 31 of current year)
+        startDateInput.value = `${currentYear}-01-01`;
+        endDateInput.value = `${currentYear}-12-31`;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDateDisplay();
+            calculateDateDifference();
+            
+            // Set breadcrumb
+            setBreadcrumb([
+                { name: "Home", link: "../../index.html" },
+                { name: "Tools", link: "../tools.html" },
+                { name: "Calculator Tools", link: "../tools.html#calculator" },
+                { name: "Date Difference Calculator" }
+            ]);
+        });
+
+        // Set start date to today
+        setStartToday.addEventListener('click', function() {
+            startDateInput.value = todayStr;
+            updateDatePreset('custom');
+            calculateDateDifference();
+        });
+
+        // Set end date to today
+        setEndToday.addEventListener('click', function() {
+            endDateInput.value = todayStr;
+            updateDatePreset('custom');
+            calculateDateDifference();
+        });
+
+        // Date preset selection
+        datePresets.forEach(preset => {
+            preset.addEventListener('click', function() {
+                const presetType = this.dataset.preset;
+                updateDatePreset(presetType);
+                calculateDateDifference();
+            });
+        });
+
+        function updateDatePreset(presetType) {
+            // Update UI
+            datePresets.forEach(p => p.classList.remove('active'));
+            document.querySelector(`[data-preset="${presetType}"]`).classList.add('active');
+            
+            const endDate = new Date();
+            let startDate = new Date();
+            
+            switch(presetType) {
+                case 'week':
+                    startDate.setDate(endDate.getDate() - 7);
+                    break;
+                case 'month':
+                    startDate.setDate(endDate.getDate() - 30);
+                    break;
+                case 'quarter':
+                    startDate.setDate(endDate.getDate() - 90);
+                    break;
+                case 'year':
+                    startDate.setDate(endDate.getDate() - 365);
+                    break;
+                case 'year-to-date':
+                    startDate = new Date(endDate.getFullYear(), 0, 1); // Jan 1 of current year
+                    break;
+                case 'custom':
+                    return; // Don't update dates for custom
+            }
+            
+            // Format dates as YYYY-MM-DD
+            const formatDate = (date) => {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            };
+            
+            startDateInput.value = formatDate(startDate);
+            endDateInput.value = formatDate(endDate);
+        }
+
+        // Input changes
+        startDateInput.addEventListener('change', function() {
+            updateDatePreset('custom');
+            calculateDateDifference();
+        });
+
+        endDateInput.addEventListener('change', function() {
+            updateDatePreset('custom');
+            calculateDateDifference();
+        });
+
+        // Calculate button
+        calculateBtn.addEventListener('click', function() {
+            calculateDateDifference();
+            
+            // Track calculation event
+            if (window.gtag) {
+                gtag('event', 'calculate_date_difference', {
+                    'event_category': 'calculator',
+                    'event_label': 'date_difference_calculation'
+                });
+            }
+        });
+
+        // Reset button
+        resetBtn.addEventListener('click', function() {
+            // Reset to default dates (Jan 1 to Dec 31 of current year)
+            startDateInput.value = `${currentYear}-01-01`;
+            endDateInput.value = `${currentYear}-12-31`;
+            updateDatePreset('custom');
+            calculateDateDifference();
+            
+            // Track reset event
+            if (window.gtag) {
+                gtag('event', 'reset_calculator', {
+                    'event_category': 'calculator',
+                    'event_label': 'date_difference_calculator_reset'
+                });
+            }
+        });
+
+        // Update date display format
+        function updateDateDisplay() {
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+            
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            startDateDisplay.textContent = startDate.toLocaleDateString('en-US', options);
+            endDateDisplay.textContent = endDate.toLocaleDateString('en-US', options);
+            
+            // Update timeline labels
+            timelineStart.textContent = startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            timelineEnd.textContent = endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        // Calculate date difference function
+        function calculateDateDifference() {
+            const startDate = new Date(startDateInput.value);
+            const endDate = new Date(endDateInput.value);
+            
+            // Ensure end date is after start date
+            if (endDate < startDate) {
+                alert('End date must be after start date');
+                return;
+            }
+            
+            // Calculate difference in milliseconds
+            const timeDiff = Math.abs(endDate - startDate);
+            
+            // Calculate days (inclusive)
+            const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1;
+            
+            // Calculate weeks
+            const weeksDiff = (daysDiff / 7).toFixed(2);
+            
+            // Calculate months
+            const monthsDiff = calculateMonthsDifference(startDate, endDate);
+            
+            // Calculate years
+            const yearsDiff = (monthsDiff / 12).toFixed(2);
+            
+            // Calculate business days (excluding weekends)
+            const businessDaysCount = calculateBusinessDays(startDate, endDate);
+            
+            // Calculate weekends
+            const weekends = daysDiff - businessDaysCount;
+            
+            // Check for leap year
+            const leapYearInfoText = isLeapYear(startDate.getFullYear()) || isLeapYear(endDate.getFullYear()) 
+                ? 'Yes (includes leap year)' 
+                : 'No leap year in range';
+            
+            // Update display
+            totalDays.textContent = daysDiff.toLocaleString();
+            totalWeeks.textContent = weeksDiff;
+            totalMonths.textContent = monthsDiff.toFixed(1);
+            totalYears.textContent = yearsDiff;
+            
+            daysBetween.textContent = daysDiff.toLocaleString() + ' days';
+            businessDays.textContent = businessDaysCount.toLocaleString() + ' days';
+            weekendsCount.textContent = weekends.toLocaleString() + ' days';
+            leapYearInfo.textContent = leapYearInfoText;
+            
+            // Update timeline visualization
+            updateTimeline(startDate, endDate);
+            
+            // Update date display
+            updateDateDisplay();
+        }
+
+        // Calculate months difference accurately
+        function calculateMonthsDifference(startDate, endDate) {
+            let months;
+            months = (endDate.getFullYear() - startDate.getFullYear()) * 12;
+            months -= startDate.getMonth();
+            months += endDate.getMonth();
+            
+            // Adjust for partial month
+            if (endDate.getDate() < startDate.getDate()) {
+                months--;
+            }
+            
+            // Add fraction for remaining days
+            const lastMonth = new Date(endDate);
+            lastMonth.setMonth(lastMonth.getMonth() - 1);
+            
+            if (endDate.getDate() < startDate.getDate()) {
+                const daysInMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 0).getDate();
+                const fraction = endDate.getDate() / daysInMonth;
+                months += fraction;
+            }
+            
+            return Math.max(0, months);
+        }
+
+        // Calculate business days (excluding weekends)
+        function calculateBusinessDays(startDate, endDate) {
+            let count = 0;
+            const current = new Date(startDate);
+            
+            while (current <= endDate) {
+                const dayOfWeek = current.getDay();
+                // Sunday = 0, Saturday = 6
+                if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+                    count++;
+                }
+                current.setDate(current.getDate() + 1);
+            }
+            
+            return count;
+        }
+
+        // Check if a year is a leap year
+        function isLeapYear(year) {
+            return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+        }
+
+        // Update timeline visualization
+        function updateTimeline(startDate, endDate) {
+            const timeDiff = endDate - startDate;
+            const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            
+            // For visualization purposes, show full timeline
+            timelineProgress.style.width = '100%';
+        }
+
+        // Breadcrumb function
+        function setBreadcrumb(items) {
+            const breadcrumbElement = document.getElementById('breadcrumb');
+            if (breadcrumbElement) {
+                breadcrumbElement.innerHTML = items.map((item, index) => {
+                    if (item.link) {
+                        return `<a href="${item.link}">${item.name}</a>`;
+                    } else {
+                        return `<span>${item.name}</span>`;
+                    }
+                }).join('<span class="breadcrumb-separator">/</span>');
+            }
+        }
+
+        // Hamburger menu
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        if (hamburger && navbar) {
+            hamburger.onclick = () => {
+                navbar.classList.toggle("active");
+                hamburger.classList.toggle("active");
+            };
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNavbar = navbar.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (!isClickInsideNavbar && !isClickOnHamburger && navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Track interactions
+        document.addEventListener('DOMContentLoaded', function () {
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track mobile menu usage
+            if (hamburger) {
+                hamburger.addEventListener('click', function () {
+                    if (window.gtag) {
+                        gtag('event', 'mobile_menu_toggle', {
+                            'event_category': 'ui_interaction',
+                            'event_label': 'mobile_menu_opened'
+                        });
+                    }
+                });
+            }
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function () {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

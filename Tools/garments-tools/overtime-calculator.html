@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Overtime Calculator - Garments Production Tool</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Asadul Islam - Professional IT Engineer Portfolio. Expert in IT Infrastructure, Networking, Security, and Technical Support. Garments Overtime Calculator for worker salary and overtime payment calculation.">
+    <meta name="keywords"
+        content="Asadul Islam, asadul islam, asadul, asadul islam asad, Asadul Islam Asad, আসাদুল, আসাদুল ইসলাম, আসাদুল ইসলাম আছাদ, IT Engineer, Overtime Calculator, Salary Calculator, Worker Payment, Bangladesh">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali, English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Overtime Calculator - Asadul Islam">
+    <meta property="og:description"
+        content="Professional Overtime Calculator for garments workers. Calculate regular pay, overtime pay, and total salary with detailed breakdown.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/profile.jpg">
+    <meta property="og:site_name" content="Asadul Islam Portfolio">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Overtime Calculator - Asadul Islam">
+    <meta name="twitter:description"
+        content="Professional Overtime Calculator for garments worker salary and overtime payment calculation.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/profile.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Asadul Islam",
+        "alternateName": ["asadul islam", "asadul", "asadul islam asad", "Asadul Islam Asad"],
+        "jobTitle": "IT Engineer",
+        "url": "https://asadul-it.github.io/portfolio/",
+        "image": "https://asadul-it.github.io/portfolio/img/profile.jpg",
+        "sameAs": [
+            "https://linkedin.com/in/asadulislam",
+            "https://github.com/asadul-it",
+            "https://facebook.com/asadulislam"
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "Bangladesh"
+        },
+        "knowsAbout": ["IT Infrastructure", "Networking", "Security", "Technical Support", "Garments Production Tools"],
+        "alumniOf": "Information Technology",
+        "nationality": "Bangladeshi"
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* ==================== Header Section ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .logo-icon {
+            background: #000000;
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #2563eb;
+            transition: all 0.3s ease;
+        }
+
+        /* ==================== Breadcrumb Section ==================== */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-size: 0.9em;
+            color: #5a6c7d;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==================== Main Content Area ==================== */
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            color: #718096;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==================== Calculator Container ==================== */
+        .calculator-container {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .calculator-section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ==================== Input Groups ==================== */
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a5568;
+            margin-bottom: 8px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-help {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        select.input-field {
+            cursor: pointer;
+        }
+
+        /* ==================== Calculation Method Toggle ==================== */
+        .method-toggle {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .method-option {
+            flex: 1;
+            text-align: center;
+        }
+
+        .method-option input[type="radio"] {
+            display: none;
+        }
+
+        .method-label {
+            display: block;
+            padding: 12px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            background: #ffffff;
+        }
+
+        .method-option input[type="radio"]:checked + .method-label {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+        }
+
+        .method-label:hover {
+            border-color: #2563eb;
+        }
+
+        /* ==================== Button Styles ==================== */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: #64748b;
+            color: #ffffff;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: #ffffff;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        /* ==================== Results Section ==================== */
+        .results-container {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        /* ==================== Salary Summary Cards ==================== */
+        .salary-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .salary-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .salary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .salary-card.regular {
+            border-color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .salary-card.overtime {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+
+        .salary-card.total {
+            border-color: #10b981;
+            background: #ecfdf5;
+        }
+
+        .salary-card.bonus {
+            border-color: #8b5cf6;
+            background: #f5f3ff;
+        }
+
+        .salary-label {
+            font-size: 13px;
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .salary-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .salary-card.regular .salary-value {
+            color: #2563eb;
+        }
+
+        .salary-card.overtime .salary-value {
+            color: #d97706;
+        }
+
+        .salary-card.total .salary-value {
+            color: #059669;
+        }
+
+        .salary-card.bonus .salary-value {
+            color: #7c3aed;
+        }
+
+        .salary-subtitle {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        /* ==================== Breakdown Tables ==================== */
+        .breakdown-section {
+            margin-top: 30px;
+        }
+
+        .breakdown-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+        }
+
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 25px;
+        }
+
+        .breakdown-table thead {
+            background: #2563eb;
+            color: #ffffff;
+        }
+
+        .breakdown-table th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .breakdown-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .breakdown-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .breakdown-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table-total-row {
+            background: #f1f5f9 !important;
+            font-weight: 700;
+            color: #2d3748 !important;
+        }
+
+        .amount-cell {
+            text-align: right;
+            font-weight: 600;
+        }
+
+        /* ==================== Worker Info Card ==================== */
+        .worker-info-card {
+            background: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .worker-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 15px;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        /* ==================== Info Box ==================== */
+        .info-box {
+            background: #ffffff;
+            border-left: 4px solid #2563eb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-box h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            padding: 8px 0;
+            color: #4a5568;
+            font-size: 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-box li::before {
+            content: "✓";
+            color: #10b981;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        /* ==================== Footer Section ==================== */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .footer-column a,
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 0.9em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f0f3ff;
+            color: #2563eb;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.85em;
+            color: #5a6c7d;
+        }
+
+        /* ==================== Hidden Section ==================== */
+        .hidden {
+            display: none;
+        }
+
+        /* ==================== Responsive Design ==================== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            .navbar a {
+                padding: 12px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .calculator-container {
+                padding: 25px 20px;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .method-toggle {
+                flex-direction: column;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .salary-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .breakdown-table {
+                font-size: 12px;
+            }
+
+            .breakdown-table th,
+            .breakdown-table td {
+                padding: 10px 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 14px;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .salary-value {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== Header Section ==================== -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">BD</span>
+                <span>Overtime Calculator</span>
+            </div>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== Breadcrumb Section ==================== -->
+    <div class="breadcrumb" id="breadcrumb"></div>
+
+    <!-- ==================== Main Content Section ==================== -->
+    <div class="main-content">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1>Overtime Calculator</h1>
+            <p>Calculate worker salary with regular pay, overtime hours, and bonuses for accurate payroll management</p>
+        </div>
+
+        <!-- Calculator Container -->
+        <div class="calculator-container">
+
+            <!-- Worker Information -->
+            <div class="calculator-section">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    Worker Information
+                </h2>
+
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label class="input-label" for="workerName">Worker Name</label>
+                        <input type="text" id="workerName" class="input-field" placeholder="Enter worker name">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="workerId">Worker ID</label>
+                        <input type="text" id="workerId" class="input-field" placeholder="Enter worker ID">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="department">Department</label>
+                        <select id="department" class="input-field">
+                            <option value="">Select department</option>
+                            <option value="Cutting">Cutting</option>
+                            <option value="Sewing">Sewing</option>
+                            <option value="Finishing">Finishing</option>
+                            <option value="Quality Control">Quality Control</option>
+                            <option value="Packing">Packing</option>
+                            <option value="Maintenance">Maintenance</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="monthYear">Month & Year</label>
+                        <input type="month" id="monthYear" class="input-field">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salary Calculation Method -->
+            <div class="calculator-section">
+                <h2 class="section-title">
+                    <i class="fas fa-calculator"></i>
+                    Calculation Method
+                </h2>
+
+                <div class="method-toggle">
+                    <div class="method-option">
+                        <input type="radio" id="methodMonthly" name="calculationMethod" value="monthly" checked>
+                        <label for="methodMonthly" class="method-label">
+                            <i class="fas fa-calendar-alt"></i> Monthly Salary
+                        </label>
+                    </div>
+                    <div class="method-option">
+                        <input type="radio" id="methodHourly" name="calculationMethod" value="hourly">
+                        <label for="methodHourly" class="method-label">
+                            <i class="fas fa-clock"></i> Hourly Rate
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salary & Working Hours -->
+            <div class="calculator-section">
+                <h2 class="section-title">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Salary & Working Hours
+                </h2>
+
+                <div id="monthlyInputs">
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label class="input-label" for="monthlySalary">Monthly Basic Salary</label>
+                            <input type="number" id="monthlySalary" class="input-field" placeholder="0.00" min="0" step="0.01">
+                            <div class="input-help">Fixed monthly salary amount</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label" for="workingDays">Working Days in Month</label>
+                            <input type="number" id="workingDays" class="input-field" placeholder="26" min="1" value="26">
+                            <div class="input-help">Standard working days (default: 26)</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label" for="dailyWorkingHours">Daily Working Hours</label>
+                            <input type="number" id="dailyWorkingHours" class="input-field" placeholder="8" min="1" value="8">
+                            <div class="input-help">Regular hours per day (default: 8)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="hourlyInputs" class="hidden">
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label class="input-label" for="hourlyRate">Hourly Rate</label>
+                            <input type="number" id="hourlyRate" class="input-field" placeholder="0.00" min="0" step="0.01">
+                            <div class="input-help">Payment per hour of work</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label class="input-label" for="regularHours">Regular Hours Worked</label>
+                            <input type="number" id="regularHours" class="input-field" placeholder="0" min="0" step="0.5">
+                            <div class="input-help">Total regular hours in the period</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overtime Details -->
+            <div class="calculator-section">
+                <h2 class="section-title">
+                    <i class="fas fa-business-time"></i>
+                    Overtime Details
+                </h2>
+
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label class="input-label" for="overtimeHours">Overtime Hours</label>
+                        <input type="number" id="overtimeHours" class="input-field" placeholder="0" min="0" step="0.5">
+                        <div class="input-help">Total overtime hours worked</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="overtimeRate">Overtime Rate Multiplier</label>
+                        <input type="number" id="overtimeRate" class="input-field" placeholder="1.5" min="1" step="0.1" value="1.5">
+                        <div class="input-help">Multiplier for overtime pay (1.5 = 150%, 2.0 = 200%)</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="holidayOvertimeHours">Holiday/Weekend Overtime</label>
+                        <input type="number" id="holidayOvertimeHours" class="input-field" placeholder="0" min="0" step="0.5">
+                        <div class="input-help">Overtime on holidays/weekends</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="holidayOvertimeRate">Holiday Overtime Rate</label>
+                        <input type="number" id="holidayOvertimeRate" class="input-field" placeholder="2.0" min="1" step="0.1" value="2.0">
+                        <div class="input-help">Higher rate for holiday work (default: 2.0 = 200%)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Payments & Deductions -->
+            <div class="calculator-section">
+                <h2 class="section-title">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    Additional Payments & Deductions
+                </h2>
+
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label class="input-label" for="bonus">Bonus/Incentive</label>
+                        <input type="number" id="bonus" class="input-field" placeholder="0.00" min="0" step="0.01">
+                        <div class="input-help">Any bonus or incentive payments</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="allowance">Allowances</label>
+                        <input type="number" id="allowance" class="input-field" placeholder="0.00" min="0" step="0.01">
+                        <div class="input-help">Transport, food, or other allowances</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="deduction">Deductions</label>
+                        <input type="number" id="deduction" class="input-field" placeholder="0.00" min="0" step="0.01">
+                        <div class="input-help">Advance payment, fines, or other deductions</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label" for="absentDays">Absent Days</label>
+                        <input type="number" id="absentDays" class="input-field" placeholder="0" min="0">
+                        <div class="input-help">Number of days absent (will be deducted)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="calculateOvertime()">
+                    <i class="fas fa-calculator"></i> Calculate Salary
+                </button>
+                <button class="btn btn-secondary" onclick="resetForm()">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+                <button class="btn btn-success hidden" id="exportBtn" onclick="exportPayslip()">
+                    <i class="fas fa-download"></i> Export Payslip
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Results Container -->
+        <div class="results-container hidden" id="resultsContainer">
+            <h2 class="results-title">Salary Calculation Report</h2>
+
+            <!-- Worker Info Card -->
+            <div class="worker-info-card">
+                <div class="worker-info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Worker Name</span>
+                        <span class="info-value" id="displayWorkerName">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Worker ID</span>
+                        <span class="info-value" id="displayWorkerId">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Department</span>
+                        <span class="info-value" id="displayDepartment">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Period</span>
+                        <span class="info-value" id="displayPeriod">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Salary Summary Cards -->
+            <div class="salary-summary">
+                <div class="salary-card regular">
+                    <div class="salary-label">Regular Pay</div>
+                    <div class="salary-value" id="regularPay">$0.00</div>
+                    <div class="salary-subtitle" id="regularHoursInfo">0 hours</div>
+                </div>
+
+                <div class="salary-card overtime">
+                    <div class="salary-label">Overtime Pay</div>
+                    <div class="salary-value" id="overtimePay">$0.00</div>
+                    <div class="salary-subtitle" id="overtimeHoursInfo">0 hours</div>
+                </div>
+
+                <div class="salary-card bonus">
+                    <div class="salary-label">Bonus & Allowance</div>
+                    <div class="salary-value" id="bonusTotal">$0.00</div>
+                    <div class="salary-subtitle">Additional payments</div>
+                </div>
+
+                <div class="salary-card total">
+                    <div class="salary-label">Net Salary</div>
+                    <div class="salary-value" id="netSalary">$0.00</div>
+                    <div class="salary-subtitle">After deductions</div>
+                </div>
+            </div>
+
+            <!-- Detailed Breakdown -->
+            <div class="breakdown-section">
+                <h3 class="breakdown-title"><i class="fas fa-file-invoice-dollar"></i> Salary Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Details</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="salaryBreakdownBody">
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Overtime Breakdown -->
+            <div class="breakdown-section" id="overtimeBreakdownSection">
+                <h3 class="breakdown-title"><i class="fas fa-clock"></i> Overtime Breakdown</h3>
+                <table class="breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Hours</th>
+                            <th>Rate</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="overtimeBreakdownBody">
+                        <!-- Dynamic content will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- Information Box -->
+        <div class="info-box">
+            <h3><i class="fas fa-lightbulb"></i> How to Use</h3>
+            <ul>
+                <li>Enter worker information: name, ID, department, and period</li>
+                <li>Choose calculation method: Monthly Salary or Hourly Rate</li>
+                <li>Input basic salary or hourly rate and working hours</li>
+                <li>Add overtime hours with appropriate rate multiplier (1.5x, 2.0x, etc.)</li>
+                <li>Include holiday/weekend overtime if applicable (usually at higher rate)</li>
+                <li>Add any bonuses, allowances, or deductions</li>
+                <li>Enter absent days to automatically deduct from salary</li>
+                <li>Click "Calculate Salary" to generate detailed payslip</li>
+                <li>Export the payslip for record keeping and payment processing</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- ==================== Hidden SEO Content ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/Person">
+        <span itemprop="name">Asadul Islam</span>
+        <span itemprop="alternateName">asadul islam</span>
+        <span itemprop="alternateName">asadul</span>
+        <span itemprop="alternateName">asadul islam asad</span>
+        <span itemprop="alternateName">Asadul Islam Asad</span>
+        <span itemprop="jobTitle">IT Professional</span>
+        <span itemprop="jobTitle">Network Engineer</span>
+        <span itemprop="jobTitle">System Administrator</span>
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <span itemprop="addressCountry">Bangladesh</span>
+        </span>
+        <span itemprop="knowsLanguage">Bengali</span>
+        <span itemprop="knowsLanguage">English</span>
+    </div>
+
+    <!-- ==================== Footer Section ==================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About</h3>
+                <p>Professional Overtime Calculator for garments worker salary and overtime payment calculation.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow Me</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Online Tools | All Rights Reserved
+        </div>
+    </footer>
+
+    <!-- ==================== JavaScript Section ==================== -->
+    <script>
+        // ==================== Google Analytics 4 Configuration ====================
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // ==================== Hamburger Menu Toggle ====================
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+
+        hamburger.onclick = function () {
+            navbar.classList.toggle("active");
+        };
+
+        // ==================== Breadcrumb Navigation ====================
+        function setBreadcrumb(items) {
+            const breadcrumbElement = document.getElementById("breadcrumb");
+            breadcrumbElement.innerHTML = items.map(item =>
+                item.link ? `<a href="${item.link}">${item.name}</a>` : item.name
+            ).join(" / ");
+        }
+
+        setBreadcrumb([
+            { name: "Home", link: "../../index.html" },
+            { name: "Tools", link: "../tools.html" },
+            { name: "Garments Tools", link: "../tools.html" },
+            { name: "Overtime Calculator" }
+        ]);
+
+        // ==================== Calculation Method Toggle ====================
+        document.querySelectorAll('input[name="calculationMethod"]').forEach(radio => {
+            radio.addEventListener('change', function () {
+                const monthlyInputs = document.getElementById('monthlyInputs');
+                const hourlyInputs = document.getElementById('hourlyInputs');
+
+                if (this.value === 'monthly') {
+                    monthlyInputs.classList.remove('hidden');
+                    hourlyInputs.classList.add('hidden');
+                } else {
+                    monthlyInputs.classList.add('hidden');
+                    hourlyInputs.classList.remove('hidden');
+                }
+            });
+        });
+
+        // ==================== Calculate Overtime Function ====================
+        function calculateOvertime() {
+            const calculationMethod = document.querySelector('input[name="calculationMethod"]:checked').value;
+
+            // Worker information
+            const workerName = document.getElementById('workerName').value || 'N/A';
+            const workerId = document.getElementById('workerId').value || 'N/A';
+            const department = document.getElementById('department').value || 'N/A';
+            const monthYear = document.getElementById('monthYear').value || 'N/A';
+
+            // Display worker info
+            document.getElementById('displayWorkerName').textContent = workerName;
+            document.getElementById('displayWorkerId').textContent = workerId;
+            document.getElementById('displayDepartment').textContent = department;
+            document.getElementById('displayPeriod').textContent = monthYear;
+
+            let regularPay = 0;
+            let hourlyRateCalc = 0;
+            let regularHoursWorked = 0;
+
+            // Calculate based on method
+            if (calculationMethod === 'monthly') {
+                const monthlySalary = parseFloat(document.getElementById('monthlySalary').value) || 0;
+                const workingDays = parseFloat(document.getElementById('workingDays').value) || 26;
+                const dailyWorkingHours = parseFloat(document.getElementById('dailyWorkingHours').value) || 8;
+                const absentDays = parseFloat(document.getElementById('absentDays').value) || 0;
+
+                if (monthlySalary <= 0) {
+                    alert('Please enter a valid monthly salary');
+                    return;
+                }
+
+                // Calculate hourly rate from monthly salary
+                const totalMonthlyHours = workingDays * dailyWorkingHours;
+                hourlyRateCalc = monthlySalary / totalMonthlyHours;
+
+                // Deduct absent days
+                const absentDeduction = (monthlySalary / workingDays) * absentDays;
+                regularPay = monthlySalary - absentDeduction;
+                regularHoursWorked = (workingDays - absentDays) * dailyWorkingHours;
+
+            } else {
+                hourlyRateCalc = parseFloat(document.getElementById('hourlyRate').value) || 0;
+                regularHoursWorked = parseFloat(document.getElementById('regularHours').value) || 0;
+
+                if (hourlyRateCalc <= 0) {
+                    alert('Please enter a valid hourly rate');
+                    return;
+                }
+
+                regularPay = hourlyRateCalc * regularHoursWorked;
+            }
+
+            // Overtime calculations
+            const overtimeHours = parseFloat(document.getElementById('overtimeHours').value) || 0;
+            const overtimeRate = parseFloat(document.getElementById('overtimeRate').value) || 1.5;
+            const holidayOvertimeHours = parseFloat(document.getElementById('holidayOvertimeHours').value) || 0;
+            const holidayOvertimeRate = parseFloat(document.getElementById('holidayOvertimeRate').value) || 2.0;
+
+            const regularOvertimePay = overtimeHours * hourlyRateCalc * overtimeRate;
+            const holidayOvertimePay = holidayOvertimeHours * hourlyRateCalc * holidayOvertimeRate;
+            const totalOvertimePay = regularOvertimePay + holidayOvertimePay;
+
+            // Additional payments and deductions
+            const bonus = parseFloat(document.getElementById('bonus').value) || 0;
+            const allowance = parseFloat(document.getElementById('allowance').value) || 0;
+            const deduction = parseFloat(document.getElementById('deduction').value) || 0;
+
+            const bonusAllowanceTotal = bonus + allowance;
+            const grossSalary = regularPay + totalOvertimePay + bonusAllowanceTotal;
+            const netSalary = grossSalary - deduction;
+
+            // Display summary
+            document.getElementById('regularPay').textContent = '$' + regularPay.toFixed(2);
+            document.getElementById('regularHoursInfo').textContent = regularHoursWorked.toFixed(1) + ' hours';
+
+            document.getElementById('overtimePay').textContent = '$' + totalOvertimePay.toFixed(2);
+            document.getElementById('overtimeHoursInfo').textContent = (overtimeHours + holidayOvertimeHours).toFixed(1) + ' hours';
+
+            document.getElementById('bonusTotal').textContent = '$' + bonusAllowanceTotal.toFixed(2);
+            document.getElementById('netSalary').textContent = '$' + netSalary.toFixed(2);
+
+            // Build salary breakdown table
+            const salaryBreakdownBody = document.getElementById('salaryBreakdownBody');
+            salaryBreakdownBody.innerHTML = '';
+
+            const breakdownItems = [
+                { desc: 'Regular Pay', details: regularHoursWorked.toFixed(1) + ' hours @ $' + hourlyRateCalc.toFixed(2) + '/hr', amount: regularPay },
+                { desc: 'Regular Overtime', details: overtimeHours.toFixed(1) + ' hours @ ' + overtimeRate + 'x rate', amount: regularOvertimePay },
+                { desc: 'Holiday Overtime', details: holidayOvertimeHours.toFixed(1) + ' hours @ ' + holidayOvertimeRate + 'x rate', amount: holidayOvertimePay },
+                { desc: 'Bonus/Incentive', details: 'Additional payment', amount: bonus },
+                { desc: 'Allowances', details: 'Transport, food, etc.', amount: allowance }
+            ];
+
+            breakdownItems.forEach(item => {
+                if (item.amount > 0 || item.desc === 'Regular Pay') {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><strong>${item.desc}</strong></td>
+                        <td>${item.details}</td>
+                        <td class="amount-cell">$${item.amount.toFixed(2)}</td>
+                    `;
+                    salaryBreakdownBody.appendChild(row);
+                }
+            });
+
+            // Gross salary row
+            const grossRow = document.createElement('tr');
+            grossRow.innerHTML = `
+                <td colspan="2"><strong>Gross Salary</strong></td>
+                <td class="amount-cell"><strong>$${grossSalary.toFixed(2)}</strong></td>
+            `;
+            salaryBreakdownBody.appendChild(grossRow);
+
+            // Deductions row
+            if (deduction > 0) {
+                const deductionRow = document.createElement('tr');
+                deductionRow.innerHTML = `
+                    <td colspan="2" style="color: #ef4444;"><strong>Deductions</strong></td>
+                    <td class="amount-cell" style="color: #ef4444;"><strong>-$${deduction.toFixed(2)}</strong></td>
+                `;
+                salaryBreakdownBody.appendChild(deductionRow);
+            }
+
+            // Net salary row
+            const netRow = document.createElement('tr');
+            netRow.className = 'table-total-row';
+            netRow.innerHTML = `
+                <td colspan="2"><strong>NET SALARY</strong></td>
+                <td class="amount-cell"><strong>$${netSalary.toFixed(2)}</strong></td>
+            `;
+            salaryBreakdownBody.appendChild(netRow);
+
+            // Build overtime breakdown table
+            const overtimeBreakdownBody = document.getElementById('overtimeBreakdownBody');
+            overtimeBreakdownBody.innerHTML = '';
+
+            if (overtimeHours > 0 || holidayOvertimeHours > 0) {
+                if (overtimeHours > 0) {
+                    const regularOTRow = document.createElement('tr');
+                    regularOTRow.innerHTML = `
+                        <td>Regular Overtime</td>
+                        <td>${overtimeHours.toFixed(1)} hrs</td>
+                        <td>$${hourlyRateCalc.toFixed(2)} × ${overtimeRate}</td>
+                        <td class="amount-cell">$${regularOvertimePay.toFixed(2)}</td>
+                    `;
+                    overtimeBreakdownBody.appendChild(regularOTRow);
+                }
+
+                if (holidayOvertimeHours > 0) {
+                    const holidayOTRow = document.createElement('tr');
+                    holidayOTRow.innerHTML = `
+                        <td>Holiday/Weekend Overtime</td>
+                        <td>${holidayOvertimeHours.toFixed(1)} hrs</td>
+                        <td>$${hourlyRateCalc.toFixed(2)} × ${holidayOvertimeRate}</td>
+                        <td class="amount-cell">$${holidayOvertimePay.toFixed(2)}</td>
+                    `;
+                    overtimeBreakdownBody.appendChild(holidayOTRow);
+                }
+
+                // Total overtime row
+                const totalOTRow = document.createElement('tr');
+                totalOTRow.className = 'table-total-row';
+                totalOTRow.innerHTML = `
+                    <td><strong>TOTAL OVERTIME</strong></td>
+                    <td><strong>${(overtimeHours + holidayOvertimeHours).toFixed(1)} hrs</strong></td>
+                    <td>-</td>
+                    <td class="amount-cell"><strong>$${totalOvertimePay.toFixed(2)}</strong></td>
+                `;
+                overtimeBreakdownBody.appendChild(totalOTRow);
+
+                document.getElementById('overtimeBreakdownSection').classList.remove('hidden');
+            } else {
+                document.getElementById('overtimeBreakdownSection').classList.add('hidden');
+            }
+
+            // Show results
+            document.getElementById('resultsContainer').classList.remove('hidden');
+            document.getElementById('exportBtn').classList.remove('hidden');
+
+            // Scroll to results
+            document.getElementById('resultsContainer').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            // Track calculation event
+            if (window.gtag) {
+                gtag('event', 'overtime_calculated', {
+                    'event_category': 'overtime_calculator',
+                    'event_label': 'calculation_completed',
+                    'value': Math.round(netSalary)
+                });
+            }
+        }
+
+        // ==================== Reset Form Function ====================
+        function resetForm() {
+            // Reset all input fields
+            const inputs = document.querySelectorAll('.input-field');
+            inputs.forEach(input => {
+                if (input.id === 'workingDays' || input.id === 'dailyWorkingHours') {
+                    // Keep default values
+                } else if (input.id === 'overtimeRate') {
+                    input.value = '1.5';
+                } else if (input.id === 'holidayOvertimeRate') {
+                    input.value = '2.0';
+                } else {
+                    input.value = '';
+                }
+            });
+
+            // Reset to monthly method
+            document.getElementById('methodMonthly').checked = true;
+            document.getElementById('monthlyInputs').classList.remove('hidden');
+            document.getElementById('hourlyInputs').classList.add('hidden');
+
+            // Hide results
+            document.getElementById('resultsContainer').classList.add('hidden');
+            document.getElementById('exportBtn').classList.add('hidden');
+
+            // Track reset event
+            if (window.gtag) {
+                gtag('event', 'form_reset', {
+                    'event_category': 'overtime_calculator',
+                    'event_label': 'reset_button_clicked'
+                });
+            }
+        }
+
+        // ==================== Export Payslip Function ====================
+        function exportPayslip() {
+            const workerName = document.getElementById('displayWorkerName').textContent;
+            const workerId = document.getElementById('displayWorkerId').textContent;
+            const department = document.getElementById('displayDepartment').textContent;
+            const period = document.getElementById('displayPeriod').textContent;
+
+            const regularPay = document.getElementById('regularPay').textContent;
+            const overtimePay = document.getElementById('overtimePay').textContent;
+            const bonusTotal = document.getElementById('bonusTotal').textContent;
+            const netSalary = document.getElementById('netSalary').textContent;
+
+            let csvContent = "SALARY PAYSLIP\n\n";
+            csvContent += "=== WORKER INFORMATION ===\n";
+            csvContent += "Worker Name:," + workerName + "\n";
+            csvContent += "Worker ID:," + workerId + "\n";
+            csvContent += "Department:," + department + "\n";
+            csvContent += "Period:," + period + "\n\n";
+
+            csvContent += "=== SALARY SUMMARY ===\n";
+            csvContent += "Regular Pay:," + regularPay + "\n";
+            csvContent += "Overtime Pay:," + overtimePay + "\n";
+            csvContent += "Bonus & Allowance:," + bonusTotal + "\n";
+            csvContent += "Net Salary:," + netSalary + "\n\n";
+
+            csvContent += "=== DETAILED BREAKDOWN ===\n";
+            const breakdownTable = document.getElementById('salaryBreakdownBody');
+            const breakdownRows = breakdownTable.getElementsByTagName('tr');
+            csvContent += "Description,Details,Amount\n";
+            for (let i = 0; i < breakdownRows.length; i++) {
+                const cells = breakdownRows[i].getElementsByTagName('td');
+                const rowData = [];
+                for (let j = 0; j < cells.length; j++) {
+                    rowData.push(cells[j].textContent.trim());
+                }
+                csvContent += rowData.join(',') + "\n";
+            }
+
+            // Add overtime breakdown if exists
+            const overtimeTable = document.getElementById('overtimeBreakdownBody');
+            if (overtimeTable.getElementsByTagName('tr').length > 0) {
+                csvContent += "\n=== OVERTIME BREAKDOWN ===\n";
+                csvContent += "Type,Hours,Rate,Amount\n";
+                const overtimeRows = overtimeTable.getElementsByTagName('tr');
+                for (let i = 0; i < overtimeRows.length; i++) {
+                    const cells = overtimeRows[i].getElementsByTagName('td');
+                    const rowData = [];
+                    for (let j = 0; j < cells.length; j++) {
+                        rowData.push(cells[j].textContent.trim());
+                    }
+                    csvContent += rowData.join(',') + "\n";
+                }
+            }
+
+            // Create download link
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+
+            link.setAttribute("href", url);
+            link.setAttribute("download", "payslip_" + workerId.replace(/[^a-zA-Z0-9]/g, '_') + "_" + period.replace(/[^a-zA-Z0-9]/g, '_') + ".csv");
+            link.style.visibility = 'hidden';
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Track export event
+            if (window.gtag) {
+                gtag('event', 'export_payslip', {
+                    'event_category': 'overtime_calculator',
+                    'event_label': 'csv_exported'
+                });
+            }
+        }
+
+        // ==================== Event Tracking for User Interactions ====================
+        document.addEventListener('DOMContentLoaded', function () {
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track mobile menu usage
+            const mobileToggle = document.getElementById('hamburger');
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', function () {
+                    if (window.gtag) {
+                        gtag('event', 'mobile_menu_toggle', {
+                            'event_category': 'ui_interaction',
+                            'event_label': 'mobile_menu_opened'
+                        });
+                    }
+                });
+            }
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function () {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+
+            // Track calculation method selection
+            document.querySelectorAll('input[name="calculationMethod"]').forEach(radio => {
+                radio.addEventListener('change', function () {
+                    if (window.gtag) {
+                        gtag('event', 'method_selected', {
+                            'event_category': 'overtime_calculator',
+                            'event_label': this.value + '_method'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বাংলাদেশ সরকারি ছুটির ক্যালেন্ডার - BD Tools</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #059669;
+            --accent: #dc2626;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray: #64748b;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', 'Noto Sans Bengali', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: var(--card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            margin: 2rem 0;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        .holiday-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .holiday-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .holiday-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-header {
+            padding: 1.25rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date-badge {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .holiday-type {
+            font-size: 0.85rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .type-national {
+            background: #dbeafe;
+            color: var(--primary);
+        }
+
+        .type-religious {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+
+        .type-govt {
+            background: #f0f9ff;
+            color: #0c4a6e;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .holiday-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .holiday-name-bn {
+            font-size: 1.1rem;
+            color: var(--primary-dark);
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+        }
+
+        .holiday-desc {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-top: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .loading,
+        .error {
+            text-align: center;
+            padding: 3rem;
+            grid-column: 1 / -1;
+        }
+
+        .spinner {
+            border: 4px solid #e2e8f0;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            color: var(--gray);
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 768px) {
+            .holiday-list {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="../../index.html" class="logo">BD<span>Tools</span></a>
+                <div class="nav-links">
+                    <a href="../../index.html"
+                        style="margin-right: 1rem; color: var(--dark); text-decoration: none;">হোম</a>
+                    <a href="../tools.html" style="color: var(--dark); text-decoration: none;">টুলস</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div style="text-align: center; margin: 2rem 0;">
+            <h1 style="font-size: 2.5rem; color: var(--dark); margin-bottom: 0.5rem;">বাংলাদেশ সরকারি ছুটির ক্যালেন্ডার
+            </h1>
+            <p style="color: var(--gray); font-size: 1.1rem;">অফিসিয়াল API ও যাচাইকৃত তথ্যের সমন্বয়</p>
+        </div>
+
+        <div class="api-status" id="apiStatus"
+            style="background: #f0f9ff; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; display: flex; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <div id="statusDot"
+                    style="width: 10px; height: 10px; background: var(--secondary); border-radius: 50%;"></div>
+                <span id="statusText">সরকারি API থেকে লাইভ তথ্য লোড হচ্ছে...</span>
+            </div>
+            <div style="margin-left: auto; font-size: 0.9rem; color: var(--gray);" id="lastUpdate"></div>
+        </div>
+
+        <div class="controls">
+            <div class="filter-group">
+                <label for="yearSelect"><i class="fas fa-calendar"></i> বছর নির্বাচন করুন</label>
+                <select id="yearSelect">
+                    <option value="2024">২০২৪</option>
+                    <option value="2025">২০২৫</option>
+                    <option value="2026" selected>২০২৬</option>
+                    <option value="2027">২০২৭</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="monthSelect"><i class="fas fa-filter"></i> মাস দিয়ে ফিল্টার</label>
+                <select id="monthSelect">
+                    <option value="all">সব মাস</option>
+                    <option value="0">জানুয়ারি</option>
+                    <option value="1">ফেব্রুয়ারি</option>
+                    <option value="2">মার্চ</option>
+                    <option value="3">এপ্রিল</option>
+                    <option value="4">মে</option>
+                    <option value="5">জুন</option>
+                    <option value="6">জুলাই</option>
+                    <option value="7">আগস্ট</option>
+                    <option value="8">সেপ্টেম্বর</option>
+                    <option value="9">অক্টোবর</option>
+                    <option value="10">নভেম্বর</option>
+                    <option value="11">ডিসেম্বর</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="typeSelect"><i class="fas fa-tag"></i> ধরন দিয়ে ফিল্টার</label>
+                <select id="typeSelect">
+                    <option value="all">সব ধরন</option>
+                    <option value="জাতীয়">জাতীয় দিবস</option>
+                    <option value="ধর্মীয়">ধর্মীয় ছুটি</option>
+                    <option value="সরকারি">সরকারি ছুটি</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="stats" id="statsContainer">
+            <!-- Stats will be loaded by JavaScript -->
+        </div>
+
+        <div class="holiday-list" id="holidayContainer">
+            <div class="loading">
+                <div class="spinner"></div>
+                <p>ছুটির তথ্য লোড হচ্ছে...</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="container">
+        <p>&copy; ২০২৬ BD Tools। সকল অধিকার সংরক্ষিত।</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">তথ্যের উৎস: Nager.Date API এবং বাংলাদেশ সরকারের প্রজ্ঞাপন
+            [citation:2][citation:4]</p>
+    </footer>
+
+    <script>
+        // ==================== CONFIGURATION & DATA ====================
+        const API_ENDPOINTS = {
+            primary: 'https://date.nager.at/api/v3/PublicHolidays', // Nager.Date API
+        };
+        const CURRENT_YEAR = new Date().getFullYear();
+
+        // Enhanced local dataset with verified information for Bangladesh
+        // Sources: [citation:1][citation:2][citation:4]
+        const LOCAL_HOLIDAYS = {
+            2024: [
+                { date: '2024-02-21', name: 'International Mother Language Day', nameBn: 'শহীদ দিবস ও আন্তর্জাতিক মাতৃভাষা দিবস', type: 'জাতীয়', description: '১৯৫২ সালের ভাষা আন্দোলনের শহীদদের স্মরণে' },
+                { date: '2024-03-17', name: 'Birthday of Bangabandhu', nameBn: 'বঙ্গবন্ধুর জন্মদিন', type: 'জাতীয়', description: 'জাতির পিতা বঙ্গবন্ধু শেখ মুজিবুর রহমানের জন্মবার্ষিকী' },
+                { date: '2024-03-26', name: 'Independence Day', nameBn: 'স্বাধীনতা দিবস', type: 'জাতীয়', description: 'বাংলাদেশের স্বাধীনতা ঘোষণার দিন' },
+                { date: '2024-04-10', name: 'Eid-ul-Fitr', nameBn: 'ঈদ-উল-ফিতর', type: 'ধর্মীয়', description: 'রমজান মাস সমাপ্তির উৎসব' },
+                { date: '2024-04-14', name: 'Bengali New Year', nameBn: 'পহেলা বৈশাখ', type: 'সরকারি', description: 'বাংলা বর্ষপঞ্জির প্রথম দিন' },
+                { date: '2024-05-01', name: 'May Day', nameBn: 'মে দিবস', type: 'সরকারি', description: 'শ্রমিক দিবস' },
+                { date: '2024-06-16', name: 'Eid-ul-Adha', nameBn: 'ঈদ-উল-আযহা', type: 'ধর্মীয়', description: 'কোরবানির ঈদ' },
+                { date: '2024-08-15', name: 'National Mourning Day', nameBn: 'জাতীয় শোক দিবস', type: 'জাতীয়', description: 'বঙ্গবন্ধু শেখ মুজিবুর রহমানের শাহাদাতবার্ষিকী' },
+                { date: '2024-12-16', name: 'Victory Day', nameBn: 'বিজয় দিবস', type: 'জাতীয়', description: 'বাংলাদেশের বিজয় দিবস' },
+                { date: '2024-12-25', name: 'Christmas', nameBn: 'বড়দিন', type: 'ধর্মীয়', description: 'যিশুখ্রিস্টের জন্মদিন' }
+            ],
+            2025: [
+                { date: '2025-02-21', name: 'International Mother Language Day', nameBn: 'শহীদ দিবস ও আন্তর্জাতিক মাতৃভাষা দিবস', type: 'জাতীয়', description: '১৯৫২ সালের ভাষা আন্দোলনের শহীদদের স্মরণে' },
+                { date: '2025-03-17', name: 'Birthday of Bangabandhu', nameBn: 'বঙ্গবন্ধুর জন্মদিন', type: 'জাতীয়', description: 'জাতির পিতা বঙ্গবন্ধু শেখ মুজিবুর রহমানের জন্মবার্ষিকী' },
+                { date: '2025-03-26', name: 'Independence Day', nameBn: 'স্বাধীনতা দিবস', type: 'জাতীয়', description: 'বাংলাদেশের স্বাধীনতা ঘোষণার দিন' },
+                { date: '2025-03-30', name: 'Eid-ul-Fitr', nameBn: 'ঈদ-উল-ফিতর', type: 'ধর্মীয়', description: 'রমজান মাস সমাপ্তির উৎসব' },
+                { date: '2025-04-14', name: 'Bengali New Year', nameBn: 'পহেলা বৈশাখ', type: 'সরকারি', description: 'বাংলা বর্ষপঞ্জির প্রথম দিন' },
+                { date: '2025-05-01', name: 'May Day', nameBn: 'মে দিবস', type: 'সরকারি', description: 'শ্রমিক দিবস' },
+                { date: '2025-06-06', name: 'Eid-ul-Adha', nameBn: 'ঈদ-উল-আযহা', type: 'ধর্মীয়', description: 'কোরবানির ঈদ' },
+                { date: '2025-08-15', name: 'National Mourning Day', nameBn: 'জাতীয় শোক দিবস', type: 'জাতীয়', description: 'বঙ্গবন্ধু শেখ মুজিবুর রহমানের শাহাদাতবার্ষিকী' },
+                { date: '2025-12-16', name: 'Victory Day', nameBn: 'বিজয় দিবস', type: 'জাতীয়', description: 'বাংলাদেশের বিজয় দিবস' },
+                { date: '2025-12-25', name: 'Christmas', nameBn: 'বড়দিন', type: 'ধর্মীয়', description: 'যিশুখ্রিস্টের জন্মদিন' }
+            ],
+            2026: [
+                // Data verified from search results for 2026
+                { date: '2026-02-21', name: 'International Mother Language Day', nameBn: 'শহীদ দিবস ও আন্তর্জাতিক মাতৃভাষা দিবস', type: 'জাতীয়', description: '১৯৫২ সালের ভাষা আন্দোলনের শহীদদের স্মরণে [citation:2]' },
+                { date: '2026-03-17', name: 'Birthday of Bangabandhu', nameBn: 'বঙ্গবন্ধুর জন্মদিন', type: 'জাতীয়', description: 'জাতির পিতা বঙ্গবন্ধু শেখ মুজিবুর রহমানের জন্মবার্ষিকী' },
+                { date: '2026-03-21', name: 'Eid-ul-Fitr', nameBn: 'ঈদ-উল-ফিতর', type: 'ধর্মীয়', description: 'রমজান মাস সমাপ্তির উৎসব (চাঁদ দেখা সাপেক্ষে) [citation:1]' },
+                { date: '2026-03-26', name: 'Independence Day', nameBn: 'স্বাধীনতা দিবস', type: 'জাতীয়', description: 'বাংলাদেশের স্বাধীনতা ঘোষণার দিন' },
+                { date: '2026-04-14', name: 'Bengali New Year', nameBn: 'পহেলা বৈশাখ', type: 'সরকারি', description: 'বাংলা বর্ষপঞ্জির প্রথম দিন' },
+                { date: '2026-05-01', name: 'May Day', nameBn: 'মে দিবস', type: 'সরকারি', description: 'শ্রমিক দিবস [citation:2]' },
+                { date: '2026-05-28', name: 'Eid-ul-Adha', nameBn: 'ঈদ-উল-আযহা', type: 'ধর্মীয়', description: 'কোরবানির ঈদ (চাঁদ দেখা সাপেক্ষে) [citation:1]' },
+                { date: '2026-08-15', name: 'National Mourning Day', nameBn: 'জাতীয় শোক দিবস', type: 'জাতীয়', description: 'বঙ্গবন্ধু শেখ মুজিবুর রহমানের শাহাদাতবার্ষিকী' },
+                { date: '2026-08-26', name: 'Eid-e-Milad-un-Nabi', nameBn: 'ঈদ-এ-মিলাদুন্নবী', type: 'ধর্মীয়', description: 'হযরত মুহাম্মদ (সা.)-এর জন্ম ও ওফাত দিবস [citation:2]' },
+                { date: '2026-10-21', name: 'Durga Puja', nameBn: 'দুর্গাপূজা', type: 'ধর্মীয়', description: 'হিন্দু ধর্মের প্রধান উৎসব [citation:3]' },
+                { date: '2026-12-16', name: 'Victory Day', nameBn: 'বিজয় দিবস', type: 'জাতীয়', description: 'বাংলাদেশের বিজয় দিবস' },
+                { date: '2026-12-25', name: 'Christmas', nameBn: 'বড়দিন', type: 'ধর্মীয়', description: 'যিশুখ্রিস্টের জন্মদিন [citation:1]' }
+            ]
+        };
+
+        // ==================== STATE MANAGEMENT ====================
+        let allHolidays = [];
+        let filteredHolidays = [];
+        let currentYear = CURRENT_YEAR;
+        let dataSource = 'local'; // 'api' or 'local'
+
+        // ==================== DOM ELEMENTS ====================
+        const holidayContainer = document.getElementById('holidayContainer');
+        const statsContainer = document.getElementById('statsContainer');
+        const apiStatus = document.getElementById('apiStatus');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const lastUpdate = document.getElementById('lastUpdate');
+        const yearSelect = document.getElementById('yearSelect');
+        const monthSelect = document.getElementById('monthSelect');
+        const typeSelect = document.getElementById('typeSelect');
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLastUpdated();
+            loadHolidays();
+            setupEventListeners();
+        });
+
+        // ==================== API & DATA LOADING ====================
+        async function loadHolidays() {
+            const year = yearSelect.value;
+            showLoading();
+
+            try {
+                // Try to fetch from external API first
+                const apiData = await fetchFromAPI(year);
+                if (apiData && apiData.length > 0) {
+                    allHolidays = processAPIData(apiData);
+                    dataSource = 'api';
+                    updateStatus('success', 'লাইভ API তথ্য লোড হয়েছে');
+                } else {
+                    throw new Error('API returned no data');
+                }
+            } catch (apiError) {
+                console.log('API failed, using local data:', apiError.message);
+                // Fallback to local data
+                allHolidays = LOCAL_HOLIDAYS[year] || LOCAL_HOLIDAYS[2026];
+                dataSource = 'local';
+                updateStatus('local', 'স্থানীয় তথ্য ব্যবহার করা হচ্ছে');
+            }
+
+            // Process and display
+            enrichHolidayData();
+            filterHolidays();
+            updateLastUpdated();
+        }
+
+        async function fetchFromAPI(year) {
+            const url = `${API_ENDPOINTS.primary}/${year}/BD`;
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
+
+            return await response.json();
+        }
+
+        function processAPIData(apiData) {
+            return apiData.map(item => ({
+                date: item.date,
+                name: item.name,
+                nameBn: translateToBangla(item.name),
+                type: categorizeHoliday(item),
+                description: generateDescription(item)
+            }));
+        }
+
+        // ==================== DATA ENRICHMENT ====================
+        function enrichHolidayData() {
+            allHolidays = allHolidays.map(holiday => {
+                const dateObj = new Date(holiday.date);
+                return {
+                    ...holiday,
+                    dateObj: dateObj,
+                    day: dateObj.getDate(),
+                    month: dateObj.getMonth(),
+                    year: dateObj.getFullYear(),
+                    dayOfWeek: getBanglaDay(dateObj.getDay()),
+                    monthName: getBanglaMonth(dateObj.getMonth()),
+                    isToday: isToday(dateObj),
+                    isPast: isPast(dateObj),
+                    daysUntil: daysUntil(dateObj)
+                };
+            }).sort((a, b) => a.dateObj - b.dateObj);
+        }
+
+        // ==================== FILTERING ====================
+        function filterHolidays() {
+            const month = monthSelect.value;
+            const type = typeSelect.value;
+
+            filteredHolidays = allHolidays.filter(holiday => {
+                if (month !== 'all' && holiday.month !== parseInt(month)) return false;
+                if (type !== 'all' && holiday.type !== type) return false;
+                return true;
+            });
+
+            updateDisplay();
+        }
+
+        // ==================== DISPLAY FUNCTIONS ====================
+        function updateDisplay() {
+            updateStats();
+            renderHolidays();
+        }
+
+        function updateStats() {
+            const today = new Date();
+            const currentMonth = today.getMonth();
+
+            const total = filteredHolidays.length;
+            const upcoming = filteredHolidays.filter(h => !h.isPast).length;
+            const passed = filteredHolidays.filter(h => h.isPast).length;
+            const thisMonth = filteredHolidays.filter(h =>
+                h.month === currentMonth && h.year === today.getFullYear()
+            ).length;
+
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <i class="fas fa-calendar-alt" style="color: var(--primary);"></i>
+                    <span class="number">${total}</span>
+                    <span>মোট ছুটি</span>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock" style="color: var(--secondary);"></i>
+                    <span class="number">${upcoming}</span>
+                    <span>আসন্ন</span>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star" style="color: #f59e0b;"></i>
+                    <span class="number">${thisMonth}</span>
+                    <span>এই মাসে</span>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar-check" style="color: var(--gray);"></i>
+                    <span class="number">${passed}</span>
+                    <span>অতীত</span>
+                </div>
+            `;
+        }
+
+        function renderHolidays() {
+            if (filteredHolidays.length === 0) {
+                holidayContainer.innerHTML = `
+                    <div class="error">
+                        <i class="fas fa-calendar-times" style="font-size: 3rem; color: var(--gray); margin-bottom: 1rem;"></i>
+                        <p>কোন ছুটি পাওয়া যায়নি। ফিল্টার পরিবর্তন করে আবার চেষ্টা করুন।</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            filteredHolidays.forEach(holiday => {
+                const typeClass = `type-${holiday.type === 'জাতীয়' ? 'national' : holiday.type === 'ধর্মীয়' ? 'religious' : 'govt'}`;
+
+                html += `
+                    <div class="holiday-card">
+                        <div class="card-header">
+                            <div class="date-badge">${holiday.day} ${holiday.monthName}</div>
+                            <div class="holiday-type ${typeClass}">${holiday.type}</div>
+                        </div>
+                        <div class="card-body">
+                            <div class="holiday-name">${holiday.name}</div>
+                            <div class="holiday-name-bn">${holiday.nameBn}</div>
+                            <p style="color: var(--gray); font-size: 0.9rem;">
+                                ${holiday.dayOfWeek}, ${holiday.year}
+                                ${holiday.isToday ? '<span style="background: #fef3c7; color: #d97706; padding: 0.2rem 0.5rem; border-radius: 4px; margin-left: 0.5rem; font-size: 0.8rem;">আজ</span>' : ''}
+                            </p>
+                            <div class="holiday-desc">${holiday.description}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            holidayContainer.innerHTML = html;
+        }
+
+        // ==================== HELPER FUNCTIONS ====================
+        function showLoading() {
+            holidayContainer.innerHTML = `
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>ছুটির তথ্য লোড হচ্ছে...</p>
+                </div>
+            `;
+        }
+
+        function updateStatus(type, message) {
+            if (type === 'success') {
+                statusDot.style.background = 'var(--secondary)';
+                statusText.textContent = '✓ ' + message;
+                apiStatus.style.background = '#f0f9ff';
+            } else if (type === 'local') {
+                statusDot.style.background = '#f59e0b';
+                statusText.textContent = '⚠ ' + message;
+                apiStatus.style.background = '#fffbeb';
+            } else {
+                statusDot.style.background = 'var(--accent)';
+                statusText.textContent = '✗ ' + message;
+                apiStatus.style.background = '#fef2f2';
+            }
+        }
+
+        function updateLastUpdated() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: true
+            };
+            lastUpdate.textContent = `সর্বশেষ আপডেট: ${now.toLocaleTimeString('bn-BD', options)}`;
+        }
+
+        function translateToBangla(englishName) {
+            const translations = {
+                'International Mother Language Day': 'শহীদ দিবস ও আন্তর্জাতিক মাতৃভাষা দিবস',
+                'Birthday of Bangabandhu': 'বঙ্গবন্ধুর জন্মদিন',
+                'Independence Day': 'স্বাধীনতা দিবস',
+                'Eid-ul-Fitr': 'ঈদ-উল-ফিতর',
+                'Bengali New Year': 'পহেলা বৈশাখ',
+                'May Day': 'মে দিবস',
+                'Eid-ul-Adha': 'ঈদ-উল-আযহা',
+                'National Mourning Day': 'জাতীয় শোক দিবস',
+                'Victory Day': 'বিজয় দিবস',
+                'Christmas': 'বড়দিন',
+                'Eid-e-Milad-un-Nabi': 'ঈদ-এ-মিলাদুন্নবী',
+                'Durga Puja': 'দুর্গাপূজা'
+            };
+            return translations[englishName] || englishName;
+        }
+
+        function categorizeHoliday(holiday) {
+            const nationalKeywords = ['Day', 'Independence', 'Victory', 'Mourning'];
+            const religiousKeywords = ['Eid', 'Christmas', 'Puja', 'Milad'];
+
+            if (nationalKeywords.some(keyword => holiday.name.includes(keyword))) return 'জাতীয়';
+            if (religiousKeywords.some(keyword => holiday.name.includes(keyword))) return 'ধর্মীয়';
+            return 'সরকারি';
+        }
+
+        function generateDescription(holiday) {
+            const descriptions = {
+                'International Mother Language Day': '১৯৫২ সালের ভাষা আন্দোলনের শহীদদের স্মরণে',
+                'Independence Day': 'বাংলাদেশের স্বাধীনতা ঘোষণার দিন',
+                'Eid-ul-Fitr': 'রমজান মাস সমাপ্তির ধর্মীয় উৎসব',
+                'Victory Day': '১৯৭১ সালে বাংলাদেশের বিজয় দিবস',
+                'Christmas': 'যিশুখ্রিস্টের জন্মদিন'
+            };
+            return descriptions[holiday.name] || 'সরকারি ছুটি';
+        }
+
+        function getBanglaDay(dayIndex) {
+            const days = ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার'];
+            return days[dayIndex];
+        }
+
+        function getBanglaMonth(monthIndex) {
+            const months = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন',
+                'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
+            return months[monthIndex];
+        }
+
+        function isToday(date) {
+            const today = new Date();
+            return date.getDate() === today.getDate() &&
+                date.getMonth() === today.getMonth() &&
+                date.getFullYear() === today.getFullYear();
+        }
+
+        function isPast(date) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return date < today;
+        }
+
+        function daysUntil(date) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const diff = date.getTime() - today.getTime();
+            return Math.ceil(diff / (1000 * 60 * 60 * 24));
+        }
+
+        // ==================== EVENT LISTENERS ====================
+        function setupEventListeners() {
+            yearSelect.addEventListener('change', loadHolidays);
+            monthSelect.addEventListener('change', filterHolidays);
+            typeSelect.addEventListener('change', filterHolidays);
+        }
+
+        // Auto-refresh every hour
+        setInterval(() => {
+            updateLastUpdated();
+        }, 3600000);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Awareness Quiz - Asadul Islam</title>
+    
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description" content="Security Awareness Quiz - Test your cybersecurity knowledge and learn best practices. Created by Asadul Islam, Professional IT Engineer.">
+    <meta name="keywords" content="security awareness, cybersecurity quiz, IT security training, Asadul Islam, security education">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    
+    <!-- ==================== Open Graph Tags ==================== -->
+    <meta property="og:title" content="Security Awareness Quiz - Asadul Islam">
+    <meta property="og:description" content="Interactive cybersecurity awareness quiz and training tool">
+    <meta property="og:type" content="website">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff; /* ✅ সাদা ব্যাকগ্রাউন্ড */
+            min-height: 100vh;
+            color: #2c3e50;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff; /* ✅ সাদা */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .navbar a:hover::before {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: 0.3s;
+            border-radius: 3px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .lang-toggle:active {
+            transform: translateY(0);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #667eea;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .back-button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(-5px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .tool-container {
+            background: white; /* ✅ সম্পূর্ণ সাদা */
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tool-header h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tool-header p {
+            color: #718096;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Quiz Progress */
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .progress-info {
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 16px;
+            min-width: 150px;
+        }
+
+        .progress-bar-container {
+            flex: 1;
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            margin: 0 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-radius: 6px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.3) 50%, 
+                transparent 100%);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Question Card */
+        .question-card {
+            background: #f7fafc;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .question-text {
+            font-size: 22px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 18px 20px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f0f3ff;
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #f0f3ff;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+
+        .option.wrong {
+            border-color: #e74c3c;
+            background: #f8d7da;
+        }
+
+        .option-letter {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .option.correct .option-letter {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+
+        .option.wrong .option-letter {
+            background: linear-gradient(135deg, #e74c3c, #fd7e14);
+        }
+
+        .option-text {
+            flex: 1;
+            font-weight: 600;
+            font-size: 16px;
+            color: #2d3748;
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-left: 4px solid #ffc107;
+            border-radius: 10px;
+            display: none;
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.1);
+        }
+
+        .explanation-box.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+        }
+
+        .explanation-text {
+            color: #856404;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-width: 150px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-reset {
+            background: white;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.1);
+        }
+
+        .btn-reset:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Result Container */
+        .result-container {
+            text-align: center;
+            padding: 40px;
+            display: none;
+            background: #f7fafc;
+            border-radius: 15px;
+            border: 2px solid;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-container.show {
+            display: block;
+        }
+
+        .result-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .result-score {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 20px 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .result-message {
+            font-size: 18px;
+            color: #718096;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .score-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .score-item {
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        .score-number {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .score-label {
+            color: #718096;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .score-correct {
+            color: #28a745;
+        }
+
+        .score-incorrect {
+            color: #e74c3c;
+        }
+
+        .score-total {
+            color: #667eea;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            margin-top: 60px;
+            border-top: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            color: #2d3748;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .footer-column a,
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .footer-column a:hover {
+            color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #5a6c7d;
+            background: #f8fafc;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                z-index: 1000;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .navbar.active {
+                display: block;
+                animation: slideDown 0.3s ease;
+            }
+
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navbar a {
+                padding: 15px;
+                justify-content: center;
+            }
+
+            .tool-container {
+                padding: 25px 20px;
+            }
+
+            .tool-header h1 {
+                font-size: 28px;
+            }
+
+            .quiz-progress {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .progress-info {
+                min-width: auto;
+                text-align: center;
+            }
+
+            .progress-bar-container {
+                margin: 0;
+                width: 100%;
+            }
+
+            .question-text {
+                font-size: 20px;
+            }
+
+            .option {
+                padding: 15px;
+            }
+
+            .option-letter {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                min-width: 100%;
+                width: 100%;
+            }
+
+            .score-breakdown {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .lang-toggle {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .header-content {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            .result-score {
+                font-size: 40px;
+            }
+
+            .result-title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tool-header h1 {
+                font-size: 24px;
+            }
+            
+            .tool-header p {
+                font-size: 16px;
+            }
+            
+            .btn {
+                padding: 14px;
+                font-size: 16px;
+            }
+
+            .question-text {
+                font-size: 18px;
+            }
+
+            .option-text {
+                font-size: 14px;
+            }
+
+            .result-icon {
+                font-size: 60px;
+            }
+
+            .result-score {
+                font-size: 36px;
+            }
+
+            .result-title {
+                font-size: 24px;
+            }
+
+            .back-button {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .header-content {
+                padding: 10px 15px;
+            }
+
+            .logo {
+                font-size: 16px;
+            }
+
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+
+            .tool-badge {
+                font-size: 10px;
+                padding: 1px 8px;
+            }
+        }
+
+        /* Tablet Portrait */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .nav-buttons {
+                flex-direction: row;
+            }
+            
+            .btn {
+                min-width: 150px;
+            }
+        }
+
+        /* Small Mobile Devices */
+        @media (max-width: 320px) {
+            .tool-header h1 {
+                font-size: 22px;
+            }
+            
+            .tool-header p {
+                font-size: 14px;
+            }
+            
+            .result-title {
+                font-size: 22px;
+            }
+            
+            .result-score {
+                font-size: 32px;
+            }
+            
+            .score-number {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="fixed-header-container">
+    <div class="header-content">
+        <a href="../../index.html" class="logo">
+            <span class="logo-icon">🧠</span>
+            <div class="logo-text">
+                <span>Security Quiz</span>
+                <span class="tool-badge">Training</span>
+            </div>
+        </a>
+        
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="../../index.html"><i class="fas fa-home"></i><span class="nav-text" data-en="Home" data-bn="হোম">Home</span></a></li>
+                <li><a href="../../skills.html"><i class="fas fa-cogs"></i><span class="nav-text" data-en="Skills" data-bn="দক্ষতা">Skills</span></a></li>
+                <li><a href="../tools.html"><i class="fas fa-tools"></i><span class="nav-text" data-en="Tools" data-bn="টুলস">Tools</span></a></li>
+                <li><a href="../../certificate.html"><i class="fas fa-certificate"></i><span class="nav-text" data-en="Certificate" data-bn="সার্টিফিকেট">Certificate</span></a></li>
+                <li><a href="../../contact.html"><i class="fas fa-phone"></i><span class="nav-text" data-en="Contact" data-bn="যোগাযোগ">Contact</span></a></li>
+            </ul>
+        </nav>
+
+        <button class="lang-toggle" id="langToggle">
+            <i class="fas fa-language"></i>
+            <span class="lang-text">বাংলা</span>
+        </button>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Back Button -->
+    <a href="../tools.html#cybersec" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        <span class="back-text" data-en="Back to Security Tools" data-bn="সিকিউরিটি টুলসে ফিরে যান">Back to Security Tools</span>
+    </a>
+
+    <div class="tool-container">
+        <div class="tool-header">
+            <h1 class="title-text" data-en="Security Awareness Quiz" data-bn="নিরাপত্তা সচেতনতা কুইজ">Security Awareness Quiz</h1>
+            <p class="subtitle-text" data-en="Test your cybersecurity knowledge and learn best practices" data-bn="আপনার সাইবার নিরাপত্তা জ্ঞান পরীক্ষা করুন এবং সেরা অনুশীলন শিখুন">Test your cybersecurity knowledge and learn best practices</p>
+        </div>
+
+        <div id="quizSection">
+            <!-- Quiz Progress -->
+            <div class="quiz-progress">
+                <div class="progress-info" id="progressInfo">
+                    <span data-en="Question" data-bn="প্রশ্ন">Question</span> <span id="currentQ">1</span> / <span id="totalQ">10</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+            <!-- Question Container -->
+            <div id="questionContainer"></div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled>
+                    <i class="fas fa-arrow-left"></i>
+                    <span data-en="Previous" data-bn="পূর্ববর্তী">Previous</span>
+                </button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">
+                    <span data-en="Next" data-bn="পরবর্তী">Next</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="btn btn-reset" id="resetBtn" onclick="resetQuiz()">
+                    <i class="fas fa-redo"></i>
+                    <span data-en="Reset Quiz" data-bn="কুইজ রিসেট করুন">Reset Quiz</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Result Container -->
+        <div id="resultSection" class="result-container"></div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3 class="footer-title-text" data-en="About" data-bn="সম্পর্কে">About</h3>
+            <p class="footer-desc-text" data-en="Professional cybersecurity awareness and training tools for better security practices." data-bn="আরও ভাল নিরাপত্তা অনুশীলনের জন্য পেশাদার সাইবার নিরাপত্তা সচেতনতা এবং প্রশিক্ষণ টুল।">Professional cybersecurity awareness and training tools for better security practices.</p>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="footer-title-text" data-en="Quick Links" data-bn="দ্রুত লিঙ্ক">Quick Links</h3>
+            <div class="quick-links">
+                <a href="../../index.html" class="footer-link-text" data-en="Home" data-bn="হোম">Home</a>
+                <a href="../../skills.html" class="footer-link-text" data-en="Skills" data-bn="দক্ষতা">Skills</a>
+                <a href="../tools.html" class="footer-link-text" data-en="Tools" data-bn="টুলস">Tools</a>
+                <a href="../../certificate.html" class="footer-link-text" data-en="Certificate" data-bn="সার্টিফিকেট">Certificate</a>
+                <a href="../../contact.html" class="footer-link-text" data-en="Contact" data-bn="যোগাযোগ">Contact</a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="footer-title-text" data-en="Follow Me" data-bn="আমাকে ফলো করুন">Follow Me</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <span class="copyright-text" data-en="© 2024 Asadul Islam | All Rights Reserved" data-bn="© ২০২৪ আসাদুল ইসলাম | সর্বস্বত্ব সংরক্ষিত">© 2024 Asadul Islam | All Rights Reserved</span>
+    </div>
+</footer>
+
+<script>
+// Google Analytics 4
+(function() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+    document.head.appendChild(script);
+    
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5H7RZ72M1J', {
+        'send_page_view': true,
+        'anonymize_ip': true,
+        'allow_google_signals': false
+    });
+    window.gtag = gtag;
+})();
+
+// Language management
+let currentLang = 'en';
+
+// Language toggle function
+function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'bn' : 'en';
+    updateLanguage();
+    
+    // Update button text
+    const langToggle = document.getElementById('langToggle');
+    const langText = langToggle.querySelector('.lang-text');
+    langText.textContent = currentLang === 'en' ? 'বাংলা' : 'English';
+    
+    // Update button icon position
+    langToggle.innerHTML = currentLang === 'en' 
+        ? '<i class="fas fa-language"></i><span class="lang-text">বাংলা</span>' 
+        : '<i class="fas fa-language"></i><span class="lang-text">English</span>';
+    
+    // Re-render question with new language
+    if (typeof renderQuestion === 'function') {
+        renderQuestion();
+    }
+    
+    // Update result section if showing
+    if (document.getElementById('resultSection').classList.contains('show')) {
+        showResults();
+    }
+    
+    // Track language change
+    if (window.gtag) {
+        gtag('event', 'language_change', {
+            'event_category': 'user_preference',
+            'event_label': currentLang
+        });
+    }
+}
+
+function updateLanguage() {
+    // Update all elements with data-en and data-bn attributes
+    document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = currentLang === 'en' 
+            ? el.getAttribute('data-en') 
+            : el.getAttribute('data-bn');
+    });
+}
+
+// Initialize language button
+document.addEventListener('DOMContentLoaded', function() {
+    const langToggle = document.getElementById('langToggle');
+    langToggle.addEventListener('click', toggleLanguage);
+});
+
+// Hamburger Menu
+const hamburger = document.getElementById("hamburger");
+const navbar = document.getElementById("navbar");
+hamburger.onclick = () => {
+    navbar.classList.toggle("active");
+    // Animate hamburger to X
+    const spans = hamburger.querySelectorAll('span');
+    if (navbar.classList.contains("active")) {
+        spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+    } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    }
+    
+    if (window.gtag) {
+        gtag('event', 'mobile_menu_toggle', {
+            'event_category': 'ui_interaction'
+        });
+    }
+};
+
+// Quiz Data
+const quizQuestions = [
+    {
+        questionEn: "What is phishing?",
+        questionBn: "ফিশিং কি?",
+        options: {
+            en: [
+                "A type of fishing technique",
+                "A fraudulent attempt to obtain sensitive information",
+                "A computer virus",
+                "A firewall technology"
+            ],
+            bn: [
+                "এক ধরনের মাছ ধরার কৌশল",
+                "সংবেদনশীল তথ্য পাওয়ার প্রতারণামূলক প্রচেষ্টা",
+                "একটি কম্পিউটার ভাইরাস",
+                "একটি ফায়ারওয়াল প্রযুক্তি"
+            ]
+        },
+        correct: 1,
+        explanationEn: "Phishing is a fraudulent attempt to obtain sensitive information such as usernames, passwords, and credit card details by disguising as a trustworthy entity.",
+        explanationBn: "ফিশিং হল একটি প্রতারণামূলক প্রচেষ্টা যা একটি বিশ্বস্ত সত্তার ছদ্মবেশে ব্যবহারকারীর নাম, পাসওয়ার্ড এবং ক্রেডিট কার্ডের বিবরণের মতো সংবেদনশীল তথ্য পেতে চেষ্টা করে।"
+    },
+    {
+        questionEn: "Which of the following is the most secure password?",
+        questionBn: "নিচের কোনটি সবচেয়ে নিরাপদ পাসওয়ার্ড?",
+        options: {
+            en: [
+                "password123",
+                "MyName2024",
+                "Tr0ub4dor&3",
+                "Xk#9mP$2vQ!zL@7"
+            ],
+            bn: [
+                "password123",
+                "MyName2024",
+                "Tr0ub4dor&3",
+                "Xk#9mP$2vQ!zL@7"
+            ]
+        },
+        correct: 3,
+        explanationEn: "The most secure password is long, random, and contains a mix of uppercase, lowercase, numbers, and special characters. 'Xk#9mP$2vQ!zL@7' meets all these criteria.",
+        explanationBn: "সবচেয়ে নিরাপদ পাসওয়ার্ড দীর্ঘ, এলোমেলো এবং বড় হাতের, ছোট হাতের, সংখ্যা এবং বিশেষ অক্ষরের মিশ্রণ থাকে। 'Xk#9mP$2vQ!zL@7' এই সমস্ত মানদণ্ড পূরণ করে।"
+    },
+    {
+        questionEn: "What does HTTPS stand for?",
+        questionBn: "HTTPS এর পূর্ণরূপ কী?",
+        options: {
+            en: [
+                "HyperText Transfer Protocol Secure",
+                "High Transfer Protocol System",
+                "HyperText Transmission Protection System",
+                "High-level Text Protocol Security"
+            ],
+            bn: [
+                "HyperText Transfer Protocol Secure",
+                "High Transfer Protocol System",
+                "HyperText Transmission Protection System",
+                "High-level Text Protocol Security"
+            ]
+        },
+        correct: 0,
+        explanationEn: "HTTPS stands for HyperText Transfer Protocol Secure. It's the secure version of HTTP, which encrypts data sent between your browser and the website.",
+        explanationBn: "HTTPS এর অর্থ HyperText Transfer Protocol Secure। এটি HTTP এর নিরাপদ সংস্করণ, যা আপনার ব্রাউজার এবং ওয়েবসাইটের মধ্যে পাঠানো ডেটা এনক্রিপ্ট করে।"
+    },
+    {
+        questionEn: "What is two-factor authentication (2FA)?",
+        questionBn: "দুই-ফ্যাক্টর প্রমাণীকরণ (2FA) কি?",
+        options: {
+            en: [
+                "Using two passwords",
+                "An extra layer of security requiring two forms of verification",
+                "A type of antivirus software",
+                "Double encryption method"
+            ],
+            bn: [
+                "দুটি পাসওয়ার্ড ব্যবহার করা",
+                "দুটি যাচাইকরণ ফর্ম প্রয়োজন এমন অতিরিক্ত নিরাপত্তা স্তর",
+                "এক ধরনের অ্যান্টিভাইরাস সফটওয়্যার",
+                "ডাবল এনক্রিপশন পদ্ধতি"
+            ]
+        },
+        correct: 1,
+        explanationEn: "Two-factor authentication adds an extra layer of security by requiring two different forms of verification before granting access to an account.",
+        explanationBn: "দুই-ফ্যাক্টর প্রমাণীকরণ একটি অ্যাকাউন্টে অ্যাক্সেস দেওয়ার আগে দুটি ভিন্ন ফর্মের যাচাইকরণ প্রয়োজন করে অতিরিক্ত নিরাপত্তা স্তর যোগ করে।"
+    },
+    {
+        questionEn: "What should you do if you receive a suspicious email asking for personal information?",
+        questionBn: "আপনি যদি ব্যক্তিগত তথ্য চাইছে এমন একটি সন্দেহজনক ইমেল পান তবে কী করবেন?",
+        options: {
+            en: [
+                "Reply with the information",
+                "Click on links to verify it's legitimate",
+                "Delete it and report it as spam/phishing",
+                "Forward it to friends"
+            ],
+            bn: [
+                "তথ্য দিয়ে উত্তর দিন",
+                "বৈধ কিনা যাচাই করতে লিঙ্কে ক্লিক করুন",
+                "এটি মুছে ফেলুন এবং স্প্যাম/ফিশিং হিসাবে রিপোর্ট করুন",
+                "বন্ধুদের কাছে ফরওয়ার্ড করুন"
+            ]
+        },
+        correct: 2,
+        explanationEn: "Never provide personal information in response to suspicious emails. Delete and report them to help protect yourself and others.",
+        explanationBn: "সন্দেহজনক ইমেলের প্রতিক্রিয়ায় কখনও ব্যক্তিগত তথ্য প্রদান করবেন না। নিজেকে এবং অন্যদের সুরক্ষিত করতে সাহায্য করতে সেগুলি মুছুন এবং রিপোর্ট করুন।"
+    },
+    {
+        questionEn: "What is a VPN used for?",
+        questionBn: "VPN কিসের জন্য ব্যবহৃত হয়?",
+        options: {
+            en: [
+                "Making your computer faster",
+                "Creating encrypted connections over the internet",
+                "Removing viruses",
+                "Storing passwords"
+            ],
+            bn: [
+                "আপনার কম্পিউটারকে দ্রুততর করা",
+                "ইন্টারনেটে এনক্রিপ্টেড সংযোগ তৈরি করা",
+                "ভাইরাস অপসারণ",
+                "পাসওয়ার্ড সংরক্ষণ"
+            ]
+        },
+        correct: 1,
+        explanationEn: "A VPN (Virtual Private Network) creates an encrypted connection over the internet, protecting your online privacy and security.",
+        explanationBn: "একটি VPN (ভার্চুয়াল প্রাইভেট নেটওয়ার্ক) ইন্টারনেটে একটি এনক্রিপ্টেড সংযোগ তৈরি করে, আপনার অনলাইন গোপনীয়তা এবং নিরাপত্তা রক্ষা করে।"
+    },
+    {
+        questionEn: "How often should you update your passwords?",
+        questionBn: "আপনার কত ঘন ঘন পাসওয়ার্ড আপডেট করা উচিত?",
+        options: {
+            en: [
+                "Never, if they're strong",
+                "Only when there's a breach",
+                "Every 3-6 months",
+                "Every day"
+            ],
+            bn: [
+                "কখনই না, যদি তারা শক্তিশালী হয়",
+                "শুধুমাত্র যখন একটি লঙ্ঘন আছে",
+                "প্রতি ৩-৬ মাস",
+                "প্রতিদিন"
+            ]
+        },
+        correct: 2,
+        explanationEn: "Security experts recommend changing passwords every 3-6 months, and immediately after any suspected breach.",
+        explanationBn: "নিরাপত্তা বিশেষজ্ঞরা প্রতি ৩-৬ মাসে পাসওয়ার্ড পরিবর্তন করার পরামর্শ দেন এবং যেকোনো সন্দেহজনক লঙ্ঘনের পরে অবিলম্বে।"
+    },
+    {
+        questionEn: "What is ransomware?",
+        questionBn: "র্যানসমওয়্যার কি?",
+        options: {
+            en: [
+                "Software that speeds up your computer",
+                "Malware that encrypts files and demands payment",
+                "A security tool",
+                "A type of firewall"
+            ],
+            bn: [
+                "সফটওয়্যার যা আপনার কম্পিউটার দ্রুততর করে",
+                "ম্যালওয়্যার যা ফাইল এনক্রিপ্ট করে এবং অর্থ দাবি করে",
+                "একটি নিরাপত্তা টুল",
+                "এক ধরনের ফায়ারওয়াল"
+            ]
+        },
+        correct: 1,
+        explanationEn: "Ransomware is malicious software that encrypts your files and demands payment (ransom) to decrypt them.",
+        explanationBn: "র্যানসমওয়্যার হল দূষিত সফটওয়্যার যা আপনার ফাইলগুলি এনক্রিপ্ট করে এবং সেগুলি ডিক্রিপ্ট করার জন্য অর্থ (মুক্তিপণ) দাবি করে।"
+    },
+    {
+        questionEn: "What is the safest way to connect to public Wi-Fi?",
+        questionBn: "পাবলিক Wi-Fi এ সংযোগ করার সবচেয়ে নিরাপদ উপায় কী?",
+        options: {
+            en: [
+                "Connect directly without precautions",
+                "Use a VPN",
+                "Share your screen",
+                "Disable your firewall"
+            ],
+            bn: [
+                "সতর্কতা ছাড়াই সরাসরি সংযোগ করুন",
+                "একটি VPN ব্যবহার করুন",
+                "আপনার স্ক্রিন শেয়ার করুন",
+                "আপনার ফায়ারওয়াল নিষ্ক্রিয় করুন"
+            ]
+        },
+        correct: 1,
+        explanationEn: "Using a VPN when connecting to public Wi-Fi encrypts your data and protects you from potential threats on unsecured networks.",
+        explanationBn: "পাবলিক Wi-Fi এ সংযোগ করার সময় VPN ব্যবহার করলে আপনার ডেটা এনক্রিপ্ট হয় এবং অনিরাপদ নেটওয়ার্কে সম্ভাব্য হুমকি থেকে আপনাকে রক্ষা করে।"
+    },
+    {
+        questionEn: "What does a firewall do?",
+        questionBn: "ফায়ারওয়াল কী করে?",
+        options: {
+            en: [
+                "Prevents computer from overheating",
+                "Blocks unauthorized access to networks",
+                "Speeds up internet connection",
+                "Stores backup files"
+            ],
+            bn: [
+                "কম্পিউটার অতিরিক্ত গরম হওয়া থেকে রক্ষা করে",
+                "নেটওয়ার্কে অননুমোদিত অ্যাক্সেস ব্লক করে",
+                "ইন্টারনেট সংযোগ দ্রুততর করে",
+                "ব্যাকআপ ফাইল সংরক্ষণ করে"
+            ]
+        },
+        correct: 1,
+        explanationEn: "A firewall is a network security system that monitors and controls incoming and outgoing network traffic, blocking unauthorized access.",
+        explanationBn: "একটি ফায়ারওয়াল হল একটি নেটওয়ার্ক নিরাপত্তা ব্যবস্থা যা আগত এবং বাহির যাওয়া নেটওয়ার্ক ট্রাফিক নিরীক্ষণ এবং নিয়ন্ত্রণ করে, অননুমোদিত অ্যাক্সেস ব্লক করে।"
+    }
+];
+
+// Quiz State
+let currentQuestion = 0;
+let userAnswers = [];
+let score = 0;
+
+// Initialize Quiz
+function initQuiz() {
+    document.getElementById('totalQ').textContent = quizQuestions.length;
+    renderQuestion();
+}
+
+// Render Question
+function renderQuestion() {
+    const question = quizQuestions[currentQuestion];
+    const container = document.getElementById('questionContainer');
+    
+    const optionLetters = ['A', 'B', 'C', 'D'];
+    const options = currentLang === 'en' ? question.options.en : question.options.bn;
+    const userAnswer = userAnswers[currentQuestion];
+    
+    container.innerHTML = `
+        <div class="question-card">
+            <div class="question-number">
+                ${currentLang === 'en' ? 'Question' : 'প্রশ্ন'} ${currentQuestion + 1} ${currentLang === 'en' ? 'of' : 'এর'} ${quizQuestions.length}
+            </div>
+            <div class="question-text">
+                ${currentLang === 'en' ? question.questionEn : question.questionBn}
+            </div>
+            <div class="options-container">
+                ${options.map((opt, index) => {
+                    let optionClass = 'option';
+                    if (userAnswer !== undefined) {
+                        if (index === question.correct) {
+                            optionClass += ' correct';
+                        } else if (index === userAnswer && userAnswer !== question.correct) {
+                            optionClass += ' wrong';
+                        }
+                        if (index === userAnswer) {
+                            optionClass += ' selected';
+                        }
+                    }
+                    
+                    return `
+                        <div class="${optionClass}" onclick="selectOption(${index})" 
+                             ${userAnswer !== undefined ? 'style="pointer-events: none;"' : ''}>
+                            <div class="option-letter">${optionLetters[index]}</div>
+                            <div class="option-text">${opt}</div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+            <div class="explanation-box ${userAnswer !== undefined ? 'show' : ''}" id="explanation">
+                <div class="explanation-title">
+                    <i class="fas fa-lightbulb"></i>
+                    ${currentLang === 'en' ? 'Explanation' : 'ব্যাখ্যা'}
+                </div>
+                <div class="explanation-text">
+                    ${currentLang === 'en' ? question.explanationEn : question.explanationBn}
+                </div>
+            </div>
+        </div>
+    `;
+    
+    updateProgress();
+    updateButtons();
+}
+
+// Select Option
+function selectOption(index) {
+    if (userAnswers[currentQuestion] !== undefined) return;
+    
+    userAnswers[currentQuestion] = index;
+    const question = quizQuestions[currentQuestion];
+    
+    // Update score
+    if (index === question.correct) {
+        score++;
+    }
+    
+    // Re-render question to show correct/incorrect states
+    renderQuestion();
+    
+    // Track answer
+    if (window.gtag) {
+        gtag('event', 'quiz_answer', {
+            'event_category': 'security_awareness',
+            'event_label': `Q${currentQuestion + 1}`,
+            'value': index === question.correct ? 1 : 0
+        });
+    }
+}
+
+// Next Question
+function nextQuestion() {
+    if (userAnswers[currentQuestion] === undefined) {
+        const message = currentLang === 'en' 
+            ? 'Please select an answer!' 
+            : 'অনুগ্রহ করে একটি উত্তর নির্বাচন করুন!';
+        alert(message);
+        return;
+    }
+    
+    if (currentQuestion < quizQuestions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+    } else {
+        showResults();
+    }
+}
+
+// Previous Question
+function previousQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+    }
+}
+
+// Reset Quiz
+function resetQuiz() {
+    const confirmMessage = currentLang === 'en' 
+        ? 'Are you sure you want to reset the quiz? All progress will be lost.' 
+        : 'আপনি কি নিশ্চিত যে আপনি কুইজ রিসেট করতে চান? সব অগ্রগতি হারিয়ে যাবে।';
+    
+    if (confirm(confirmMessage)) {
+        currentQuestion = 0;
+        userAnswers = [];
+        score = 0;
+        
+        // Hide result section
+        document.getElementById('resultSection').classList.remove('show');
+        document.getElementById('quizSection').style.display = 'block';
+        
+        // Re-initialize quiz
+        initQuiz();
+        
+        // Track reset event
+        if (window.gtag) {
+            gtag('event', 'quiz_reset', {
+                'event_category': 'tool_usage'
+            });
+        }
+        
+        // Show confirmation
+        const successMessage = currentLang === 'en' 
+            ? 'Quiz has been reset. Start again!' 
+            : 'কুইজ রিসেট করা হয়েছে। আবার শুরু করুন!';
+        
+        alert(successMessage);
+    }
+}
+
+// Update Progress
+function updateProgress() {
+    document.getElementById('currentQ').textContent = currentQuestion + 1;
+    const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+    document.getElementById('progressBar').style.width = progress + '%';
+}
+
+// Update Buttons
+function updateButtons() {
+    document.getElementById('prevBtn').disabled = currentQuestion === 0;
+    
+    const nextBtn = document.getElementById('nextBtn');
+    if (currentQuestion === quizQuestions.length - 1) {
+        nextBtn.innerHTML = `
+            <i class="fas fa-check"></i>
+            <span>${currentLang === 'en' ? 'Finish Quiz' : 'কুইজ শেষ করুন'}</span>
+        `;
+    } else {
+        nextBtn.innerHTML = `
+            <span>${currentLang === 'en' ? 'Next' : 'পরবর্তী'}</span>
+            <i class="fas fa-arrow-right"></i>
+        `;
+    }
+    
+    // Disable next button if no answer selected
+    nextBtn.disabled = userAnswers[currentQuestion] === undefined;
+}
+
+// Show Results
+function showResults() {
+    const percentage = Math.round((score / quizQuestions.length) * 100);
+    let resultIcon, resultColor, resultTitleEn, resultTitleBn, resultMsgEn, resultMsgBn;
+    
+    if (percentage >= 80) {
+        resultIcon = '🏆';
+        resultColor = '#28a745';
+        resultTitleEn = 'Excellent!';
+        resultTitleBn = 'চমৎকার!';
+        resultMsgEn = 'You have a strong understanding of cybersecurity best practices. Keep up the good work!';
+        resultMsgBn = 'আপনার সাইবার নিরাপত্তা সেরা অনুশীলনের শক্তিশালী বোঝা আছে। ভাল কাজ চালিয়ে যান!';
+    } else if (percentage >= 60) {
+        resultIcon = '👍';
+        resultColor = '#ffc107';
+        resultTitleEn = 'Good Job!';
+        resultTitleBn = 'ভাল কাজ!';
+        resultMsgEn = 'You have a decent understanding, but there\'s room for improvement. Review the areas you missed.';
+        resultMsgBn = 'আপনার ভাল বোঝা আছে, কিন্তু উন্নতির সুযোগ আছে। আপনি যে এলাকা মিস করেছেন তা পর্যালোচনা করুন।';
+    } else {
+        resultIcon = '📚';
+        resultColor = '#e74c3c';
+        resultTitleEn = 'Keep Learning!';
+        resultTitleBn = 'শেখা চালিয়ে যান!';
+        resultMsgEn = 'Cybersecurity is important! Take time to learn more about protecting yourself online.';
+        resultMsgBn = 'সাইবার নিরাপত্তা গুরুত্বপূর্ণ! অনলাইনে নিজেকে রক্ষা করার বিষয়ে আরও জানতে সময় নিন।';
+    }
+    
+    document.getElementById('quizSection').style.display = 'none';
+    const resultSection = document.getElementById('resultSection');
+    
+    resultSection.innerHTML = `
+        <div class="result-icon">${resultIcon}</div>
+        <div class="result-title" style="color: ${resultColor};">
+            ${currentLang === 'en' ? resultTitleEn : resultTitleBn}
+        </div>
+        <div class="result-score">
+            ${percentage}%
+        </div>
+        <div class="result-message">
+            ${currentLang === 'en' ? resultMsgEn : resultMsgBn}
+        </div>
+        <div class="score-breakdown">
+            <div class="score-item">
+                <div class="score-number score-correct">${score}</div>
+                <div class="score-label">${currentLang === 'en' ? 'Correct' : 'সঠিক'}</div>
+            </div>
+            <div class="score-item">
+                <div class="score-number score-incorrect">${quizQuestions.length - score}</div>
+                <div class="score-label">${currentLang === 'en' ? 'Incorrect' : 'ভুল'}</div>
+            </div>
+            <div class="score-item">
+                <div class="score-number score-total">${quizQuestions.length}</div>
+                <div class="score-label">${currentLang === 'en' ? 'Total' : 'মোট'}</div>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn btn-primary" onclick="restartQuiz()">
+                <i class="fas fa-redo"></i>
+                <span>${currentLang === 'en' ? 'Retake Quiz' : 'পুনরায় কুইজ নিন'}</span>
+            </button>
+            <button class="btn btn-reset" onclick="resetQuiz()">
+                <i class="fas fa-home"></i>
+                <span>${currentLang === 'en' ? 'Reset Quiz' : 'কুইজ রিসেট করুন'}</span>
+            </button>
+        </div>
+    `;
+    
+    resultSection.style.borderColor = resultColor;
+    resultSection.style.background = resultColor + '10';
+    resultSection.classList.add('show');
+    
+    // Scroll to results
+    resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    if (window.gtag) {
+        gtag('event', 'quiz_completed', {
+            'event_category': 'security_awareness',
+            'event_label': resultTitleEn,
+            'value': percentage
+        });
+    }
+}
+
+// Restart Quiz
+function restartQuiz() {
+    currentQuestion = 0;
+    userAnswers = [];
+    score = 0;
+    document.getElementById('quizSection').style.display = 'block';
+    document.getElementById('resultSection').classList.remove('show');
+    initQuiz();
+    
+    // Scroll to top
+    document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+// Initialize Quiz
+function initializeQuiz() {
+    initQuiz();
+    updateLanguage();
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initializeQuiz();
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+    const isClickInsideNav = navbar.contains(event.target);
+    const isClickOnHamburger = hamburger.contains(event.target);
+    
+    if (!isClickInsideNav && !isClickOnHamburger && navbar.classList.contains('active')) {
+        navbar.classList.remove('active');
+        const spans = hamburger.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    }
+});
+
+// Track scroll depth
+let maxScrollDepth = 0;
+window.addEventListener('scroll', function() {
+    const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+        maxScrollDepth = scrollDepth;
+        if (window.gtag) {
+            gtag('event', 'scroll_depth', {
+                'event_category': 'engagement',
+                'value': scrollDepth
+            });
+        }
+    }
+});
+</script>
+
+</body>
+</html>

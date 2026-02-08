@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Numbers Reference - Common Network Ports</title>
+    <meta name="description" content="Comprehensive reference guide for common network port numbers used in IT and networking.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e4e8;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .port-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .port-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .port-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .port-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .port-protocol {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .port-service {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+
+        .port-description {
+            color: #7a8a9d;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .port-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1><i class="fas fa-network-wired"></i> Port Numbers Reference</h1>
+    <p>সাধারণ নেটওয়ার্ক পোর্ট নাম্বার এবং সার্ভিস</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="পোর্ট নাম্বার, প্রোটোকল বা সার্ভিস নাম দিয়ে সার্চ করুন...">
+    </div>
+
+    <div class="category-filter">
+        <button class="filter-btn active" data-category="all">সব পোর্ট</button>
+        <button class="filter-btn" data-category="well-known">Well-Known (0-1023)</button>
+        <button class="filter-btn" data-category="registered">Registered (1024-49151)</button>
+        <button class="filter-btn" data-category="web">Web Services</button>
+        <button class="filter-btn" data-category="email">Email</button>
+        <button class="filter-btn" data-category="file">File Transfer</button>
+        <button class="filter-btn" data-category="database">Database</button>
+    </div>
+
+    <div class="port-grid" id="portGrid"></div>
+</div>
+
+<script>
+const ports = [
+    {port: 20, protocol: "FTP (Data)", service: "File Transfer Protocol - Data", category: ["well-known", "file"], description: "Active FTP মোডে ডাটা ট্রান্সফারের জন্য ব্যবহৃত হয়"},
+    {port: 21, protocol: "FTP (Control)", service: "File Transfer Protocol - Control", category: ["well-known", "file"], description: "FTP কমান্ড এবং কন্ট্রোলের জন্য ব্যবহৃত হয়"},
+    {port: 22, protocol: "SSH", service: "Secure Shell", category: ["well-known"], description: "নিরাপদ রিমোট লগইন এবং কমান্ড এক্সিকিউশনের জন্য"},
+    {port: 23, protocol: "Telnet", service: "Telnet Protocol", category: ["well-known"], description: "এনক্রিপ্ট না করা টেক্সট কমিউনিকেশন (অপ্রচলিত)"},
+    {port: 25, protocol: "SMTP", service: "Simple Mail Transfer Protocol", category: ["well-known", "email"], description: "মেইল সার্ভারের মধ্যে ইমেইল পাঠানোর জন্য"},
+    {port: 53, protocol: "DNS", service: "Domain Name System", category: ["well-known"], description: "ডোমেইন নাম রেজল্যুশনের জন্য"},
+    {port: 67, protocol: "DHCP (Server)", service: "Dynamic Host Configuration Protocol", category: ["well-known"], description: "DHCP সার্ভার পোর্ট"},
+    {port: 68, protocol: "DHCP (Client)", service: "Dynamic Host Configuration Protocol", category: ["well-known"], description: "DHCP ক্লায়েন্ট পোর্ট"},
+    {port: 69, protocol: "TFTP", service: "Trivial File Transfer Protocol", category: ["well-known", "file"], description: "অথেন্টিকেশন ছাড়া সাধারণ ফাইল ট্রান্সফার"},
+    {port: 80, protocol: "HTTP", service: "Hypertext Transfer Protocol", category: ["well-known", "web"], description: "স্ট্যান্ডার্ড ওয়েব ট্রাফিক"},
+    {port: 110, protocol: "POP3", service: "Post Office Protocol v3", category: ["well-known", "email"], description: "ইমেইল রিট্রিভ করার জন্য"},
+    {port: 143, protocol: "IMAP", service: "Internet Message Access Protocol", category: ["well-known", "email"], description: "ইমেইল এক্সেস এবং ম্যানেজমেন্ট"},
+    {port: 161, protocol: "SNMP", service: "Simple Network Management Protocol", category: ["well-known"], description: "নেটওয়ার্ক ডিভাইস মনিটরিং"},
+    {port: 162, protocol: "SNMP Trap", service: "SNMP Trap", category: ["well-known"], description: "SNMP নোটিফিকেশন"},
+    {port: 389, protocol: "LDAP", service: "Lightweight Directory Access Protocol", category: ["well-known"], description: "ডিরেক্টরি সার্ভিস"},
+    {port: 443, protocol: "HTTPS", service: "HTTP Secure", category: ["well-known", "web"], description: "এনক্রিপ্টেড ওয়েব ট্রাফিক"},
+    {port: 465, protocol: "SMTPS", service: "SMTP Secure", category: ["well-known", "email"], description: "এনক্রিপ্টেড ইমেইল পাঠানো"},
+    {port: 587, protocol: "SMTP (Submission)", service: "Email Message Submission", category: ["well-known", "email"], description: "ক্লায়েন্ট দ্বারা ইমেইল সাবমিশন"},
+    {port: 636, protocol: "LDAPS", service: "LDAP Secure", category: ["well-known"], description: "এনক্রিপ্টেড ডিরেক্টরি সার্ভিস"},
+    {port: 993, protocol: "IMAPS", service: "IMAP Secure", category: ["well-known", "email"], description: "এনক্রিপ্টেড IMAP"},
+    {port: 995, protocol: "POP3S", service: "POP3 Secure", category: ["well-known", "email"], description: "এনক্রিপ্টেড POP3"},
+    {port: 1433, protocol: "MSSQL", service: "Microsoft SQL Server", category: ["registered", "database"], description: "MS SQL Server ডাটাবেস"},
+    {port: 1521, protocol: "Oracle", service: "Oracle Database", category: ["registered", "database"], description: "Oracle ডাটাবেস ডিফল্ট পোর্ট"},
+    {port: 3306, protocol: "MySQL", service: "MySQL Database", category: ["registered", "database"], description: "MySQL/MariaDB ডাটাবেস"},
+    {port: 3389, protocol: "RDP", service: "Remote Desktop Protocol", category: ["registered"], description: "Windows রিমোট ডেস্কটপ"},
+    {port: 5432, protocol: "PostgreSQL", service: "PostgreSQL Database", category: ["registered", "database"], description: "PostgreSQL ডাটাবেস"},
+    {port: 5900, protocol: "VNC", service: "Virtual Network Computing", category: ["registered"], description: "রিমোট ডেস্কটপ এক্সেস"},
+    {port: 8080, protocol: "HTTP-Alt", service: "HTTP Alternate", category: ["registered", "web"], description: "বিকল্প HTTP পোর্ট"},
+    {port: 8443, protocol: "HTTPS-Alt", service: "HTTPS Alternate", category: ["registered", "web"], description: "বিকল্প HTTPS পোর্ট"},
+    {port: 27017, protocol: "MongoDB", service: "MongoDB Database", category: ["registered", "database"], description: "MongoDB NoSQL ডাটাবেস"}
+];
+
+function renderPorts(filteredPorts) {
+    const grid = document.getElementById('portGrid');
+    grid.innerHTML = filteredPorts.map(p => `
+        <div class="port-card">
+            <div class="port-number">${p.port}</div>
+            <div class="port-protocol">${p.protocol}</div>
+            <div class="port-service">${p.service}</div>
+            <div class="port-description">${p.description}</div>
+        </div>
+    `).join('');
+}
+
+renderPorts(ports);
+
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    const search = e.target.value.toLowerCase();
+    const filtered = ports.filter(p => 
+        p.port.toString().includes(search) ||
+        p.protocol.toLowerCase().includes(search) ||
+        p.service.toLowerCase().includes(search) ||
+        p.description.toLowerCase().includes(search)
+    );
+    renderPorts(filtered);
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const category = this.getAttribute('data-category');
+        if (category === 'all') {
+            renderPorts(ports);
+        } else {
+            const filtered = ports.filter(p => p.category.includes(category));
+            renderPorts(filtered);
+        }
+    });
+});
+</script>
+
+</body>
+</html>

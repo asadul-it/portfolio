@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Error Codes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header with white background */
+        .header {
+            background: white;
+            color: #2c3e50;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #667eea;
+        }
+
+        .logo h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 2em;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            background: #f5f7fa;
+        }
+
+        .nav-links a.active {
+            color: #667eea;
+            background: #f0f3ff;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f5f7fa;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-toggle:hover {
+            background: #e0e4e8;
+        }
+
+        .lang-flag {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .lang-text {
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e4e8;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            background: white;
+            border: 2px solid #e0e4e8;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #5a6c7d;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .error-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+        }
+
+        .error-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .error-code {
+            background: #f0f3ff;
+            padding: 8px 20px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: 700;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .error-severity {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .severity-critical {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .severity-error {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .severity-warning {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .error-content h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .error-description {
+            color: #5a6c7d;
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .error-solution {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #28a745;
+        }
+
+        .error-solution h4 {
+            color: #155724;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .error-solution ul, .error-solution ol {
+            margin-left: 20px;
+            color: #155724;
+        }
+
+        .error-solution li {
+            margin-bottom: 8px;
+        }
+
+        .error-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #7a8a9d;
+        }
+
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p, .footer-column ul li, .footer-column ul li a {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #f0f3ff;
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #e0e4e8;
+            color: #5a6c7d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero h2 {
+                font-size: 1.8em;
+            }
+
+            .error-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .filter-buttons {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header with white background -->
+<div class="header">
+    <div class="header-container">
+        <a href="../../index.html" class="logo">
+            <i class="fas fa-bug"></i>
+            <h1>Windows Error Codes</h1>
+        </a>
+        
+        <div class="nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../skills.html">Skills</a>
+            <a href="../tools.html">Tools</a>
+            <a href="../../certificate.html">Certificate</a>
+            <a href="../../contact.html">Contact</a>
+            
+            <div class="language-toggle" id="languageToggle">
+                <div class="lang-flag" id="langFlag">EN</div>
+                <span class="lang-text" id="langText">English</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<div class="hero">
+    <h2 id="heroTitle">Windows Error Codes Guide</h2>
+    <p id="heroSubtitle">Find and fix common Windows error codes with detailed solutions</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> <span id="backText">Back to Tools</span></a>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Search error codes or descriptions...">
+    </div>
+
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="all" id="filterAll">All Errors</button>
+        <button class="filter-btn" data-filter="critical" id="filterCritical">Critical</button>
+        <button class="filter-btn" data-filter="error" id="filterError">Errors</button>
+        <button class="filter-btn" data-filter="warning" id="filterWarning">Warnings</button>
+        <button class="filter-btn" data-filter="bsod" id="filterBSOD">BSOD</button>
+        <button class="filter-btn" data-filter="network" id="filterNetwork">Network</button>
+    </div>
+
+    <div id="errorList"></div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Tools</h3>
+            <p>Free collection of online tools for everyday tasks. No installation required, works directly in your browser.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../skills.html">Skills</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../../certificate.html">Certificate</a></li>
+                <li><a href="../../contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:asadul.it@yahoo.com">asadul.it@yahoo.com</a></li>
+                <li><a href="tel:01706927793">01706927793</a></li>
+                <li>Savar, Dhaka</li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Language data
+const translations = {
+    en: {
+        heroTitle: "Windows Error Codes Guide",
+        heroSubtitle: "Find and fix common Windows error codes with detailed solutions",
+        backText: "Back to Tools",
+        searchPlaceholder: "Search error codes or descriptions...",
+        filterAll: "All Errors",
+        filterCritical: "Critical",
+        filterError: "Errors",
+        filterWarning: "Warnings",
+        filterBSOD: "BSOD",
+        filterNetwork: "Network",
+        errorCodes: {
+            0x00000001: "APC_INDEX_MISMATCH",
+            0x0000000A: "IRQL_NOT_LESS_OR_EQUAL",
+            0x0000001E: "KMODE_EXCEPTION_NOT_HANDLED",
+            0x00000024: "NTFS_FILE_SYSTEM",
+            0x0000002E: "DATA_BUS_ERROR",
+            0x0000003B: "SYSTEM_SERVICE_EXCEPTION",
+            0x00000044: "MULTIPLE_IRP_COMPLETE_REQUESTS",
+            0x00000050: "PAGE_FAULT_IN_NONPAGED_AREA",
+            0x0000007B: "INACCESSIBLE_BOOT_DEVICE",
+            0x0000007E: "SYSTEM_THREAD_EXCEPTION_NOT_HANDLED",
+            0x0000007F: "UNEXPECTED_KERNEL_MODE_TRAP",
+            0x80070002: "System cannot find the file specified",
+            0x80070005: "Access denied",
+            0x80070057: "The parameter is incorrect",
+            0x8007000E: "Not enough storage",
+            0x80070490: "Element not found",
+            0x80240017: "Windows Update failed to install",
+            0x80070570: "File or directory is corrupted",
+            0x80004005: "Unspecified error",
+            0x80070015: "The device is not ready"
+        },
+        errorDescriptions: {
+            0x0000000A: "This indicates that Microsoft Windows or a kernel-mode driver accessed paged memory at an invalid address while at a raised interrupt request level (IRQL).",
+            0x0000001E: "This indicates that a kernel-mode program generated an exception which the error handler did not catch.",
+            0x80070005: "This error occurs when you do not have sufficient permissions to access a file or folder.",
+            0x80070057: "This error occurs when invalid parameter data is passed to a Windows function.",
+            0x80240017: "This error indicates that Windows Update encountered an error while installing updates."
+        },
+        errorSolutions: {
+            0x0000000A: "Update drivers, check hardware compatibility, run memory diagnostic tool, check for overheating.",
+            0x0000001E: "Update drivers, check for hardware issues, run System File Checker, perform clean boot.",
+            0x80070005: "Take ownership of files/folders, run as administrator, check permissions, disable antivirus temporarily.",
+            0x80070057: "Check registry values, reinstall problematic software, run System File Checker, check for malware.",
+            0x80240017: "Run Windows Update Troubleshooter, clear Windows Update cache, reset Windows Update components."
+        }
+    },
+    bn: {
+        heroTitle: "Windows Error Codes গাইড",
+        heroSubtitle: "সাধারণ Windows error codes এবং সমাধান খুঁজুন",
+        backText: "টুলসে ফিরে যান",
+        searchPlaceholder: "Error codes বা বিবরণ খুঁজুন...",
+        filterAll: "সব Errors",
+        filterCritical: "ক্রিটিকাল",
+        filterError: "Errors",
+        filterWarning: "Warnings",
+        filterBSOD: "ব্লু স্ক্রিন",
+        filterNetwork: "নেটওয়ার্ক",
+        errorCodes: {
+            0x00000001: "APC_INDEX_MISMATCH",
+            0x0000000A: "IRQL_NOT_LESS_OR_EQUAL",
+            0x0000001E: "KMODE_EXCEPTION_NOT_HANDLED",
+            0x00000024: "NTFS_FILE_SYSTEM",
+            0x0000002E: "DATA_BUS_ERROR",
+            0x0000003B: "SYSTEM_SERVICE_EXCEPTION",
+            0x00000044: "MULTIPLE_IRP_COMPLETE_REQUESTS",
+            0x00000050: "PAGE_FAULT_IN_NONPAGED_AREA",
+            0x0000007B: "INACCESSIBLE_BOOT_DEVICE",
+            0x0000007E: "SYSTEM_THREAD_EXCEPTION_NOT_HANDLED",
+            0x0000007F: "UNEXPECTED_KERNEL_MODE_TRAP",
+            0x80070002: "সিস্টেম ফাইল খুঁজে পাচ্ছে না",
+            0x80070005: "অ্যাক্সেস ডিনাইড",
+            0x80070057: "প্যারামিটার ভুল",
+            0x8007000E: "পর্যাপ্ত স্টোরেজ নেই",
+            0x80070490: "এলিমেন্ট খুঁজে পাওয়া যায়নি",
+            0x80240017: "Windows Update ইনস্টল করতে ব্যর্থ",
+            0x80070570: "ফাইল বা ডিরেক্টরি ক্ষতিগ্রস্ত",
+            0x80004005: "অনির্দিষ্ট ত্রুটি",
+            0x80070015: "ডিভাইস প্রস্তুত নয়"
+        },
+        errorDescriptions: {
+            0x0000000A: "এই ত্রুটি নির্দেশ করে যে Windows বা একটি kernel-mode driver ভুল ঠিকানায় মেমরি অ্যাক্সেস করেছে।",
+            0x0000001E: "এই ত্রুটি নির্দেশ করে যে একটি kernel-mode প্রোগ্রাম exception তৈরি করেছে যা error handler ধরতে পারেনি।",
+            0x80070005: "এই ত্রুটি ঘটে যখন আপনার কোনো ফাইল বা ফোল্ডার অ্যাক্সেস করার পর্যাপ্ত অনুমতি নেই।",
+            0x80070057: "এই ত্রুটি ঘটে যখন ভুল প্যারামিটার ডেটা Windows ফাংশনে পাঠানো হয়।",
+            0x80240017: "এই ত্রুটি নির্দেশ করে যে Windows Update আপডেট ইনস্টল করার সময় ত্রুটি পেয়েছে।"
+        },
+        errorSolutions: {
+            0x0000000A: "ড্রাইভার আপডেট করুন, হার্ডওয়্যার সামঞ্জস্যতা চেক করুন, মেমরি ডায়াগনস্টিক টুল চালান, overheating চেক করুন।",
+            0x0000001E: "ড্রাইভার আপডেট করুন, হার্ডওয়্যার সমস্যা চেক করুন, System File Checker চালান, clean boot করুন।",
+            0x80070005: "ফাইল/ফোল্ডারের মালিকানা নিন, administrator হিসাবে চালান, অনুমতি চেক করুন, সাময়িকভাবে antivirus বন্ধ করুন।",
+            0x80070057: "রেজিস্ট্রি মান চেক করুন, সমস্যাযুক্ত সফটওয়্যার পুনরায় ইনস্টল করুন, System File Checker চালান, malware চেক করুন।",
+            0x80240017: "Windows Update Troubleshooter চালান, Windows Update cache পরিষ্কার করুন, Windows Update components রিসেট করুন।"
+        }
+    }
+};
+
+// Current language state
+let currentLang = 'en';
+
+// Toggle language
+document.getElementById('languageToggle').addEventListener('click', function() {
+    currentLang = currentLang === 'en' ? 'bn' : 'en';
+    updateLanguage();
+    renderErrors(errors);
+});
+
+// Update all text elements based on language
+function updateLanguage() {
+    // Update UI elements
+    document.getElementById('langFlag').textContent = currentLang === 'en' ? 'EN' : 'বাং';
+    document.getElementById('langText').textContent = currentLang === 'en' ? 'English' : 'বাংলা';
+    
+    // Update all translatable elements
+    document.getElementById('heroTitle').textContent = translations[currentLang].heroTitle;
+    document.getElementById('heroSubtitle').textContent = translations[currentLang].heroSubtitle;
+    document.getElementById('backText').textContent = translations[currentLang].backText;
+    document.getElementById('searchInput').placeholder = translations[currentLang].searchPlaceholder;
+    
+    // Update filter buttons
+    document.getElementById('filterAll').textContent = translations[currentLang].filterAll;
+    document.getElementById('filterCritical').textContent = translations[currentLang].filterCritical;
+    document.getElementById('filterError').textContent = translations[currentLang].filterError;
+    document.getElementById('filterWarning').textContent = translations[currentLang].filterWarning;
+    document.getElementById('filterBSOD').textContent = translations[currentLang].filterBSOD;
+    document.getElementById('filterNetwork').textContent = translations[currentLang].filterNetwork;
+}
+
+const errors = [
+    {
+        code: "0x0000000A",
+        name: "IRQL_NOT_LESS_OR_EQUAL",
+        severity: "critical",
+        category: "bsod",
+        description: {
+            en: "This indicates that Microsoft Windows or a kernel-mode driver accessed paged memory at an invalid address while at a raised interrupt request level (IRQL).",
+            bn: "এই ত্রুটি নির্দেশ করে যে Windows বা একটি kernel-mode driver ভুল ঠিকানায় মেমরি অ্যাক্সেস করেছে।"
+        },
+        solutions: {
+            en: [
+                "Update all device drivers to latest versions",
+                "Run Windows Memory Diagnostic tool",
+                "Check for overheating issues",
+                "Perform clean boot to identify conflicting software",
+                "Update BIOS/UEFI firmware",
+                "Check hardware compatibility"
+            ],
+            bn: [
+                "সব ডিভাইস ড্রাইভার আপডেট করুন",
+                "Windows Memory Diagnostic টুল চালান",
+                "Overheating সমস্যা চেক করুন",
+                "Clean boot করুন conflicts চেক করার জন্য",
+                "BIOS/UEFI firmware আপডেট করুন",
+                "হার্ডওয়্যার সামঞ্জস্যতা চেক করুন"
+            ]
+        }
+    },
+    {
+        code: "0x80070005",
+        name: "Access Denied",
+        severity: "error",
+        category: "permission",
+        description: {
+            en: "This error occurs when you do not have sufficient permissions to access a file or folder.",
+            bn: "এই ত্রুটি ঘটে যখন আপনার কোনো ফাইল বা ফোল্ডার অ্যাক্সেস করার পর্যাপ্ত অনুমতি নেই।"
+        },
+        solutions: {
+            en: [
+                "Take ownership of the file/folder",
+                "Run the program as administrator",
+                "Check and modify file permissions",
+                "Temporarily disable antivirus software",
+                "Use Command Prompt with elevated privileges"
+            ],
+            bn: [
+                "ফাইল/ফোল্ডারের মালিকানা নিন",
+                "Administrator হিসাবে প্রোগ্রাম চালান",
+                "ফাইল অনুমতি চেক এবং পরিবর্তন করুন",
+                "সাময়িকভাবে antivirus বন্ধ করুন",
+                "উচ্চতর বিশেষাধিকার সহ Command Prompt ব্যবহার করুন"
+            ]
+        }
+    },
+    {
+        code: "0x80070057",
+        name: "Parameter Incorrect",
+        severity: "error",
+        category: "system",
+        description: {
+            en: "This error occurs when invalid parameter data is passed to a Windows function.",
+            bn: "এই ত্রুটি ঘটে যখন ভুল প্যারামিটার ডেটা Windows ফাংশনে পাঠানো হয়।"
+        },
+        solutions: {
+            en: [
+                "Check and fix registry values",
+                "Reinstall problematic software",
+                "Run System File Checker (sfc /scannow)",
+                "Check for malware infections",
+                "Perform system restore",
+                "Update Windows to latest version"
+            ],
+            bn: [
+                "রেজিস্ট্রি মান চেক এবং ঠিক করুন",
+                "সমস্যাযুক্ত সফটওয়্যার পুনরায় ইনস্টল করুন",
+                "System File Checker চালান (sfc /scannow)",
+                "Malware ইনফেকশন চেক করুন",
+                "System restore করুন",
+                "Windows আপডেট করুন"
+            ]
+        }
+    },
+    {
+        code: "0x80240017",
+        name: "Windows Update Failed",
+        severity: "warning",
+        category: "update",
+        description: {
+            en: "This error indicates that Windows Update encountered an error while installing updates.",
+            bn: "এই ত্রুটি নির্দেশ করে যে Windows Update আপডেট ইনস্টল করার সময় ত্রুটি পেয়েছে।"
+        },
+        solutions: {
+            en: [
+                "Run Windows Update Troubleshooter",
+                "Clear Windows Update cache",
+                "Reset Windows Update components",
+                "Check disk space availability",
+                "Temporarily disable antivirus",
+                "Check internet connection stability"
+            ],
+            bn: [
+                "Windows Update Troubleshooter চালান",
+                "Windows Update cache পরিষ্কার করুন",
+                "Windows Update components রিসেট করুন",
+                "ডিস্ক স্পেস চেক করুন",
+                "সাময়িকভাবে antivirus বন্ধ করুন",
+                "ইন্টারনেট সংযোগের স্থিতিশীলতা চেক করুন"
+            ]
+        }
+    },
+    {
+        code: "0x0000007B",
+        name: "INACCESSIBLE_BOOT_DEVICE",
+        severity: "critical",
+        category: "bsod",
+        description: {
+            en: "This stop error indicates that Windows has lost access to the system partition during startup.",
+            bn: "এই stop error নির্দেশ করে যে Windows সিস্টেম পার্টিশনে অ্যাক্সেস হারিয়েছে।"
+        },
+        solutions: {
+            en: [
+                "Check hard drive connections",
+                "Change SATA mode in BIOS (AHCI/IDE)",
+                "Run Startup Repair",
+                "Check for hard drive failures",
+                "Restore from backup",
+                "Reinstall Windows if necessary"
+            ],
+            bn: [
+                "হার্ড ড্রাইভ সংযোগ চেক করুন",
+                "BIOS তে SATA মোড পরিবর্তন করুন",
+                "Startup Repair চালান",
+                "হার্ড ড্রাইভ failure চেক করুন",
+                "ব্যাকআপ থেকে restore করুন",
+                "প্রয়োজনে Windows পুনরায় ইনস্টল করুন"
+            ]
+        }
+    },
+    {
+        code: "0x80070015",
+        name: "Device Not Ready",
+        severity: "error",
+        category: "device",
+        description: {
+            en: "This error occurs when Windows cannot access a device because it's not ready.",
+            bn: "এই ত্রুটি ঘটে যখন Windows কোনো ডিভাইস অ্যাক্সেস করতে পারে না কারণ এটি প্রস্তুত নয়।"
+        },
+        solutions: {
+            en: [
+                "Check device connections",
+                "Restart the device",
+                "Update device drivers",
+                "Try different USB port",
+                "Check device manager for errors",
+                "Test device on another computer"
+            ],
+            bn: [
+                "ডিভাইস সংযোগ চেক করুন",
+                "ডিভাইস restart করুন",
+                "ডিভাইস ড্রাইভার আপডেট করুন",
+                "ভিন্ন USB পোর্টে চেষ্টা করুন",
+                "Device Manager এ errors চেক করুন",
+                "অন্য কম্পিউটারে ডিভাইস test করুন"
+            ]
+        }
+    },
+    {
+        code: "0x8007000E",
+        name: "Not Enough Storage",
+        severity: "warning",
+        category: "system",
+        description: {
+            en: "This error occurs when there is insufficient storage space to complete an operation.",
+            bn: "এই ত্রুটি ঘটে যখন কোনো অপারেশন সম্পূর্ণ করার জন্য পর্যাপ্ত স্টোরেজ স্পেস নেই।"
+        },
+        solutions: {
+            en: [
+                "Free up disk space",
+                "Empty Recycle Bin",
+                "Delete temporary files",
+                "Uninstall unused programs",
+                "Move files to external storage",
+                "Use Disk Cleanup tool"
+            ],
+            bn: [
+                "ডিস্ক স্পেস ফ্রি করুন",
+                "Recycle Bin খালি করুন",
+                "Temporary files মুছুন",
+                "অব্যবহৃত প্রোগ্রাম আনইনস্টল করুন",
+                "ফাইল external storage এ নিন",
+                "Disk Cleanup টুল ব্যবহার করুন"
+            ]
+        }
+    },
+    {
+        code: "0x0000001E",
+        name: "KMODE_EXCEPTION_NOT_HANDLED",
+        severity: "critical",
+        category: "bsod",
+        description: {
+            en: "This indicates that a kernel-mode program generated an exception which the error handler did not catch.",
+            bn: "এই ত্রুটি নির্দেশ করে যে একটি kernel-mode প্রোগ্রাম exception তৈরি করেছে যা error handler ধরতে পারেনি।"
+        },
+        solutions: {
+            en: [
+                "Update all device drivers",
+                "Check for hardware issues",
+                "Run System File Checker",
+                "Check for malware",
+                "Perform clean boot",
+                "Update BIOS/UEFI"
+            ],
+            bn: [
+                "সব ডিভাইস ড্রাইভার আপডেট করুন",
+                "হার্ডওয়্যার সমস্যা চেক করুন",
+                "System File Checker চালান",
+                "Malware চেক করুন",
+                "Clean boot করুন",
+                "BIOS/UEFI আপডেট করুন"
+            ]
+        }
+    }
+];
+
+function renderErrors(errorsToRender) {
+    const list = document.getElementById('errorList');
+    list.innerHTML = errorsToRender.map(error => `
+        <div class="error-card" data-category="${error.category}" data-severity="${error.severity}">
+            <div class="error-header">
+                <div class="error-code">${error.code}</div>
+                <span class="error-severity severity-${error.severity}">
+                    ${error.severity === 'critical' ? 
+                        (currentLang === 'en' ? 'Critical' : 'ক্রিটিকাল') : 
+                     error.severity === 'error' ? 
+                        (currentLang === 'en' ? 'Error' : 'ত্রুটি') : 
+                     (currentLang === 'en' ? 'Warning' : 'সতর্কতা')}
+                </span>
+            </div>
+            <div class="error-content">
+                <h3>${error.name}</h3>
+                <div class="error-description">${error.description[currentLang]}</div>
+                <div class="error-solution">
+                    <h4>${currentLang === 'en' ? 'Solutions:' : 'সমাধান:'}</h4>
+                    <ul>
+                        ${error.solutions[currentLang].map(solution => `<li>${solution}</li>`).join('')}
+                    </ul>
+                </div>
+                <div class="error-meta">
+                    <span><i class="fas fa-code"></i> ${error.code}</span>
+                    <span><i class="fas fa-tag"></i> ${error.category}</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Initialize
+renderErrors(errors);
+updateLanguage();
+
+// Filter functionality
+let currentFilter = 'all';
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Update active state
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        // Filter errors
+        currentFilter = this.dataset.filter;
+        let filteredErrors;
+        
+        if (currentFilter === 'all') {
+            filteredErrors = errors;
+        } else {
+            filteredErrors = errors.filter(error => 
+                error.severity === currentFilter || 
+                error.category === currentFilter
+            );
+        }
+        
+        renderErrors(filteredErrors);
+    });
+});
+
+// Search functionality
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    const search = e.target.value.toLowerCase();
+    let filteredErrors;
+    
+    if (currentFilter === 'all') {
+        filteredErrors = errors;
+    } else {
+        filteredErrors = errors.filter(error => 
+            error.severity === currentFilter || 
+            error.category === currentFilter
+        );
+    }
+    
+    const searchedErrors = filteredErrors.filter(error => 
+        error.code.toLowerCase().includes(search) ||
+        error.name.toLowerCase().includes(search) ||
+        error.description[currentLang].toLowerCase().includes(search) ||
+        error.solutions[currentLang].some(solution => solution.toLowerCase().includes(search))
+    );
+    
+    renderErrors(searchedErrors);
+});
+</script>
+
+</body>
+</html>

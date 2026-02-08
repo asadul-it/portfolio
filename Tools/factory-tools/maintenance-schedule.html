@@ -1,0 +1,2452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Schedule | Factory Equipment Maintenance Planner</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Advanced Maintenance Schedule tool for factory equipment planning. Schedule preventive maintenance, track equipment history, optimize maintenance cycles, and reduce downtime. Developed by Asadul Islam - IT Engineer.">
+    <meta name="keywords"
+        content="Maintenance Schedule, Preventive Maintenance, Equipment Maintenance, Factory Maintenance, Maintenance Planner, Maintenance Tracking, Asadul Islam, Industrial Engineering, Factory Management">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali, English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Maintenance Schedule | Factory Equipment Maintenance Planner">
+    <meta property="og:description"
+        content="Advanced maintenance scheduling and planning tool for factory equipment maintenance optimization.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/factory-tools/maintenance-schedule.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/tools/maintenance-schedule.jpg">
+    <meta property="og:site_name" content="Asadul Islam Factory Tools">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Maintenance Schedule - Factory Equipment Maintenance Planner">
+    <meta name="twitter:description"
+        content="Schedule preventive maintenance, track equipment history, and optimize maintenance cycles for your factory.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/tools/maintenance-schedule.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/Tools/factory-tools/maintenance-schedule.html">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Maintenance Schedule",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "description": "Professional maintenance scheduling tool for factory equipment maintenance planning and optimization",
+        "url": "https://asadul-it.github.io/portfolio/Tools/factory-tools/maintenance-schedule.html",
+        "author": {
+            "@type": "Person",
+            "name": "Asadul Islam",
+            "jobTitle": "IT Engineer"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* ==================== Header Styles ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 800;
+            color: #1a1a1a;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #d97706;
+            transform: translateY(-1px);
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.15);
+        }
+
+        .logo-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #4b5563;
+            letter-spacing: 0.2px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            position: relative;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #d97706;
+            background: rgba(217, 119, 6, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .navbar a:hover::before {
+            width: 100%;
+        }
+
+        .navbar a i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: #d97706;
+            color: white;
+            border-color: #d97706;
+            transform: rotate(15deg);
+        }
+
+        /* ==================== Breadcrumb Styles ==================== */
+        .breadcrumb-container {
+            background: linear-gradient(to right, #f8fafc, #ffffff);
+            border-bottom: 1px solid #eef2f7;
+            padding: 22px 0;
+        }
+
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 25px;
+            font-size: 14px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #d97706;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .breadcrumb a:hover {
+            color: #b45309;
+            background: rgba(217, 119, 6, 0.1);
+            text-decoration: none;
+        }
+
+        .breadcrumb-separator {
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+
+        /* ==================== Main Content Styles ==================== */
+        .main-content {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 25px;
+            min-height: calc(100vh - 400px);
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #92400e 0%, #d97706 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ==================== Tool Container Styles ==================== */
+        .tool-container {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid #eef2f7;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .tool-header {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            padding: 28px 32px;
+            color: white;
+        }
+
+        .tool-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tool-header h2 i {
+            font-size: 22px;
+        }
+
+        .tool-header p {
+            font-size: 15px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .tool-body {
+            padding: 40px 32px;
+        }
+
+        /* ==================== Equipment Section ==================== */
+        .equipment-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #d97706;
+            font-size: 20px;
+        }
+
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #475569;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group label i {
+            color: #d97706;
+            font-size: 14px;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            color: #1e293b;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #d97706;
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
+        }
+
+        .input-with-unit {
+            position: relative;
+        }
+
+        .unit {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .add-equipment-btn {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 28px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .add-equipment-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(217, 119, 6, 0.2);
+        }
+
+        /* ==================== Equipment List Section ==================== */
+        .equipment-list-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .equipment-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .equipment-table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .equipment-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1100px;
+        }
+
+        .equipment-table thead {
+            background: #f1f5f9;
+        }
+
+        .equipment-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            color: #475569;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .equipment-table tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.2s ease;
+        }
+
+        .equipment-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .equipment-table td {
+            padding: 16px;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .equipment-name {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .maintenance-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-due {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .status-overdue {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        .status-completed {
+            background: rgba(16, 185, 129, 0.1);
+            color: #047857;
+        }
+
+        .status-scheduled {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            background: #f1f5f9;
+            color: #475569;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: #d97706;
+            color: white;
+        }
+
+        /* ==================== Maintenance Schedule Section ==================== */
+        .schedule-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .month-navigation {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .month-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 8px 16px;
+            cursor: pointer;
+            color: #475569;
+            transition: all 0.2s ease;
+        }
+
+        .month-btn:hover {
+            background: #d97706;
+            color: white;
+            border-color: #d97706;
+        }
+
+        .calendar-container {
+            overflow-x: auto;
+        }
+
+        .calendar {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        .calendar th {
+            padding: 16px;
+            background: #f1f5f9;
+            font-weight: 700;
+            color: #475569;
+            font-size: 14px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .calendar td {
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            vertical-align: top;
+            height: 120px;
+            position: relative;
+        }
+
+        .calendar-day {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .maintenance-event {
+            background: #fef3c7;
+            border-left: 4px solid #d97706;
+            border-radius: 6px;
+            padding: 8px;
+            margin-top: 24px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .maintenance-event:hover {
+            background: #fde68a;
+            transform: translateY(-2px);
+        }
+
+        .event-title {
+            font-weight: 600;
+            color: #92400e;
+            margin-bottom: 4px;
+        }
+
+        .event-details {
+            color: #78350f;
+            font-size: 11px;
+        }
+
+        /* ==================== Control Section ==================== */
+        .control-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 32px;
+        }
+
+        .schedule-controls {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(217, 119, 6, 0.3);
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
+        }
+
+        /* ==================== Analysis Section ==================== */
+        .analysis-section {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            display: none;
+        }
+
+        .analysis-header {
+            padding: 20px 24px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .analysis-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .analysis-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .export-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .export-btn:hover {
+            background: #d97706;
+            color: white;
+            border-color: #d97706;
+        }
+
+        /* ==================== Stats Cards ==================== */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            padding: 32px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: #d97706;
+        }
+
+        .stat-card-title {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-card-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #92400e;
+            margin-bottom: 8px;
+        }
+
+        .stat-card-subtitle {
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .stat-card.highlight {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-color: #f59e0b;
+        }
+
+        /* ==================== Maintenance History ==================== */
+        .history-section {
+            padding: 32px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .history-table-container {
+            overflow-x: auto;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        .history-table thead {
+            background: #f1f5f9;
+        }
+
+        .history-table th {
+            padding: 18px 16px;
+            text-align: left;
+            font-weight: 700;
+            color: #475569;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .history-table tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.2s ease;
+        }
+
+        .history-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .history-table td {
+            padding: 20px 16px;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .history-equipment {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .history-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .cost-cell {
+            font-weight: 600;
+            color: #92400e;
+        }
+
+        /* ==================== Footer Styles ==================== */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 80px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 45px 25px 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-column a {
+            color: #475569;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 4px 0;
+        }
+
+        .footer-column a:hover {
+            color: #d97706;
+            transform: translateX(5px);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #475569;
+            font-size: 18px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+            color: #ffffff;
+            transform: translateY(-4px) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(217, 119, 6, 0.2);
+            border-color: transparent;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 24px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #64748b;
+            background: #f8fafc;
+        }
+
+        .footer-bottom a {
+            color: #d97706;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: #b45309;
+            text-decoration: underline;
+        }
+
+        /* ==================== Mobile Responsive Styles ==================== */
+        @media (max-width: 1024px) {
+            .header-content {
+                padding: 16px 20px;
+            }
+
+            .navbar ul {
+                gap: 20px;
+            }
+
+            .footer-container {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+                padding: 8px;
+                z-index: 1001;
+            }
+
+            .hamburger span {
+                width: 28px;
+                height: 3px;
+                background: #d97706;
+                border-radius: 2px;
+                transition: all 0.3s ease;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .navbar {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                padding: 100px 30px 30px;
+                z-index: 1000;
+            }
+
+            .navbar.active {
+                display: block;
+                animation: slideIn 0.3s ease;
+            }
+
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar li {
+                margin-bottom: 1px;
+            }
+
+            .navbar a {
+                padding: 20px 24px;
+                border-radius: 0;
+                border-bottom: 1px solid #eef2f7;
+                font-size: 16px;
+                justify-content: flex-start;
+            }
+
+            .navbar a::before {
+                display: none;
+            }
+
+            .header-buttons {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .tool-body {
+                padding: 30px 20px;
+            }
+
+            .equipment-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .stats-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .control-section {
+                flex-direction: column;
+                gap: 20px;
+                align-items: stretch;
+            }
+
+            .schedule-controls {
+                justify-content: center;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .quick-links {
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .tool-header {
+                padding: 24px 20px;
+            }
+
+            .equipment-section {
+                padding: 24px 20px;
+            }
+
+            .equipment-list-section {
+                padding: 24px 20px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .stat-card-value {
+                font-size: 28px;
+            }
+
+            .social-links a {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+        }
+
+        /* ==================== Tooltip Styles ==================== */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background: #1e293b;
+            color: #ffffff;
+            text-align: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.5;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .tooltip .tooltip-text::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1e293b transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* ==================== Loading Animation ==================== */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(217, 119, 6, 0.3);
+            border-radius: 50%;
+            border-top-color: #d97706;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ==================== Scrollbar Styling ==================== */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo">
+                <span class="logo-icon">MS</span>
+                <span class="logo-text">Maintenance Schedule</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-buttons">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <div class="breadcrumb" id="breadcrumb"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Maintenance Schedule</h1>
+            <p>Advanced factory equipment maintenance planning tool to schedule preventive maintenance, track equipment history, and optimize maintenance cycles for maximum equipment uptime.</p>
+        </div>
+
+        <div class="tool-container">
+            <div class="tool-header">
+                <h2><i class="fas fa-calendar-check"></i> Maintenance Planning & Scheduling</h2>
+                <p>Schedule preventive maintenance, track equipment history, and optimize maintenance cycles for your factory equipment</p>
+            </div>
+
+            <div class="tool-body">
+                <!-- Equipment Section -->
+                <div class="equipment-section">
+                    <div class="section-title">
+                        <i class="fas fa-tools"></i>
+                        <span>Equipment Registration</span>
+                    </div>
+
+                    <div class="equipment-grid">
+                        <div class="input-group">
+                            <label for="equipmentName">
+                                <i class="fas fa-cogs"></i>
+                                Equipment Name
+                            </label>
+                            <input type="text" id="equipmentName" placeholder="e.g., CNC Machine #1, Boiler Unit A">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="equipmentType">
+                                <i class="fas fa-industry"></i>
+                                Equipment Type
+                            </label>
+                            <select id="equipmentType">
+                                <option value="Machinery">Machinery</option>
+                                <option value="Electrical">Electrical Equipment</option>
+                                <option value="HVAC">HVAC System</option>
+                                <option value="Production Line">Production Line</option>
+                                <option value="Vehicle">Factory Vehicle</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="serialNumber">
+                                <i class="fas fa-barcode"></i>
+                                Serial Number
+                            </label>
+                            <input type="text" id="serialNumber" placeholder="e.g., CNC-2023-001">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="installationDate">
+                                <i class="fas fa-calendar"></i>
+                                Installation Date
+                            </label>
+                            <input type="date" id="installationDate" value="">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="maintenanceType">
+                                <i class="fas fa-wrench"></i>
+                                Maintenance Type
+                            </label>
+                            <select id="maintenanceType">
+                                <option value="Preventive">Preventive Maintenance</option>
+                                <option value="Corrective">Corrective Maintenance</option>
+                                <option value="Predictive">Predictive Maintenance</option>
+                                <option value="Emergency">Emergency Maintenance</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="frequency">
+                                <i class="fas fa-sync-alt"></i>
+                                Maintenance Frequency
+                            </label>
+                            <select id="frequency">
+                                <option value="Daily">Daily</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Quarterly">Quarterly</option>
+                                <option value="Half-Yearly">Half-Yearly</option>
+                                <option value="Yearly">Yearly</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group input-with-unit">
+                            <label for="estimatedHours">
+                                <i class="fas fa-clock"></i>
+                                Estimated Duration
+                            </label>
+                            <input type="number" id="estimatedHours" value="4" min="1" max="48">
+                            <span class="unit">hours</span>
+                        </div>
+
+                        <div class="input-group input-with-unit">
+                            <label for="estimatedCost">
+                                <i class="fas fa-dollar-sign"></i>
+                                Estimated Cost
+                            </label>
+                            <input type="number" id="estimatedCost" value="500" min="0" step="50">
+                            <span class="unit">$</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="margin-top: 20px;">
+                        <label for="equipmentNotes">
+                            <i class="fas fa-file-alt"></i>
+                            Equipment Notes / Specifications
+                        </label>
+                        <textarea id="equipmentNotes" placeholder="Add equipment specifications, special instructions, or maintenance notes..." rows="3"></textarea>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 32px;">
+                        <button class="add-equipment-btn" id="addEquipmentBtn">
+                            <i class="fas fa-plus-circle"></i>
+                            Register Equipment
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Equipment List Section -->
+                <div class="equipment-list-section">
+                    <div class="equipment-list-header">
+                        <div class="section-title">
+                            <i class="fas fa-list"></i>
+                            <span>Equipment Inventory</span>
+                        </div>
+                        <div>
+                            <button class="btn-secondary" id="clearEquipmentBtn">
+                                <i class="fas fa-trash"></i>
+                                Clear All
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="equipment-table-container">
+                        <table class="equipment-table" id="equipmentTable">
+                            <thead>
+                                <tr>
+                                    <th>Equipment</th>
+                                    <th>Type</th>
+                                    <th>Serial No.</th>
+                                    <th>Last Maintenance</th>
+                                    <th>Next Due</th>
+                                    <th>Status</th>
+                                    <th>Frequency</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="equipmentList">
+                                <tr class="no-equipment">
+                                    <td colspan="8" style="text-align: center; padding: 40px 20px; color: #94a3b8;">
+                                        <i class="fas fa-tools" style="font-size: 48px; margin-bottom: 20px;"></i>
+                                        <div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">No equipment registered yet</div>
+                                        <div>Register your first equipment using the form above</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Schedule Section -->
+                <div class="schedule-section">
+                    <div class="calendar-header">
+                        <div class="section-title">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Maintenance Calendar</span>
+                        </div>
+                        <div class="month-navigation">
+                            <button class="month-btn" id="prevMonth">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <span id="currentMonth" style="font-weight: 600; color: #1e293b;">February 2024</span>
+                            <button class="month-btn" id="nextMonth">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="calendar-container">
+                        <table class="calendar" id="maintenanceCalendar">
+                            <thead>
+                                <tr>
+                                    <th>Sunday</th>
+                                    <th>Monday</th>
+                                    <th>Tuesday</th>
+                                    <th>Wednesday</th>
+                                    <th>Thursday</th>
+                                    <th>Friday</th>
+                                    <th>Saturday</th>
+                                </tr>
+                            </thead>
+                            <tbody id="calendarBody">
+                                <!-- Calendar will be populated here -->
+                                <tr>
+                                    <td colspan="7" style="text-align: center; padding: 60px 20px; color: #94a3b8;">
+                                        <i class="fas fa-calendar" style="font-size: 48px; margin-bottom: 20px;"></i>
+                                        <div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">No maintenance schedule available</div>
+                                        <div>Register equipment and schedule maintenance to see the calendar</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Control Section -->
+                <div class="control-section">
+                    <div class="schedule-controls">
+                        <button class="btn btn-primary" id="generateScheduleBtn">
+                            <i class="fas fa-calendar-plus"></i>
+                            Generate Schedule
+                        </button>
+                        <button class="btn btn-secondary" id="updateMaintenanceBtn">
+                            <i class="fas fa-check-circle"></i>
+                            Mark Completed
+                        </button>
+                        <button class="btn btn-danger" id="clearScheduleBtn">
+                            <i class="fas fa-trash"></i>
+                            Clear Schedule
+                        </button>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 18px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <i class="fas fa-tools" style="color: #d97706;"></i>
+                            <span id="equipmentCount">0 Equipment</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 18px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <i class="fas fa-calendar-check" style="color: #d97706;"></i>
+                            <span id="maintenanceCount">0 Scheduled</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Section -->
+                <div class="analysis-section" id="analysisSection">
+                    <div class="analysis-header">
+                        <h3>
+                            <i class="fas fa-chart-bar"></i>
+                            Maintenance Analysis
+                        </h3>
+                        <div class="analysis-actions">
+                            <button class="export-btn" id="exportPDF">
+                                <i class="fas fa-file-pdf"></i>
+                                Export PDF
+                            </button>
+                            <button class="export-btn" id="exportExcel">
+                                <i class="fas fa-file-excel"></i>
+                                Export Excel
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-cards">
+                        <div class="stat-card">
+                            <div class="stat-card-title">
+                                <i class="fas fa-calendar-check"></i>
+                                Upcoming Maintenance
+                            </div>
+                            <div class="stat-card-value" id="upcomingCount">0</div>
+                            <div class="stat-card-subtitle">Maintenance scheduled for next 30 days</div>
+                        </div>
+
+                        <div class="stat-card highlight">
+                            <div class="stat-card-title">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Overdue Maintenance
+                            </div>
+                            <div class="stat-card-value" id="overdueCount">0</div>
+                            <div class="stat-card-subtitle">Past due maintenance tasks</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-card-title">
+                                <i class="fas fa-dollar-sign"></i>
+                                Monthly Cost
+                            </div>
+                            <div class="stat-card-value" id="monthlyCost">$0</div>
+                            <div class="stat-card-subtitle">Estimated maintenance cost this month</div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-card-title">
+                                <i class="fas fa-percentage"></i>
+                                Compliance Rate
+                            </div>
+                            <div class="stat-card-value" id="complianceRate">0%</div>
+                            <div class="stat-card-subtitle">On-time maintenance completion rate</div>
+                        </div>
+                    </div>
+
+                    <!-- Maintenance History -->
+                    <div class="history-section">
+                        <div class="section-title">
+                            <i class="fas fa-history"></i>
+                            <span>Maintenance History</span>
+                        </div>
+                        <div class="history-table-container">
+                            <table class="history-table" id="historyTable">
+                                <thead>
+                                    <tr>
+                                        <th>Equipment</th>
+                                        <th>Maintenance Type</th>
+                                        <th>Date Completed</th>
+                                        <th>Duration</th>
+                                        <th>Status</th>
+                                        <th>Cost</th>
+                                        <th>Technician</th>
+                                        <th>Notes</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historyBody">
+                                    <!-- History will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About This Tool</h3>
+                <p>Professional maintenance scheduling tool for factory equipment. Plan preventive maintenance, track equipment history, and optimize maintenance cycles to reduce downtime.</p>
+                <p><i class="fas fa-lightbulb"></i> Essential for maintenance managers, production engineers, and factory supervisors.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links">
+                    <a href="../../index.html">Home</a>
+                    <a href="../../skills.html">Skills</a>
+                    <a href="../tools.html">Tools</a>
+                    <a href="../../certificate.html">Certifications</a>
+                    <a href="../../contact.html">Contact Me</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Connect With Me</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"
+                        aria-label="LinkedIn Profile">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/asadul-it" target="_blank" aria-label="GitHub Profile">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"
+                        aria-label="Facebook Profile">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/8801706927793" target="_blank" aria-label="WhatsApp Contact">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                <p style="margin-top: 20px; font-size: 13px;">
+                    <i class="fas fa-envelope"></i>
+                    asadul.it.engineer@gmail.com
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Maintenance Schedule | Developed by <a href="../../index.html">Asadul Islam</a> | All Rights Reserved
+        </div>
+    </footer>
+
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // DOM Elements
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        const themeToggle = document.getElementById("themeToggle");
+        const addEquipmentBtn = document.getElementById("addEquipmentBtn");
+        const generateScheduleBtn = document.getElementById("generateScheduleBtn");
+        const updateMaintenanceBtn = document.getElementById("updateMaintenanceBtn");
+        const clearScheduleBtn = document.getElementById("clearScheduleBtn");
+        const clearEquipmentBtn = document.getElementById("clearEquipmentBtn");
+        const exportPDFBtn = document.getElementById("exportPDF");
+        const exportExcelBtn = document.getElementById("exportExcel");
+        const prevMonthBtn = document.getElementById("prevMonth");
+        const nextMonthBtn = document.getElementById("nextMonth");
+        const equipmentList = document.getElementById("equipmentList");
+        const calendarBody = document.getElementById("calendarBody");
+        const historyBody = document.getElementById("historyBody");
+        const analysisSection = document.getElementById("analysisSection");
+        const equipmentCount = document.getElementById("equipmentCount");
+        const maintenanceCount = document.getElementById("maintenanceCount");
+        const currentMonth = document.getElementById("currentMonth");
+
+        // Data
+        let equipment = [];
+        let maintenanceSchedule = [];
+        let maintenanceHistory = [];
+        let currentDate = new Date();
+        let currentMonthIndex = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+
+        // Initialize Breadcrumb
+        setBreadcrumb([
+            { name: "Home", link: "../../index.html" },
+            { name: "Tools", link: "../tools.html" },
+            { name: "Factory Tools", link: "../tools.html#factory" },
+            { name: "Maintenance Schedule" }
+        ]);
+
+        function setBreadcrumb(items) {
+            const breadcrumbContainer = document.getElementById("breadcrumb");
+            breadcrumbContainer.innerHTML = items.map((item, index) => {
+                if (item.link) {
+                    return `<a href="${item.link}">${item.name}</a>`;
+                } else {
+                    return `<span style="color: #1e293b; font-weight: 600;">${item.name}</span>`;
+                }
+            }).join('<span class="breadcrumb-separator">›</span>');
+        }
+
+        // Hamburger Menu Toggle
+        hamburger.onclick = () => {
+            navbar.classList.toggle("active");
+            hamburger.classList.toggle("active");
+            document.body.style.overflow = navbar.classList.contains("active") ? "hidden" : "";
+        };
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navbar.contains(e.target) && !hamburger.contains(e.target)) {
+                navbar.classList.remove("active");
+                hamburger.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+        });
+
+        // Theme Toggle
+        themeToggle.onclick = () => {
+            const icon = themeToggle.querySelector('i');
+            if (icon.classList.contains('fa-moon')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        };
+
+        // Check for saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            themeToggle.click();
+        }
+
+        // Set default date to today
+        document.getElementById('installationDate').valueAsDate = new Date();
+
+        // Add Equipment
+        addEquipmentBtn.onclick = () => {
+            const equipmentName = document.getElementById('equipmentName').value.trim() || `Equipment ${equipment.length + 1}`;
+            const equipmentType = document.getElementById('equipmentType').value;
+            const serialNumber = document.getElementById('serialNumber').value.trim() || `EQ-${Date.now().toString().slice(-6)}`;
+            const installationDate = document.getElementById('installationDate').value || new Date().toISOString().slice(0, 10);
+            const maintenanceType = document.getElementById('maintenanceType').value;
+            const frequency = document.getElementById('frequency').value;
+            const estimatedHours = parseFloat(document.getElementById('estimatedHours').value) || 4;
+            const estimatedCost = parseFloat(document.getElementById('estimatedCost').value) || 500;
+            const equipmentNotes = document.getElementById('equipmentNotes').value.trim();
+
+            // Calculate next maintenance date based on frequency
+            const today = new Date();
+            let nextMaintenanceDate = new Date(today);
+            
+            switch(frequency) {
+                case 'Daily':
+                    nextMaintenanceDate.setDate(today.getDate() + 1);
+                    break;
+                case 'Weekly':
+                    nextMaintenanceDate.setDate(today.getDate() + 7);
+                    break;
+                case 'Monthly':
+                    nextMaintenanceDate.setMonth(today.getMonth() + 1);
+                    break;
+                case 'Quarterly':
+                    nextMaintenanceDate.setMonth(today.getMonth() + 3);
+                    break;
+                case 'Half-Yearly':
+                    nextMaintenanceDate.setMonth(today.getMonth() + 6);
+                    break;
+                case 'Yearly':
+                    nextMaintenanceDate.setFullYear(today.getFullYear() + 1);
+                    break;
+            }
+
+            const equipmentItem = {
+                id: Date.now(),
+                name: equipmentName,
+                type: equipmentType,
+                serialNumber: serialNumber,
+                installationDate: installationDate,
+                maintenanceType: maintenanceType,
+                frequency: frequency,
+                estimatedHours: estimatedHours,
+                estimatedCost: estimatedCost,
+                notes: equipmentNotes,
+                lastMaintenance: null,
+                nextMaintenance: nextMaintenanceDate.toISOString().slice(0, 10),
+                status: 'Due'
+            };
+
+            equipment.push(equipmentItem);
+            updateEquipmentList();
+            resetEquipmentForm();
+        };
+
+        // Update Equipment List
+        function updateEquipmentList() {
+            // Remove "no equipment" row if it exists
+            const noEquipmentRow = equipmentList.querySelector('.no-equipment');
+            if (noEquipmentRow && equipment.length > 0) {
+                noEquipmentRow.remove();
+            }
+
+            // Clear existing rows
+            equipmentList.innerHTML = '';
+
+            // Add each equipment to the table
+            equipment.forEach((item, index) => {
+                // Determine status and badge class
+                let status = 'Due';
+                let badgeClass = 'status-due';
+                
+                if (item.status === 'Completed') {
+                    status = 'Completed';
+                    badgeClass = 'status-completed';
+                } else if (item.status === 'Overdue') {
+                    status = 'Overdue';
+                    badgeClass = 'status-overdue';
+                } else if (item.status === 'Scheduled') {
+                    status = 'Scheduled';
+                    badgeClass = 'status-scheduled';
+                }
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="equipment-name">${item.name}</td>
+                    <td>${item.type}</td>
+                    <td>${item.serialNumber}</td>
+                    <td>${item.lastMaintenance || 'Never'}</td>
+                    <td>${item.nextMaintenance}</td>
+                    <td>
+                        <span class="maintenance-badge ${badgeClass}">${status}</span>
+                    </td>
+                    <td>${item.frequency}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn" onclick="scheduleMaintenance(${item.id})">
+                                <i class="fas fa-calendar-plus"></i> Schedule
+                            </button>
+                            <button class="action-btn" onclick="completeMaintenance(${item.id})">
+                                <i class="fas fa-check"></i> Complete
+                            </button>
+                            <button class="action-btn" onclick="deleteEquipment(${item.id})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                
+                equipmentList.appendChild(row);
+            });
+
+            // Add "no equipment" row if empty
+            if (equipment.length === 0) {
+                equipmentList.innerHTML = `
+                    <tr class="no-equipment">
+                        <td colspan="8" style="text-align: center; padding: 40px 20px; color: #94a3b8;">
+                            <i class="fas fa-tools" style="font-size: 48px; margin-bottom: 20px;"></i>
+                            <div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">No equipment registered yet</div>
+                            <div>Register your first equipment using the form above</div>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            // Update equipment count
+            equipmentCount.textContent = `${equipment.length} Equipment`;
+        }
+
+        // Reset Equipment Form
+        function resetEquipmentForm() {
+            document.getElementById('equipmentName').value = '';
+            document.getElementById('equipmentType').value = 'Machinery';
+            document.getElementById('serialNumber').value = '';
+            document.getElementById('installationDate').valueAsDate = new Date();
+            document.getElementById('maintenanceType').value = 'Preventive';
+            document.getElementById('frequency').value = 'Monthly';
+            document.getElementById('estimatedHours').value = 4;
+            document.getElementById('estimatedCost').value = 500;
+            document.getElementById('equipmentNotes').value = '';
+        }
+
+        // Schedule Maintenance
+        window.scheduleMaintenance = function(id) {
+            const equipmentItem = equipment.find(item => item.id === id);
+            if (equipmentItem) {
+                // Calculate next maintenance date
+                const today = new Date();
+                let nextDate = new Date(today);
+                
+                switch(equipmentItem.frequency) {
+                    case 'Daily':
+                        nextDate.setDate(today.getDate() + 1);
+                        break;
+                    case 'Weekly':
+                        nextDate.setDate(today.getDate() + 7);
+                        break;
+                    case 'Monthly':
+                        nextDate.setMonth(today.getMonth() + 1);
+                        break;
+                    case 'Quarterly':
+                        nextDate.setMonth(today.getMonth() + 3);
+                        break;
+                    case 'Half-Yearly':
+                        nextDate.setMonth(today.getMonth() + 6);
+                        break;
+                    case 'Yearly':
+                        nextDate.setFullYear(today.getFullYear() + 1);
+                        break;
+                }
+                
+                equipmentItem.nextMaintenance = nextDate.toISOString().slice(0, 10);
+                equipmentItem.status = 'Scheduled';
+                
+                // Add to schedule
+                const scheduleItem = {
+                    id: Date.now(),
+                    equipmentId: equipmentItem.id,
+                    equipmentName: equipmentItem.name,
+                    date: equipmentItem.nextMaintenance,
+                    type: equipmentItem.maintenanceType,
+                    estimatedHours: equipmentItem.estimatedHours,
+                    estimatedCost: equipmentItem.estimatedCost,
+                    status: 'Scheduled'
+                };
+                
+                maintenanceSchedule.push(scheduleItem);
+                updateEquipmentList();
+                generateCalendar();
+                updateAnalysis();
+                
+                alert(`Maintenance scheduled for ${equipmentItem.name} on ${equipmentItem.nextMaintenance}`);
+            }
+        };
+
+        // Complete Maintenance
+        window.completeMaintenance = function(id) {
+            const equipmentItem = equipment.find(item => item.id === id);
+            if (equipmentItem) {
+                const today = new Date().toISOString().slice(0, 10);
+                
+                // Update equipment
+                equipmentItem.lastMaintenance = today;
+                equipmentItem.status = 'Completed';
+                
+                // Calculate next maintenance date
+                const nextDate = new Date(today);
+                switch(equipmentItem.frequency) {
+                    case 'Daily':
+                        nextDate.setDate(nextDate.getDate() + 1);
+                        break;
+                    case 'Weekly':
+                        nextDate.setDate(nextDate.getDate() + 7);
+                        break;
+                    case 'Monthly':
+                        nextDate.setMonth(nextDate.getMonth() + 1);
+                        break;
+                    case 'Quarterly':
+                        nextDate.setMonth(nextDate.getMonth() + 3);
+                        break;
+                    case 'Half-Yearly':
+                        nextDate.setMonth(nextDate.getMonth() + 6);
+                        break;
+                    case 'Yearly':
+                        nextDate.setFullYear(nextDate.getFullYear() + 1);
+                        break;
+                }
+                
+                equipmentItem.nextMaintenance = nextDate.toISOString().slice(0, 10);
+                
+                // Add to history
+                const historyItem = {
+                    id: Date.now(),
+                    equipmentId: equipmentItem.id,
+                    equipmentName: equipmentItem.name,
+                    maintenanceType: equipmentItem.maintenanceType,
+                    dateCompleted: today,
+                    duration: equipmentItem.estimatedHours,
+                    status: 'Completed',
+                    cost: equipmentItem.estimatedCost,
+                    technician: 'Technician',
+                    notes: 'Maintenance completed successfully'
+                };
+                
+                maintenanceHistory.push(historyItem);
+                updateEquipmentList();
+                updateHistory();
+                updateAnalysis();
+                
+                alert(`Maintenance completed for ${equipmentItem.name}`);
+            }
+        };
+
+        // Delete Equipment
+        window.deleteEquipment = function(id) {
+            if (confirm('Are you sure you want to delete this equipment?')) {
+                equipment = equipment.filter(item => item.id !== id);
+                maintenanceSchedule = maintenanceSchedule.filter(item => item.equipmentId !== id);
+                updateEquipmentList();
+                generateCalendar();
+                updateAnalysis();
+            }
+        };
+
+        // Generate Calendar
+        function generateCalendar() {
+            const firstDay = new Date(currentYear, currentMonthIndex, 1);
+            const lastDay = new Date(currentYear, currentMonthIndex + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+            
+            // Update month display
+            const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            currentMonth.textContent = `${monthNames[currentMonthIndex]} ${currentYear}`;
+            
+            // Clear calendar
+            calendarBody.innerHTML = '';
+            
+            // Create calendar rows
+            let date = 1;
+            let maintenanceCount = 0;
+            
+            for (let i = 0; i < 6; i++) {
+                const row = document.createElement('tr');
+                
+                for (let j = 0; j < 7; j++) {
+                    const cell = document.createElement('td');
+                    
+                    if (i === 0 && j < startingDay) {
+                        // Empty cells before first day
+                        cell.innerHTML = '';
+                    } else if (date > daysInMonth) {
+                        // Empty cells after last day
+                        cell.innerHTML = '';
+                    } else {
+                        // Add day number
+                        const daySpan = document.createElement('span');
+                        daySpan.className = 'calendar-day';
+                        daySpan.textContent = date;
+                        cell.appendChild(daySpan);
+                        
+                        // Add maintenance events for this day
+                        const currentDate = new Date(currentYear, currentMonthIndex, date);
+                        const dateString = currentDate.toISOString().slice(0, 10);
+                        
+                        // Find maintenance scheduled for this day
+                        const dayMaintenance = maintenanceSchedule.filter(item => item.date === dateString);
+                        
+                        dayMaintenance.forEach(maintenance => {
+                            const eventDiv = document.createElement('div');
+                            eventDiv.className = 'maintenance-event';
+                            eventDiv.onclick = () => showMaintenanceDetails(maintenance.id);
+                            
+                            eventDiv.innerHTML = `
+                                <div class="event-title">${maintenance.equipmentName}</div>
+                                <div class="event-details">${maintenance.type} • ${maintenance.estimatedHours}h</div>
+                            `;
+                            
+                            cell.appendChild(eventDiv);
+                            maintenanceCount++;
+                        });
+                        
+                        date++;
+                    }
+                    
+                    row.appendChild(cell);
+                }
+                
+                calendarBody.appendChild(row);
+                
+                // Stop if we've processed all days
+                if (date > daysInMonth) {
+                    break;
+                }
+            }
+            
+            // Update maintenance count
+            maintenanceCount.textContent = `${maintenanceSchedule.length} Scheduled`;
+        }
+
+        // Show Maintenance Details
+        function showMaintenanceDetails(id) {
+            const maintenance = maintenanceSchedule.find(item => item.id === id);
+            if (maintenance) {
+                alert(`Maintenance Details:\n\nEquipment: ${maintenance.equipmentName}\nDate: ${maintenance.date}\nType: ${maintenance.type}\nEstimated Duration: ${maintenance.estimatedHours} hours\nEstimated Cost: $${maintenance.estimatedCost}\nStatus: ${maintenance.status}`);
+            }
+        }
+
+        // Generate Schedule
+        generateScheduleBtn.onclick = () => {
+            if (equipment.length === 0) {
+                alert('Please add equipment first');
+                return;
+            }
+
+            // Schedule maintenance for all equipment
+            equipment.forEach(item => {
+                if (!item.nextMaintenance || item.status !== 'Scheduled') {
+                    scheduleMaintenance(item.id);
+                }
+            });
+
+            generateCalendar();
+            updateAnalysis();
+            
+            // Show analysis section
+            analysisSection.style.display = 'block';
+            
+            alert('Maintenance schedule generated successfully!');
+        };
+
+        // Update Maintenance (Mark as Completed)
+        updateMaintenanceBtn.onclick = () => {
+            // Find equipment due for maintenance
+            const today = new Date().toISOString().slice(0, 10);
+            const dueEquipment = equipment.filter(item => 
+                item.nextMaintenance <= today && item.status !== 'Completed'
+            );
+
+            if (dueEquipment.length === 0) {
+                alert('No equipment is currently due for maintenance');
+                return;
+            }
+
+            // Mark first due equipment as completed
+            const equipmentToUpdate = dueEquipment[0];
+            completeMaintenance(equipmentToUpdate.id);
+            
+            alert(`Maintenance marked as completed for ${equipmentToUpdate.name}`);
+        };
+
+        // Clear Schedule
+        clearScheduleBtn.onclick = () => {
+            if (maintenanceSchedule.length === 0) {
+                alert('No schedule to clear');
+                return;
+            }
+
+            if (confirm('Clear all maintenance schedules?')) {
+                maintenanceSchedule = [];
+                equipment.forEach(item => {
+                    if (item.status === 'Scheduled') {
+                        item.status = 'Due';
+                        item.nextMaintenance = null;
+                    }
+                });
+                
+                updateEquipmentList();
+                generateCalendar();
+                updateAnalysis();
+            }
+        };
+
+        // Clear Equipment
+        clearEquipmentBtn.onclick = () => {
+            if (equipment.length === 0) {
+                alert('No equipment to clear');
+                return;
+            }
+
+            if (confirm('Clear all equipment and maintenance data? This action cannot be undone.')) {
+                equipment = [];
+                maintenanceSchedule = [];
+                maintenanceHistory = [];
+                
+                updateEquipmentList();
+                generateCalendar();
+                updateHistory();
+                analysisSection.style.display = 'none';
+            }
+        };
+
+        // Month Navigation
+        prevMonthBtn.onclick = () => {
+            currentMonthIndex--;
+            if (currentMonthIndex < 0) {
+                currentMonthIndex = 11;
+                currentYear--;
+            }
+            generateCalendar();
+        };
+
+        nextMonthBtn.onclick = () => {
+            currentMonthIndex++;
+            if (currentMonthIndex > 11) {
+                currentMonthIndex = 0;
+                currentYear++;
+            }
+            generateCalendar();
+        };
+
+        // Update History
+        function updateHistory() {
+            historyBody.innerHTML = '';
+            
+            maintenanceHistory.forEach(history => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="history-equipment">${history.equipmentName}</td>
+                    <td>${history.maintenanceType}</td>
+                    <td>${history.dateCompleted}</td>
+                    <td>${history.duration} hours</td>
+                    <td><span class="history-status status-completed">${history.status}</span></td>
+                    <td class="cost-cell">$${history.cost}</td>
+                    <td>${history.technician}</td>
+                    <td>${history.notes}</td>
+                `;
+                historyBody.appendChild(row);
+            });
+
+            // Add empty message if no history
+            if (maintenanceHistory.length === 0) {
+                historyBody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 40px 20px; color: #94a3b8;">
+                            <i class="fas fa-history" style="font-size: 48px; margin-bottom: 20px;"></i>
+                            <div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">No maintenance history</div>
+                            <div>Complete maintenance tasks to build history</div>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Update Analysis
+        function updateAnalysis() {
+            const today = new Date();
+            const next30Days = new Date();
+            next30Days.setDate(today.getDate() + 30);
+            
+            // Count upcoming maintenance (next 30 days)
+            const upcoming = maintenanceSchedule.filter(item => {
+                const itemDate = new Date(item.date);
+                return itemDate >= today && itemDate <= next30Days;
+            }).length;
+            
+            // Count overdue maintenance
+            const overdue = maintenanceSchedule.filter(item => {
+                const itemDate = new Date(item.date);
+                return itemDate < today && item.status !== 'Completed';
+            }).length;
+            
+            // Calculate monthly cost
+            const monthlyCost = maintenanceSchedule.reduce((sum, item) => {
+                const itemDate = new Date(item.date);
+                if (itemDate.getMonth() === today.getMonth() && itemDate.getFullYear() === today.getFullYear()) {
+                    return sum + item.estimatedCost;
+                }
+                return sum;
+            }, 0);
+            
+            // Calculate compliance rate
+            const totalCompleted = maintenanceHistory.length;
+            const totalScheduled = maintenanceSchedule.length + totalCompleted;
+            const complianceRate = totalScheduled > 0 ? Math.round((totalCompleted / totalScheduled) * 100) : 0;
+            
+            // Update display
+            document.getElementById('upcomingCount').textContent = upcoming;
+            document.getElementById('overdueCount').textContent = overdue;
+            document.getElementById('monthlyCost').textContent = `$${monthlyCost}`;
+            document.getElementById('complianceRate').textContent = `${complianceRate}%`;
+            
+            // Update maintenance count
+            maintenanceCount.textContent = `${maintenanceSchedule.length} Scheduled`;
+        }
+
+        // Export Functions
+        exportPDFBtn.onclick = () => {
+            if (equipment.length === 0) {
+                alert('No data to export');
+                return;
+            }
+            alert('PDF export functionality would be implemented here. For now, use print function (Ctrl+P).');
+        };
+
+        exportExcelBtn.onclick = () => {
+            if (equipment.length === 0) {
+                alert('No data to export');
+                return;
+            }
+            exportToExcel();
+        };
+
+        // Export to Excel
+        function exportToExcel() {
+            const headers = ['Equipment Name', 'Type', 'Serial Number', 'Installation Date', 'Last Maintenance', 'Next Maintenance', 'Status', 'Frequency', 'Estimated Hours', 'Estimated Cost'];
+            
+            const csvContent = [
+                headers.join(','),
+                ...equipment.map(item => [
+                    `"${item.name}"`,
+                    item.type,
+                    `"${item.serialNumber}"`,
+                    item.installationDate,
+                    item.lastMaintenance || 'Never',
+                    item.nextMaintenance || 'Not scheduled',
+                    item.status,
+                    item.frequency,
+                    item.estimatedHours,
+                    item.estimatedCost
+                ].join(','))
+            ].join('\n');
+
+            downloadFile(csvContent, `maintenance-schedule-${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv');
+        }
+
+        // Download File
+        function downloadFile(content, filename, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize calendar
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCalendar();
+            updateHistory();
+            
+            // Add sample equipment for demonstration
+            const sampleEquipment = {
+                id: Date.now(),
+                name: 'CNC Machine #1',
+                type: 'Machinery',
+                serialNumber: 'CNC-2023-001',
+                installationDate: '2023-01-15',
+                maintenanceType: 'Preventive',
+                frequency: 'Monthly',
+                estimatedHours: 4,
+                estimatedCost: 500,
+                notes: 'Regular lubrication and calibration required',
+                lastMaintenance: '2024-01-15',
+                nextMaintenance: '2024-02-15',
+                status: 'Scheduled'
+            };
+            
+            // Uncomment to add sample equipment on page load
+            // equipment.push(sampleEquipment);
+            // updateEquipmentList();
+        });
+
+        // Track user interactions for analytics
+        document.addEventListener('DOMContentLoaded', function () {
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track tool usage
+            generateScheduleBtn.addEventListener('click', function () {
+                if (window.gtag) {
+                    gtag('event', 'tool_usage', {
+                        'event_category': 'tools',
+                        'event_label': 'maintenance_schedule_generate',
+                        'value': equipment.length
+                    });
+                }
+            });
+
+            // Track mobile menu usage
+            hamburger.addEventListener('click', function () {
+                if (window.gtag) {
+                    gtag('event', 'mobile_menu_toggle', {
+                        'event_category': 'ui_interaction',
+                        'event_label': 'mobile_menu_opened'
+                    });
+                }
+            });
+
+            // Track export actions
+            exportExcelBtn.addEventListener('click', function () {
+                if (window.gtag) {
+                    gtag('event', 'export_action', {
+                        'event_category': 'tools',
+                        'event_label': 'export_excel'
+                    });
+                }
+            });
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function () {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

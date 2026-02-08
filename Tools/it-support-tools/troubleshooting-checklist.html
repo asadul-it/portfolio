@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troubleshooting Checklist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header with white background */
+        .header {
+            background: white;
+            color: #2c3e50;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #667eea;
+        }
+
+        .logo h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 2em;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+            background: #f5f7fa;
+        }
+
+        .nav-links a.active {
+            color: #667eea;
+            background: #f0f3ff;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f5f7fa;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-toggle:hover {
+            background: #e0e4e8;
+        }
+
+        .lang-flag {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #667eea;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .lang-text {
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .info-box {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .info-box h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .problem-selector {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .problem-selector h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .problem-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .problem-btn {
+            padding: 15px;
+            background: white;
+            border: 2px solid #e0e4e8;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .problem-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .problem-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .problem-btn i {
+            font-size: 1.2em;
+            min-width: 24px;
+        }
+
+        .checklist-container {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .checklist-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .checklist-header h3 {
+            color: #2c3e50;
+            font-size: 1.3em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checklist-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 15px;
+            background: #f0f3ff;
+            border: none;
+            border-radius: 5px;
+            color: #667eea;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .checklist-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #e0e4e8;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-item.completed {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+
+        .checklist-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .checklist-step {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        .checklist-checkbox {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .checklist-description {
+            color: #5a6c7d;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .checklist-details {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #6c757d;
+            border-left: 3px solid #6c757d;
+        }
+
+        .checklist-details h4 {
+            color: #495057;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e0e4e8;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: 600;
+            color: #667eea;
+            margin-top: 5px;
+        }
+
+        .quick-tips {
+            background: #fff3cd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 4px solid #ffc107;
+        }
+
+        .quick-tips h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-tips ul {
+            margin-left: 20px;
+            color: #856404;
+        }
+
+        .quick-tips li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            background: #ffffff;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p, .footer-column ul li, .footer-column ul li a {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #f0f3ff;
+            color: #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #e0e4e8;
+            color: #5a6c7d;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero h2 {
+                font-size: 1.8em;
+            }
+
+            .problem-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .checklist-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .checklist-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header with white background -->
+<div class="header">
+    <div class="header-container">
+        <a href="../../index.html" class="logo">
+            <i class="fas fa-clipboard-list"></i>
+            <h1>Troubleshooting Checklist</h1>
+        </a>
+        
+        <div class="nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../skills.html">Skills</a>
+            <a href="../tools.html">Tools</a>
+            <a href="../../certificate.html">Certificate</a>
+            <a href="../../contact.html">Contact</a>
+            
+            <div class="language-toggle" id="languageToggle">
+                <div class="lang-flag" id="langFlag">EN</div>
+                <span class="lang-text" id="langText">English</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<div class="hero">
+    <h2 id="heroTitle">Troubleshooting Checklist</h2>
+    <p id="heroSubtitle">Step-by-step guide to diagnose and fix common computer problems</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> <span id="backText">Back to Tools</span></a>
+
+    <div class="info-box">
+        <h2><i class="fas fa-info-circle"></i> <span id="infoTitle">How to Use This Checklist</span></h2>
+        <p id="infoDescription">Select a problem below, then follow the step-by-step checklist. Mark each step as completed as you progress. This systematic approach will help you identify and resolve issues efficiently.</p>
+    </div>
+
+    <div class="problem-selector">
+        <h3 id="selectProblemTitle">Select Your Problem:</h3>
+        <div class="problem-buttons" id="problemButtons"></div>
+    </div>
+
+    <div class="checklist-container" id="checklistContainer" style="display: none;">
+        <div class="checklist-header">
+            <h3><i class="fas fa-list-check" id="checklistIcon"></i> <span id="checklistTitle">Troubleshooting Checklist</span></h3>
+            <div class="checklist-actions">
+                <button class="action-btn" id="resetBtn"><i class="fas fa-redo"></i> <span id="resetText">Reset</span></button>
+                <button class="action-btn" id="printBtn"><i class="fas fa-print"></i> <span id="printText">Print</span></button>
+                <button class="action-btn" id="saveBtn"><i class="fas fa-save"></i> <span id="saveText">Save</span></button>
+            </div>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text" id="progressText">0% Complete</div>
+        
+        <div id="checklistItems"></div>
+    </div>
+
+    <div class="quick-tips" id="quickTips">
+        <h4><i class="fas fa-lightbulb"></i> <span id="tipsTitle">Quick Tips for Effective Troubleshooting:</span></h4>
+        <ul id="tipsList">
+            <li>Always start with the simplest solutions first</li>
+            <li>Document each step you take</li>
+            <li>Test after each change to identify what worked</li>
+            <li>Restart computer after making significant changes</li>
+            <li>Keep system restore points before major changes</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Tools</h3>
+            <p>Free collection of online tools for everyday tasks. No installation required, works directly in your browser.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../skills.html">Skills</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../../certificate.html">Certificate</a></li>
+                <li><a href="../../contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:asadul.it@yahoo.com">asadul.it@yahoo.com</a></li>
+                <li><a href="tel:01706927793">01706927793</a></li>
+                <li>Savar, Dhaka</li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Language data
+const translations = {
+    en: {
+        heroTitle: "Troubleshooting Checklist",
+        heroSubtitle: "Step-by-step guide to diagnose and fix common computer problems",
+        backText: "Back to Tools",
+        infoTitle: "How to Use This Checklist",
+        infoDescription: "Select a problem below, then follow the step-by-step checklist. Mark each step as completed as you progress. This systematic approach will help you identify and resolve issues efficiently.",
+        selectProblemTitle: "Select Your Problem:",
+        checklistTitle: "Troubleshooting Checklist",
+        resetText: "Reset",
+        printText: "Print",
+        saveText: "Save",
+        tipsTitle: "Quick Tips for Effective Troubleshooting:",
+        tipsList: [
+            "Always start with the simplest solutions first",
+            "Document each step you take",
+            "Test after each change to identify what worked",
+            "Restart computer after making significant changes",
+            "Keep system restore points before major changes"
+        ],
+        problems: [
+            {
+                id: "slow-computer",
+                name: "Slow Computer",
+                icon: "hourglass-half",
+                steps: [
+                    {
+                        step: "Step 1: Check Task Manager",
+                        description: "Open Task Manager (Ctrl+Shift+Esc) to identify high resource usage.",
+                        details: "Look for processes using high CPU, Memory, or Disk. Note down suspicious programs."
+                    },
+                    {
+                        step: "Step 2: Disable Startup Programs",
+                        description: "Disable unnecessary programs that run on startup.",
+                        details: "Task Manager → Startup tab → Right-click programs → Disable"
+                    },
+                    {
+                        step: "Step 3: Run Disk Cleanup",
+                        description: "Use Disk Cleanup to remove temporary and unnecessary files.",
+                        details: "Type 'cleanmgr' in Run dialog → Select drive → Clean up system files"
+                    },
+                    {
+                        step: "Step 4: Check for Malware",
+                        description: "Run a full system antivirus scan.",
+                        details: "Use Windows Defender or your installed antivirus for complete scan"
+                    },
+                    {
+                        step: "Step 5: Update Drivers",
+                        description: "Update device drivers to latest versions.",
+                        details: "Device Manager → Right-click devices → Update driver"
+                    },
+                    {
+                        step: "Step 6: Adjust Visual Effects",
+                        description: "Optimize Windows for better performance.",
+                        details: "System Properties → Advanced → Performance Settings → Adjust for best performance"
+                    }
+                ]
+            },
+            {
+                id: "no-internet",
+                name: "No Internet Connection",
+                icon: "wifi",
+                steps: [
+                    {
+                        step: "Step 1: Check Physical Connections",
+                        description: "Verify all cables are properly connected.",
+                        details: "Check modem, router, and computer connections. Restart modem/router."
+                    },
+                    {
+                        step: "Step 2: Run Network Troubleshooter",
+                        description: "Use built-in Windows Network Troubleshooter.",
+                        details: "Settings → Network & Internet → Network Troubleshooter"
+                    },
+                    {
+                        step: "Step 3: Reset TCP/IP Stack",
+                        description: "Reset network configuration using Command Prompt.",
+                        details: "Run as admin: netsh winsock reset && netsh int ip reset"
+                    },
+                    {
+                        step: "Step 4: Flush DNS Cache",
+                        description: "Clear DNS resolver cache.",
+                        details: "Command Prompt: ipconfig /flushdns"
+                    },
+                    {
+                        step: "Step 5: Update Network Drivers",
+                        description: "Update network adapter drivers.",
+                        details: "Device Manager → Network adapters → Update driver"
+                    },
+                    {
+                        step: "Step 6: Check Firewall Settings",
+                        description: "Verify firewall isn't blocking connection.",
+                        details: "Windows Defender Firewall → Allow an app through firewall"
+                    }
+                ]
+            },
+            {
+                id: "blue-screen",
+                name: "Blue Screen (BSOD)",
+                icon: "desktop",
+                steps: [
+                    {
+                        step: "Step 1: Note Error Code",
+                        description: "Write down the exact error code displayed.",
+                        details: "Example: STOP: 0x0000000A (IRQL_NOT_LESS_OR_EQUAL)"
+                    },
+                    {
+                        step: "Step 2: Boot in Safe Mode",
+                        description: "Restart in Safe Mode for troubleshooting.",
+                        details: "Restart → Press F8 repeatedly → Safe Mode"
+                    },
+                    {
+                        step: "Step 3: Check Recent Changes",
+                        description: "Identify recently installed software/drivers.",
+                        details: "Uninstall recently added programs or drivers"
+                    },
+                    {
+                        step: "Step 4: Run System File Checker",
+                        description: "Scan for corrupted system files.",
+                        details: "Command Prompt: sfc /scannow"
+                    },
+                    {
+                        step: "Step 5: Check Hardware",
+                        description: "Test RAM and hard drive for errors.",
+                        details: "Use Windows Memory Diagnostic and CHKDSK"
+                    },
+                    {
+                        step: "Step 6: System Restore",
+                        description: "Restore system to previous working state.",
+                        details: "System Restore → Choose restore point before issues started"
+                    }
+                ]
+            },
+            {
+                id: "printer-issues",
+                name: "Printer Not Working",
+                icon: "print",
+                steps: [
+                    {
+                        step: "Step 1: Check Connections",
+                        description: "Verify all cables and power connections.",
+                        details: "Check USB/power cables, restart printer"
+                    },
+                    {
+                        step: "Step 2: Clear Print Queue",
+                        description: "Clear stuck print jobs.",
+                        details: "Services → Print Spooler → Stop → Delete files in spool folder → Restart"
+                    },
+                    {
+                        step: "Step 3: Update Printer Driver",
+                        description: "Install latest printer drivers.",
+                        details: "Device Manager → Printers → Update driver"
+                    },
+                    {
+                        step: "Step 4: Check Paper and Ink",
+                        description: "Verify paper is loaded and ink/toner levels.",
+                        details: "Load paper properly, check ink/toner status"
+                    },
+                    {
+                        step: "Step 5: Run Printer Troubleshooter",
+                        description: "Use Windows Printer Troubleshooter.",
+                        details: "Settings → Devices → Printers → Run troubleshooter"
+                    },
+                    {
+                        step: "Step 6: Reinstall Printer",
+                        description: "Remove and reinstall printer.",
+                        details: "Remove printer from devices → Reinstall with latest drivers"
+                    }
+                ]
+            },
+            {
+                id: "sound-problems",
+                name: "No Sound/Audio Issues",
+                icon: "volume-mute",
+                steps: [
+                    {
+                        step: "Step 1: Check Volume Levels",
+                        description: "Verify volume is not muted or too low.",
+                        details: "Click speaker icon → Check volume and mute status"
+                    },
+                    {
+                        step: "Step 2: Test Different Output",
+                        description: "Try different speakers/headphones.",
+                        details: "Test with multiple audio output devices"
+                    },
+                    {
+                        step: "Step 3: Update Audio Drivers",
+                        description: "Install latest audio drivers.",
+                        details: "Device Manager → Sound, video and game controllers → Update"
+                    },
+                    {
+                        step: "Step 4: Check Default Playback Device",
+                        description: "Set correct device as default.",
+                        details: "Sound Settings → Output → Choose correct device as default"
+                    },
+                    {
+                        step: "Step 5: Run Audio Troubleshooter",
+                        description: "Use Windows Audio Troubleshooter.",
+                        details: "Settings → System → Sound → Troubleshoot"
+                    },
+                    {
+                        step: "Step 6: Check Audio Services",
+                        description: "Verify audio services are running.",
+                        details: "Services → Windows Audio → Set to Automatic and Start"
+                    }
+                ]
+            }
+        ]
+    },
+    bn: {
+        heroTitle: "ট্রাবলশুটিং চেকলিস্ট",
+        heroSubtitle: "সাধারণ কম্পিউটার সমস্যা নির্ণয় এবং সমাধানের ধাপে ধাপে গাইড",
+        backText: "টুলসে ফিরে যান",
+        infoTitle: "এই চেকলিস্ট কিভাবে ব্যবহার করবেন",
+        infoDescription: "নিচ থেকে একটি সমস্যা নির্বাচন করুন, তারপর ধাপে ধাপে চেকলিস্ট অনুসরণ করুন। অগ্রগতির সাথে প্রতিটি ধাপ সম্পন্ন হিসেবে চিহ্নিত করুন। এই পদ্ধতিগত পদ্ধতিটি আপনাকে দক্ষতার সাথে সমস্যাগুলি সনাক্ত করতে এবং সমাধান করতে সাহায্য করবে।",
+        selectProblemTitle: "আপনার সমস্যা নির্বাচন করুন:",
+        checklistTitle: "ট্রাবলশুটিং চেকলিস্ট",
+        resetText: "রিসেট",
+        printText: "প্রিন্ট",
+        saveText: "সংরক্ষণ",
+        tipsTitle: "কার্যকরী ট্রাবলশুটিং এর জন্য দ্রুত টিপস:",
+        tipsList: [
+            "সর্বদা প্রথমে সহজ সমাধান দিয়ে শুরু করুন",
+            "আপনার নেওয়া প্রতিটি ধাপ নথিভুক্ত করুন",
+            "কী কাজ করেছে তা চিহ্নিত করতে প্রতিটি পরিবর্তনের পরে পরীক্ষা করুন",
+            "উল্লেখযোগ্য পরিবর্তন করার পরে কম্পিউটার পুনরায় চালু করুন",
+            "বড় পরিবর্তনের আগে সিস্টেম রিস্টোর পয়েন্ট রাখুন"
+        ],
+        problems: [
+            {
+                id: "slow-computer",
+                name: "ধীর কম্পিউটার",
+                icon: "hourglass-half",
+                steps: [
+                    {
+                        step: "ধাপ 1: টাস্ক ম্যানেজার চেক করুন",
+                        description: "উচ্চ রিসোর্স ব্যবহার সনাক্ত করতে টাস্ক ম্যানেজার খুলুন।",
+                        details: "উচ্চ CPU, মেমরি বা ডিস্ক ব্যবহারকারী প্রক্রিয়াগুলি দেখুন। সন্দেহজনক প্রোগ্রাম নোট করুন।"
+                    },
+                    {
+                        step: "ধাপ 2: স্টার্টআপ প্রোগ্রাম নিষ্ক্রিয় করুন",
+                        description: "স্টার্টআপে চলা অপ্রয়োজনীয় প্রোগ্রাম নিষ্ক্রিয় করুন।",
+                        details: "টাস্ক ম্যানেজার → স্টার্টআপ ট্যাব → প্রোগ্রামে রাইট-ক্লিক → নিষ্ক্রিয় করুন"
+                    },
+                    {
+                        step: "ধাপ 3: ডিস্ক ক্লিনআপ চালান",
+                        description: "অস্থায়ী এবং অপ্রয়োজনীয় ফাইল সরাতে ডিস্ক ক্লিনআপ ব্যবহার করুন।",
+                        details: "রান ডায়লগে 'cleanmgr' টাইপ করুন → ড্রাইভ নির্বাচন করুন → সিস্টেম ফাইল পরিষ্কার করুন"
+                    },
+                    {
+                        step: "ধাপ 4: ম্যালওয়্যার চেক করুন",
+                        description: "সম্পূর্ণ সিস্টেম অ্যান্টিভাইরাস স্ক্যান চালান।",
+                        details: "সম্পূর্ণ স্ক্যানের জন্য Windows Defender বা আপনার ইনস্টল করা অ্যান্টিভাইরাস ব্যবহার করুন"
+                    },
+                    {
+                        step: "ধাপ 5: ড্রাইভার আপডেট করুন",
+                        description: "ডিভাইস ড্রাইভার সর্বশেষ সংস্করণে আপডেট করুন।",
+                        details: "ডিভাইস ম্যানেজার → ডিভাইসে রাইট-ক্লিক → ড্রাইভার আপডেট করুন"
+                    },
+                    {
+                        step: "ধাপ 6: ভিজ্যুয়াল ইফেক্টস সামঞ্জস্য করুন",
+                        description: "ভাল পারফরম্যান্সের জন্য Windows অপ্টিমাইজ করুন।",
+                        details: "সিস্টেম বৈশিষ্ট্য → উন্নত → পারফরম্যান্স সেটিংস → সেরা পারফরম্যান্সের জন্য সামঞ্জস্য করুন"
+                    }
+                ]
+            },
+            {
+                id: "no-internet",
+                name: "ইন্টারনেট সংযোগ নেই",
+                icon: "wifi",
+                steps: [
+                    {
+                        step: "ধাপ 1: শারীরিক সংযোগ চেক করুন",
+                        description: "সমস্ত কেবল সঠিকভাবে সংযুক্ত আছে কিনা যাচাই করুন।",
+                        details: "মডেম, রাউটার এবং কম্পিউটার সংযোগ চেক করুন। মডেম/রাউটার পুনরায় চালু করুন।"
+                    },
+                    {
+                        step: "ধাপ 2: নেটওয়ার্ক ট্রাবলশুটার চালান",
+                        description: "অন্তর্নির্মিত Windows নেটওয়ার্ক ট্রাবলশুটার ব্যবহার করুন।",
+                        details: "সেটিংস → নেটওয়ার্ক এবং ইন্টারনেট → নেটওয়ার্ক ট্রাবলশুটার"
+                    },
+                    {
+                        step: "ধাপ 3: TCP/IP স্ট্যাক রিসেট করুন",
+                        description: "কমান্ড প্রম্পট ব্যবহার করে নেটওয়ার্ক কনফিগারেশন রিসেট করুন।",
+                        details: "এডমিন হিসাবে চালান: netsh winsock reset && netsh int ip reset"
+                    },
+                    {
+                        step: "ধাপ 4: DNS ক্যাশে ফ্লাশ করুন",
+                        description: "DNS রিসলভার ক্যাশে পরিষ্কার করুন।",
+                        details: "কমান্ড প্রম্পট: ipconfig /flushdns"
+                    },
+                    {
+                        step: "ধাপ 5: নেটওয়ার্ক ড্রাইভার আপডেট করুন",
+                        description: "নেটওয়ার্ক অ্যাডাপ্টার ড্রাইভার আপডেট করুন।",
+                        details: "ডিভাইস ম্যানেজার → নেটওয়ার্ক অ্যাডাপ্টার → ড্রাইভার আপডেট করুন"
+                    },
+                    {
+                        step: "ধাপ 6: ফায়ারওয়াল সেটিংস চেক করুন",
+                        description: "ফায়ারওয়াল সংযোগ ব্লক করছে না কিনা যাচাই করুন।",
+                        details: "Windows Defender ফায়ারওয়াল → ফায়ারওয়ালের মাধ্যমে একটি অ্যাপ অনুমতি দিন"
+                    }
+                ]
+            },
+            {
+                id: "blue-screen",
+                name: "ব্লু স্ক্রিন (BSOD)",
+                icon: "desktop",
+                steps: [
+                    {
+                        step: "ধাপ 1: ত্রুটি কোড নোট করুন",
+                        description: "প্রদর্শিত সঠিক ত্রুটি কোড লিখুন।",
+                        details: "উদাহরণ: STOP: 0x0000000A (IRQL_NOT_LESS_OR_EQUAL)"
+                    },
+                    {
+                        step: "ধাপ 2: সেফ মোডে বুট করুন",
+                        description: "ট্রাবলশুটিংয়ের জন্য সেফ মোডে পুনরায় চালু করুন।",
+                        details: "পুনরায় চালু করুন → বারবার F8 চাপুন → সেফ মোড"
+                    },
+                    {
+                        step: "ধাপ 3: সাম্প্রতিক পরিবর্তনগুলি চেক করুন",
+                        description: "সাম্প্রতিক ইনস্টল করা সফ্টওয়্যার/ড্রাইভার সনাক্ত করুন।",
+                        details: "সাম্প্রতিক যোগ করা প্রোগ্রাম বা ড্রাইভার আনইনস্টল করুন"
+                    },
+                    {
+                        step: "ধাপ 4: সিস্টেম ফাইল চেকার চালান",
+                        description: "ক্ষতিগ্রস্ত সিস্টেম ফাইলের জন্য স্ক্যান করুন।",
+                        details: "কমান্ড প্রম্পট: sfc /scannow"
+                    },
+                    {
+                        step: "ধাপ 5: হার্ডওয়্যার চেক করুন",
+                        description: "ত্রুটির জন্য RAM এবং হার্ড ড্রাইভ পরীক্ষা করুন।",
+                        details: "Windows মেমরি ডায়াগনস্টিক এবং CHKDSK ব্যবহার করুন"
+                    },
+                    {
+                        step: "ধাপ 6: সিস্টেম রিস্টোর",
+                        description: "সিস্টেম পূর্ববর্তী কার্যকরী অবস্থায় ফিরিয়ে আনুন।",
+                        details: "সিস্টেম রিস্টোর → সমস্যা শুরু হওয়ার আগের রিস্টোর পয়েন্ট চয়ন করুন"
+                    }
+                ]
+            },
+            {
+                id: "printer-issues",
+                name: "প্রিন্টার কাজ করছে না",
+                icon: "print",
+                steps: [
+                    {
+                        step: "ধাপ 1: সংযোগ চেক করুন",
+                        description: "সমস্ত কেবল এবং পাওয়ার সংযোগ যাচাই করুন।",
+                        details: "USB/পাওয়ার কেবল চেক করুন, প্রিন্টার পুনরায় চালু করুন"
+                    },
+                    {
+                        step: "ধাপ 2: প্রিন্ট সারি পরিষ্কার করুন",
+                        description: "আটকে থাকা প্রিন্ট কাজগুলি পরিষ্কার করুন।",
+                        details: "সার্ভিসেস → প্রিন্ট স্পুলার → থামান → স্পুল ফোল্ডারে ফাইল মুছুন → পুনরায় চালু করুন"
+                    },
+                    {
+                        step: "ধাপ 3: প্রিন্টার ড্রাইভার আপডেট করুন",
+                        description: "সর্বশেষ প্রিন্টার ড্রাইভার ইনস্টল করুন।",
+                        details: "ডিভাইস ম্যানেজার → প্রিন্টার → ড্রাইভার আপডেট করুন"
+                    },
+                    {
+                        step: "ধাপ 4: কাগজ এবং কালি চেক করুন",
+                        description: "কাগজ লোড করা আছে এবং কালি/টোনার লেভেল যাচাই করুন।",
+                        details: "কাগজ সঠিকভাবে লোড করুন, কালি/টোনার অবস্থা চেক করুন"
+                    },
+                    {
+                        step: "ধাপ 5: প্রিন্টার ট্রাবলশুটার চালান",
+                        description: "Windows প্রিন্টার ট্রাবলশুটার ব্যবহার করুন।",
+                        details: "সেটিংস → ডিভাইস → প্রিন্টার → ট্রাবলশুটার চালান"
+                    },
+                    {
+                        step: "ধাপ 6: প্রিন্টার পুনরায় ইনস্টল করুন",
+                        description: "প্রিন্টার সরান এবং পুনরায় ইনস্টল করুন。",
+                        details: "ডিভাইস থেকে প্রিন্টার সরান → সর্বশেষ ড্রাইভার দিয়ে পুনরায় ইনস্টল করুন"
+                    }
+                ]
+            },
+            {
+                id: "sound-problems",
+                name: "আওয়াজ নেই/অডিও সমস্যা",
+                icon: "volume-mute",
+                steps: [
+                    {
+                        step: "ধাপ 1: ভলিউম লেভেল চেক করুন",
+                        description: "ভলিউম মিউট বা খুব কম না কিনা যাচাই করুন।",
+                        details: "স্পিকার আইকনে ক্লিক করুন → ভলিউম এবং মিউট অবস্থা চেক করুন"
+                    },
+                    {
+                        step: "ধাপ 2: ভিন্ন আউটপুট পরীক্ষা করুন",
+                        description: "ভিন্ন স্পিকার/হেডফোন দিয়ে চেষ্টা করুন।",
+                        details: "একাধিক অডিও আউটপুট ডিভাইস দিয়ে পরীক্ষা করুন"
+                    },
+                    {
+                        step: "ধাপ 3: অডিও ড্রাইভার আপডেট করুন",
+                        description: "সর্বশেষ অডিও ড্রাইভার ইনস্টল করুন।",
+                        details: "ডিভাইস ম্যানেজার → সাউন্ড, ভিডিও এবং গেম কন্ট্রোলার → আপডেট করুন"
+                    },
+                    {
+                        step: "ধাপ 4: ডিফল্ট প্লেব্যাক ডিভাইস চেক করুন",
+                        description: "সঠিক ডিভাইস ডিফল্ট হিসেবে সেট করুন।",
+                        details: "সাউন্ড সেটিংস → আউটপুট → সঠিক ডিভাইস ডিফল্ট হিসেবে চয়ন করুন"
+                    },
+                    {
+                        step: "ধাপ 5: অডিও ট্রাবলশুটার চালান",
+                        description: "Windows অডিও ট্রাবলশুটার ব্যবহার করুন।",
+                        details: "সেটিংস → সিস্টেম → সাউন্ড → ট্রাবলশুট"
+                    },
+                    {
+                        step: "ধাপ 6: অডিও সার্ভিস চেক করুন",
+                        description: "অডিও সার্ভিস চলছে কিনা যাচাই করুন।",
+                        details: "সার্ভিসেস → Windows অডিও → অটোমেটিক সেট করুন এবং শুরু করুন"
+                    }
+                ]
+            }
+        ]
+    }
+};
+
+// Current language state
+let currentLang = 'en';
+let currentProblem = null;
+let checklistState = {};
+
+// Toggle language
+document.getElementById('languageToggle').addEventListener('click', function() {
+    currentLang = currentLang === 'en' ? 'bn' : 'en';
+    updateLanguage();
+    renderProblemButtons();
+    if (currentProblem) {
+        renderChecklist(currentProblem);
+    }
+});
+
+// Update all text elements based on language
+function updateLanguage() {
+    // Update UI elements
+    document.getElementById('langFlag').textContent = currentLang === 'en' ? 'EN' : 'বাং';
+    document.getElementById('langText').textContent = currentLang === 'en' ? 'English' : 'বাংলা';
+    
+    // Update all translatable elements
+    document.getElementById('heroTitle').textContent = translations[currentLang].heroTitle;
+    document.getElementById('heroSubtitle').textContent = translations[currentLang].heroSubtitle;
+    document.getElementById('backText').textContent = translations[currentLang].backText;
+    document.getElementById('infoTitle').textContent = translations[currentLang].infoTitle;
+    document.getElementById('infoDescription').textContent = translations[currentLang].infoDescription;
+    document.getElementById('selectProblemTitle').textContent = translations[currentLang].selectProblemTitle;
+    document.getElementById('checklistTitle').textContent = translations[currentLang].checklistTitle;
+    document.getElementById('resetText').textContent = translations[currentLang].resetText;
+    document.getElementById('printText').textContent = translations[currentLang].printText;
+    document.getElementById('saveText').textContent = translations[currentLang].saveText;
+    document.getElementById('tipsTitle').textContent = translations[currentLang].tipsTitle;
+    document.getElementById('tipsList').innerHTML = translations[currentLang].tipsList.map(tip => `<li>${tip}</li>`).join('');
+    
+    // Update checklist icon and title if problem is selected
+    if (currentProblem) {
+        const problemData = translations[currentLang].problems.find(p => p.id === currentProblem);
+        if (problemData) {
+            document.getElementById('checklistIcon').className = `fas fa-${problemData.icon}`;
+        }
+    }
+}
+
+// Render problem selection buttons
+function renderProblemButtons() {
+    const buttonsContainer = document.getElementById('problemButtons');
+    buttonsContainer.innerHTML = translations[currentLang].problems.map(problem => `
+        <button class="problem-btn" data-problem="${problem.id}">
+            <i class="fas fa-${problem.icon}"></i>
+            <span>${problem.name}</span>
+        </button>
+    `).join('');
+    
+    // Add event listeners
+    document.querySelectorAll('.problem-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Update active state
+            document.querySelectorAll('.problem-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show checklist container
+            document.getElementById('checklistContainer').style.display = 'block';
+            
+            // Set current problem
+            currentProblem = this.dataset.problem;
+            
+            // Initialize checklist state if not exists
+            if (!checklistState[currentProblem]) {
+                checklistState[currentProblem] = Array(translations[currentLang].problems.find(p => p.id === currentProblem).steps.length).fill(false);
+            }
+            
+            // Render checklist
+            renderChecklist(currentProblem);
+            
+            // Update checklist icon
+            const problemData = translations[currentLang].problems.find(p => p.id === currentProblem);
+            document.getElementById('checklistIcon').className = `fas fa-${problemData.icon}`;
+        });
+    });
+}
+
+// Render checklist for selected problem
+function renderChecklist(problemId) {
+    const problemData = translations[currentLang].problems.find(p => p.id === problemId);
+    if (!problemData) return;
+    
+    const checklistItemsContainer = document.getElementById('checklistItems');
+    checklistItemsContainer.innerHTML = problemData.steps.map((step, index) => `
+        <div class="checklist-item ${checklistState[problemId][index] ? 'completed' : ''}" data-index="${index}">
+            <div class="checklist-item-header">
+                <div class="checklist-step">${step.step}</div>
+                <input type="checkbox" class="checklist-checkbox" ${checklistState[problemId][index] ? 'checked' : ''}>
+            </div>
+            <div class="checklist-description">${step.description}</div>
+            <div class="checklist-details">
+                <h4>${currentLang === 'en' ? 'Details:' : 'বিস্তারিত:'}</h4>
+                <p>${step.details}</p>
+            </div>
+        </div>
+    `).join('');
+    
+    // Add event listeners to checkboxes
+    document.querySelectorAll('.checklist-checkbox').forEach((checkbox, index) => {
+        checkbox.addEventListener('change', function() {
+            checklistState[problemId][index] = this.checked;
+            const item = this.closest('.checklist-item');
+            if (this.checked) {
+                item.classList.add('completed');
+            } else {
+                item.classList.remove('completed');
+            }
+            updateProgress();
+        });
+    });
+    
+    // Update progress
+    updateProgress();
+}
+
+// Update progress bar and text
+function updateProgress() {
+    if (!currentProblem || !checklistState[currentProblem]) return;
+    
+    const completed = checklistState[currentProblem].filter(v => v).length;
+    const total = checklistState[currentProblem].length;
+    const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+    
+    document.getElementById('progressFill').style.width = `${percentage}%`;
+    document.getElementById('progressText').textContent = `${percentage}% ${currentLang === 'en' ? 'Complete' : 'সম্পন্ন'}`;
+}
+
+// Reset checklist
+document.getElementById('resetBtn').addEventListener('click', function() {
+    if (currentProblem && confirm(currentLang === 'en' ? 'Reset all checklist items?' : 'সমস্ত চেকলিস্ট আইটেম রিসেট করবেন?')) {
+        checklistState[currentProblem] = checklistState[currentProblem].map(() => false);
+        renderChecklist(currentProblem);
+    }
+});
+
+// Print checklist
+document.getElementById('printBtn').addEventListener('click', function() {
+    window.print();
+});
+
+// Save checklist
+document.getElementById('saveBtn').addEventListener('click', function() {
+    if (!currentProblem) return;
+    
+    const problemData = translations[currentLang].problems.find(p => p.id === currentProblem);
+    const completed = checklistState[currentProblem].filter(v => v).length;
+    const total = checklistState[currentProblem].length;
+    const percentage = Math.round((completed / total) * 100);
+    
+    const checklistText = problemData.steps.map((step, index) => {
+        const status = checklistState[currentProblem][index] ? '✅' : '⬜';
+        return `${status} ${step.step}\n   ${step.description}\n`;
+    }).join('\n');
+    
+    const textToSave = `${problemData.name} - ${currentLang === 'en' ? 'Troubleshooting Checklist' : 'ট্রাবলশুটিং চেকলিস্ট'}\n` +
+                      `Progress: ${completed}/${total} (${percentage}%)\n\n` +
+                      checklistText +
+                      `\n${currentLang === 'en' ? 'Generated on: ' : 'উত্পন্ন তারিখ: '}${new Date().toLocaleString()}`;
+    
+    const blob = new Blob([textToSave], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${problemData.name.replace(/\s+/g, '-').toLowerCase()}-checklist.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    alert(currentLang === 'en' ? 'Checklist saved successfully!' : 'চেকলিস্ট সফলভাবে সংরক্ষণ করা হয়েছে!');
+});
+
+// Initialize
+renderProblemButtons();
+updateLanguage();
+</script>
+
+</body>
+</html>

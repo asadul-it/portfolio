@@ -1,0 +1,2401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downtime Calculator | Factory Production Loss Analysis Tool</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Advanced Downtime Calculator for factory production loss analysis. Calculate downtime costs, analyze stoppage reasons, and optimize equipment efficiency. Developed by Asadul Islam - IT Engineer.">
+    <meta name="keywords"
+        content="Downtime Calculator, Production Loss, Factory Downtime, Equipment Failure, Maintenance Cost, OEE Calculation, Asadul Islam, Industrial Engineering, Factory Efficiency">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali, English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Downtime Calculator | Factory Production Loss Analysis Tool">
+    <meta property="og:description"
+        content="Advanced calculator for factory downtime analysis, production loss calculation, and maintenance optimization.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/factory-tools/downtime-calculator.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/tools/downtime-calculator.jpg">
+    <meta property="og:site_name" content="Asadul Islam Factory Tools">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Downtime Calculator - Factory Production Loss Analysis Tool">
+    <meta name="twitter:description"
+        content="Calculate production losses from downtime, analyze stoppage patterns, and optimize equipment efficiency for your factory.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/tools/downtime-calculator.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/Tools/factory-tools/downtime-calculator.html">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Downtime Calculator",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "description": "Professional downtime calculation tool for factory production loss analysis and optimization",
+        "url": "https://asadul-it.github.io/portfolio/Tools/factory-tools/downtime-calculator.html",
+        "author": {
+            "@type": "Person",
+            "name": "Asadul Islam",
+            "jobTitle": "IT Engineer"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* ==================== Header Styles ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 800;
+            color: #1a1a1a;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: #dc2626;
+            transform: translateY(-1px);
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.15);
+        }
+
+        .logo-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #4b5563;
+            letter-spacing: 0.2px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar li {
+            position: relative;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #dc2626, #ef4444);
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #dc2626;
+            background: rgba(220, 38, 38, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .navbar a:hover::before {
+            width: 100%;
+        }
+
+        .navbar a i {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+            transform: rotate(15deg);
+        }
+
+        /* ==================== Breadcrumb Styles ==================== */
+        .breadcrumb-container {
+            background: linear-gradient(to right, #f8fafc, #ffffff);
+            border-bottom: 1px solid #eef2f7;
+            padding: 22px 0;
+        }
+
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 25px;
+            font-size: 14px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #dc2626;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .breadcrumb a:hover {
+            color: #b91c1c;
+            background: rgba(220, 38, 38, 0.1);
+            text-decoration: none;
+        }
+
+        .breadcrumb-separator {
+            color: #cbd5e1;
+            font-size: 12px;
+        }
+
+        /* ==================== Main Content Styles ==================== */
+        .main-content {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 25px;
+            min-height: calc(100vh - 400px);
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #7f1d1d 0%, #dc2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ==================== Tool Container Styles ==================== */
+        .tool-container {
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+            border: 1px solid #eef2f7;
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .tool-header {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            padding: 28px 32px;
+            color: white;
+        }
+
+        .tool-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tool-header h2 i {
+            font-size: 22px;
+        }
+
+        .tool-header p {
+            font-size: 15px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .tool-body {
+            padding: 40px 32px;
+        }
+
+        /* ==================== Downtime Input Section ==================== */
+        .input-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #dc2626;
+            font-size: 20px;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #475569;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group label i {
+            color: #dc2626;
+            font-size: 14px;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            color: #1e293b;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .input-with-unit {
+            position: relative;
+        }
+
+        .unit {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .add-downtime-btn {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 28px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .add-downtime-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.2);
+        }
+
+        /* ==================== Downtime Records Section ==================== */
+        .records-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 32px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .records-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .records-table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .records-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        .records-table thead {
+            background: #f1f5f9;
+        }
+
+        .records-table th {
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            color: #475569;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .records-table tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.2s ease;
+        }
+
+        .records-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .records-table td {
+            padding: 16px;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .downtime-id {
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .downtime-reason {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .duration-cell {
+            font-weight: 600;
+            color: #dc2626;
+        }
+
+        .cost-cell {
+            font-weight: 600;
+            color: #7f1d1d;
+        }
+
+        .delete-downtime {
+            color: #dc2626;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .delete-downtime:hover {
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        /* ==================== Control Section ==================== */
+        .control-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            margin-bottom: 32px;
+        }
+
+        .calculation-controls {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
+        }
+
+        /* ==================== Results Section ==================== */
+        .results-section {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            display: none;
+        }
+
+        .results-header {
+            padding: 20px 24px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .results-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .results-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #475569;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        /* ==================== Summary Cards ==================== */
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            padding: 32px;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: #dc2626;
+        }
+
+        .summary-card-title {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .summary-card-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: #7f1d1d;
+            margin-bottom: 8px;
+        }
+
+        .summary-card-subtitle {
+            font-size: 12px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        .summary-card.highlight {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border-color: #f87171;
+        }
+
+        /* ==================== Detailed Analysis ==================== */
+        .detailed-analysis {
+            padding: 32px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .analysis-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
+
+        .analysis-tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.2s ease;
+        }
+
+        .analysis-tab.active {
+            color: #dc2626;
+            background: #fef2f2;
+            border-bottom: 2px solid #dc2626;
+        }
+
+        .analysis-tab:hover:not(.active) {
+            background: #f8fafc;
+            color: #475569;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .analysis-table-container {
+            overflow-x: auto;
+        }
+
+        .analysis-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .analysis-table thead {
+            background: #f1f5f9;
+        }
+
+        .analysis-table th {
+            padding: 18px 16px;
+            text-align: left;
+            font-weight: 700;
+            color: #475569;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .analysis-table tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.2s ease;
+        }
+
+        .analysis-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .analysis-table td {
+            padding: 20px 16px;
+            color: #475569;
+            font-size: 14px;
+        }
+
+        .reason-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .reason-mechanical {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+        }
+
+        .reason-electrical {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .reason-maintenance {
+            background: rgba(16, 185, 129, 0.1);
+            color: #047857;
+        }
+
+        .reason-operator {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+        }
+
+        /* ==================== OEE Calculation Section ==================== */
+        .oee-section {
+            padding: 32px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .oee-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .oee-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .oee-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .oee-card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .oee-card-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: #7f1d1d;
+            margin-bottom: 8px;
+        }
+
+        .oee-card-subtitle {
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+        }
+
+        .oee-progress {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+
+        .oee-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #dc2626, #ef4444);
+            border-radius: 5px;
+        }
+
+        /* ==================== Footer Styles ==================== */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 80px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 45px 25px 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #dc2626, #ef4444);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-column a {
+            color: #475569;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 4px 0;
+        }
+
+        .footer-column a:hover {
+            color: #dc2626;
+            transform: translateX(5px);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #475569;
+            font-size: 18px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e2e8f0;
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: #ffffff;
+            transform: translateY(-4px) rotate(5deg);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.2);
+            border-color: transparent;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 24px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #64748b;
+            background: #f8fafc;
+        }
+
+        .footer-bottom a {
+            color: #dc2626;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: #b91c1c;
+            text-decoration: underline;
+        }
+
+        /* ==================== Mobile Responsive Styles ==================== */
+        @media (max-width: 1024px) {
+            .header-content {
+                padding: 16px 20px;
+            }
+
+            .navbar ul {
+                gap: 20px;
+            }
+
+            .footer-container {
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                cursor: pointer;
+                padding: 8px;
+                z-index: 1001;
+            }
+
+            .hamburger span {
+                width: 28px;
+                height: 3px;
+                background: #dc2626;
+                border-radius: 2px;
+                transition: all 0.3s ease;
+            }
+
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(7px, -6px);
+            }
+
+            .navbar {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(10px);
+                padding: 100px 30px 30px;
+                z-index: 1000;
+            }
+
+            .navbar.active {
+                display: block;
+                animation: slideIn 0.3s ease;
+            }
+
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar li {
+                margin-bottom: 1px;
+            }
+
+            .navbar a {
+                padding: 20px 24px;
+                border-radius: 0;
+                border-bottom: 1px solid #eef2f7;
+                font-size: 16px;
+                justify-content: flex-start;
+            }
+
+            .navbar a::before {
+                display: none;
+            }
+
+            .header-buttons {
+                display: none;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .tool-body {
+                padding: 30px 20px;
+            }
+
+            .input-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .summary-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .oee-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .control-section {
+                flex-direction: column;
+                gap: 20px;
+                align-items: stretch;
+            }
+
+            .calculation-controls {
+                justify-content: center;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .quick-links {
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .tool-header {
+                padding: 24px 20px;
+            }
+
+            .input-section {
+                padding: 24px 20px;
+            }
+
+            .records-section {
+                padding: 24px 20px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .summary-card-value {
+                font-size: 28px;
+            }
+
+            .oee-card-value {
+                font-size: 32px;
+            }
+
+            .social-links a {
+                width: 48px;
+                height: 48px;
+                font-size: 20px;
+            }
+        }
+
+        /* ==================== Tooltip Styles ==================== */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background: #1e293b;
+            color: #ffffff;
+            text-align: center;
+            padding: 12px 16px;
+            border-radius: 8px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.5;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .tooltip .tooltip-text::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1e293b transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* ==================== Loading Animation ==================== */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(220, 38, 38, 0.3);
+            border-radius: 50%;
+            border-top-color: #dc2626;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ==================== Scrollbar Styling ==================== */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo">
+                <span class="logo-icon">DC</span>
+                <span class="logo-text">Downtime Calculator</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-buttons">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-container">
+        <div class="breadcrumb" id="breadcrumb"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Downtime Calculator</h1>
+            <p>Advanced factory production loss analysis tool to calculate downtime costs, analyze stoppage patterns, and optimize equipment efficiency for maximum productivity.</p>
+        </div>
+
+        <div class="tool-container">
+            <div class="tool-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Production Downtime Analysis</h2>
+                <p>Calculate downtime costs, analyze stoppage reasons, and optimize equipment efficiency for your factory operations</p>
+            </div>
+
+            <div class="tool-body">
+                <!-- Input Section -->
+                <div class="input-section">
+                    <div class="section-title">
+                        <i class="fas fa-calendar-plus"></i>
+                        <span>Add Downtime Event</span>
+                    </div>
+
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="machineName">
+                                <i class="fas fa-cogs"></i>
+                                Machine / Line Name
+                            </label>
+                            <input type="text" id="machineName" placeholder="e.g., CNC Machine #1, Assembly Line A">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="downtimeDate">
+                                <i class="fas fa-calendar"></i>
+                                Downtime Date
+                            </label>
+                            <input type="date" id="downtimeDate" value="">
+                        </div>
+
+                        <div class="input-group input-with-unit">
+                            <label for="startTime">
+                                <i class="fas fa-clock"></i>
+                                Start Time
+                            </label>
+                            <input type="time" id="startTime" value="08:00">
+                            <span class="unit"></span>
+                        </div>
+
+                        <div class="input-group input-with-unit">
+                            <label for="endTime">
+                                <i class="fas fa-clock"></i>
+                                End Time
+                            </label>
+                            <input type="time" id="endTime" value="10:00">
+                            <span class="unit"></span>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="downtimeReason">
+                                <i class="fas fa-exclamation-circle"></i>
+                                Downtime Reason
+                            </label>
+                            <select id="downtimeReason">
+                                <option value="Mechanical Failure">Mechanical Failure</option>
+                                <option value="Electrical Issue">Electrical Issue</option>
+                                <option value="Maintenance">Scheduled Maintenance</option>
+                                <option value="Operator Error">Operator Error</option>
+                                <option value="Material Shortage">Material Shortage</option>
+                                <option value="Quality Issue">Quality Issue</option>
+                                <option value="Power Outage">Power Outage</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="downtimeCategory">
+                                <i class="fas fa-tags"></i>
+                                Category
+                            </label>
+                            <select id="downtimeCategory">
+                                <option value="Planned">Planned Downtime</option>
+                                <option value="Unplanned">Unplanned Downtime</option>
+                                <option value="Breakdown">Breakdown</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group input-with-unit">
+                            <label for="productionRate">
+                                <i class="fas fa-tachometer-alt"></i>
+                                Production Rate
+                            </label>
+                            <input type="number" id="productionRate" value="100" min="1" step="0.1">
+                            <span class="unit">units/hour</span>
+                        </div>
+
+                        <div class="input-group input-with-unit">
+                            <label for="costPerHour">
+                                <i class="fas fa-dollar-sign"></i>
+                                Cost per Hour
+                            </label>
+                            <input type="number" id="costPerHour" value="500" min="0" step="10">
+                            <span class="unit">$/hour</span>
+                        </div>
+                    </div>
+
+                    <div class="input-group" style="margin-top: 20px;">
+                        <label for="description">
+                            <i class="fas fa-file-alt"></i>
+                            Description / Notes
+                        </label>
+                        <textarea id="description" placeholder="Add additional details about the downtime event..." rows="3"></textarea>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 32px;">
+                        <button class="add-downtime-btn" id="addDowntimeBtn">
+                            <i class="fas fa-plus-circle"></i>
+                            Add Downtime Event
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Records Section -->
+                <div class="records-section">
+                    <div class="records-header">
+                        <div class="section-title">
+                            <i class="fas fa-history"></i>
+                            <span>Downtime Records</span>
+                        </div>
+                        <div>
+                            <button class="btn-secondary" id="clearAllBtn">
+                                <i class="fas fa-trash"></i>
+                                Clear All Records
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="records-table-container">
+                        <table class="records-table" id="recordsTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Machine</th>
+                                    <th>Date</th>
+                                    <th>Duration</th>
+                                    <th>Reason</th>
+                                    <th>Category</th>
+                                    <th>Production Loss</th>
+                                    <th>Cost</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recordsList">
+                                <tr class="no-records">
+                                    <td colspan="9" style="text-align: center; padding: 40px 20px; color: #94a3b8;">
+                                        <i class="fas fa-history" style="font-size: 48px; margin-bottom: 20px;"></i>
+                                        <div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">No downtime records yet</div>
+                                        <div>Add your first downtime event using the form above</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Control Section -->
+                <div class="control-section">
+                    <div class="calculation-controls">
+                        <button class="btn btn-primary" id="analyzeBtn">
+                            <i class="fas fa-chart-bar"></i>
+                            Analyze Downtime
+                        </button>
+                        <button class="btn btn-secondary" id="resetBtn">
+                            <i class="fas fa-redo"></i>
+                            Reset Analysis
+                        </button>
+                        <button class="btn btn-danger" id="clearResultsBtn">
+                            <i class="fas fa-trash"></i>
+                            Clear Results
+                        </button>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 18px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <i class="fas fa-history" style="color: #dc2626;"></i>
+                            <span id="recordCount">0 Records</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 8px; padding: 10px 18px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+                            <i class="fas fa-clock" style="color: #dc2626;"></i>
+                            <span id="totalDowntime">0 hours</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div class="results-section" id="resultsSection">
+                    <div class="results-header">
+                        <h3>
+                            <i class="fas fa-chart-pie"></i>
+                            Downtime Analysis Results
+                        </h3>
+                        <div class="results-actions">
+                            <button class="action-btn" id="exportPDF">
+                                <i class="fas fa-file-pdf"></i>
+                                Export PDF
+                            </button>
+                            <button class="action-btn" id="exportExcel">
+                                <i class="fas fa-file-excel"></i>
+                                Export Excel
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Summary Cards -->
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <div class="summary-card-title">
+                                <i class="fas fa-clock"></i>
+                                Total Downtime
+                            </div>
+                            <div class="summary-card-value" id="totalDowntimeResult">0</div>
+                            <div class="summary-card-subtitle">Hours of production loss</div>
+                        </div>
+
+                        <div class="summary-card highlight">
+                            <div class="summary-card-title">
+                                <i class="fas fa-dollar-sign"></i>
+                                Total Production Loss
+                            </div>
+                            <div class="summary-card-value" id="totalProductionLoss">0</div>
+                            <div class="summary-card-subtitle">Units lost due to downtime</div>
+                        </div>
+
+                        <div class="summary-card">
+                            <div class="summary-card-title">
+                                <i class="fas fa-money-bill-wave"></i>
+                                Total Cost
+                            </div>
+                            <div class="summary-card-value" id="totalCost">$0</div>
+                            <div class="summary-card-subtitle">Financial impact</div>
+                        </div>
+
+                        <div class="summary-card">
+                            <div class="summary-card-title">
+                                <i class="fas fa-chart-line"></i>
+                                Average Downtime
+                            </div>
+                            <div class="summary-card-value" id="avgDowntime">0</div>
+                            <div class="summary-card-subtitle">Hours per incident</div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Analysis -->
+                    <div class="detailed-analysis">
+                        <div class="analysis-tabs">
+                            <button class="analysis-tab active" data-tab="reason">By Reason</button>
+                            <button class="analysis-tab" data-tab="machine">By Machine</button>
+                            <button class="analysis-tab" data-tab="category">By Category</button>
+                            <button class="analysis-tab" data-tab="monthly">Monthly Trend</button>
+                        </div>
+
+                        <div class="tab-content active" id="reasonTab">
+                            <div class="analysis-table-container">
+                                <table class="analysis-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Reason</th>
+                                            <th>Incidents</th>
+                                            <th>Total Hours</th>
+                                            <th>Avg. Duration</th>
+                                            <th>Production Loss</th>
+                                            <th>Cost</th>
+                                            <th>% of Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reasonAnalysis">
+                                        <!-- Data will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="machineTab">
+                            <div class="analysis-table-container">
+                                <table class="analysis-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Machine</th>
+                                            <th>Incidents</th>
+                                            <th>Total Hours</th>
+                                            <th>Avg. Duration</th>
+                                            <th>Production Loss</th>
+                                            <th>Cost</th>
+                                            <th>MTBF</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="machineAnalysis">
+                                        <!-- Data will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="categoryTab">
+                            <div class="analysis-table-container">
+                                <table class="analysis-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Category</th>
+                                            <th>Incidents</th>
+                                            <th>Total Hours</th>
+                                            <th>Avg. Duration</th>
+                                            <th>Production Loss</th>
+                                            <th>Cost</th>
+                                            <th>% of Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="categoryAnalysis">
+                                        <!-- Data will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="monthlyTab">
+                            <div class="analysis-table-container">
+                                <table class="analysis-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>
+                                            <th>Incidents</th>
+                                            <th>Total Hours</th>
+                                            <th>Planned Hours</th>
+                                            <th>Unplanned Hours</th>
+                                            <th>Production Loss</th>
+                                            <th>Cost</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="monthlyAnalysis">
+                                        <!-- Data will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OEE Calculation Section -->
+                    <div class="oee-section">
+                        <div class="section-title">
+                            <i class="fas fa-calculator"></i>
+                            <span>Overall Equipment Effectiveness (OEE)</span>
+                        </div>
+                        <div class="oee-cards">
+                            <div class="oee-card">
+                                <div class="oee-card-header">
+                                    <div class="oee-card-title">
+                                        <i class="fas fa-play-circle"></i>
+                                        Availability
+                                    </div>
+                                    <div class="oee-card-value" id="availability">0%</div>
+                                </div>
+                                <div class="oee-card-subtitle">Percentage of scheduled time that the equipment is available to operate</div>
+                                <div class="oee-progress">
+                                    <div class="oee-progress-fill" id="availabilityBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="oee-card">
+                                <div class="oee-card-header">
+                                    <div class="oee-card-title">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                        Performance
+                                    </div>
+                                    <div class="oee-card-value" id="performance">0%</div>
+                                </div>
+                                <div class="oee-card-subtitle">Speed at which the equipment runs as a percentage of its designed speed</div>
+                                <div class="oee-progress">
+                                    <div class="oee-progress-fill" id="performanceBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="oee-card">
+                                <div class="oee-card-header">
+                                    <div class="oee-card-title">
+                                        <i class="fas fa-check-circle"></i>
+                                        Quality
+                                    </div>
+                                    <div class="oee-card-value" id="quality">0%</div>
+                                </div>
+                                <div class="oee-card-subtitle">Percentage of good units produced as a percentage of total units started</div>
+                                <div class="oee-progress">
+                                    <div class="oee-progress-fill" id="qualityBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="oee-card" style="border-color: #dc2626; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);">
+                                <div class="oee-card-header">
+                                    <div class="oee-card-title">
+                                        <i class="fas fa-chart-line"></i>
+                                        Overall OEE
+                                    </div>
+                                    <div class="oee-card-value" id="overallOEE">0%</div>
+                                </div>
+                                <div class="oee-card-subtitle">Overall Equipment Effectiveness (Availability × Performance × Quality)</div>
+                                <div class="oee-progress">
+                                    <div class="oee-progress-fill" id="overallOEEBar" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About This Tool</h3>
+                <p>Professional downtime calculator for factory production loss analysis. Track equipment failures, calculate production losses, and improve overall equipment effectiveness (OEE).</p>
+                <p><i class="fas fa-lightbulb"></i> Essential for maintenance managers, production engineers, and factory supervisors.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links">
+                    <a href="../../index.html">Home</a>
+                    <a href="../../skills.html">Skills</a>
+                    <a href="../tools.html">Tools</a>
+                    <a href="../../certificate.html">Certifications</a>
+                    <a href="../../contact.html">Contact Me</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Connect With Me</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"
+                        aria-label="LinkedIn Profile">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/asadul-it" target="_blank" aria-label="GitHub Profile">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"
+                        aria-label="Facebook Profile">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/8801706927793" target="_blank" aria-label="WhatsApp Contact">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                <p style="margin-top: 20px; font-size: 13px;">
+                    <i class="fas fa-envelope"></i>
+                    asadul.it.engineer@gmail.com
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Downtime Calculator | Developed by <a href="../../index.html">Asadul Islam</a> | All Rights Reserved
+        </div>
+    </footer>
+
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // DOM Elements
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        const themeToggle = document.getElementById("themeToggle");
+        const addDowntimeBtn = document.getElementById("addDowntimeBtn");
+        const analyzeBtn = document.getElementById("analyzeBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const clearResultsBtn = document.getElementById("clearResultsBtn");
+        const clearAllBtn = document.getElementById("clearAllBtn");
+        const exportPDFBtn = document.getElementById("exportPDF");
+        const exportExcelBtn = document.getElementById("exportExcel");
+        const recordsList = document.getElementById("recordsList");
+        const resultsSection = document.getElementById("resultsSection");
+        const recordCount = document.getElementById("recordCount");
+        const totalDowntime = document.getElementById("totalDowntime");
+        const analysisTabs = document.querySelectorAll('.analysis-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        // Data
+        let downtimeRecords = [];
+        let analysisResults = {};
+
+        // Initialize Breadcrumb
+        setBreadcrumb([
+            { name: "Home", link: "../../index.html" },
+            { name: "Tools", link: "../tools.html" },
+            { name: "Factory Tools", link: "../tools.html#factory" },
+            { name: "Downtime Calculator" }
+        ]);
+
+        function setBreadcrumb(items) {
+            const breadcrumbContainer = document.getElementById("breadcrumb");
+            breadcrumbContainer.innerHTML = items.map((item, index) => {
+                if (item.link) {
+                    return `<a href="${item.link}">${item.name}</a>`;
+                } else {
+                    return `<span style="color: #1e293b; font-weight: 600;">${item.name}</span>`;
+                }
+            }).join('<span class="breadcrumb-separator">›</span>');
+        }
+
+        // Hamburger Menu Toggle
+        hamburger.onclick = () => {
+            navbar.classList.toggle("active");
+            hamburger.classList.toggle("active");
+            document.body.style.overflow = navbar.classList.contains("active") ? "hidden" : "";
+        };
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navbar.contains(e.target) && !hamburger.contains(e.target)) {
+                navbar.classList.remove("active");
+                hamburger.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+        });
+
+        // Theme Toggle
+        themeToggle.onclick = () => {
+            const icon = themeToggle.querySelector('i');
+            if (icon.classList.contains('fa-moon')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            }
+        };
+
+        // Check for saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            themeToggle.click();
+        }
+
+        // Set default date to today
+        document.getElementById('downtimeDate').valueAsDate = new Date();
+
+        // Add Downtime Event
+        addDowntimeBtn.onclick = () => {
+            const machineName = document.getElementById('machineName').value.trim() || `Machine ${downtimeRecords.length + 1}`;
+            const downtimeDate = document.getElementById('downtimeDate').value;
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+            const downtimeReason = document.getElementById('downtimeReason').value;
+            const downtimeCategory = document.getElementById('downtimeCategory').value;
+            const productionRate = parseFloat(document.getElementById('productionRate').value) || 100;
+            const costPerHour = parseFloat(document.getElementById('costPerHour').value) || 500;
+            const description = document.getElementById('description').value.trim();
+
+            // Validate time
+            if (startTime >= endTime) {
+                alert('End time must be after start time');
+                return;
+            }
+
+            // Calculate duration in hours
+            const start = new Date(`2000-01-01T${startTime}`);
+            const end = new Date(`2000-01-01T${endTime}`);
+            const durationHours = (end - start) / (1000 * 60 * 60);
+
+            // Calculate production loss and cost
+            const productionLoss = Math.round(durationHours * productionRate);
+            const cost = Math.round(durationHours * costPerHour);
+
+            const record = {
+                id: `DT-${Date.now().toString().slice(-6)}`,
+                machineName,
+                downtimeDate,
+                startTime,
+                endTime,
+                durationHours: parseFloat(durationHours.toFixed(2)),
+                downtimeReason,
+                downtimeCategory,
+                productionRate,
+                costPerHour,
+                productionLoss,
+                cost,
+                description
+            };
+
+            downtimeRecords.push(record);
+            updateRecordsList();
+            resetInputFields();
+        };
+
+        // Update Records List
+        function updateRecordsList() {
+            // Remove "no records" row if it exists
+            const noRecordsRow = recordsList.querySelector('.no-records');
+            if (noRecordsRow && downtimeRecords.length > 0) {
+                noRecordsRow.remove();
+            }
+
+            // Clear existing rows
+            recordsList.innerHTML = '';
+
+            // Add each record to the table
+            downtimeRecords.forEach((record, index) => {
+                const row = document.createElement('tr');
+                
+                // Determine reason class
+                let reasonClass = 'reason-mechanical';
+                if (record.downtimeReason.includes('Electrical')) reasonClass = 'reason-electrical';
+                else if (record.downtimeReason.includes('Maintenance')) reasonClass = 'reason-maintenance';
+                else if (record.downtimeReason.includes('Operator')) reasonClass = 'reason-operator';
+                
+                row.innerHTML = `
+                    <td class="downtime-id">${record.id}</td>
+                    <td>${record.machineName}</td>
+                    <td>${record.downtimeDate}</td>
+                    <td class="duration-cell">${record.durationHours}h</td>
+                    <td>
+                        <span class="reason-badge ${reasonClass}">${record.downtimeReason}</span>
+                    </td>
+                    <td>${record.downtimeCategory}</td>
+                    <td>${record.productionLoss.toLocaleString()} units</td>
+                    <td class="cost-cell">$${record.cost.toLocaleString()}</td>
+                    <td>
+                        <button class="delete-downtime" onclick="deleteRecord('${record.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                
+                recordsList.appendChild(row);
+            });
+
+            // Add "no records" row if empty
+            if (downtimeRecords.length === 0) {
+                recordsList.innerHTML = `
+                    <tr class="no-records">
+                        <td colspan="9" style="text-align: center; padding: 40px 20px; color: #94a3b8;">
+                            <i class="fas fa-history" style="font-size: 48px; margin-bottom: 20px;"></i>
+                            <div style="font-size: 18px; font-weight: 600; margin-bottom: 10px;">No downtime records yet</div>
+                            <div>Add your first downtime event using the form above</div>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            // Update counters
+            const totalHours = downtimeRecords.reduce((sum, record) => sum + record.durationHours, 0);
+            recordCount.textContent = `${downtimeRecords.length} Record${downtimeRecords.length !== 1 ? 's' : ''}`;
+            totalDowntime.textContent = `${totalHours.toFixed(1)} hours`;
+        }
+
+        // Delete Record
+        window.deleteRecord = function(id) {
+            downtimeRecords = downtimeRecords.filter(record => record.id !== id);
+            updateRecordsList();
+        };
+
+        // Reset Input Fields
+        function resetInputFields() {
+            document.getElementById('machineName').value = '';
+            document.getElementById('downtimeDate').valueAsDate = new Date();
+            document.getElementById('startTime').value = '08:00';
+            document.getElementById('endTime').value = '10:00';
+            document.getElementById('downtimeReason').value = 'Mechanical Failure';
+            document.getElementById('downtimeCategory').value = 'Unplanned';
+            document.getElementById('productionRate').value = 100;
+            document.getElementById('costPerHour').value = 500;
+            document.getElementById('description').value = '';
+        }
+
+        // Analyze Downtime
+        analyzeBtn.onclick = () => {
+            if (downtimeRecords.length === 0) {
+                alert('Please add at least one downtime record before analysis');
+                return;
+            }
+
+            performAnalysis();
+            updateAnalysisResults();
+            updateOEE();
+            
+            // Show results section
+            resultsSection.style.display = 'block';
+        };
+
+        // Perform Analysis
+        function performAnalysis() {
+            // Calculate totals
+            const totalHours = downtimeRecords.reduce((sum, record) => sum + record.durationHours, 0);
+            const totalProductionLoss = downtimeRecords.reduce((sum, record) => sum + record.productionLoss, 0);
+            const totalCost = downtimeRecords.reduce((sum, record) => sum + record.cost, 0);
+            const avgDowntime = totalHours / downtimeRecords.length;
+
+            // Update summary cards
+            document.getElementById('totalDowntimeResult').textContent = `${totalHours.toFixed(1)}h`;
+            document.getElementById('totalProductionLoss').textContent = `${totalProductionLoss.toLocaleString()}`;
+            document.getElementById('totalCost').textContent = `$${totalCost.toLocaleString()}`;
+            document.getElementById('avgDowntime').textContent = `${avgDowntime.toFixed(2)}h`;
+
+            // Analyze by reason
+            const reasonAnalysis = {};
+            downtimeRecords.forEach(record => {
+                if (!reasonAnalysis[record.downtimeReason]) {
+                    reasonAnalysis[record.downtimeReason] = {
+                        incidents: 0,
+                        totalHours: 0,
+                        productionLoss: 0,
+                        cost: 0
+                    };
+                }
+                reasonAnalysis[record.downtimeReason].incidents++;
+                reasonAnalysis[record.downtimeReason].totalHours += record.durationHours;
+                reasonAnalysis[record.downtimeReason].productionLoss += record.productionLoss;
+                reasonAnalysis[record.downtimeReason].cost += record.cost;
+            });
+
+            // Update reason analysis table
+            const reasonAnalysisBody = document.getElementById('reasonAnalysis');
+            reasonAnalysisBody.innerHTML = '';
+            
+            Object.entries(reasonAnalysis).forEach(([reason, data]) => {
+                const percentage = (data.totalHours / totalHours * 100).toFixed(1);
+                const avgDuration = data.totalHours / data.incidents;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${reason}</td>
+                    <td>${data.incidents}</td>
+                    <td>${data.totalHours.toFixed(1)}h</td>
+                    <td>${avgDuration.toFixed(2)}h</td>
+                    <td>${data.productionLoss.toLocaleString()}</td>
+                    <td>$${data.cost.toLocaleString()}</td>
+                    <td>${percentage}%</td>
+                `;
+                reasonAnalysisBody.appendChild(row);
+            });
+
+            // Analyze by machine (simplified)
+            const machineAnalysis = {};
+            downtimeRecords.forEach(record => {
+                if (!machineAnalysis[record.machineName]) {
+                    machineAnalysis[record.machineName] = {
+                        incidents: 0,
+                        totalHours: 0,
+                        productionLoss: 0,
+                        cost: 0
+                    };
+                }
+                machineAnalysis[record.machineName].incidents++;
+                machineAnalysis[record.machineName].totalHours += record.durationHours;
+                machineAnalysis[record.machineName].productionLoss += record.productionLoss;
+                machineAnalysis[record.machineName].cost += record.cost;
+            });
+
+            // Update machine analysis table
+            const machineAnalysisBody = document.getElementById('machineAnalysis');
+            machineAnalysisBody.innerHTML = '';
+            
+            Object.entries(machineAnalysis).forEach(([machine, data]) => {
+                const mtbf = data.incidents > 1 ? (totalHours / data.incidents).toFixed(1) : 'N/A';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${machine}</td>
+                    <td>${data.incidents}</td>
+                    <td>${data.totalHours.toFixed(1)}h</td>
+                    <td>${(data.totalHours / data.incidents).toFixed(2)}h</td>
+                    <td>${data.productionLoss.toLocaleString()}</td>
+                    <td>$${data.cost.toLocaleString()}</td>
+                    <td>${mtbf}h</td>
+                `;
+                machineAnalysisBody.appendChild(row);
+            });
+
+            // Analyze by category
+            const categoryAnalysis = {};
+            downtimeRecords.forEach(record => {
+                if (!categoryAnalysis[record.downtimeCategory]) {
+                    categoryAnalysis[record.downtimeCategory] = {
+                        incidents: 0,
+                        totalHours: 0,
+                        productionLoss: 0,
+                        cost: 0
+                    };
+                }
+                categoryAnalysis[record.downtimeCategory].incidents++;
+                categoryAnalysis[record.downtimeCategory].totalHours += record.durationHours;
+                categoryAnalysis[record.downtimeCategory].productionLoss += record.productionLoss;
+                categoryAnalysis[record.downtimeCategory].cost += record.cost;
+            });
+
+            // Update category analysis table
+            const categoryAnalysisBody = document.getElementById('categoryAnalysis');
+            categoryAnalysisBody.innerHTML = '';
+            
+            Object.entries(categoryAnalysis).forEach(([category, data]) => {
+                const percentage = (data.totalHours / totalHours * 100).toFixed(1);
+                const avgDuration = data.totalHours / data.incidents;
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${category}</td>
+                    <td>${data.incidents}</td>
+                    <td>${data.totalHours.toFixed(1)}h</td>
+                    <td>${avgDuration.toFixed(2)}h</td>
+                    <td>${data.productionLoss.toLocaleString()}</td>
+                    <td>$${data.cost.toLocaleString()}</td>
+                    <td>${percentage}%</td>
+                `;
+                categoryAnalysisBody.appendChild(row);
+            });
+
+            // Monthly analysis (simplified)
+            const monthlyAnalysis = {};
+            downtimeRecords.forEach(record => {
+                const month = record.downtimeDate.substring(0, 7); // YYYY-MM
+                if (!monthlyAnalysis[month]) {
+                    monthlyAnalysis[month] = {
+                        incidents: 0,
+                        totalHours: 0,
+                        plannedHours: 0,
+                        unplannedHours: 0,
+                        productionLoss: 0,
+                        cost: 0
+                    };
+                }
+                monthlyAnalysis[month].incidents++;
+                monthlyAnalysis[month].totalHours += record.durationHours;
+                if (record.downtimeCategory === 'Planned') {
+                    monthlyAnalysis[month].plannedHours += record.durationHours;
+                } else {
+                    monthlyAnalysis[month].unplannedHours += record.durationHours;
+                }
+                monthlyAnalysis[month].productionLoss += record.productionLoss;
+                monthlyAnalysis[month].cost += record.cost;
+            });
+
+            // Update monthly analysis table
+            const monthlyAnalysisBody = document.getElementById('monthlyAnalysis');
+            monthlyAnalysisBody.innerHTML = '';
+            
+            Object.entries(monthlyAnalysis).forEach(([month, data]) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${month}</td>
+                    <td>${data.incidents}</td>
+                    <td>${data.totalHours.toFixed(1)}h</td>
+                    <td>${data.plannedHours.toFixed(1)}h</td>
+                    <td>${data.unplannedHours.toFixed(1)}h</td>
+                    <td>${data.productionLoss.toLocaleString()}</td>
+                    <td>$${data.cost.toLocaleString()}</td>
+                `;
+                monthlyAnalysisBody.appendChild(row);
+            });
+        }
+
+        // Update Analysis Results
+        function updateAnalysisResults() {
+            // Store analysis results for export
+            analysisResults = {
+                timestamp: new Date().toISOString(),
+                totalRecords: downtimeRecords.length,
+                totalHours: downtimeRecords.reduce((sum, record) => sum + record.durationHours, 0),
+                totalProductionLoss: downtimeRecords.reduce((sum, record) => sum + record.productionLoss, 0),
+                totalCost: downtimeRecords.reduce((sum, record) => sum + record.cost, 0),
+                records: downtimeRecords
+            };
+        }
+
+        // Update OEE Calculation
+        function updateOEE() {
+            // Simplified OEE calculation
+            const totalHours = downtimeRecords.reduce((sum, record) => sum + record.durationHours, 0);
+            const plannedProductionTime = 24 * 30; // 30 days, 24 hours
+            const actualProductionTime = plannedProductionTime - totalHours;
+            
+            // Availability (assuming 30 days of planned production)
+            const availability = Math.max(0, Math.min(100, (actualProductionTime / plannedProductionTime) * 100));
+            
+            // Performance (simplified - assume 95% when running)
+            const performance = 95;
+            
+            // Quality (simplified - assume 98% quality rate)
+            const quality = 98;
+            
+            // Overall OEE
+            const overallOEE = (availability * performance * quality) / 10000;
+            
+            // Update display
+            document.getElementById('availability').textContent = `${availability.toFixed(1)}%`;
+            document.getElementById('performance').textContent = `${performance.toFixed(1)}%`;
+            document.getElementById('quality').textContent = `${quality.toFixed(1)}%`;
+            document.getElementById('overallOEE').textContent = `${overallOEE.toFixed(1)}%`;
+            
+            // Update progress bars
+            document.getElementById('availabilityBar').style.width = `${availability}%`;
+            document.getElementById('performanceBar').style.width = `${performance}%`;
+            document.getElementById('qualityBar').style.width = `${quality}%`;
+            document.getElementById('overallOEEBar').style.width = `${overallOEE}%`;
+        }
+
+        // Tab Switching
+        analysisTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabId = tab.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and contents
+                analysisTabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(`${tabId}Tab`).classList.add('active');
+            });
+        });
+
+        // Reset Analysis
+        resetBtn.onclick = () => {
+            downtimeRecords = [];
+            updateRecordsList();
+            resultsSection.style.display = 'none';
+            resetInputFields();
+        };
+
+        // Clear Results
+        clearResultsBtn.onclick = () => {
+            resultsSection.style.display = 'none';
+        };
+
+        // Clear All Records
+        clearAllBtn.onclick = () => {
+            if (downtimeRecords.length > 0) {
+                if (confirm('Clear all downtime records? This action cannot be undone.')) {
+                    downtimeRecords = [];
+                    updateRecordsList();
+                    resultsSection.style.display = 'none';
+                }
+            }
+        };
+
+        // Export Functions
+        exportPDFBtn.onclick = () => {
+            if (downtimeRecords.length === 0) {
+                alert('No data to export');
+                return;
+            }
+            alert('PDF export functionality would be implemented here. For now, use print function (Ctrl+P).');
+        };
+
+        exportExcelBtn.onclick = () => {
+            if (downtimeRecords.length === 0) {
+                alert('No data to export');
+                return;
+            }
+            exportToExcel();
+        };
+
+        // Export to Excel
+        function exportToExcel() {
+            const headers = ['ID', 'Machine', 'Date', 'Start Time', 'End Time', 'Duration (h)', 'Reason', 'Category', 'Production Rate', 'Cost per Hour', 'Production Loss', 'Cost', 'Description'];
+            
+            const csvContent = [
+                headers.join(','),
+                ...downtimeRecords.map(record => [
+                    record.id,
+                    `"${record.machineName}"`,
+                    record.downtimeDate,
+                    record.startTime,
+                    record.endTime,
+                    record.durationHours,
+                    `"${record.downtimeReason}"`,
+                    record.downtimeCategory,
+                    record.productionRate,
+                    record.costPerHour,
+                    record.productionLoss,
+                    record.cost,
+                    `"${record.description || ''}"`
+                ].join(','))
+            ].join('\n');
+
+            downloadFile(csvContent, `downtime-analysis-${new Date().toISOString().slice(0, 10)}.csv`, 'text/csv');
+        }
+
+        // Download File
+        function downloadFile(content, filename, mimeType) {
+            const blob = new Blob([content], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Initialize with sample data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add a sample record for demonstration
+            const today = new Date();
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 1);
+            
+            const sampleRecord = {
+                id: 'DT-SAMPLE',
+                machineName: 'CNC Machine #1',
+                downtimeDate: yesterday.toISOString().slice(0, 10),
+                startTime: '10:00',
+                endTime: '12:30',
+                durationHours: 2.5,
+                downtimeReason: 'Mechanical Failure',
+                downtimeCategory: 'Unplanned',
+                productionRate: 120,
+                costPerHour: 750,
+                productionLoss: 300,
+                cost: 1875,
+                description: 'Sample downtime event for demonstration'
+            };
+            
+            // Uncomment to add sample record on page load
+            // downtimeRecords.push(sampleRecord);
+            // updateRecordsList();
+        });
+
+        // Track user interactions for analytics
+        document.addEventListener('DOMContentLoaded', function () {
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track tool usage
+            analyzeBtn.addEventListener('click', function () {
+                if (window.gtag) {
+                    gtag('event', 'tool_usage', {
+                        'event_category': 'tools',
+                        'event_label': 'downtime_analysis',
+                        'value': downtimeRecords.length
+                    });
+                }
+            });
+
+            // Track mobile menu usage
+            hamburger.addEventListener('click', function () {
+                if (window.gtag) {
+                    gtag('event', 'mobile_menu_toggle', {
+                        'event_category': 'ui_interaction',
+                        'event_label': 'mobile_menu_opened'
+                    });
+                }
+            });
+
+            // Track export actions
+            exportExcelBtn.addEventListener('click', function () {
+                if (window.gtag) {
+                    gtag('event', 'export_action', {
+                        'event_category': 'tools',
+                        'event_label': 'export_excel'
+                    });
+                }
+            });
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function () {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

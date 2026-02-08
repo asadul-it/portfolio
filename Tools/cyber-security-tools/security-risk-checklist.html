@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Risk Checklist - Asadul Islam</title>
+    
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description" content="Security Risk Checklist - Assess your cybersecurity risks. Created by Asadul Islam, Professional IT Engineer.">
+    <meta name="keywords" content="security checklist, cybersecurity, risk assessment, Asadul Islam, IT security">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    
+    <!-- ==================== Open Graph Tags ==================== -->
+    <meta property="og:title" content="Security Risk Checklist - Asadul Islam">
+    <meta property="og:description" content="Professional security risk assessment tool">
+    <meta property="og:type" content="website">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff; /* ✅ সাদা ব্যাকগ্রাউন্ড */
+            min-height: 100vh;
+            color: #2c3e50;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff; /* ✅ সাদা */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-badge {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .navbar a:hover::before {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: 0.3s;
+            border-radius: 3px;
+        }
+
+        /* Language Toggle */
+        .lang-toggle {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s ease;
+            margin-left: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .lang-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .lang-toggle:active {
+            transform: translateY(0);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        /* ভুল ১: ব্যাক বাটন ঠিক করা হয়েছে */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: #667eea;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+        }
+
+        .back-button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(-5px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .tool-container {
+            background: white; /* ✅ সম্পূর্ণ সাদা */
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tool-header h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tool-header p {
+            color: #718096;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .checklist-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f5f7fa;
+            color: #667eea;
+            border-radius: 8px;
+        }
+
+        .checklist-items {
+            list-style: none;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #f7fafc;
+            border-radius: 8px;
+            border-left: 4px solid #e2e8f0;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            background: #edf2f7;
+            border-left-color: #667eea;
+        }
+
+        .checklist-item.checked {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #cbd5e0;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .checklist-item.checked .checkbox {
+            background: #28a745;
+            border-color: #28a745;
+        }
+
+        .checkbox i {
+            color: white;
+            font-size: 14px;
+            display: none;
+        }
+
+        .checklist-item.checked .checkbox i {
+            display: block;
+        }
+
+        .item-content {
+            flex: 1;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .item-description {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .progress-section {
+            margin: 30px 0;
+            padding: 25px;
+            background: #f7fafc;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .progress-percentage {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .progress-bar-container {
+            height: 12px;
+            background: #e2e8f0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: 0.4s;
+            border-radius: 6px;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #718096;
+            margin-top: 5px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            margin-top: 60px;
+            border-top: 1px solid #e5e7eb;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            color: #2d3748;
+            font-size: 18px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .footer-column a,
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            line-height: 1.6;
+        }
+
+        .footer-column a:hover {
+            color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #5a6c7d;
+            background: #f8fafc;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                z-index: 1000;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .navbar.active {
+                display: block;
+                animation: slideDown 0.3s ease;
+            }
+
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navbar a {
+                padding: 15px;
+                justify-content: center;
+            }
+
+            .tool-container {
+                padding: 25px 20px;
+            }
+
+            .tool-header h1 {
+                font-size: 28px;
+            }
+
+            .progress-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .lang-toggle {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .header-content {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tool-header h1 {
+                font-size: 24px;
+            }
+            
+            .tool-header p {
+                font-size: 16px;
+            }
+            
+            .btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="fixed-header-container">
+    <div class="header-content">
+        <a href="../../index.html" class="logo">
+            <span class="logo-icon">🔐</span>
+            <div class="logo-text">
+                <span>Security Checklist</span>
+                <span class="tool-badge">Assessment</span>
+            </div>
+        </a>
+        
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="../../index.html"><i class="fas fa-home"></i><span class="nav-text" data-en="Home" data-bn="হোম">Home</span></a></li>
+                <li><a href="../../skills.html"><i class="fas fa-cogs"></i><span class="nav-text" data-en="Skills" data-bn="দক্ষতা">Skills</span></a></li>
+                <li><a href="../tools.html"><i class="fas fa-tools"></i><span class="nav-text" data-en="Tools" data-bn="টুলস">Tools</span></a></li>
+                <li><a href="../../certificate.html"><i class="fas fa-certificate"></i><span class="nav-text" data-en="Certificate" data-bn="সার্টিফিকেট">Certificate</span></a></li>
+                <li><a href="../../contact.html"><i class="fas fa-phone"></i><span class="nav-text" data-en="Contact" data-bn="যোগাযোগ">Contact</span></a></li>
+            </ul>
+        </nav>
+
+        <button class="lang-toggle" id="langToggle">
+            <i class="fas fa-language"></i>
+            <span class="lang-text">বাংলা</span>
+        </button>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- ভুল ১: ব্যাক বাটন ঠিক করা হয়েছে -->
+    <a href="../tools.html#cybersec" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        <span class="back-text" data-en="Back to Security Tools" data-bn="সিকিউরিটি টুলসে ফিরে যান">Back to Security Tools</span>
+    </a>
+
+    <div class="tool-container">
+        <div class="tool-header">
+            <h1 class="title-text" data-en="Security Risk Checklist" data-bn="নিরাপত্তা ঝুঁকি চেকলিস্ট">Security Risk Checklist</h1>
+            <p class="subtitle-text" data-en="Assess your cybersecurity posture with this comprehensive checklist" data-bn="এই বিস্তৃত চেকলিস্ট দিয়ে আপনার সাইবার নিরাপত্তা অবস্থা মূল্যায়ন করুন">Assess your cybersecurity posture with this comprehensive checklist</p>
+        </div>
+
+        <div class="progress-section">
+            <div class="progress-header">
+                <div class="progress-title" data-en="Overall Security Score" data-bn="সামগ্রিক নিরাপত্তা স্কোর">Overall Security Score</div>
+                <div class="progress-percentage" id="progressPercentage">0%</div>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="completedCount">0</div>
+                    <div class="stat-label" data-en="Completed" data-bn="সম্পন্ন">Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="remainingCount">24</div>
+                    <div class="stat-label" data-en="Remaining" data-bn="অবশিষ্ট">Remaining</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalCount">24</div>
+                    <div class="stat-label" data-en="Total Items" data-bn="মোট আইটেম">Total Items</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checklist Sections -->
+        <div class="checklist-section">
+            <h2 class="section-title">
+                <i class="fas fa-shield-alt"></i>
+                <span data-en="Account Security" data-bn="অ্যাকাউন্ট নিরাপত্তা">Account Security</span>
+            </h2>
+            <ul class="checklist-items" id="accountSecurity"></ul>
+        </div>
+
+        <div class="checklist-section">
+            <h2 class="section-title">
+                <i class="fas fa-laptop"></i>
+                <span data-en="Device Security" data-bn="ডিভাইস নিরাপত্তা">Device Security</span>
+            </h2>
+            <ul class="checklist-items" id="deviceSecurity"></ul>
+        </div>
+
+        <div class="checklist-section">
+            <h2 class="section-title">
+                <i class="fas fa-network-wired"></i>
+                <span data-en="Network Security" data-bn="নেটওয়ার্ক নিরাপত্তা">Network Security</span>
+            </h2>
+            <ul class="checklist-items" id="networkSecurity"></ul>
+        </div>
+
+        <div class="checklist-section">
+            <h2 class="section-title">
+                <i class="fas fa-database"></i>
+                <span data-en="Data Protection" data-bn="ডেটা সুরক্ষা">Data Protection</span>
+            </h2>
+            <ul class="checklist-items" id="dataProtection"></ul>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="resetChecklist()">
+                <i class="fas fa-redo"></i>
+                <span data-en="Reset All" data-bn="সব রিসেট করুন">Reset All</span>
+            </button>
+            <button class="btn btn-primary" onclick="generateReport()">
+                <i class="fas fa-file-pdf"></i>
+                <span data-en="Generate Report" data-bn="রিপোর্ট তৈরি করুন">Generate Report</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3 class="footer-title-text" data-en="About" data-bn="সম্পর্কে">About</h3>
+            <p class="footer-desc-text" data-en="Professional cybersecurity assessment tools for comprehensive security evaluation." data-bn="বিস্তৃত নিরাপত্তা মূল্যায়নের জন্য পেশাদার সাইবার নিরাপত্তা মূল্যায়ন টুল।">Professional cybersecurity assessment tools for comprehensive security evaluation.</p>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="footer-title-text" data-en="Quick Links" data-bn="দ্রুত লিঙ্ক">Quick Links</h3>
+            <div class="quick-links">
+                <a href="../../index.html" class="footer-link-text" data-en="Home" data-bn="হোম">Home</a>
+                <a href="../../skills.html" class="footer-link-text" data-en="Skills" data-bn="দক্ষতা">Skills</a>
+                <a href="../tools.html" class="footer-link-text" data-en="Tools" data-bn="টুলস">Tools</a>
+                <a href="../../certificate.html" class="footer-link-text" data-en="Certificate" data-bn="সার্টিফিকেট">Certificate</a>
+                <a href="../../contact.html" class="footer-link-text" data-en="Contact" data-bn="যোগাযোগ">Contact</a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="footer-title-text" data-en="Follow Me" data-bn="আমাকে ফলো করুন">Follow Me</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <span class="copyright-text" data-en="© 2024 Asadul Islam | All Rights Reserved" data-bn="© ২০২৪ আসাদুল ইসলাম | সর্বস্বত্ব সংরক্ষিত">© 2024 Asadul Islam | All Rights Reserved</span>
+    </div>
+</footer>
+
+<script>
+// Google Analytics 4
+(function() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+    document.head.appendChild(script);
+    
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5H7RZ72M1J', {
+        'send_page_view': true,
+        'anonymize_ip': true,
+        'allow_google_signals': false
+    });
+    window.gtag = gtag;
+})();
+
+// Language management
+let currentLang = 'en';
+
+// ভুল ২: ভাষা পরিবর্তনের ফাংশন সম্পূর্ণরূপে ঠিক করা হয়েছে
+function toggleLanguage() {
+    currentLang = currentLang === 'en' ? 'bn' : 'en';
+    updateLanguage();
+    
+    // Update button text
+    const langToggle = document.getElementById('langToggle');
+    const langText = langToggle.querySelector('.lang-text');
+    langText.textContent = currentLang === 'en' ? 'বাংলা' : 'English';
+    
+    // Update button icon position
+    langToggle.innerHTML = currentLang === 'en' 
+        ? '<i class="fas fa-language"></i><span class="lang-text">বাংলা</span>' 
+        : '<i class="fas fa-language"></i><span class="lang-text">English</span>';
+    
+    // Track language change
+    if (window.gtag) {
+        gtag('event', 'language_change', {
+            'event_category': 'user_preference',
+            'event_label': currentLang
+        });
+    }
+}
+
+function updateLanguage() {
+    // Update all elements with data-en and data-bn attributes
+    document.querySelectorAll('[data-en]').forEach(el => {
+        el.textContent = currentLang === 'en' 
+            ? el.getAttribute('data-en') 
+            : el.getAttribute('data-bn');
+    });
+    
+    // If checklist is rendered, re-render it with the new language
+    if (typeof renderChecklist === 'function') {
+        renderChecklist();
+    }
+}
+
+// Initialize language button
+document.addEventListener('DOMContentLoaded', function() {
+    const langToggle = document.getElementById('langToggle');
+    langToggle.addEventListener('click', toggleLanguage);
+});
+
+// Hamburger Menu
+const hamburger = document.getElementById("hamburger");
+const navbar = document.getElementById("navbar");
+hamburger.onclick = () => {
+    navbar.classList.toggle("active");
+    // Animate hamburger to X
+    const spans = hamburger.querySelectorAll('span');
+    if (navbar.classList.contains("active")) {
+        spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+    } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    }
+    
+    if (window.gtag) {
+        gtag('event', 'mobile_menu_toggle', {
+            'event_category': 'ui_interaction'
+        });
+    }
+};
+
+// Checklist Data
+const checklistData = {
+    accountSecurity: [
+        {
+            titleEn: "Use strong, unique passwords",
+            titleBn: "শক্তিশালী, অনন্য পাসওয়ার্ড ব্যবহার করুন",
+            descEn: "Create passwords with 12+ characters including numbers and symbols",
+            descBn: "সংখ্যা এবং চিহ্ন সহ ১২+ অক্ষর দিয়ে পাসওয়ার্ড তৈরি করুন"
+        },
+        {
+            titleEn: "Enable two-factor authentication (2FA)",
+            titleBn: "দুই-ফ্যাক্টর প্রমাণীকরণ (২এফএ) সক্ষম করুন",
+            descEn: "Add an extra layer of security to your accounts",
+            descBn: "আপনার অ্যাকাউন্টে অতিরিক্ত নিরাপত্তা স্তর যোগ করুন"
+        },
+        {
+            titleEn: "Use a password manager",
+            titleBn: "পাসওয়ার্ড ম্যানেজার ব্যবহার করুন",
+            descEn: "Store and generate secure passwords safely",
+            descBn: "নিরাপদে পাসওয়ার্ড সংরক্ষণ এবং তৈরি করুন"
+        },
+        {
+            titleEn: "Review account permissions regularly",
+            titleBn: "নিয়মিত অ্যাকাউন্ট অনুমতি পর্যালোচনা করুন",
+            descEn: "Check and revoke unnecessary app permissions",
+            descBn: "অপ্রয়োজনীয় অ্যাপ অনুমতি পরীক্ষা এবং বাতিল করুন"
+        },
+        {
+            titleEn: "Monitor account activity",
+            titleBn: "অ্যাকাউন্ট কার্যকলাপ নিরীক্ষণ করুন",
+            descEn: "Check for suspicious login attempts and activities",
+            descBn: "সন্দেহজনক লগইন প্রচেষ্টা এবং কার্যকলাপ পরীক্ষা করুন"
+        },
+        {
+            titleEn: "Update security questions",
+            titleBn: "নিরাপত্তা প্রশ্ন আপডেট করুন",
+            descEn: "Use answers that cannot be easily guessed",
+            descBn: "এমন উত্তর ব্যবহার করুন যা সহজে অনুমান করা যায় না"
+        }
+    ],
+    deviceSecurity: [
+        {
+            titleEn: "Install antivirus software",
+            titleBn: "অ্যান্টিভাইরাস সফটওয়্যার ইনস্টল করুন",
+            descEn: "Keep your devices protected from malware",
+            descBn: "আপনার ডিভাইস ম্যালওয়্যার থেকে সুরক্ষিত রাখুন"
+        },
+        {
+            titleEn: "Keep OS and software updated",
+            titleBn: "OS এবং সফটওয়্যার আপডেট রাখুন",
+            descEn: "Install security patches promptly",
+            descBn: "দ্রুত নিরাপত্তা প্যাচ ইনস্টল করুন"
+        },
+        {
+            titleEn: "Enable device encryption",
+            titleBn: "ডিভাইস এনক্রিপশন সক্ষম করুন",
+            descEn: "Protect data if device is lost or stolen",
+            descBn: "ডিভাইস হারিয়ে গেলে বা চুরি হলে ডেটা সুরক্ষিত করুন"
+        },
+        {
+            titleEn: "Use screen lock with PIN/Password",
+            titleBn: "PIN/পাসওয়ার্ড দিয়ে স্ক্রিন লক ব্যবহার করুন",
+            descEn: "Prevent unauthorized physical access",
+            descBn: "অননুমোদিত শারীরিক অ্যাক্সেস প্রতিরোধ করুন"
+        },
+        {
+            titleEn: "Disable auto-connect to Wi-Fi",
+            titleBn: "Wi-Fi তে অটো-কানেক্ট নিষ্ক্রিয় করুন",
+            descEn: "Avoid connecting to unsafe networks automatically",
+            descBn: "স্বয়ংক্রিয়ভাবে অনিরাপদ নেটওয়ার্কে সংযোগ এড়িয়ে চলুন"
+        },
+        {
+            titleEn: "Backup data regularly",
+            titleBn: "নিয়মিত ডেটা ব্যাকআপ করুন",
+            descEn: "Protect against data loss from attacks or failures",
+            descBn: "আক্রমণ বা ব্যর্থতা থেকে ডেটা ক্ষতির বিরুদ্ধে সুরক্ষা"
+        }
+    ],
+    networkSecurity: [
+        {
+            titleEn: "Use WPA3 encryption on Wi-Fi",
+            titleBn: "Wi-Fi তে WPA3 এনক্রিপশন ব্যবহার করুন",
+            descEn: "Enable the strongest wireless security protocol",
+            descBn: "শক্তিশালী ওয়্যারলেস নিরাপত্তা প্রোটোকল সক্ষম করুন"
+        },
+        {
+            titleEn: "Change default router password",
+            titleBn: "ডিফল্ট রাউটার পাসওয়ার্ড পরিবর্তন করুন",
+            descEn: "Prevent easy access to your network",
+            descBn: "আপনার নেটওয়ার্কে সহজ অ্যাক্সেস প্রতিরোধ করুন"
+        },
+        {
+            titleEn: "Enable firewall",
+            titleBn: "ফায়ারওয়াল সক্ষম করুন",
+            descEn: "Block unauthorized network connections",
+            descBn: "অননুমোদিত নেটওয়ার্ক সংযোগ ব্লক করুন"
+        },
+        {
+            titleEn: "Use VPN on public Wi-Fi",
+            titleBn: "পাবলিক Wi-Fi তে VPN ব্যবহার করুন",
+            descEn: "Encrypt your internet traffic",
+            descBn: "আপনার ইন্টারনেট ট্রাফিক এনক্রিপ্ট করুন"
+        },
+        {
+            titleEn: "Disable remote management",
+            titleBn: "রিমোট ম্যানেজমেন্ট নিষ্ক্রিয় করুন",
+            descEn: "Prevent external access to router settings",
+            descBn: "রাউটার সেটিংসে বাহ্যিক অ্যাক্সেস প্রতিরোধ করুন"
+        },
+        {
+            titleEn: "Hide network SSID",
+            titleBn: "নেটওয়ার্ক SSID লুকান",
+            descEn: "Make your network less visible to others",
+            descBn: "আপনার নেটওয়ার্ক অন্যদের কাছে কম দৃশ্যমান করুন"
+        }
+    ],
+    dataProtection: [
+        {
+            titleEn: "Encrypt sensitive files",
+            titleBn: "সংবেদনশীল ফাইল এনক্রিপ্ট করুন",
+            descEn: "Protect important documents and data",
+            descBn: "গুরুত্বপূর্ণ নথি এবং ডেটা সুরক্ষিত করুন"
+        },
+        {
+            titleEn: "Use secure cloud storage",
+            titleBn: "নিরাপদ ক্লাউড স্টোরেজ ব্যবহার করুন",
+            descEn: "Choose providers with strong encryption",
+            descBn: "শক্তিশালী এনক্রিপশন সহ প্রদানকারী বেছে নিন"
+        },
+        {
+            titleEn: "Delete old/unused accounts",
+            titleBn: "পুরাতন/অব্যবহৃত অ্যাকাউন্ট মুছুন",
+            descEn: "Reduce your digital footprint",
+            descBn: "আপনার ডিজিটাল পদচিহ্ন কমান"
+        },
+        {
+            titleEn: "Review app data permissions",
+            titleBn: "অ্যাপ ডেটা অনুমতি পর্যালোচনা করুন",
+            descEn: "Limit what apps can access on your device",
+            descBn: "অ্যাপগুলি আপনার ডিভাইসে কী অ্যাক্সেস করতে পারে তা সীমিত করুন"
+        },
+        {
+            titleEn: "Use secure email practices",
+            titleBn: "নিরাপদ ইমেল অনুশীলন ব্যবহার করুন",
+            descEn: "Avoid clicking suspicious links and attachments",
+            descBn: "সন্দেহজনক লিঙ্ক এবং সংযুক্তি ক্লিক করা এড়িয়ে চলুন"
+        },
+        {
+            titleEn: "Shred sensitive documents",
+            titleBn: "সংবেদনশীল নথি টুকরো টুকরো করুন",
+            descEn: "Properly dispose of physical documents with personal info",
+            descBn: "ব্যক্তিগত তথ্য সহ শারীরিক নথি সঠিকভাবে নিষ্পত্তি করুন"
+        }
+    ]
+};
+
+// Checklist State
+let checkedItems = JSON.parse(localStorage.getItem('securityChecklist')) || {};
+
+// Render Checklist
+function renderChecklist() {
+    Object.keys(checklistData).forEach(category => {
+        const container = document.getElementById(category);
+        container.innerHTML = '';
+        
+        checklistData[category].forEach((item, index) => {
+            const itemId = `${category}-${index}`;
+            const isChecked = checkedItems[itemId] || false;
+            
+            const li = document.createElement('li');
+            li.className = `checklist-item ${isChecked ? 'checked' : ''}`;
+            li.onclick = () => toggleItem(itemId, li);
+            
+            li.innerHTML = `
+                <div class="checkbox">
+                    <i class="fas fa-check"></i>
+                </div>
+                <div class="item-content">
+                    <div class="item-title">${currentLang === 'en' ? item.titleEn : item.titleBn}</div>
+                    <div class="item-description">${currentLang === 'en' ? item.descEn : item.descBn}</div>
+                </div>
+            `;
+            
+            container.appendChild(li);
+        });
+    });
+    
+    updateProgress();
+}
+
+// Toggle Item
+function toggleItem(itemId, element) {
+    checkedItems[itemId] = !checkedItems[itemId];
+    element.classList.toggle('checked');
+    localStorage.setItem('securityChecklist', JSON.stringify(checkedItems));
+    updateProgress();
+    
+    if (window.gtag) {
+        gtag('event', 'checklist_item_toggle', {
+            'event_category': 'security_assessment',
+            'event_label': itemId,
+            'value': checkedItems[itemId] ? 1 : 0
+        });
+    }
+}
+
+// Update Progress
+function updateProgress() {
+    const total = Object.keys(checklistData).reduce((sum, cat) => sum + checklistData[cat].length, 0);
+    const completed = Object.values(checkedItems).filter(v => v).length;
+    const percentage = Math.round((completed / total) * 100);
+    
+    document.getElementById('progressBar').style.width = percentage + '%';
+    document.getElementById('progressPercentage').textContent = percentage + '%';
+    document.getElementById('completedCount').textContent = completed;
+    document.getElementById('remainingCount').textContent = total - completed;
+    document.getElementById('totalCount').textContent = total;
+}
+
+// Reset Checklist
+function resetChecklist() {
+    const confirmMsg = currentLang === 'en' 
+        ? 'Are you sure you want to reset all items?' 
+        : 'আপনি কি সব আইটেম রিসেট করতে চান?';
+    
+    if (confirm(confirmMsg)) {
+        checkedItems = {};
+        localStorage.removeItem('securityChecklist');
+        renderChecklist();
+        
+        if (window.gtag) {
+            gtag('event', 'checklist_reset', {
+                'event_category': 'security_assessment'
+            });
+        }
+    }
+}
+
+// Generate Report
+function generateReport() {
+    const total = Object.keys(checklistData).reduce((sum, cat) => sum + checklistData[cat].length, 0);
+    const completed = Object.values(checkedItems).filter(v => v).length;
+    const percentage = Math.round((completed / total) * 100);
+    
+    let riskLevel, message;
+    if (percentage >= 80) {
+        riskLevel = currentLang === 'en' ? 'Low Risk' : 'কম ঝুঁকি';
+        message = currentLang === 'en' 
+            ? 'Excellent! Your security posture is strong.' 
+            : 'চমৎকার! আপনার নিরাপত্তা অবস্থান শক্তিশালী।';
+    } else if (percentage >= 50) {
+        riskLevel = currentLang === 'en' ? 'Medium Risk' : 'মাঝারি ঝুঁকি';
+        message = currentLang === 'en' 
+            ? 'Good progress, but room for improvement.' 
+            : 'ভাল অগ্রগতি, তবে উন্নতির সুযোগ আছে।';
+    } else {
+        riskLevel = currentLang === 'en' ? 'High Risk' : 'উচ্চ ঝুঁকি';
+        message = currentLang === 'en' 
+            ? 'Important! Please address remaining security items.' 
+            : 'গুরুত্বপূর্ণ! অবশিষ্ট নিরাপত্তা আইটেম সমাধান করুন।';
+    }
+    
+    alert(`${riskLevel}\n${currentLang === 'en' ? 'Score' : 'স্কোর'}: ${percentage}%\n${message}`);
+    
+    if (window.gtag) {
+        gtag('event', 'report_generated', {
+            'event_category': 'security_assessment',
+            'event_label': riskLevel,
+            'value': percentage
+        });
+    }
+}
+
+// ভুল ৩: Initialize ফাংশন ডিফাইন করা
+function initializeChecklist() {
+    renderChecklist();
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initializeChecklist();
+});
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+    const isClickInsideNav = navbar.contains(event.target);
+    const isClickOnHamburger = hamburger.contains(event.target);
+    
+    if (!isClickInsideNav && !isClickOnHamburger && navbar.classList.contains('active')) {
+        navbar.classList.remove('active');
+        const spans = hamburger.querySelectorAll('span');
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+    }
+});
+
+// Track scroll depth
+let maxScrollDepth = 0;
+window.addEventListener('scroll', function() {
+    const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+        maxScrollDepth = scrollDepth;
+        if (window.gtag) {
+            gtag('event', 'scroll_depth', {
+                'event_category': 'engagement',
+                'value': scrollDepth
+            });
+        }
+    }
+});
+</script>
+
+</body>
+</html>

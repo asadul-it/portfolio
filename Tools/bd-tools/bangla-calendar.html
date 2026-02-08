@@ -1,0 +1,1735 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangla Calendar Converter - বাংলা ক্যালেন্ডার ও তারিখ</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Complete Bangla Calendar (বাংলা ক্যালেন্ডার) with date converter, Bengali months, seasons, festivals and traditional Bengali date system. Convert between Gregorian and Bengali dates easily.">
+    <meta name="keywords"
+        content="Bangla calendar, বাংলা ক্যালেন্ডার, Bengali date, বাংলা তারিখ, Bangabda, Bengali months, বাংলা মাস, Bengali calendar converter, বাংলা ইংরেজি তারিখ, Pohela Boishakh, Bengali festivals">
+    <meta name="author" content="Bangladesh Cultural Tools">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali, English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Bangla Calendar - Complete Bengali Date Converter">
+    <meta property="og:description"
+        content="Complete Bangla Calendar with date converter, Bengali months, seasons, festivals and traditional Bengali date system. Convert between Gregorian and Bengali dates.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tools.bangladesh-cultural.com/bangla-calendar">
+    <meta property="og:image" content="https://tools.bangladesh-cultural.com/img/bangla-calendar-preview.jpg">
+    <meta property="og:site_name" content="Bangladesh Cultural Tools">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bangla Calendar - বাংলা ক্যালেন্ডার">
+    <meta name="twitter:description" content="Complete Bangla Calendar with date converter and Bengali festivals">
+    <meta name="twitter:image" content="https://tools.bangladesh-cultural.com/img/bangla-calendar-preview.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://tools.bangladesh-cultural.com/bangla-calendar">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Bangla Calendar Converter",
+        "description": "Complete Bangla Calendar with date converter between Gregorian and Bengali calendar systems",
+        "url": "https://tools.bangladesh-cultural.com/bangla-calendar",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Bangladesh Cultural Tools"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 18px 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            font-weight: 800;
+            color: #d32f2f;
+        }
+
+        .logo-icon {
+            background: #d32f2f;
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover {
+            color: #d32f2f;
+            background: #ffebee;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .hamburger span {
+            width: 30px;
+            height: 3px;
+            background: #d32f2f;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 25px auto 20px;
+            padding: 0 35px;
+            font-size: 15px;
+            color: #6b7280;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #d32f2f;
+            font-weight: 600;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 35px;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+            background: linear-gradient(to right, #ffebee, #ffffff);
+            border-radius: 16px;
+            border: 1px solid #ffcdd2;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+            color: #1f2937;
+            margin-bottom: 15px;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .page-header h1 i {
+            color: #d32f2f;
+            margin-right: 15px;
+        }
+
+        .page-header p {
+            font-size: 20px;
+            color: #6b7280;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Current Date Display */
+        .current-date-box {
+            background: #d32f2f;
+            color: white;
+            padding: 35px;
+            border-radius: 16px;
+            margin: 30px auto;
+            max-width: 1000px;
+            box-shadow: 0 10px 30px rgba(211, 47, 47, 0.2);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .date-item {
+            padding: 20px;
+        }
+
+        .date-label {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .date-value {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+
+        .bangla-date {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ffebee;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Tool Container */
+        .tool-container {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            margin-bottom: 40px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .tool-title {
+            font-size: 28px;
+            color: #1f2937;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+        }
+
+        .tool-title i {
+            color: #d32f2f;
+        }
+
+        /* Converter Section */
+        .converter-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .converter-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .converter-box {
+            background: #f9fafb;
+            border-radius: 14px;
+            padding: 35px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .converter-box:hover {
+            border-color: #d32f2f;
+            box-shadow: 0 10px 25px rgba(211, 47, 47, 0.1);
+        }
+
+        .converter-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .converter-header i {
+            font-size: 28px;
+            color: #d32f2f;
+        }
+
+        .converter-header h3 {
+            font-size: 24px;
+            color: #1f2937;
+            font-weight: 700;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-label i {
+            color: #d32f2f;
+        }
+
+        select,
+        input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        select:focus,
+        input:focus {
+            outline: none;
+            border-color: #d32f2f;
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+        }
+
+        .convert-btn {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 16px 35px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+            width: 100%;
+        }
+
+        .convert-btn:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 2px solid #e5e7eb;
+            display: none;
+        }
+
+        .result-box.active {
+            display: block;
+        }
+
+        .result-title {
+            font-size: 18px;
+            color: #374151;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .result-value {
+            font-size: 28px;
+            color: #d32f2f;
+            font-weight: 800;
+            margin: 10px 0;
+            text-align: center;
+            padding: 15px;
+            background: #ffebee;
+            border-radius: 8px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .result-details {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        /* Bangla Months Grid */
+        .months-section {
+            margin-top: 60px;
+        }
+
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .month-card {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .month-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(211, 47, 47, 0.1);
+            border-color: #d32f2f;
+        }
+
+        .month-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: #d32f2f;
+        }
+
+        .month-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #ffebee;
+            color: #d32f2f;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .month-name {
+            font-size: 24px;
+            color: #1f2937;
+            font-weight: 800;
+            margin-bottom: 8px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .month-english {
+            color: #d32f2f;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .month-duration {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .month-season {
+            display: inline-block;
+            padding: 6px 15px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* Seasons Section */
+        .seasons-section {
+            background: #f9fafb;
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 60px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .seasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .season-card {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .season-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .season-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+        }
+
+        .season-name {
+            font-size: 24px;
+            color: #1f2937;
+            font-weight: 700;
+        }
+
+        .season-details {
+            color: #6b7280;
+            line-height: 1.8;
+        }
+
+        .season-months {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .season-months span {
+            display: inline-block;
+            padding: 6px 15px;
+            background: #ffebee;
+            color: #d32f2f;
+            border-radius: 20px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Festivals Section */
+        .festivals-section {
+            margin-top: 60px;
+        }
+
+        .festivals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .festival-card {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .festival-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(211, 47, 47, 0.1);
+            border-color: #d32f2f;
+        }
+
+        .festival-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #ffebee;
+            color: #d32f2f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+        }
+
+        .festival-name {
+            font-size: 20px;
+            color: #1f2937;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .festival-date {
+            color: #d32f2f;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .festival-description {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px 35px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 22px;
+            color: #1f2937;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .footer-column a,
+        .footer-column p {
+            color: #6b7280;
+            font-size: 16px;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-column a:hover {
+            color: #d32f2f;
+            text-decoration: underline;
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 46px;
+            height: 46px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #ffebee;
+            color: #d32f2f;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #d32f2f;
+            color: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 15px;
+            color: #6b7280;
+            background: #f9fafb;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header-content {
+                padding: 15px 25px;
+            }
+
+            .navbar ul {
+                gap: 20px;
+            }
+
+            .page-header h1 {
+                font-size: 36px;
+            }
+
+            .date-value {
+                font-size: 28px;
+            }
+
+            .bangla-date {
+                font-size: 24px;
+            }
+
+            .tool-title {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                border-top: 2px solid #ffebee;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar li {
+                margin-bottom: 15px;
+            }
+
+            .navbar a {
+                padding: 15px 20px;
+                border-radius: 8px;
+                justify-content: flex-start;
+            }
+
+            .navbar a:hover {
+                background: #ffebee;
+            }
+
+            .header-content {
+                padding: 12px 20px;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .page-header p {
+                font-size: 18px;
+                padding: 0 10px;
+            }
+
+            .current-date-box {
+                padding: 25px;
+                gap: 20px;
+            }
+
+            .date-value {
+                font-size: 24px;
+            }
+
+            .tool-container {
+                padding: 25px;
+            }
+
+            .converter-box {
+                padding: 25px;
+            }
+
+            .months-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .seasons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 35px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .months-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .festivals-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 0 20px;
+            }
+
+            .breadcrumb {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">বাং</span>
+                <span>Bangladesh Cultural Tools</span>
+            </div>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" id="breadcrumb"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="fas fa-calendar-alt"></i> Bangla Calendar Converter</h1>
+            <p>Complete Bengali calendar with date converter, traditional Bengali months, seasons, festivals, and
+                cultural information. Convert between Gregorian and Bengali dates easily.</p>
+
+            <div class="current-date-box">
+                <div class="date-item">
+                    <div class="date-label"><i class="far fa-calendar"></i> English Date</div>
+                    <div class="date-value" id="currentEnglishDate">Loading...</div>
+                    <div class="bangla-date" id="currentWeekday"></div>
+                </div>
+                <div class="date-item">
+                    <div class="date-label"><i class="fas fa-calendar-day"></i> বাংলা তারিখ</div>
+                    <div class="bangla-date" id="currentBanglaDate">লোড হচ্ছে...</div>
+                    <div style="font-size: 18px; margin-top: 8px; color: #ffebee;" id="banglaYear">বঙ্গাব্দ</div>
+                </div>
+                <div class="date-item">
+                    <div class="date-label"><i class="fas fa-clock"></i> Current Time</div>
+                    <div class="date-value" id="currentTime">00:00:00</div>
+                    <div style="font-size: 14px; margin-top: 8px; opacity: 0.8;" id="currentSeason">Season</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Converter Tool -->
+        <div class="tool-container">
+            <h2 class="tool-title"><i class="fas fa-exchange-alt"></i> Date Converter</h2>
+
+            <div class="converter-section">
+                <!-- English to Bangla Converter -->
+                <div class="converter-box">
+                    <div class="converter-header">
+                        <i class="fas fa-globe-americas"></i>
+                        <h3>English to Bangla</h3>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label"><i class="far fa-calendar"></i> Select English Date</label>
+                        <input type="date" id="englishDateInput" class="date-input" value="">
+                    </div>
+
+                    <button class="convert-btn" id="convertToBangla">
+                        <i class="fas fa-arrow-right"></i> Convert to বাংলা তারিখ
+                    </button>
+
+                    <div class="result-box" id="banglaResult">
+                        <div class="result-title">Bangla Date Result</div>
+                        <div class="result-value" id="banglaDateResult">--</div>
+                        <div class="result-details" id="banglaDetails">Select a date and convert</div>
+                    </div>
+                </div>
+
+                <!-- Bangla to English Converter -->
+                <div class="converter-box">
+                    <div class="converter-header">
+                        <i class="fas fa-language"></i>
+                        <h3>Bangla to English</h3>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label"><i class="fas fa-calendar-day"></i> Bangla Year (বঙ্গাব্দ)</label>
+                        <select id="banglaYearSelect" class="year-select">
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label"><i class="fas fa-calendar-week"></i> Bangla Month (মাস)</label>
+                        <select id="banglaMonthSelect" class="month-select">
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label"><i class="fas fa-calendar-day"></i> Bangla Day (দিন)</label>
+                        <select id="banglaDaySelect" class="day-select">
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </div>
+
+                    <button class="convert-btn" id="convertToEnglish">
+                        <i class="fas fa-arrow-right"></i> Convert to English Date
+                    </button>
+
+                    <div class="result-box" id="englishResult">
+                        <div class="result-title">English Date Result</div>
+                        <div class="result-value" id="englishDateResult">--</div>
+                        <div class="result-details" id="englishDetails">Select Bangla date and convert</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bangla Months -->
+        <div class="tool-container months-section">
+            <h2 class="tool-title"><i class="fas fa-list-alt"></i> বাংলা মাসসমূহ (Bangla Months)</h2>
+
+            <div class="months-grid" id="banglaMonthsGrid">
+                <!-- Months will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Bengali Seasons -->
+        <div class="seasons-section">
+            <h2 class="tool-title"><i class="fas fa-leaf"></i> বাংলার ঋতু (Bengali Seasons)</h2>
+
+            <div class="seasons-grid">
+                <div class="season-card">
+                    <div class="season-header">
+                        <div class="season-icon" style="background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <h3 class="season-name">গ্রীষ্ম (Grishsho)</h3>
+                    </div>
+                    <p class="season-details">Summer season, characterized by hot and humid weather. This is the season
+                        of mangoes and intense heat.</p>
+                    <div class="season-months">
+                        <span>বৈশাখ (Baishakh)</span>
+                        <span>জ্যৈষ্ঠ (Joishtho)</span>
+                    </div>
+                </div>
+
+                <div class="season-card">
+                    <div class="season-header">
+                        <div class="season-icon" style="background: linear-gradient(135deg, #2196f3 0%, #0d47a1 100%);">
+                            <i class="fas fa-cloud-rain"></i>
+                        </div>
+                        <h3 class="season-name">বর্ষা (Borsha)</h3>
+                    </div>
+                    <p class="season-details">Monsoon season with heavy rainfall, vital for agriculture. Rivers swell
+                        and the countryside turns green.</p>
+                    <div class="season-months">
+                        <span>আষাঢ় (Ashar)</span>
+                        <span>শ্রাবণ (Srabon)</span>
+                    </div>
+                </div>
+
+                <div class="season-card">
+                    <div class="season-header">
+                        <div class="season-icon" style="background: linear-gradient(135deg, #ff9800 0%, #ef6c00 100%);">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <h3 class="season-name">শরৎ (Shorot)</h3>
+                    </div>
+                    <p class="season-details">Autumn season with clear skies and gentle breeze. Known for white Kash
+                        flowers and festive preparations.</p>
+                    <div class="season-months">
+                        <span>ভাদ্র (Bhadro)</span>
+                        <span>আশ্বিন (Ashshin)</span>
+                    </div>
+                </div>
+
+                <div class="season-card">
+                    <div class="season-header">
+                        <div class="season-icon" style="background: linear-gradient(135deg, #795548 0%, #4e342e 100%);">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3 class="season-name">হেমন্ত (Hemonto)</h3>
+                    </div>
+                    <p class="season-details">Late autumn, the season of harvest (Nobanno). Cool mornings and
+                        dew-covered fields characterize this season.</p>
+                    <div class="season-months">
+                        <span>কার্তিক (Kartik)</span>
+                        <span>অগ্রহায়ণ (Ogrohayon)</span>
+                    </div>
+                </div>
+
+                <div class="season-card">
+                    <div class="season-header">
+                        <div class="season-icon" style="background: linear-gradient(135deg, #90caf9 0%, #42a5f5 100%);">
+                            <i class="fas fa-snowflake"></i>
+                        </div>
+                        <h3 class="season-name">শীত (Sheet)</h3>
+                    </div>
+                    <p class="season-details">Winter season with cold weather, especially in northern regions. Known for
+                        various winter vegetables and festivals.</p>
+                    <div class="season-months">
+                        <span>পৌষ (Poush)</span>
+                        <span>মাঘ (Magh)</span>
+                    </div>
+                </div>
+
+                <div class="season-card">
+                    <div class="season-header">
+                        <div class="season-icon" style="background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3 class="season-name">বসন্ত (Boshonto)</h3>
+                    </div>
+                    <p class="season-details">Spring season, the king of seasons. Flowers bloom everywhere, especially
+                        Krishnochura and Shimul trees.</p>
+                    <div class="season-months">
+                        <span>ফাল্গুন (Falgun)</span>
+                        <span>চৈত্র (Choitro)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bengali Festivals -->
+        <div class="tool-container festivals-section">
+            <h2 class="tool-title"><i class="fas fa-star"></i> বাংলা উৎসব (Bengali Festivals)</h2>
+
+            <div class="festivals-grid">
+                <div class="festival-card">
+                    <div class="festival-icon">
+                        <i class="fas fa-feather-alt"></i>
+                    </div>
+                    <h3 class="festival-name">পহেলা বৈশাখ</h3>
+                    <div class="festival-date">১৪ এপ্রিল</div>
+                    <p class="festival-description">Bengali New Year celebration with cultural programs, Mangal
+                        Shobhajatra, and traditional foods.</p>
+                </div>
+
+                <div class="festival-card">
+                    <div class="festival-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3 class="festival-name">ঈদ-উল-ফিতর</h3>
+                    <div class="festival-date">শাওয়াল মাস</div>
+                    <p class="festival-description">Celebration after Ramadan fasting month with prayers, family
+                        gatherings, and festive meals.</p>
+                </div>
+
+                <div class="festival-card">
+                    <div class="festival-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3 class="festival-name">ঈদ-উল-আযহা</h3>
+                    <div class="festival-date">জিলহজ মাস</div>
+                    <p class="festival-description">Festival of sacrifice commemorating Prophet Ibrahim's devotion, with
+                        prayers and Qurbani.</p>
+                </div>
+
+                <div class="festival-card">
+                    <div class="festival-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="festival-name">দুর্গাপূজা</h3>
+                    <div class="festival-date">আশ্বিন মাস</div>
+                    <p class="festival-description">Major Hindu festival celebrating Goddess Durga's victory over evil,
+                        with elaborate decorations.</p>
+                </div>
+
+                <div class="festival-card">
+                    <div class="festival-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="festival-name">বসন্ত পঞ্চমী</h3>
+                    <div class="festival-date">মাঘ মাস</div>
+                    <p class="festival-description">Festival dedicated to Goddess Saraswati, celebrated with yellow
+                        attire and cultural programs.</p>
+                </div>
+
+                <div class="festival-card">
+                    <div class="festival-icon">
+                        <i class="fas fa-tree"></i>
+                    </div>
+                    <h3 class="festival-name">নবান্ন</h3>
+                    <div class="festival-date">অগ্রহায়ণ মাস</div>
+                    <p class="festival-description">Harvest festival celebrating the new rice crop with traditional
+                        foods and festivities.</p>
+                </div>
+
+                <div class="festival-card">
+                    <div class="festival-icon">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3 class="festival-name">চৈত্র সংক্রান্তি</h3>
+                    <div class="festival-date">চৈত্র মাসের শেষ</div>
+                    <p class="festival-description">Festival marking the end of Bengali year with fairs, cultural
+                        events, and traditional foods.</p>
+                </div>
+
+                <div class="festival-card">
+                    <div class="festival-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3 class="festival-name">বরষা বরণ</h3>
+                    <div class="festival-date">আষাঢ় মাস</div>
+                    <p class="festival-description">Monsoon welcoming festival with songs, dances, and celebrations of
+                        rain.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== Hidden SEO Content ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/WebPage">
+        <span itemprop="name">Bangla Calendar Converter - বাংলা ক্যালেন্ডার ও তারিখ</span>
+        <span itemprop="description">Complete Bangla Calendar with date converter between Gregorian and Bengali calendar
+            systems, including Bengali months, seasons, and festivals</span>
+        <span itemprop="keywords">Bangla calendar, বাংলা ক্যালেন্ডার, Bengali date, বাংলা তারিখ, Bangabda, Bengali
+            months, বাংলা মাস</span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About This Tool</h3>
+                <p>Complete Bangla Calendar converter and cultural guide. Accurate date conversion between Gregorian and
+                    Bengali calendar systems with cultural information.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Cultural Resources</h3>
+                <div class="social-links">
+                    <a href="https://www.banglaacademy.org.bd/" target="_blank" aria-label="Bangla Academy"><i
+                            class="fas fa-university"></i></a>
+                    <a href="https://www.bengali.portal.gov.bd/" target="_blank" aria-label="Bengali Language"><i
+                            class="fas fa-language"></i></a>
+                    <a href="https://www.shilpakala.gov.bd/" target="_blank" aria-label="Shilpakala Academy"><i
+                            class="fas fa-palette"></i></a>
+                    <a href="https://www.natunBD.com/" target="_blank" aria-label="Bangladesh Culture"><i
+                            class="fas fa-landmark"></i></a>
+                </div>
+                <p style="margin-top: 20px; font-size: 14px;">Celebrating Bengali culture and heritage</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © <span id="currentYear"></span> Bangladesh Cultural Tools | বাংলা ক্যালেন্ডার - বাংলার সংস্কৃতি ও ঐতিহ্য
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Set breadcrumb
+        setBreadcrumb([
+            { name: "Home", link: "../../index.html" },
+            { name: "Tools", link: "../tools.html" },
+            { name: "Bangla Calendar" }
+        ]);
+
+        // Bangla Calendar Data
+        const banglaMonths = [
+            {
+                id: 1,
+                name: "বৈশাখ",
+                english: "Baishakh",
+                duration: "Mid-April to Mid-May",
+                season: "গ্রীষ্ম (Summer)",
+                seasonColor: "#4caf50",
+                days: 31,
+                startDay: 14 // April 14
+            },
+            {
+                id: 2,
+                name: "জ্যৈষ্ঠ",
+                english: "Joishtho",
+                duration: "Mid-May to Mid-June",
+                season: "গ্রীষ্ম (Summer)",
+                seasonColor: "#4caf50",
+                days: 31,
+                startDay: 15 // May 15
+            },
+            {
+                id: 3,
+                name: "আষাঢ়",
+                english: "Ashar",
+                duration: "Mid-June to Mid-July",
+                season: "বর্ষা (Monsoon)",
+                seasonColor: "#2196f3",
+                days: 31,
+                startDay: 15 // June 15
+            },
+            {
+                id: 4,
+                name: "শ্রাবণ",
+                english: "Srabon",
+                duration: "Mid-July to Mid-August",
+                season: "বর্ষা (Monsoon)",
+                seasonColor: "#2196f3",
+                days: 31,
+                startDay: 16 // July 16
+            },
+            {
+                id: 5,
+                name: "ভাদ্র",
+                english: "Bhadro",
+                duration: "Mid-August to Mid-September",
+                season: "শরৎ (Autumn)",
+                seasonColor: "#ff9800",
+                days: 31,
+                startDay: 16 // August 16
+            },
+            {
+                id: 6,
+                name: "আশ্বিন",
+                english: "Ashshin",
+                duration: "Mid-September to Mid-October",
+                season: "শরৎ (Autumn)",
+                seasonColor: "#ff9800",
+                days: 31,
+                startDay: 16 // September 16
+            },
+            {
+                id: 7,
+                name: "কার্তিক",
+                english: "Kartik",
+                duration: "Mid-October to Mid-November",
+                season: "হেমন্ত (Late Autumn)",
+                seasonColor: "#795548",
+                days: 30,
+                startDay: 17 // October 17
+            },
+            {
+                id: 8,
+                name: "অগ্রহায়ণ",
+                english: "Ogrohayon",
+                duration: "Mid-November to Mid-December",
+                season: "হেমন্ত (Late Autumn)",
+                seasonColor: "#795548",
+                days: 30,
+                startDay: 16 // November 16
+            },
+            {
+                id: 9,
+                name: "পৌষ",
+                english: "Poush",
+                duration: "Mid-December to Mid-January",
+                season: "শীত (Winter)",
+                seasonColor: "#90caf9",
+                days: 30,
+                startDay: 16 // December 16
+            },
+            {
+                id: 10,
+                name: "মাঘ",
+                english: "Magh",
+                duration: "Mid-January to Mid-February",
+                season: "শীত (Winter)",
+                seasonColor: "#90caf9",
+                days: 30,
+                startDay: 15 // January 15
+            },
+            {
+                id: 11,
+                name: "ফাল্গুন",
+                english: "Falgun",
+                duration: "Mid-February to Mid-March",
+                season: "বসন্ত (Spring)",
+                seasonColor: "#e91e63",
+                days: 30,
+                startDay: 14 // February 14
+            },
+            {
+                id: 12,
+                name: "চৈত্র",
+                english: "Choitro",
+                duration: "Mid-March to Mid-April",
+                season: "বসন্ত (Spring)",
+                seasonColor: "#e91e63",
+                days: 30,
+                startDay: 15 // March 15
+            }
+        ];
+
+        // Seasons data
+        const seasons = {
+            "গ্রীষ্ম (Summer)": { months: ["বৈশাখ", "জ্যৈষ্ঠ"], color: "#4caf50", icon: "fas fa-sun" },
+            "বর্ষা (Monsoon)": { months: ["আষাঢ়", "শ্রাবণ"], color: "#2196f3", icon: "fas fa-cloud-rain" },
+            "শরৎ (Autumn)": { months: ["ভাদ্র", "আশ্বিন"], color: "#ff9800", icon: "fas fa-wind" },
+            "হেমন্ত (Late Autumn)": { months: ["কার্তিক", "অগ্রহায়ণ"], color: "#795548", icon: "fas fa-cloud" },
+            "শীত (Winter)": { months: ["পৌষ", "মাঘ"], color: "#90caf9", icon: "fas fa-snowflake" },
+            "বসন্ত (Spring)": { months: ["ফাল্গুন", "চৈত্র"], color: "#e91e63", icon: "fas fa-seedling" }
+        };
+
+        // Initialize date picker with today's date
+        const today = new Date();
+        document.getElementById('englishDateInput').valueAsDate = today;
+
+        // Update current time
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { hour12: false });
+            const dateString = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            document.getElementById('currentTime').textContent = timeString;
+            document.getElementById('currentEnglishDate').textContent = dateString;
+
+            // Update Bangla date
+            updateBanglaDate(now);
+        }
+
+        // Calculate Bangla date
+        function getBanglaDate(gregorianDate) {
+            const year = gregorianDate.getFullYear();
+            const month = gregorianDate.getMonth() + 1;
+            const day = gregorianDate.getDate();
+
+            // Simplified Bangla date calculation
+            // Bangla calendar starts on April 14
+            let banglaYear = year - 593;
+            let banglaMonth, banglaDay;
+
+            if (month > 3 || (month === 3 && day >= 14)) {
+                // After April 14
+                banglaYear = year - 593;
+                const start = new Date(year, 3, 14); // April 14
+                const diff = Math.floor((gregorianDate - start) / (1000 * 60 * 60 * 24));
+
+                let dayCount = diff + 1; // +1 because April 14 is 1st Baishakh
+
+                // Find Bangla month and day
+                for (let i = 0; i < banglaMonths.length; i++) {
+                    if (dayCount <= banglaMonths[i].days) {
+                        banglaMonth = i;
+                        banglaDay = dayCount;
+                        break;
+                    }
+                    dayCount -= banglaMonths[i].days;
+                }
+            } else {
+                // Before April 14 (previous Bangla year)
+                banglaYear = year - 594;
+                const prevYearStart = new Date(year - 1, 3, 14);
+                const diff = Math.floor((gregorianDate - prevYearStart) / (1000 * 60 * 60 * 24));
+
+                let dayCount = diff + 1;
+
+                for (let i = 0; i < banglaMonths.length; i++) {
+                    if (dayCount <= banglaMonths[i].days) {
+                        banglaMonth = i;
+                        banglaDay = dayCount;
+                        break;
+                    }
+                    dayCount -= banglaMonths[i].days;
+                }
+            }
+
+            // Get season
+            const currentMonth = banglaMonths[banglaMonth];
+            const season = currentMonth.season.split(' ')[0];
+
+            return {
+                year: banglaYear,
+                month: banglaMonth,
+                day: banglaDay,
+                monthName: currentMonth.name,
+                monthEnglish: currentMonth.english,
+                season: season
+            };
+        }
+
+        function updateBanglaDate(date) {
+            const banglaDate = getBanglaDate(date);
+            const banglaDateStr = `${banglaDate.day} ${banglaDate.monthName}, ${banglaDate.year}`;
+
+            document.getElementById('currentBanglaDate').textContent = banglaDateStr;
+            document.getElementById('banglaYear').textContent = `বঙ্গাব্দ ${banglaDate.year}`;
+            document.getElementById('currentSeason').textContent = banglaDate.season;
+
+            // Update weekday
+            const weekdays = ["রবিবার", "সোমবার", "মঙ্গলবার", "বুধবার", "বৃহস্পতিবার", "শুক্রবার", "শনিবার"];
+            const englishWeekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const weekdayIndex = date.getDay();
+            document.getElementById('currentWeekday').textContent = englishWeekdays[weekdayIndex];
+        }
+
+        // Initialize Bangla months grid
+        function initializeBanglaMonths() {
+            const grid = document.getElementById('banglaMonthsGrid');
+            grid.innerHTML = '';
+
+            banglaMonths.forEach((month, index) => {
+                const monthCard = document.createElement('div');
+                monthCard.className = 'month-card';
+                monthCard.innerHTML = `
+                    <div class="month-number">${month.id}</div>
+                    <div class="month-name">${month.name}</div>
+                    <div class="month-english">${month.english}</div>
+                    <div class="month-duration">${month.duration}</div>
+                    <div class="month-season" style="background: ${month.seasonColor + '20'}; color: ${month.seasonColor};">${month.season}</div>
+                `;
+                grid.appendChild(monthCard);
+            });
+        }
+
+        // Initialize Bangla date selectors
+        function initializeBanglaSelectors() {
+            const yearSelect = document.getElementById('banglaYearSelect');
+            const monthSelect = document.getElementById('banglaMonthSelect');
+            const daySelect = document.getElementById('banglaDaySelect');
+
+            // Populate years (1420-1435 Bangla year)
+            yearSelect.innerHTML = '';
+            for (let year = 1420; year <= 1435; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = `${year} (${year + 593} ইংরেজি)`;
+                if (year === 1431) option.selected = true; // Current approx Bangla year
+                yearSelect.appendChild(option);
+            }
+
+            // Populate months
+            monthSelect.innerHTML = '';
+            banglaMonths.forEach((month, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${month.name} (${month.english})`;
+                monthSelect.appendChild(option);
+            });
+
+            // Populate days based on selected month
+            function updateDays() {
+                const monthIndex = parseInt(monthSelect.value);
+                const month = banglaMonths[monthIndex];
+
+                daySelect.innerHTML = '';
+                for (let day = 1; day <= month.days; day++) {
+                    const option = document.createElement('option');
+                    option.value = day;
+                    option.textContent = `${day}`;
+                    daySelect.appendChild(option);
+                }
+            }
+
+            monthSelect.addEventListener('change', updateDays);
+            updateDays(); // Initial population
+        }
+
+        // Convert English to Bangla date
+        function convertEnglishToBangla() {
+            const englishDate = new Date(document.getElementById('englishDateInput').value);
+            const banglaDate = getBanglaDate(englishDate);
+
+            const resultStr = `${banglaDate.day} ${banglaDate.monthName}, ${banglaDate.year}`;
+            const details = `English: ${englishDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
+
+            document.getElementById('banglaDateResult').textContent = resultStr;
+            document.getElementById('banglaDetails').textContent = details;
+            document.getElementById('banglaResult').classList.add('active');
+
+            // Track conversion
+            if (window.gtag) {
+                gtag('event', 'conversion', {
+                    'event_category': 'bangla_calendar',
+                    'event_label': 'english_to_bangla',
+                    'value': 1
+                });
+            }
+        }
+
+        // Convert Bangla to English date
+        function convertBanglaToEnglish() {
+            const banglaYear = parseInt(document.getElementById('banglaYearSelect').value);
+            const banglaMonth = parseInt(document.getElementById('banglaMonthSelect').value);
+            const banglaDay = parseInt(document.getElementById('banglaDaySelect').value);
+
+            // Calculate English date (simplified)
+            // Bangla year starts on April 14 of English year (banglaYear + 593)
+            const englishYear = banglaYear + 593;
+
+            // Calculate day count from Baishakh 1
+            let dayCount = banglaDay - 1; // -1 because we start from day 1
+
+            for (let i = 0; i < banglaMonth; i++) {
+                dayCount += banglaMonths[i].days;
+            }
+
+            // Start from April 14
+            const startDate = new Date(englishYear, 3, 14); // April 14 (month 3 = April)
+            const englishDate = new Date(startDate);
+            englishDate.setDate(startDate.getDate() + dayCount);
+
+            const resultStr = englishDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            const details = `Bangla: ${banglaDay} ${banglaMonths[banglaMonth].name}, ${banglaYear}`;
+
+            document.getElementById('englishDateResult').textContent = resultStr;
+            document.getElementById('englishDetails').textContent = details;
+            document.getElementById('englishResult').classList.add('active');
+
+            // Track conversion
+            if (window.gtag) {
+                gtag('event', 'conversion', {
+                    'event_category': 'bangla_calendar',
+                    'event_label': 'bangla_to_english',
+                    'value': 1
+                });
+            }
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize
+            updateCurrentTime();
+            initializeBanglaMonths();
+            initializeBanglaSelectors();
+
+            // Update time every second
+            setInterval(updateCurrentTime, 1000);
+
+            // Conversion buttons
+            document.getElementById('convertToBangla').addEventListener('click', convertEnglishToBangla);
+            document.getElementById('convertToEnglish').addEventListener('click', convertBanglaToEnglish);
+
+            // Enter key support for date input
+            document.getElementById('englishDateInput').addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    convertEnglishToBangla();
+                }
+            });
+
+            // Auto-convert on date change
+            document.getElementById('englishDateInput').addEventListener('change', convertEnglishToBangla);
+
+            // Initial conversion
+            convertEnglishToBangla();
+        });
+
+        // Breadcrumb function
+        function setBreadcrumb(items) {
+            const breadcrumbContainer = document.getElementById('breadcrumb');
+            const breadcrumbHTML = items.map(item =>
+                item.link ? `<a href="${item.link}">${item.name}</a>` : item.name
+            ).join(' / ');
+            breadcrumbContainer.innerHTML = breadcrumbHTML;
+        }
+
+        // Hamburger menu
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+
+        hamburger.addEventListener('click', function () {
+            navbar.classList.toggle("active");
+            hamburger.classList.toggle("active");
+
+            // Animate hamburger to X
+            const spans = hamburger.querySelectorAll('span');
+            if (navbar.classList.contains("active")) {
+                spans[0].style.transform = 'rotate(45deg) translate(7px, 7px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -7px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            if (!navbar.contains(event.target) && !hamburger.contains(event.target)) {
+                navbar.classList.remove("active");
+                const spans = hamburger.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // Track interactions
+        document.addEventListener('DOMContentLoaded', function () {
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track month card clicks
+            document.querySelectorAll('.month-card').forEach(card => {
+                card.addEventListener('click', function () {
+                    const monthName = this.querySelector('.month-name').textContent;
+                    if (window.gtag) {
+                        gtag('event', 'month_view', {
+                            'event_category': 'bangla_calendar',
+                            'event_label': monthName,
+                            'value': 1
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
+```

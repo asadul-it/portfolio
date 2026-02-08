@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMV Calculator - Standard Minute Value Calculator for Garments</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Professional SMV calculator for garment manufacturing. Calculate Standard Minute Value accurately with time study methods for production planning and costing.">
+    <meta name="keywords"
+        content="SMV calculator, standard minute value, garment SMV, time study, production planning, garment costing, industrial engineering, efficiency calculation">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali, English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="SMV Calculator - Standard Minute Value Calculator for Garments">
+    <meta property="og:description"
+        content="Calculate accurate Standard Minute Value for garment manufacturing with professional time study methods and efficiency calculations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/tools/garments-tools/smv-calculator.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/tools/smv-calculator.jpg">
+    <meta property="og:site_name" content="Asadul Islam Portfolio">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SMV Calculator - Garment Time Study">
+    <meta name="twitter:description"
+        content="Professional Standard Minute Value calculator for garment manufacturers and industrial engineers.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/tools/smv-calculator.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/tools/garments-tools/smv-calculator.html">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "SMV Calculator - Standard Minute Value Calculator",
+        "description": "Professional SMV calculation tool for garment manufacturing industry",
+        "url": "https://asadul-it.github.io/portfolio/tools/garments-tools/smv-calculator.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "author": {
+            "@type": "Person",
+            "name": "Asadul Islam"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ==================== BASE STYLES ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* ==================== HEADER STYLES ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: #8b5cf6;
+            color: #ffffff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+        }
+
+        .logo-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 32px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #8b5cf6;
+        }
+
+        .navbar a.active {
+            color: #8b5cf6;
+        }
+
+        .navbar a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #8b5cf6;
+            border-radius: 2px;
+        }
+
+        .navbar i {
+            font-size: 16px;
+        }
+
+        /* ==================== HAMBURGER MENU ==================== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: #f8fafc;
+            border-radius: 6px;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #8b5cf6;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ==================== BREADCRUMB ==================== */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 25px auto;
+            padding: 0 25px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #8b5cf6;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+            color: #7c3aed;
+        }
+
+        .breadcrumb span {
+            margin: 0 8px;
+            color: #cbd5e1;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 25px;
+        }
+
+        /* ==================== TOOL HEADER ==================== */
+        .tool-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tool-header h1 {
+            font-size: 36px;
+            color: #1e293b;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .tool-header p {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ==================== CALCULATOR CONTAINER ==================== */
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==================== INPUT SECTION ==================== */
+        .input-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 22px;
+            color: #1e293b;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 15px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 10px;
+        }
+
+        .input-label i {
+            color: #8b5cf6;
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            color: #1e293b;
+            background: #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+        }
+
+        .input-field::placeholder {
+            color: #94a3b8;
+        }
+
+        .select-field {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23475569' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            background-size: 16px;
+            padding-right: 45px;
+        }
+
+        .operation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .operation-option {
+            text-align: center;
+            padding: 15px 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .operation-option:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+        .operation-option.active {
+            border-color: #8b5cf6;
+            background: #f5f3ff;
+            color: #8b5cf6;
+        }
+
+        .time-inputs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .time-input-group {
+            text-align: center;
+        }
+
+        .time-input-group .input-field {
+            text-align: center;
+        }
+
+        .time-input-label {
+            display: block;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        /* ==================== SLIDER STYLES ==================== */
+        .slider-container {
+            position: relative;
+            padding: 15px 0;
+        }
+
+        .slider-value {
+            position: absolute;
+            top: -10px;
+            right: 0;
+            background: #8b5cf6;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: linear-gradient(to right, #ddd6fe, #8b5cf6);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            cursor: pointer;
+            border: 3px solid white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        /* ==================== BUTTONS ==================== */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .calculate-btn {
+            flex: 1;
+            padding: 16px;
+            background: #8b5cf6;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .calculate-btn:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .reset-btn {
+            flex: 1;
+            padding: 16px;
+            background: #f1f5f9;
+            color: #64748b;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .reset-btn:hover {
+            background: #e2e8f0;
+            color: #475569;
+        }
+
+        /* ==================== RESULTS SECTION ==================== */
+        .results-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .results-title {
+            font-size: 22px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .results-status {
+            padding: 8px 16px;
+            background: #f1f5f9;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .results-status.active {
+            background: #f5f3ff;
+            color: #8b5cf6;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .result-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .result-value {
+            font-size: 24px;
+            color: #1e293b;
+            font-weight: 700;
+        }
+
+        .result-unit {
+            font-size: 16px;
+            color: #64748b;
+            font-weight: 500;
+            margin-left: 4px;
+        }
+
+        .efficiency-info {
+            background: #f0f9ff;
+            border: 1px solid #e0f2fe;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .efficiency-title {
+            font-size: 16px;
+            color: #0284c7;
+            margin-bottom: 10px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .efficiency-text {
+            font-size: 14px;
+            color: #0c4a6e;
+            line-height: 1.6;
+        }
+
+        /* ==================== CALCULATION DETAILS ==================== */
+        .calculation-details {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .detail-item {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .detail-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-size: 18px;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .formula-display {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+
+        .formula-title {
+            font-size: 16px;
+            color: #475569;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* ==================== SMV BREAKDOWN ==================== */
+        .breakdown-section {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            margin-top: 40px;
+        }
+
+        .breakdown-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .breakdown-table th {
+            background: #f8fafc;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .breakdown-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #64748b;
+        }
+
+        .breakdown-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .percentage-cell {
+            font-weight: 600;
+            color: #8b5cf6;
+        }
+
+        /* ==================== FOOTER STYLES ==================== */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 45px 25px 35px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .footer-column p {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .footer-column a {
+            color: #64748b;
+            font-size: 15px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #8b5cf6;
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f8fafc;
+            color: #475569;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+
+        .social-links a:hover {
+            background: #8b5cf6;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(139, 92, 246, 0.2);
+            border-color: #8b5cf6;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 15px;
+            color: #64748b;
+            background: #f8fafc;
+        }
+
+        /* ==================== RESPONSIVE STYLES ==================== */
+        @media (max-width: 992px) {
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .navbar {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                border-radius: 0 0 12px 12px;
+                z-index: 999;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar li {
+                width: 100%;
+            }
+
+            .navbar a {
+                padding: 15px 20px;
+                border-bottom: 1px solid #f1f5f9;
+            }
+
+            .navbar a:last-child {
+                border-bottom: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .tool-header h1 {
+                font-size: 28px;
+            }
+
+            .tool-header p {
+                font-size: 16px;
+                padding: 0 15px;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .operation-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .time-inputs {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .input-section,
+            .results-section,
+            .calculation-details,
+            .breakdown-section {
+                padding: 25px 20px;
+            }
+
+            .tool-header {
+                padding: 30px 20px;
+            }
+
+            .logo-text {
+                font-size: 14px;
+            }
+
+            .logo-icon {
+                min-width: 36px;
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .operation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==================== PRINT STYLES ==================== */
+        @media print {
+            .fixed-header-container,
+            .breadcrumb,
+            .button-group,
+            .social-links,
+            footer {
+                display: none;
+            }
+
+            .main-content {
+                margin: 0;
+                padding: 0;
+            }
+
+            .input-section,
+            .results-section,
+            .calculation-details,
+            .breakdown-section {
+                box-shadow: none;
+                border: 1px solid #000;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo">
+                <span class="logo-icon">SMV</span>
+                <span class="logo-text">Standard Minute Value Calculator</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html" class="active"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== BREADCRUMB ==================== -->
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="../../index.html">Home</a><span>/</span>
+        <a href="../tools.html">Tools</a><span>/</span>
+        <a href="../tools.html#garments">Garment Tools</a><span>/</span>
+        <span>SMV Calculator</span>
+    </div>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <div class="main-content">
+        <!-- Tool Header -->
+        <div class="tool-header">
+            <h1><i class="fas fa-clock"></i> SMV Calculator</h1>
+            <p>Calculate Standard Minute Value accurately for garment manufacturing. Professional time study tool for production planning, efficiency analysis, and costing.</p>
+        </div>
+
+        <!-- Calculator Container -->
+        <div class="calculator-container">
+            <!-- Input Section -->
+            <div class="input-section">
+                <h2 class="section-title"><i class="fas fa-edit"></i> Time Study Parameters</h2>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-industry"></i> Operation Type</label>
+                    <div class="operation-grid">
+                        <div class="operation-option active" data-operation="sewing">Sewing</div>
+                        <div class="operation-option" data-operation="cutting">Cutting</div>
+                        <div class="operation-option" data-operation="finishing">Finishing</div>
+                        <div class="operation-option" data-operation="assembly">Assembly</div>
+                        <div class="operation-option" data-operation="pressing">Pressing</div>
+                        <div class="operation-option" data-operation="packing">Packing</div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-stopwatch"></i> Observed Time</label>
+                    <div class="time-inputs">
+                        <div class="time-input-group">
+                            <input type="number" id="hours" class="input-field" placeholder="0" value="0" min="0" max="10" step="1">
+                            <span class="time-input-label">Hours</span>
+                        </div>
+                        <div class="time-input-group">
+                            <input type="number" id="minutes" class="input-field" placeholder="0" value="1" min="0" max="59" step="1">
+                            <span class="time-input-label">Minutes</span>
+                        </div>
+                        <div class="time-input-group">
+                            <input type="number" id="seconds" class="input-field" placeholder="0" value="30" min="0" max="59" step="1">
+                            <span class="time-input-label">Seconds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-chart-line"></i> Performance Rating (%)</label>
+                    <div class="slider-container">
+                        <div class="slider-value" id="ratingValue">100%</div>
+                        <input type="range" min="50" max="150" value="100" class="slider" id="ratingSlider">
+                        <div class="slider-labels">
+                            <span>50%</span>
+                            <span>100%</span>
+                            <span>150%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-user-clock"></i> Allowances</label>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <input type="number" id="personalAllowance" class="input-field" placeholder="Personal" value="5" min="0" max="20" step="0.1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Personal %</small>
+                        </div>
+                        <div>
+                            <input type="number" id="fatigueAllowance" class="input-field" placeholder="Fatigue" value="5" min="0" max="20" step="0.1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Fatigue %</small>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div>
+                            <input type="number" id="delayAllowance" class="input-field" placeholder="Delay" value="5" min="0" max="20" step="0.1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Delay %</small>
+                        </div>
+                        <div>
+                            <input type="number" id="specialAllowance" class="input-field" placeholder="Special" value="0" min="0" max="20" step="0.1">
+                            <small style="display: block; color: #94a3b8; margin-top: 5px; font-size: 12px;">Special %</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label"><i class="fas fa-layer-group"></i> Production Details</label>
+                    <input type="number" id="productionQuantity" class="input-field" placeholder="Production Quantity (pieces)" value="1000" min="1" step="1">
+                </div>
+
+                <div class="button-group">
+                    <button class="calculate-btn" id="calculateBtn">
+                        <i class="fas fa-calculator"></i> Calculate SMV
+                    </button>
+                    <button class="reset-btn" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <div class="results-header">
+                    <h2 class="results-title"><i class="fas fa-chart-bar"></i> SMV Results</h2>
+                    <div class="results-status" id="resultsStatus">Awaiting Input</div>
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-item">
+                        <div class="result-label">Basic Time</div>
+                        <div class="result-value">0.00 <span class="result-unit">minutes</span></div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Rated Time</div>
+                        <div class="result-value">0.00 <span class="result-unit">minutes</span></div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">SMV</div>
+                        <div class="result-value">0.00 <span class="result-unit">minutes</span></div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label">Production Time</div>
+                        <div class="result-value">0.00 <span class="result-unit">hours</span></div>
+                    </div>
+                </div>
+
+                <div class="efficiency-info">
+                    <div class="efficiency-title"><i class="fas fa-tachometer-alt"></i> Efficiency Analysis</div>
+                    <div class="efficiency-text" id="efficiencyText">
+                        Enter time study parameters and click Calculate to get efficiency analysis and recommendations.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculation Details -->
+        <div class="calculation-details">
+            <h2 class="section-title"><i class="fas fa-cogs"></i> Calculation Details</h2>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="detail-label">Operation Type</div>
+                    <div class="detail-value" id="detailOperation">Sewing</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Performance Rating</div>
+                    <div class="detail-value" id="detailRating">100%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Total Allowances</div>
+                    <div class="detail-value" id="detailAllowances">15.0%</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Production Quantity</div>
+                    <div class="detail-value" id="detailQuantity">1,000 pieces</div>
+                </div>
+            </div>
+
+            <div class="formula-display">
+                <div class="formula-title">SMV Calculation Formula</div>
+                <div id="formulaText">
+                    SMV = (Observed Time × Performance Rating%) × (1 + Total Allowances%)
+                </div>
+            </div>
+        </div>
+
+        <!-- SMV Breakdown -->
+        <div class="breakdown-section">
+            <h2 class="section-title"><i class="fas fa-chart-pie"></i> SMV Breakdown</h2>
+            <p style="color: #64748b; margin-bottom: 20px;">Detailed breakdown of Standard Minute Value components.</p>
+            
+            <table class="breakdown-table">
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Value</th>
+                        <th>Percentage</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody id="breakdownTable">
+                    <tr>
+                        <td>Basic Time</td>
+                        <td>0.00 min</td>
+                        <td class="percentage-cell">0.0%</td>
+                        <td>Observed time without allowances</td>
+                    </tr>
+                    <tr>
+                        <td>Personal Allowance</td>
+                        <td>0.00 min</td>
+                        <td class="percentage-cell">0.0%</td>
+                        <td>Personal needs and relaxation</td>
+                    </tr>
+                    <tr>
+                        <td>Fatigue Allowance</td>
+                        <td>0.00 min</td>
+                        <td class="percentage-cell">0.0%</td>
+                        <td>Recovery from work fatigue</td>
+                    </tr>
+                    <tr>
+                        <td>Delay Allowance</td>
+                        <td>0.00 min</td>
+                        <td class="percentage-cell">0.0%</td>
+                        <td>Unavoidable delays and interruptions</td>
+                    </tr>
+                    <tr>
+                        <td>Special Allowance</td>
+                        <td>0.00 min</td>
+                        <td class="percentage-cell">0.0%</td>
+                        <td>Machine or process specific allowances</td>
+                    </tr>
+                    <tr style="background: #f8fafc; font-weight: 600;">
+                        <td>Total SMV</td>
+                        <td>0.00 min</td>
+                        <td class="percentage-cell">100.0%</td>
+                        <td>Standard Minute Value for operation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ==================== HIDDEN SEO CONTENT ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/Person">
+        <span itemprop="name">Asadul Islam</span>
+        <span itemprop="alternateName">asadul islam</span>
+        <span itemprop="alternateName">asadul</span>
+        <span itemprop="alternateName">asadul islam asad</span>
+        <span itemprop="alternateName">Asadul Islam Asad</span>
+        <span itemprop="jobTitle">IT Professional</span>
+        <span itemprop="jobTitle">Network Engineer</span>
+        <span itemprop="jobTitle">System Administrator</span>
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <span itemprop="addressCountry">Bangladesh</span>
+        </span>
+        <span itemprop="knowsLanguage">Bengali</span>
+        <span itemprop="knowsLanguage">English</span>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About This Tool</h3>
+                <p>Professional Standard Minute Value calculator for garment manufacturers, industrial engineers, and production planners to optimize workflow and efficiency.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Connect With Me</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 SMV Calculator | Professional Garment Time Study Tool | All Rights Reserved
+        </div>
+    </footer>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // DOM Elements
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        const calculateBtn = document.getElementById("calculateBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const operationOptions = document.querySelectorAll(".operation-option");
+        const ratingSlider = document.getElementById("ratingSlider");
+        const ratingValue = document.getElementById("ratingValue");
+        const resultsStatus = document.getElementById("resultsStatus");
+        const efficiencyText = document.getElementById("efficiencyText");
+        const detailOperation = document.getElementById("detailOperation");
+        const detailRating = document.getElementById("detailRating");
+        const detailAllowances = document.getElementById("detailAllowances");
+        const detailQuantity = document.getElementById("detailQuantity");
+        const formulaText = document.getElementById("formulaText");
+        const breakdownTable = document.getElementById("breakdownTable");
+
+        // Current state
+        let currentOperation = "sewing";
+        let calculationPerformed = false;
+
+        // Operation type selection
+        operationOptions.forEach(option => {
+            option.addEventListener("click", function() {
+                operationOptions.forEach(opt => opt.classList.remove("active"));
+                this.classList.add("active");
+                currentOperation = this.dataset.operation;
+                detailOperation.textContent = this.textContent.charAt(0).toUpperCase() + this.textContent.slice(1);
+                
+                if (calculationPerformed) {
+                    calculateSMV();
+                }
+            });
+        });
+
+        // Rating slider
+        ratingSlider.addEventListener("input", function() {
+            ratingValue.textContent = this.value + "%";
+            detailRating.textContent = this.value + "%";
+            
+            if (calculationPerformed) {
+                calculateSMV();
+            }
+        });
+
+        // Calculate SMV with validation
+        function calculateSMV() {
+            // Get input values
+            const hours = parseFloat(document.getElementById("hours").value) || 0;
+            const minutes = parseFloat(document.getElementById("minutes").value) || 0;
+            const seconds = parseFloat(document.getElementById("seconds").value) || 0;
+            const rating = parseFloat(ratingSlider.value) || 100;
+            const personalAllowance = parseFloat(document.getElementById("personalAllowance").value) || 0;
+            const fatigueAllowance = parseFloat(document.getElementById("fatigueAllowance").value) || 0;
+            const delayAllowance = parseFloat(document.getElementById("delayAllowance").value) || 0;
+            const specialAllowance = parseFloat(document.getElementById("specialAllowance").value) || 0;
+            const productionQuantity = parseInt(document.getElementById("productionQuantity").value) || 0;
+
+            // Validate inputs
+            let validationErrors = [];
+            
+            if (hours < 0 || hours > 10) validationErrors.push("Hours must be between 0-10");
+            if (minutes < 0 || minutes > 59) validationErrors.push("Minutes must be between 0-59");
+            if (seconds < 0 || seconds > 59) validationErrors.push("Seconds must be between 0-59");
+            if (hours === 0 && minutes === 0 && seconds === 0) validationErrors.push("Observed time cannot be zero");
+            if (rating < 50 || rating > 150) validationErrors.push("Rating must be between 50-150%");
+            if (personalAllowance < 0 || personalAllowance > 20) validationErrors.push("Personal allowance must be 0-20%");
+            if (fatigueAllowance < 0 || fatigueAllowance > 20) validationErrors.push("Fatigue allowance must be 0-20%");
+            if (delayAllowance < 0 || delayAllowance > 20) validationErrors.push("Delay allowance must be 0-20%");
+            if (specialAllowance < 0 || specialAllowance > 20) validationErrors.push("Special allowance must be 0-20%");
+            if (productionQuantity <= 0) validationErrors.push("Production quantity must be greater than 0");
+            
+            // Check total allowances
+            const totalAllowances = personalAllowance + fatigueAllowance + delayAllowance + specialAllowance;
+            if (totalAllowances > 50) validationErrors.push("Total allowances cannot exceed 50%");
+            
+            if (validationErrors.length > 0) {
+                alert("Please fix the following errors:\n\n" + validationErrors.join("\n"));
+                return;
+            }
+
+            // Convert observed time to minutes
+            const observedTimeMinutes = (hours * 60) + minutes + (seconds / 60);
+            
+            // Calculate basic time (observed time converted to minutes)
+            const basicTime = observedTimeMinutes;
+            
+            // Calculate rated time
+            const ratedTime = basicTime * (rating / 100);
+            
+            // Calculate total allowances percentage
+            const totalAllowancesPercent = totalAllowances / 100;
+            
+            // Calculate SMV (Standard Minute Value)
+            const smv = ratedTime * (1 + totalAllowancesPercent);
+            
+            // Calculate individual allowance values
+            const personalAllowanceValue = ratedTime * (personalAllowance / 100);
+            const fatigueAllowanceValue = ratedTime * (fatigueAllowance / 100);
+            const delayAllowanceValue = ratedTime * (delayAllowance / 100);
+            const specialAllowanceValue = ratedTime * (specialAllowance / 100);
+            
+            // Calculate production time
+            const productionTimeHours = (smv * productionQuantity) / 60;
+            
+            // Update results display
+            document.querySelectorAll(".result-value")[0].innerHTML = 
+                `<span class="result-value">${basicTime.toFixed(3)} <span class="result-unit">minutes</span></span>`;
+            
+            document.querySelectorAll(".result-value")[1].innerHTML = 
+                `<span class="result-value">${ratedTime.toFixed(3)} <span class="result-unit">minutes</span></span>`;
+            
+            document.querySelectorAll(".result-value")[2].innerHTML = 
+                `<span class="result-value">${smv.toFixed(3)} <span class="result-unit">minutes</span></span>`;
+            
+            document.querySelectorAll(".result-value")[3].innerHTML = 
+                `<span class="result-value">${productionTimeHours.toFixed(2)} <span class="result-unit">hours</span></span>`;
+
+            // Update details
+            detailAllowances.textContent = totalAllowances.toFixed(1) + "%";
+            detailQuantity.textContent = productionQuantity.toLocaleString() + " pieces";
+
+            // Update efficiency analysis
+            let efficiencyMessage = "";
+            if (rating < 80) {
+                efficiencyMessage = `Low performance rating (${rating}%). Consider training or process improvement. `;
+            } else if (rating >= 80 && rating <= 120) {
+                efficiencyMessage = `Good performance rating (${rating}%). Standard operator performance. `;
+            } else {
+                efficiencyMessage = `High performance rating (${rating}%). Exceptional operator performance. `;
+            }
+            
+            efficiencyMessage += `Total allowances: ${totalAllowances.toFixed(1)}%. `;
+            
+            // Industry standards for different operations
+            const operationStandards = {
+                "sewing": "Standard SMV range for sewing: 0.5-3.0 minutes",
+                "cutting": "Standard SMV range for cutting: 0.2-1.5 minutes",
+                "finishing": "Standard SMV range for finishing: 0.3-2.0 minutes",
+                "assembly": "Standard SMV range for assembly: 1.0-5.0 minutes",
+                "pressing": "Standard SMV range for pressing: 0.1-0.5 minutes",
+                "packing": "Standard SMV range for packing: 0.1-0.3 minutes"
+            };
+            
+            efficiencyMessage += operationStandards[currentOperation] || "Valid SMV calculated.";
+            efficiencyText.textContent = efficiencyMessage;
+
+            // Update formula display
+            formulaText.textContent = `SMV = (${observedTimeMinutes.toFixed(2)} min × ${rating}%) × (1 + ${totalAllowances.toFixed(1)}%) = ${smv.toFixed(3)} minutes`;
+
+            // Update breakdown table
+            const breakdownRows = breakdownTable.querySelectorAll("tr");
+            
+            // Basic Time
+            breakdownRows[0].innerHTML = `
+                <td>Basic Time</td>
+                <td>${basicTime.toFixed(3)} min</td>
+                <td class="percentage-cell">${((basicTime / smv) * 100).toFixed(1)}%</td>
+                <td>Observed time without allowances</td>
+            `;
+            
+            // Personal Allowance
+            breakdownRows[1].innerHTML = `
+                <td>Personal Allowance</td>
+                <td>${personalAllowanceValue.toFixed(3)} min</td>
+                <td class="percentage-cell">${((personalAllowanceValue / smv) * 100).toFixed(1)}%</td>
+                <td>Personal needs and relaxation</td>
+            `;
+            
+            // Fatigue Allowance
+            breakdownRows[2].innerHTML = `
+                <td>Fatigue Allowance</td>
+                <td>${fatigueAllowanceValue.toFixed(3)} min</td>
+                <td class="percentage-cell">${((fatigueAllowanceValue / smv) * 100).toFixed(1)}%</td>
+                <td>Recovery from work fatigue</td>
+            `;
+            
+            // Delay Allowance
+            breakdownRows[3].innerHTML = `
+                <td>Delay Allowance</td>
+                <td>${delayAllowanceValue.toFixed(3)} min</td>
+                <td class="percentage-cell">${((delayAllowanceValue / smv) * 100).toFixed(1)}%</td>
+                <td>Unavoidable delays and interruptions</td>
+            `;
+            
+            // Special Allowance
+            breakdownRows[4].innerHTML = `
+                <td>Special Allowance</td>
+                <td>${specialAllowanceValue.toFixed(3)} min</td>
+                <td class="percentage-cell">${((specialAllowanceValue / smv) * 100).toFixed(1)}%</td>
+                <td>Machine or process specific allowances</td>
+            `;
+            
+            // Total SMV
+            breakdownRows[5].innerHTML = `
+                <td>Total SMV</td>
+                <td>${smv.toFixed(3)} min</td>
+                <td class="percentage-cell">100.0%</td>
+                <td>Standard Minute Value for operation</td>
+            `;
+
+            // Update status
+            resultsStatus.textContent = "Calculated";
+            resultsStatus.classList.add("active");
+            calculationPerformed = true;
+
+            // Track calculation event
+            if (window.gtag) {
+                gtag('event', 'smv_calculation', {
+                    'event_category': 'tool_usage',
+                    'event_label': currentOperation,
+                    'value': productionQuantity
+                });
+            }
+        }
+
+        // Reset form with validation
+        function resetForm() {
+            // Reset time inputs
+            document.getElementById("hours").value = 0;
+            document.getElementById("minutes").value = 1;
+            document.getElementById("seconds").value = 30;
+            
+            // Reset rating slider
+            ratingSlider.value = 100;
+            ratingValue.textContent = "100%";
+            detailRating.textContent = "100%";
+            
+            // Reset allowances
+            document.getElementById("personalAllowance").value = 5;
+            document.getElementById("fatigueAllowance").value = 5;
+            document.getElementById("delayAllowance").value = 5;
+            document.getElementById("specialAllowance").value = 0;
+            
+            // Reset production quantity
+            document.getElementById("productionQuantity").value = 1000;
+
+            // Reset operation to Sewing
+            operationOptions.forEach(opt => opt.classList.remove("active"));
+            operationOptions[0].classList.add("active");
+            currentOperation = "sewing";
+            detailOperation.textContent = "Sewing";
+
+            // Reset results
+            document.querySelectorAll(".result-value")[0].innerHTML = 
+                '<span class="result-value">0.00 <span class="result-unit">minutes</span></span>';
+            
+            document.querySelectorAll(".result-value")[1].innerHTML = 
+                '<span class="result-value">0.00 <span class="result-unit">minutes</span></span>';
+            
+            document.querySelectorAll(".result-value")[2].innerHTML = 
+                '<span class="result-value">0.00 <span class="result-unit">minutes</span></span>';
+            
+            document.querySelectorAll(".result-value")[3].innerHTML = 
+                '<span class="result-value">0.00 <span class="result-unit">hours</span></span>';
+
+            // Reset details
+            detailAllowances.textContent = "15.0%";
+            detailQuantity.textContent = "1,000 pieces";
+
+            // Reset efficiency text
+            efficiencyText.textContent = "Enter time study parameters and click Calculate to get efficiency analysis and recommendations.";
+
+            // Reset formula
+            formulaText.textContent = "SMV = (Observed Time × Performance Rating%) × (1 + Total Allowances%)";
+
+            // Reset breakdown table
+            const breakdownRows = breakdownTable.querySelectorAll("tr");
+            breakdownRows[0].innerHTML = '<td>Basic Time</td><td>0.00 min</td><td class="percentage-cell">0.0%</td><td>Observed time without allowances</td>';
+            breakdownRows[1].innerHTML = '<td>Personal Allowance</td><td>0.00 min</td><td class="percentage-cell">0.0%</td><td>Personal needs and relaxation</td>';
+            breakdownRows[2].innerHTML = '<td>Fatigue Allowance</td><td>0.00 min</td><td class="percentage-cell">0.0%</td><td>Recovery from work fatigue</td>';
+            breakdownRows[3].innerHTML = '<td>Delay Allowance</td><td>0.00 min</td><td class="percentage-cell">0.0%</td><td>Unavoidable delays and interruptions</td>';
+            breakdownRows[4].innerHTML = '<td>Special Allowance</td><td>0.00 min</td><td class="percentage-cell">0.0%</td><td>Machine or process specific allowances</td>';
+            breakdownRows[5].innerHTML = '<td>Total SMV</td><td>0.00 min</td><td class="percentage-cell">100.0%</td><td>Standard Minute Value for operation</td>';
+
+            // Reset status
+            resultsStatus.textContent = "Awaiting Input";
+            resultsStatus.classList.remove("active");
+            calculationPerformed = false;
+
+            // Track reset event
+            if (window.gtag) {
+                gtag('event', 'form_reset', {
+                    'event_category': 'tool_usage',
+                    'event_label': 'smv_calculator'
+                });
+            }
+        }
+
+        // Event Listeners
+        hamburger.addEventListener("click", function() {
+            this.classList.toggle("active");
+            navbar.classList.toggle("active");
+            
+            // Track mobile menu usage
+            if (window.gtag) {
+                gtag('event', 'mobile_menu_toggle', {
+                    'event_category': 'ui_interaction',
+                    'event_label': 'smv_calculator_menu'
+                });
+            }
+        });
+
+        calculateBtn.addEventListener("click", calculateSMV);
+        resetBtn.addEventListener("click", resetForm);
+
+        // Initialize details
+        detailAllowances.textContent = "15.0%";
+        detailQuantity.textContent = "1,000 pieces";
+
+        // Track page view
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.gtag) {
+                gtag('event', 'page_view', {
+                    'page_title': 'SMV Calculator',
+                    'page_location': window.location.href
+                });
+            }
+
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function() {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+
+            // Input validation on change
+            const validateNumberInput = (input, min, max) => {
+                input.addEventListener('change', function() {
+                    let value = parseFloat(this.value) || 0;
+                    if (value < min) this.value = min;
+                    if (value > max) this.value = max;
+                });
+            };
+
+            // Apply validation to all numeric inputs
+            validateNumberInput(document.getElementById('hours'), 0, 10);
+            validateNumberInput(document.getElementById('minutes'), 0, 59);
+            validateNumberInput(document.getElementById('seconds'), 0, 59);
+            validateNumberInput(document.getElementById('personalAllowance'), 0, 20);
+            validateNumberInput(document.getElementById('fatigueAllowance'), 0, 20);
+            validateNumberInput(document.getElementById('delayAllowance'), 0, 20);
+            validateNumberInput(document.getElementById('specialAllowance'), 0, 20);
+            validateNumberInput(document.getElementById('productionQuantity'), 1, 1000000);
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNavbar = navbar.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (!isClickInsideNavbar && !isClickOnHamburger && navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            // Ctrl + Enter to calculate
+            if (event.ctrlKey && event.key === 'Enter') {
+                event.preventDefault();
+                calculateSMV();
+            }
+            
+            // Escape to reset
+            if (event.key === 'Escape') {
+                resetForm();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

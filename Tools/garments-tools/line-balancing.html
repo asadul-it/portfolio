@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garments Production Tools - Line Balancing Calculator</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Professional Garments Production Tools - Line Balancing Calculator for optimizing production efficiency in garment manufacturing. Calculate manpower requirements, SMV, target production, and line efficiency.">
+    <meta name="keywords"
+        content="garments tools, line balancing, production calculator, SMV calculator, garments production, industrial engineering, production efficiency, Bangladesh garments, production planning">
+    <meta name="author" content="Garments Production Tools">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English, Bengali">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Garments Line Balancing Calculator - Production Efficiency Tool">
+    <meta property="og:description"
+        content="Professional line balancing calculator for garments production. Optimize manpower, calculate SMV, target production, and line efficiency for maximum productivity.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://garments-tools.com/line-balancing">
+    <meta property="og:image" content="https://garments-tools.com/img/line-balancing-og.jpg">
+    <meta property="og:site_name" content="Garments Production Tools">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Garments Line Balancing Calculator">
+    <meta name="twitter:description"
+        content="Professional production efficiency tool for garment manufacturing industry. Calculate optimal line balancing for maximum productivity.">
+    <meta name="twitter:image" content="https://garments-tools.com/img/line-balancing-twitter.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://garments-tools.com/line-balancing">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Garments Line Balancing Calculator",
+        "description": "Professional tool for calculating line balancing in garments production",
+        "url": "https://garments-tools.com/line-balancing",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Garments Production Tools"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .header-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: #2c3e50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+            background-color: #f0f7ff;
+            transform: translateY(-2px);
+        }
+
+        .navbar a i {
+            font-size: 14px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #eaeaea;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #2c3e50;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1300px;
+            margin: 25px auto 15px;
+            padding: 0 25px;
+            font-size: 14px;
+            color: #5a6c7d;
+            background: #f8f9fa;
+            padding: 12px 25px;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            max-width: 1300px;
+            margin: 30px auto;
+            padding: 0 25px;
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 1px solid #eaeaea;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 18px;
+            color: #5a6c7d;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Calculator Container */
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Input Section */
+        .input-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eaeaea;
+        }
+
+        .section-title {
+            font-size: 22px;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #2563eb;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #2563eb;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 15px;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #2c3e50;
+            background: #ffffff;
+            transition: all 0.3s ease;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-group input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        .input-group input::-webkit-outer-spin-button,
+        .input-group input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .input-hint {
+            font-size: 13px;
+            color: #718096;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        /* Results Section */
+        .results-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eaeaea;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .result-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #2563eb;
+            transition: transform 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .result-card h3 {
+            font-size: 14px;
+            color: #5a6c7d;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .result-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .result-unit {
+            font-size: 14px;
+            color: #718096;
+            margin-left: 5px;
+        }
+
+        /* Efficiency Indicators */
+        .efficiency-indicators {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f0f7ff;
+            border-radius: 10px;
+            border: 1px solid #dbeafe;
+        }
+
+        .efficiency-title {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .efficiency-bars {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .efficiency-bar {
+            flex: 1;
+            background: #e2e8f0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .efficiency-fill {
+            height: 100%;
+            background: #2563eb;
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+
+        .efficiency-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #5a6c7d;
+        }
+
+        /* Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+            flex: 2;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #2c3e50;
+            border: 2px solid #e2e8f0;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        /* Information Section */
+        .info-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 35px;
+            margin-top: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eaeaea;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .info-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .info-card h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card h3 i {
+            color: #2563eb;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+            color: #5a6c7d;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li i {
+            color: #2563eb;
+            font-size: 12px;
+        }
+
+        /* Formula Section */
+        .formula-section {
+            background: #f0f7ff;
+            border-radius: 12px;
+            padding: 35px;
+            margin-top: 40px;
+            border: 1px solid #dbeafe;
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .formula-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .formula-card h4 {
+            font-size: 16px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .formula-equation {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 15px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 60px;
+            padding-top: 40px;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 25px 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 700;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2563eb;
+            display: inline-block;
+        }
+
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .footer-column a {
+            color: #5a6c7d;
+            text-decoration: none;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+            transform: translateX(5px);
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f0f3ff;
+            color: #2563eb;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin: 0;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #5a6c7d;
+            background: #f8f9fa;
+            margin-top: 30px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #eaeaea;
+                padding: 20px;
+                z-index: 1000;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navbar a {
+                padding: 15px;
+                border-radius: 8px;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .page-header p {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 20px;
+            }
+
+            .result-value {
+                font-size: 24px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .footer-column h3 {
+                display: block;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .main-content {
+                padding: 0 15px;
+            }
+
+            .calculator-container {
+                gap: 20px;
+            }
+
+            .input-section,
+            .results-section,
+            .info-section,
+            .formula-section {
+                padding: 25px 20px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .efficiency-bars {
+                flex-direction: column;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .fixed-header-container,
+            .breadcrumb,
+            .action-buttons,
+            footer {
+                display: none;
+            }
+
+            .calculator-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .input-section,
+            .results-section {
+                box-shadow: none;
+                border: 1px solid #000;
+            }
+
+            .page-header {
+                background: none;
+                border: none;
+                padding: 20px 0;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2563eb;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            margin-left: 5px;
+            cursor: help;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 250px;
+            background-color: #2c3e50;
+            color: #ffffff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 13px;
+            font-weight: normal;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none;
+            border: 1px solid #a7f3d0;
+            font-weight: 600;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo">
+                <div class="logo-icon">GPT</div>
+                <div class="logo-text">Garments Production Tools</div>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Production Skills</a></li>
+                    <li><a href="../tools.html"><i class="fas fa-tools"></i>All Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Standards</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact Expert</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="../../index.html">Home</a> / 
+        <a href="../tools.html">Production Tools</a> / 
+        <span>Line Balancing Calculator</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="fas fa-balance-scale"></i> Line Balancing Calculator</h1>
+            <p>Optimize your garments production line efficiency by calculating the perfect balance between manpower, SMV, and target production</p>
+        </div>
+
+        <!-- Calculator Container -->
+        <div class="calculator-container">
+            <!-- Input Section -->
+            <div class="input-section">
+                <h2 class="section-title"><i class="fas fa-edit"></i> Production Parameters</h2>
+                
+                <div class="input-group">
+                    <label for="totalSmv">Total SMV (Standard Minute Value)
+                        <span class="tooltip">
+                            <i class="fas fa-question-circle"></i>
+                            <span class="tooltip-text">Sum of all operation SMV in the production line</span>
+                        </span>
+                    </label>
+                    <input type="number" id="totalSmv" min="0" step="0.01" placeholder="Enter total SMV">
+                    <div class="input-hint">Example: 25.5 minutes for complete garment</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="targetOutput">Daily Target Output (Pieces)
+                        <span class="tooltip">
+                            <i class="fas fa-question-circle"></i>
+                            <span class="tooltip-text">Number of pieces to produce per day</span>
+                        </span>
+                    </label>
+                    <input type="number" id="targetOutput" min="1" placeholder="Enter daily target">
+                    <div class="input-hint">Example: 1200 pieces per day</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="workingHours">Working Hours per Day
+                        <span class="tooltip">
+                            <i class="fas fa-question-circle"></i>
+                            <span class="tooltip-text">Total productive working hours excluding breaks</span>
+                        </span>
+                    </label>
+                    <input type="number" id="workingHours" min="1" max="24" step="0.5" value="8" placeholder="Enter working hours">
+                    <div class="input-hint">Standard: 8 hours (480 minutes)</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="lineEfficiency">Expected Line Efficiency (%)
+                        <span class="tooltip">
+                            <i class="fas fa-question-circle"></i>
+                            <span class="tooltip-text">Expected efficiency percentage of the production line</span>
+                        </span>
+                    </label>
+                    <input type="number" id="lineEfficiency" min="1" max="100" value="70" placeholder="Enter efficiency percentage">
+                    <div class="input-hint">Industry standard: 65-75%</div>
+                </div>
+
+                <div class="input-group">
+                    <label for="availableOperators">Available Operators
+                        <span class="tooltip">
+                            <i class="fas fa-question-circle"></i>
+                            <span class="tooltip-text">Current number of operators in the line</span>
+                        </span>
+                    </label>
+                    <input type="number" id="availableOperators" min="1" placeholder="Enter number of operators">
+                    <div class="input-hint">Optional: For comparison with calculated requirement</div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="calculateBtn">
+                        <i class="fas fa-calculator"></i> Calculate Line Balance
+                    </button>
+                    <button class="btn btn-secondary" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset All
+                    </button>
+                </div>
+
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i> Calculation completed successfully! Check results on the right.
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section">
+                <h2 class="section-title"><i class="fas fa-chart-bar"></i> Calculation Results</h2>
+                
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3>Required Manpower</h3>
+                        <div class="result-value" id="requiredManpower">--</div>
+                        <div class="result-unit">Operators</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>Daily Capacity</h3>
+                        <div class="result-value" id="dailyCapacity">--</div>
+                        <div class="result-unit">Pieces</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>Production per Hour</h3>
+                        <div class="result-value" id="hourlyProduction">--</div>
+                        <div class="result-unit">Pieces/Hour</div>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3>SMV per Operator</h3>
+                        <div class="result-value" id="smvPerOperator">--</div>
+                        <div class="result-unit">Minutes</div>
+                    </div>
+                </div>
+
+                <div class="efficiency-indicators">
+                    <div class="efficiency-title">
+                        <i class="fas fa-tachometer-alt"></i> Line Efficiency Analysis
+                    </div>
+                    
+                    <div class="efficiency-bars">
+                        <div style="flex: 1;">
+                            <div class="efficiency-bar">
+                                <div class="efficiency-fill" id="efficiencyFill" style="width: 0%"></div>
+                            </div>
+                            <div class="efficiency-labels">
+                                <span>0%</span>
+                                <span>Current: <span id="currentEfficiency">--</span></span>
+                                <span>100%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <div class="result-card" style="background: #f0f7ff; border-left-color: #10b981;">
+                            <h3>Balance Efficiency</h3>
+                            <div class="result-value" id="balanceEfficiency">--</div>
+                            <div class="result-unit">%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" id="exportBtn">
+                        <i class="fas fa-download"></i> Export Results
+                    </button>
+                    <button class="btn btn-secondary" id="printBtn">
+                        <i class="fas fa-print"></i> Print Report
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Information Section -->
+        <div class="info-section">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> About Line Balancing</h2>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-bullseye"></i> Key Benefits</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Maximizes production efficiency</li>
+                        <li><i class="fas fa-check"></i> Reduces bottlenecks and idle time</li>
+                        <li><i class="fas fa-check"></i> Optimizes manpower utilization</li>
+                        <li><i class="fas fa-check"></i> Improves workflow smoothness</li>
+                        <li><i class="fas fa-check"></i> Increases overall productivity</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-lightbulb"></i> Best Practices</h3>
+                    <ul>
+                        <li><i class="fas fa-star"></i> Regular time study analysis</li>
+                        <li><i class="fas fa-star"></i> Cross-training operators</li>
+                        <li><i class="fas fa-star"></i> Workstation optimization</li>
+                        <li><i class="fas fa-star"></i> Continuous monitoring</li>
+                        <li><i class="fas fa-star"></i> Regular rebalancing</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Common Issues</h3>
+                    <ul>
+                        <li><i class="fas fa-times"></i> Bottleneck operations</li>
+                        <li><i class="fas fa-times"></i> Imbalanced workload</li>
+                        <li><i class="fas fa-times"></i> Operator skill variation</li>
+                        <li><i class="fas fa-times"></i> Machine breakdowns</li>
+                        <li><i class="fas fa-times"></i> Material shortages</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formula Section -->
+        <div class="formula-section">
+            <h2 class="section-title"><i class="fas fa-calculator"></i> Calculation Formulas</h2>
+            
+            <div class="formula-grid">
+                <div class="formula-card">
+                    <h4>Manpower Calculation</h4>
+                    <div class="formula-equation">
+                        Manpower = (Total SMV × Target Output) ÷ (Working Hours × 60 × Efficiency)
+                    </div>
+                    <p>Calculates the number of operators required to achieve target output.</p>
+                </div>
+                
+                <div class="formula-card">
+                    <h4>Daily Capacity</h4>
+                    <div class="formula-equation">
+                        Capacity = (Manpower × Working Hours × 60 × Efficiency) ÷ Total SMV
+                    </div>
+                    <p>Maximum output possible with given manpower and efficiency.</p>
+                </div>
+                
+                <div class="formula-card">
+                    <h4>Line Efficiency</h4>
+                    <div class="formula-equation">
+                        Efficiency = (Standard Minutes Produced ÷ Actual Minutes Worked) × 100
+                    </div>
+                    <p>Percentage of productive time utilization.</p>
+                </div>
+                
+                <div class="formula-card">
+                    <h4>Balance Efficiency</h4>
+                    <div class="formula-equation">
+                        Balance % = (Total Station Time ÷ (No. of Stations × Cycle Time)) × 100
+                    </div>
+                    <p>Measures how well work is distributed across stations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About</h3>
+                <p>Professional garments production tools designed for industrial engineers, production managers, and quality controllers in the apparel manufacturing industry.</p>
+                <p>Optimize your production processes with our specialized calculators and analysis tools.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Production Tools</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="line-balancing.html"><i class="fas fa-balance-scale"></i> Line Balancing</a>
+                        <a href="../tools.html"><i class="fas fa-calculator"></i> SMV Calculator</a>
+                        <a href="../tools.html"><i class="fas fa-chart-line"></i> Efficiency Tracker</a>
+                        <a href="../tools.html"><i class="fas fa-clipboard-check"></i> Quality Control</a>
+                        <a href="../tools.html"><i class="fas fa-industry"></i> Capacity Planning</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="mailto:info@garments-tools.com" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+                <p style="margin-top: 20px; font-size: 14px;">
+                    <i class="fas fa-headset"></i> Technical Support:<br>
+                    <a href="tel:+8801700000000">+880 1700 000000</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Garments Production Tools | Designed for Apparel Manufacturing Industry | All Rights Reserved
+        </div>
+    </footer>
+
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-PRODUCTIONTOOLS';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-PRODUCTIONTOOLS', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // DOM Elements
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        const calculateBtn = document.getElementById("calculateBtn");
+        const resetBtn = document.getElementById("resetBtn");
+        const exportBtn = document.getElementById("exportBtn");
+        const printBtn = document.getElementById("printBtn");
+        const successMessage = document.getElementById("successMessage");
+
+        // Input Elements
+        const totalSmvInput = document.getElementById("totalSmv");
+        const targetOutputInput = document.getElementById("targetOutput");
+        const workingHoursInput = document.getElementById("workingHours");
+        const lineEfficiencyInput = document.getElementById("lineEfficiency");
+        const availableOperatorsInput = document.getElementById("availableOperators");
+
+        // Result Elements
+        const requiredManpowerEl = document.getElementById("requiredManpower");
+        const dailyCapacityEl = document.getElementById("dailyCapacity");
+        const hourlyProductionEl = document.getElementById("hourlyProduction");
+        const smvPerOperatorEl = document.getElementById("smvPerOperator");
+        const efficiencyFillEl = document.getElementById("efficiencyFill");
+        const currentEfficiencyEl = document.getElementById("currentEfficiency");
+        const balanceEfficiencyEl = document.getElementById("balanceEfficiency");
+
+        // Hamburger menu toggle
+        hamburger.onclick = () => {
+            navbar.classList.toggle("active");
+            hamburger.classList.toggle("active");
+            
+            // Animate hamburger to X
+            const spans = hamburger.querySelectorAll('span');
+            if (navbar.classList.contains("active")) {
+                spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        };
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navbar.contains(e.target) && !hamburger.contains(e.target)) {
+                navbar.classList.remove("active");
+                const spans = hamburger.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+
+        // Calculate Line Balance
+        calculateBtn.addEventListener('click', calculateLineBalance);
+
+        function calculateLineBalance() {
+            // Get input values
+            const totalSmv = parseFloat(totalSmvInput.value);
+            const targetOutput = parseInt(targetOutputInput.value);
+            const workingHours = parseFloat(workingHoursInput.value);
+            const lineEfficiency = parseFloat(lineEfficiencyInput.value) / 100; // Convert to decimal
+            const availableOperators = availableOperatorsInput.value ? parseInt(availableOperatorsInput.value) : null;
+
+            // Validate inputs
+            if (!totalSmv || !targetOutput || !workingHours || !lineEfficiency) {
+                alert("Please fill in all required fields with valid numbers");
+                return;
+            }
+
+            if (totalSmv <= 0 || targetOutput <= 0 || workingHours <= 0 || lineEfficiency <= 0) {
+                alert("Please enter positive values for all fields");
+                return;
+            }
+
+            // Show loading state
+            calculateBtn.innerHTML = '<div class="loading"></div> Calculating...';
+            calculateBtn.disabled = true;
+
+            // Simulate calculation delay for better UX
+            setTimeout(() => {
+                // Convert working hours to minutes
+                const workingMinutes = workingHours * 60;
+                
+                // Calculate required manpower
+                const requiredManpower = Math.ceil((totalSmv * targetOutput) / (workingMinutes * lineEfficiency));
+                
+                // Calculate daily capacity with required manpower
+                const dailyCapacity = Math.floor((requiredManpower * workingMinutes * lineEfficiency) / totalSmv);
+                
+                // Calculate hourly production
+                const hourlyProduction = Math.floor(dailyCapacity / workingHours);
+                
+                // Calculate SMV per operator
+                const smvPerOperator = (totalSmv / requiredManpower).toFixed(2);
+                
+                // Calculate balance efficiency (simplified)
+                const balanceEfficiency = Math.min(95, Math.max(65, 100 - (requiredManpower * 0.5)));
+                
+                // Update UI with results
+                requiredManpowerEl.textContent = requiredManpower;
+                dailyCapacityEl.textContent = dailyCapacity.toLocaleString();
+                hourlyProductionEl.textContent = hourlyProduction.toLocaleString();
+                smvPerOperatorEl.textContent = smvPerOperator;
+                balanceEfficiencyEl.textContent = balanceEfficiency.toFixed(1);
+                
+                // Update efficiency bar
+                const efficiencyPercent = Math.min(100, Math.max(0, lineEfficiency * 100));
+                efficiencyFillEl.style.width = `${efficiencyPercent}%`;
+                currentEfficiencyEl.textContent = `${efficiencyPercent.toFixed(1)}%`;
+                
+                // Compare with available operators if provided
+                if (availableOperators) {
+                    const difference = availableOperators - requiredManpower;
+                    let message = "";
+                    
+                    if (difference > 0) {
+                        message = ` You have ${difference} extra operator${difference > 1 ? 's' : ''}.`;
+                        requiredManpowerEl.style.color = "#10b981";
+                    } else if (difference < 0) {
+                        message = ` You need ${Math.abs(difference)} more operator${Math.abs(difference) > 1 ? 's' : ''}.`;
+                        requiredManpowerEl.style.color = "#ef4444";
+                    } else {
+                        message = " Perfect match!";
+                        requiredManpowerEl.style.color = "#10b981";
+                    }
+                    
+                    // Add comparison note
+                    const comparisonNote = document.createElement('div');
+                    comparisonNote.className = 'input-hint';
+                    comparisonNote.style.marginTop = '10px';
+                    comparisonNote.style.color = difference >= 0 ? '#10b981' : '#ef4444';
+                    comparisonNote.style.fontWeight = '600';
+                    comparisonNote.innerHTML = `<i class="fas fa-${difference >= 0 ? 'check' : 'exclamation'}-circle"></i>${message}`;
+                    
+                    // Remove existing note if any
+                    const existingNote = requiredManpowerEl.parentElement.querySelector('.comparison-note');
+                    if (existingNote) existingNote.remove();
+                    
+                    comparisonNote.classList.add('comparison-note');
+                    requiredManpowerEl.parentElement.appendChild(comparisonNote);
+                } else {
+                    requiredManpowerEl.style.color = "#2c3e50";
+                }
+                
+                // Show success message
+                successMessage.classList.add('show');
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+                
+                // Track calculation event
+                if (window.gtag) {
+                    gtag('event', 'line_balance_calculation', {
+                        'event_category': 'calculation',
+                        'event_label': 'line_balance',
+                        'value': requiredManpower
+                    });
+                }
+                
+                // Reset button state
+                calculateBtn.innerHTML = '<i class="fas fa-calculator"></i> Calculate Line Balance';
+                calculateBtn.disabled = false;
+                
+            }, 800); // Simulated calculation delay
+        }
+
+        // Reset all inputs and results
+        resetBtn.addEventListener('click', () => {
+            totalSmvInput.value = '';
+            targetOutputInput.value = '';
+            workingHoursInput.value = '8';
+            lineEfficiencyInput.value = '70';
+            availableOperatorsInput.value = '';
+            
+            requiredManpowerEl.textContent = '--';
+            dailyCapacityEl.textContent = '--';
+            hourlyProductionEl.textContent = '--';
+            smvPerOperatorEl.textContent = '--';
+            balanceEfficiencyEl.textContent = '--';
+            efficiencyFillEl.style.width = '0%';
+            currentEfficiencyEl.textContent = '--';
+            
+            requiredManpowerEl.style.color = "#2c3e50";
+            
+            // Remove comparison note
+            const comparisonNote = requiredManpowerEl.parentElement.querySelector('.comparison-note');
+            if (comparisonNote) comparisonNote.remove();
+            
+            // Hide success message
+            successMessage.classList.remove('show');
+            
+            // Track reset event
+            if (window.gtag) {
+                gtag('event', 'reset_calculation', {
+                    'event_category': 'interaction',
+                    'event_label': 'reset_line_balance'
+                });
+            }
+        });
+
+        // Export Results
+        exportBtn.addEventListener('click', () => {
+            const results = {
+                totalSMV: totalSmvInput.value,
+                targetOutput: targetOutputInput.value,
+                workingHours: workingHoursInput.value,
+                lineEfficiency: lineEfficiencyInput.value,
+                requiredManpower: requiredManpowerEl.textContent,
+                dailyCapacity: dailyCapacityEl.textContent,
+                hourlyProduction: hourlyProductionEl.textContent,
+                smvPerOperator: smvPerOperatorEl.textContent,
+                balanceEfficiency: balanceEfficiencyEl.textContent,
+                calculationDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(results, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            
+            const exportFileDefaultName = `line-balancing-results-${new Date().toISOString().split('T')[0]}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            
+            // Track export event
+            if (window.gtag) {
+                gtag('event', 'export_results', {
+                    'event_category': 'engagement',
+                    'event_label': 'export_line_balance'
+                });
+            }
+        });
+
+        // Print Report
+        printBtn.addEventListener('click', () => {
+            window.print();
+            
+            // Track print event
+            if (window.gtag) {
+                gtag('event', 'print_report', {
+                    'event_category': 'engagement',
+                    'event_label': 'print_line_balance'
+                });
+            }
+        });
+
+        // Auto-calculate on Enter key in any input
+        document.querySelectorAll('.input-section input').forEach(input => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    calculateLineBalance();
+                }
+            });
+        });
+
+        // Input validation
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', (e) => {
+                let value = e.target.value;
+                
+                // Remove any non-numeric characters except decimal point
+                value = value.replace(/[^0-9.]/g, '');
+                
+                // Ensure only one decimal point
+                const parts = value.split('.');
+                if (parts.length > 2) {
+                    value = parts[0] + '.' + parts.slice(1).join('');
+                }
+                
+                e.target.value = value;
+            });
+        });
+
+        // Add sample data button for demo
+        const demoBtn = document.createElement('button');
+        demoBtn.className = 'btn btn-secondary';
+        demoBtn.innerHTML = '<i class="fas fa-vial"></i> Load Sample Data';
+        demoBtn.style.marginTop = '15px';
+        demoBtn.style.width = '100%';
+        demoBtn.onclick = () => {
+            totalSmvInput.value = '28.5';
+            targetOutputInput.value = '1500';
+            workingHoursInput.value = '9';
+            lineEfficiencyInput.value = '72';
+            availableOperatorsInput.value = '45';
+            
+            // Track demo load event
+            if (window.gtag) {
+                gtag('event', 'load_sample_data', {
+                    'event_category': 'interaction',
+                    'event_label': 'line_balance_demo'
+                });
+            }
+        };
+        
+        document.querySelector('.action-buttons').parentNode.insertBefore(demoBtn, document.querySelector('.action-buttons'));
+
+        // Track page view
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.gtag) {
+                gtag('event', 'page_view', {
+                    'page_title': 'Line Balancing Calculator',
+                    'page_location': window.location.href
+                });
+            }
+            
+            // Auto-focus first input
+            totalSmvInput.focus();
+        });
+
+        // Track input interactions
+        document.querySelectorAll('.input-section input').forEach(input => {
+            input.addEventListener('focus', function() {
+                if (window.gtag) {
+                    gtag('event', 'input_focus', {
+                        'event_category': 'engagement',
+                        'event_label': this.id,
+                        'page_location': window.location.href
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

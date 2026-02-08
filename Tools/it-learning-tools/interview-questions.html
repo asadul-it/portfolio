@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Interview Questions & Answers</title>
+    <meta name="description" content="Common IT and networking interview questions with detailed answers for job preparation.">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e4e8;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .qa-card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .qa-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .question {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .question-icon {
+            color: #667eea;
+            margin-right: 10px;
+        }
+
+        .toggle-icon {
+            color: #667eea;
+            transition: transform 0.3s ease;
+        }
+
+        .qa-card.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .difficulty {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .difficulty.easy {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty.medium {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty.hard {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .answer {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f3ff;
+            color: #5a6c7d;
+            line-height: 1.7;
+        }
+
+        .qa-card.active .answer {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .answer-label {
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .answer ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .answer li {
+            margin-bottom: 8px;
+        }
+
+        .stats-box {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+
+        .stats-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .question {
+                font-size: 1em;
+            }
+
+            .category-tabs {
+                gap: 5px;
+            }
+
+            .tab-btn {
+                padding: 8px 16px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1><i class="fas fa-question-circle"></i> IT Interview Questions</h1>
+    <p>IT চাকরির ইন্টারভিউয়ের জন্য সাধারণ প্রশ্ন ও উত্তর</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Tools</a>
+
+    <div class="stats-box">
+        <h3>ইন্টারভিউ প্রস্তুতির টিপস</h3>
+        <p>যেকোনো প্রশ্নে ক্লিক করলে উত্তর দেখা যাবে। নিয়মিত পড়ুন এবং নিজের ভাষায় ব্যাখ্যা করার অনুশীলন করুন।</p>
+    </div>
+
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="প্রশ্ন খুঁজুন...">
+    </div>
+
+    <div class="category-tabs">
+        <button class="tab-btn active" data-category="all">সব প্রশ্ন</button>
+        <button class="tab-btn" data-category="networking">Networking</button>
+        <button class="tab-btn" data-category="security">Security</button>
+        <button class="tab-btn" data-category="protocols">Protocols</button>
+        <button class="tab-btn" data-category="troubleshooting">Troubleshooting</button>
+        <button class="tab-btn" data-category="general">General IT</button>
+    </div>
+
+    <div id="qaList"></div>
+</div>
+
+<script>
+const questions = [
+    {
+        category: "networking",
+        difficulty: "easy",
+        question: "TCP এবং UDP এর মধ্যে পার্থক্য কি?",
+        answer: `<span class="answer-label">উত্তর:</span>
+        <strong>TCP (Transmission Control Protocol):</strong>
+        <ul>
+            <li>Connection-oriented প্রোটোকল</li>
+            <li>নির্ভরযোগ্য, ক্রমবদ্ধ ডেটা delivery নিশ্চিত করে</li>
+            <li>Acknowledgment এবং retransmission ব্যবহার করে</li>
+            <li>ধীর কিন্তু আরো নির্ভরযোগ্য</li>
+            <li>ব্যবহার: ওয়েব ব্রাউজিং (HTTP), ইমেইল (SMTP), ফাইল ট্রান্সফার (FTP)</li>
+        </ul>
+        <strong>UDP (User Datagram Protocol):</strong>
+        <ul>
+            <li>Connectionless প্রোটোকল</li>
+            <li>Delivery বা order এর গ্যারান্টি দেয় না</li>
+            <li>কোন acknowledgment বা retransmission নেই</li>
+            <li>দ্রুত কিন্তু কম নির্ভরযোগ্য</li>
+            <li>ব্যবহার: Streaming, Gaming, VoIP, DNS</li>
+        </ul>`
+    },
+    {
+        category: "networking",
+        difficulty: "medium",
+        question: "OSI মডেল এবং এর ৭টি লেয়ার ব্যাখ্যা করুন।",
+        answer: `<span class="answer-label">উত্তর:</span>
+        OSI (Open Systems Interconnection) মডেল একটি ধারণাগত কাঠামো যার ৭টি স্তর রয়েছে:
+        <ul>
+            <li><strong>Layer 7 - Application:</strong> ব্যবহারকারী ইন্টারফেস, HTTP, FTP, SMTP</li>
+            <li><strong>Layer 6 - Presentation:</strong> ডেটা ফরম্যাটিং, এনক্রিপশন (SSL/TLS)</li>
+            <li><strong>Layer 5 - Session:</strong> সেশন ম্যানেজমেন্ট, সংযোগ নিয়ন্ত্রণ</li>
+            <li><strong>Layer 4 - Transport:</strong> TCP/UDP, end-to-end যোগাযোগ</li>
+            <li><strong>Layer 3 - Network:</strong> IP ঠিকানা, রাউটিং, প্যাকেট</li>
+            <li><strong>Layer 2 - Data Link:</strong> MAC ঠিকানা, সুইচ, ফ্রেম</li>
+            <li><strong>Layer 1 - Physical:</strong> ক্যাবল, সিগন্যাল, বিট</li>
+        </ul>
+        <strong>মনে রাখার কৌশল:</strong> All People Seem To Need Data Processing`
+    },
+    {
+        category: "networking",
+        difficulty: "easy",
+        question: "IP ঠিকানা কি?",
+        answer: `<span class="answer-label">উত্তর:</span>
+        একটি IP (Internet Protocol) ঠিকানা হল একটি অনন্য সংখ্যাসূচক শনাক্তকারী যা নেটওয়ার্কের প্রতিটি ডিভাইসকে বরাদ্দ করা হয়। এটি ইন্টারনেট বা স্থানীয় নেটওয়ার্কে ডিভাইসগুলিকে একে অপরের সাথে যোগাযোগ করতে সক্ষম করে।
+        <br><br>
+        <strong>IPv4:</strong> 32-bit ঠিকানা চারটি octet হিসাবে লেখা (যেমন, 192.168.1.1)। প্রায় 4.3 বিলিয়ন ঠিকানা প্রদান করে।
+        <br><br>
+        <strong>IPv6:</strong> 128-bit ঠিকানা হেক্সাডেসিমেলে লেখা (যেমন, 2001:0db8:85a3::8a2e:0370:7334)। কার্যত সীমাহীন ঠিকানা প্রদান করে।`
+    },
+    {
+        category: "networking",
+        difficulty: "medium",
+        question: "Switch এবং Router এর মধ্যে পার্থক্য কি?",
+        answer: `<span class="answer-label">উত্তর:</span>
+        <strong>Switch:</strong>
+        <ul>
+            <li>OSI মডেলের Layer 2 (Data Link) এ কাজ করে</li>
+            <li>একই নেটওয়ার্কে (LAN) ডিভাইসগুলি সংযুক্ত করে</li>
+            <li>ফ্রেম ফরওয়ার্ড করতে MAC ঠিকানা ব্যবহার করে</li>
+            <li>একটি নেটওয়ার্ক সেগমেন্ট তৈরি করে</li>
+            <li>একা ইন্টারনেট সংযোগ প্রদান করে না</li>
+        </ul>
+        <strong>Router:</strong>
+        <ul>
+            <li>OSI মডেলের Layer 3 (Network) এ কাজ করে</li>
+            <li>বিভিন্ন নেটওয়ার্ক একসাথে সংযুক্ত করে</li>
+            <li>প্যাকেট রুট করতে IP ঠিকানা ব্যবহার করে</li>
+            <li>ইন্টারনেট সংযোগ প্রদান করে</li>
+            <li>বুদ্ধিমান পাথ সিদ্ধান্ত নেয়</li>
+        </ul>`
+    },
+    {
+        category: "networking",
+        difficulty: "medium",
+        question: "Subnetting কি এবং কেন এটি ব্যবহার করা হয়?",
+        answer: `<span class="answer-label">উত্তর:</span>
+        Subnetting হল একটি বড় নেটওয়ার্ককে ছোট sub-network (subnet) এ ভাগ করার প্রক্রিয়া।
+        <br><br>
+        <strong>সুবিধা:</strong>
+        <ul>
+            <li><strong>উন্নত সংগঠন:</strong> লজিক্যালি ডিভাইস গ্রুপ করা (যেমন, বিভাগ অনুসারে)</li>
+            <li><strong>উন্নত নিরাপত্তা:</strong> নেটওয়ার্ক সেগমেন্ট আলাদা করা</li>
+            <li><strong>কম congestion:</strong> ব্রডকাস্ট ট্রাফিক সীমিত করা</li>
+            <li><strong>দক্ষ IP ব্যবহার:</strong> IP ঠিকানা আরো কার্যকরভাবে বরাদ্দ করা</li>
+            <li><strong>উন্নত কর্মক্ষমতা:</strong> ছোট ব্রডকাস্ট ডোমেইন</li>
+        </ul>
+        <strong>উদাহরণ:</strong> নেটওয়ার্ক 192.168.1.0/24 কে 192.168.1.0/25 এবং 192.168.1.128/25 এ ভাগ করা যেতে পারে`
+    },
+    {
+        category: "protocols",
+        difficulty: "easy",
+        question: "DHCP কি এবং এটি কি করে?",
+        answer: `<span class="answer-label">উত্তর:</span>
+        DHCP (Dynamic Host Configuration Protocol) স্বয়ংক্রিয়ভাবে একটি নেটওয়ার্কে ডিভাইসগুলিকে IP ঠিকানা এবং নেটওয়ার্ক কনফিগারেশন বরাদ্দ করে।
+        <br><br>
+        <strong>DHCP যা প্রদান করে:</strong>
+        <ul>
+            <li>IP ঠিকানা</li>
+            <li>Subnet mask</li>
+            <li>Default gateway</li>
+            <li>DNS সার্ভার ঠিকানা</li>
+        </ul>
+        <strong>সুবিধা:</strong> ম্যানুয়াল IP কনফিগারেশন দূর করে, IP দ্বন্দ্ব প্রতিরোধ করে, কেন্দ্রীভূত ম্যানেজমেন্ট, সহজ নেটওয়ার্ক পরিবর্তন।
+        <br><br>
+        <strong>প্রক্রিয়া:</strong> DORA - Discover, Offer, Request, Acknowledge`
+    },
+    {
+        category: "protocols",
+        difficulty: "easy",
+        question: "DNS কি এবং এটি কিভাবে কাজ করে?",
+        answer: `<span class="answer-label">উত্তর:</span>
+        DNS (Domain Name System) মানব-পাঠযোগ্য ডোমেইন নামকে IP ঠিকানায় রূপান্তরিত করে।
+        <br><br>
+        <strong>কিভাবে কাজ করে:</strong>
+        <ol>
+            <li>ব্যবহারকারী ব্রাউজারে www.example.com টাইপ করে</li>
+            <li>কম্পিউটার স্থানীয় DNS ক্যাশ পরীক্ষা করে</li>
+            <li>ক্যাশে না থাকলে, DNS resolver (সাধারণত ISP) query করে</li>
+            <li>Resolver root সার্ভার, তারপর TLD সার্ভার (.com), তারপর authoritative সার্ভার query করে</li>
+            <li>IP ঠিকানা ব্যবহারকারীর কম্পিউটারে ফেরত পাঠানো হয়</li>
+            <li>ব্রাউজার সেই IP ঠিকানায় সংযুক্ত হয়</li>
+        </ol>
+        <strong>DNS রেকর্ড প্রকার:</strong> A (IPv4), AAAA (IPv6), CNAME (alias), MX (mail), NS (nameserver)`
+    },
+    {
+        category: "security",
+        difficulty: "medium",
+        question: "Firewall কি এবং এর প্রকারভেদ কি?",
+        answer: `<span class="answer-label">উত্তর:</span>
+        একটি Firewall হল একটি নেটওয়ার্ক নিরাপত্তা ডিভাইস যা পূর্বনির্ধারিত নিরাপত্তা নিয়মের উপর ভিত্তি করে আগত এবং বহির্গামী নেটওয়ার্ক ট্রাফিক মনিটর এবং নিয়ন্ত্রণ করে।
+        <br><br>
+        <strong>Firewall এর প্রকার:</strong>
+        <ul>
+            <li><strong>Packet Filtering:</strong> প্যাকেট হেডার পরীক্ষা করে (IP, port, protocol)</li>
+            <li><strong>Stateful Inspection:</strong> সংযোগ অবস্থা ট্র্যাক করে, আরো বুদ্ধিমান</li>
+            <li><strong>Proxy Firewall:</strong> নেটওয়ার্কের মধ্যে মধ্যস্থতাকারী হিসাবে কাজ করে</li>
+            <li><strong>Next-Gen Firewall (NGFW):</strong> Deep packet inspection, IPS, application awareness</li>
+        </ul>
+        <strong>উদ্দেশ্য:</strong> অননুমোদিত অ্যাক্সেস ব্লক করা, ম্যালওয়্যার প্রতিরোধ, নিরাপত্তা নীতি প্রয়োগ করা`
+    },
+    {
+        category: "troubleshooting",
+        difficulty: "easy",
+        question: "কোন কমান্ড ব্যবহার করে গন্তব্যে পৌঁছানোর জন্য প্যাকেটের পাথ খুঁজে পাওয়া যায়?",
+        answer: `<span class="answer-label">উত্তর:</span>
+        <strong>Windows:</strong> tracert [destination]
+        <br>
+        উদাহরণ: <code>tracert google.com</code>
+        <br><br>
+        <strong>Linux/Mac:</strong> traceroute [destination]
+        <br>
+        উদাহরণ: <code>traceroute google.com</code>
+        <br><br>
+        <strong>যা দেখায়:</strong>
+        <ul>
+            <li>প্রতিটি hop (router) যা প্যাকেট অতিক্রম করে</li>
+            <li>প্রতিটি hop এর জন্য response time</li>
+            <li>কোথায় delay বা failure ঘটে</li>
+            <li>উৎস থেকে গন্তব্য পর্যন্ত সম্পূর্ণ পাথ</li>
+        </ul>
+        <strong>ব্যবহার:</strong> নেটওয়ার্ক troubleshooting, রাউটিং সমস্যা সনাক্তকরণ, নেটওয়ার্ক performance পরিমাপ`
+    }
+];
+
+function renderQuestions(filteredQuestions) {
+    const list = document.getElementById('qaList');
+    list.innerHTML = filteredQuestions.map((q, index) => `
+        <div class="qa-card" data-index="${index}">
+            <div class="question">
+                <div>
+                    <i class="fas fa-question-circle question-icon"></i>
+                    ${q.question}
+                    <span class="difficulty ${q.difficulty}">${q.difficulty === 'easy' ? 'সহজ' : q.difficulty === 'medium' ? 'মাঝারি' : 'কঠিন'}</span>
+                </div>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="answer">${q.answer}</div>
+        </div>
+    `).join('');
+
+    document.querySelectorAll('.qa-card').forEach(card => {
+        card.addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+    });
+}
+
+renderQuestions(questions);
+
+document.getElementById('searchInput').addEventListener('input', function(e) {
+    const search = e.target.value.toLowerCase();
+    const filtered = questions.filter(q => 
+        q.question.toLowerCase().includes(search) ||
+        q.answer.toLowerCase().includes(search) ||
+        q.category.toLowerCase().includes(search)
+    );
+    renderQuestions(filtered);
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const category = this.getAttribute('data-category');
+        if (category === 'all') {
+            renderQuestions(questions);
+        } else {
+            const filtered = questions.filter(q => q.category === category);
+            renderQuestions(filtered);
+        }
+    });
+});
+</script>
+
+</body>
+</html>
