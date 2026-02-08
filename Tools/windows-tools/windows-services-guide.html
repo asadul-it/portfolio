@@ -1,0 +1,2449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Windows Services Guide - Essential Services Management & Optimization</title>
+    
+    <!-- ==================== Enhanced SEO Meta Tags ==================== -->
+    <meta name="description" content="Complete Windows Services Management Guide. Learn about 50+ Windows services, how to safely disable services, optimize system performance, and improve security. Expert guide by Asadul Islam.">
+    <meta name="keywords" content="windows services, manage windows services, disable windows services, windows optimization, system services, windows 10 services, windows 11 services, safe to disable services, critical windows services, Asadul Islam">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- ==================== Open Graph & Social Media Tags ==================== -->
+    <meta property="og:title" content="Complete Windows Services Guide - Optimize Your PC Performance">
+    <meta property="og:description" content="Expert guide to Windows Services management. Learn which services to disable for better performance and security.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/windows-tools/windows-services-guide.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/assets/windows-services-og.jpg">
+    <meta property="og:site_name" content="Asadul Islam's Tech Guides">
+    
+    <!-- ==================== Twitter Card ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Windows Services Guide - Expert Optimization Tips">
+    <meta name="twitter:description" content="Learn which Windows services to disable for better performance and security.">
+    
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "Complete Windows Services Management Guide",
+        "description": "Expert guide to managing Windows services for optimal performance and security",
+        "author": {
+            "@type": "Person",
+            "name": "Asadul Islam",
+            "url": "https://asadul-it.github.io/portfolio"
+        },
+        "datePublished": "2024-01-01",
+        "dateModified": "2024-12-01",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Asadul Islam Tech Guides",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://asadul-it.github.io/portfolio/assets/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://asadul-it.github.io/portfolio/Tools/windows-tools/windows-services-guide.html"
+        }
+    }
+    </script>
+    
+    <!-- ==================== Fonts & Icons ==================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==================== CSS Variables & Reset ==================== */
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --safe-color: #10b981;
+            --dark-color: #1f2937;
+            --text-color: #374151;
+            --light-color: #f9fafb;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--dark-color);
+            line-height: 1.3;
+        }
+
+        /* ==================== Language Switcher ==================== */
+        .language-switcher {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 8px;
+            display: flex;
+            gap: 5px;
+            border: 2px solid var(--border-color);
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: var(--radius-md);
+            background: transparent;
+            color: var(--text-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .lang-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: var(--light-color);
+        }
+
+        /* ==================== Header ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark-color);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 10px;
+            border-radius: var(--radius-md);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+        }
+
+        .navbar a:hover, .navbar a.active {
+            background: var(--light-color);
+            color: var(--primary-color);
+        }
+
+        .navbar a i {
+            font-size: 1.1rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+            background: transparent;
+            border: none;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ==================== Breadcrumb ==================== */
+        .breadcrumb-section {
+            max-width: 1400px;
+            margin: 30px auto 20px;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .back-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .back-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .breadcrumb {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: #6b7280;
+        }
+
+        /* ==================== Main Content ==================== */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 30px;
+        }
+
+        .content-box {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 50px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-color);
+            margin-top: 20px;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .tool-header h1 {
+            font-size: 2.8rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tool-header h1 i {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3rem;
+        }
+
+        .tool-header p {
+            font-size: 1.2rem;
+            color: #6b7280;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ==================== Quick Stats ==================== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .stat-icon.critical { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .stat-icon.optional { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .stat-icon.safe { background: linear-gradient(135deg, #10b981, #059669); }
+        .stat-icon.total { background: linear-gradient(135deg, #6366f1, #4f46e5); }
+
+        .stat-info h3 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        .stat-info p {
+            color: #6b7280;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* ==================== How to Access ==================== */
+        .access-section {
+            background: linear-gradient(135deg, var(--primary-color), #4f46e5);
+            color: white;
+            padding: 40px;
+            border-radius: var(--radius-xl);
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .access-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .access-section h2 {
+            position: relative;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .access-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            position: relative;
+        }
+
+        .method-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .method-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .method-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .method-card h3 i {
+            font-size: 1.5rem;
+        }
+
+        .method-card p {
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .method-card code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 15px;
+            border-radius: var(--radius-md);
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            display: inline-block;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ==================== Warning Box ==================== */
+        .warning-box {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 5px solid #f59e0b;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            margin: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.2;
+        }
+
+        .warning-box h3 {
+            color: #92400e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+
+        .warning-box p {
+            color: #92400e;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            max-width: 90%;
+        }
+
+        .warning-box ul {
+            margin: 15px 0 0 20px;
+            color: #92400e;
+        }
+
+        .warning-box li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* ==================== Services Navigation ==================== */
+        .services-nav {
+            position: sticky;
+            top: 80px;
+            background: white;
+            padding: 20px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin: 40px 0;
+            z-index: 100;
+            border: 1px solid var(--border-color);
+        }
+
+        .services-nav h3 {
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .nav-link {
+            padding: 10px 20px;
+            background: var(--light-color);
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-link.critical:hover { background: var(--danger-color); }
+        .nav-link.optional:hover { background: var(--warning-color); }
+        .nav-link.safe:hover { background: var(--safe-color); }
+
+        /* ==================== Services Sections ==================== */
+        .services-section {
+            margin: 50px 0;
+            scroll-margin-top: 120px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-header i {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-lg);
+            color: white;
+        }
+
+        .section-header.critical i { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        .section-header.optional i { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .section-header.safe i { background: linear-gradient(135deg, #10b981, #059669); }
+        .section-header.security i { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .section-header.network i { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--dark-color);
+            flex: 1;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+            gap: 25px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 25px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+        }
+
+        .service-card.critical::before { background: var(--danger-color); }
+        .service-card.optional::before { background: var(--warning-color); }
+        .service-card.safe::before { background: var(--safe-color); }
+        .service-card.security::before { background: #8b5cf6; }
+        .service-card.network::before { background: #3b82f6; }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .service-name-container {
+            flex: 1;
+        }
+
+        .service-name {
+            font-weight: 700;
+            color: var(--dark-color);
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .service-executable {
+            font-family: 'Courier New', monospace;
+            color: #6b7280;
+            font-size: 0.9rem;
+            background: var(--light-color);
+            padding: 4px 8px;
+            border-radius: var(--radius-sm);
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .service-status {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .status-critical { background: #fee2e2; color: #dc2626; }
+        .status-optional { background: #fef3c7; color: #d97706; }
+        .status-safe { background: #d1fae5; color: #059669; }
+        .status-security { background: #ede9fe; color: #7c3aed; }
+        .status-network { background: #dbeafe; color: #2563eb; }
+
+        .service-description {
+            color: #4b5563;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .service-details {
+            background: var(--light-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--dark-color);
+            min-width: 120px;
+        }
+
+        .detail-value {
+            color: var(--text-color);
+            flex: 1;
+        }
+
+        .recommendation {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-left: 4px solid #0ea5e9;
+            padding: 20px;
+            border-radius: var(--radius-md);
+            margin-top: 20px;
+        }
+
+        .recommendation h4 {
+            color: #0369a1;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .recommendation p {
+            color: #0c4a6e;
+            line-height: 1.7;
+        }
+
+        .impact-level {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .impact-high { background: #fecaca; color: #991b1b; }
+        .impact-medium { background: #fed7aa; color: #c2410c; }
+        .impact-low { background: #bbf7d0; color: #166534; }
+
+        /* ==================== Search & Filter ==================== */
+        .search-filter-container {
+            background: white;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            margin: 40px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 1.2rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 18px 20px 18px 60px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            font-size: 1.1rem;
+            font-family: 'Inter', sans-serif;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-btn {
+            padding: 12px 24px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        /* ==================== Quick Reference Table ==================== */
+        .quick-reference {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            margin: 60px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .quick-reference h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+            color: var(--dark-color);
+        }
+
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .reference-table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 18px 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .reference-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .reference-table tr:hover {
+            background: var(--light-color);
+        }
+
+        .table-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* ==================== Footer ==================== */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 30px 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 1.3rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-color);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            color: #d1d5db;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quick-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-links a:hover {
+            color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-bottom a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        /* ==================== Responsive Design ==================== */
+        @media (max-width: 1200px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content, .breadcrumb-section, .main-content, .footer-container {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .content-box {
+                padding: 30px;
+            }
+            
+            .tool-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .language-switcher {
+                top: 80px;
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 300px;
+                height: 100vh;
+                background: white;
+                box-shadow: var(--shadow-lg);
+                padding: 80px 30px 30px;
+                transition: var(--transition);
+                z-index: 999;
+                overflow-y: auto;
+            }
+
+            .navbar.active {
+                left: 0;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar a {
+                padding: 15px;
+                border-radius: var(--radius-md);
+                margin-bottom: 10px;
+                font-size: 1.1rem;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .tool-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .content-box {
+                padding: 20px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .service-status {
+                align-self: flex-start;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .detail-label {
+                min-width: auto;
+            }
+
+            .access-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .language-switcher {
+                position: fixed;
+                bottom: 20px;
+                top: auto;
+                right: 20px;
+                left: 20px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tool-header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .tool-header p {
+                font-size: 1rem;
+            }
+            
+            .stat-card {
+                padding: 20px;
+            }
+            
+            .method-card {
+                padding: 20px;
+            }
+            
+            .service-card {
+                padding: 20px;
+            }
+            
+            .search-filter-container {
+                padding: 20px;
+            }
+            
+            .filter-buttons {
+                justify-content: center;
+            }
+        }
+
+        /* ==================== Animations ==================== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card {
+            animation: fadeInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
+        .service-card:nth-child(4) { animation-delay: 0.4s; }
+        .service-card:nth-child(5) { animation-delay: 0.5s; }
+        .service-card:nth-child(6) { animation-delay: 0.6s; }
+        .service-card:nth-child(7) { animation-delay: 0.7s; }
+        .service-card:nth-child(8) { animation-delay: 0.8s; }
+
+        /* ==================== Print Styles ==================== */
+        @media print {
+            .language-switcher,
+            .navbar,
+            .back-button,
+            .hamburger,
+            .social-links,
+            .footer-bottom {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            
+            .content-box {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            
+            .service-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            
+            a {
+                color: black !important;
+                text-decoration: none !important;
+            }
+            
+            .stat-card,
+            .method-card,
+            .warning-box,
+            .recommendation {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Language Switcher -->
+<div class="language-switcher">
+    <button id="lang-en" class="lang-btn active">English</button>
+    <button id="lang-bn" class="lang-btn">বাংলা</button>
+</div>
+
+<!-- Header -->
+<div class="fixed-header-container">
+    <div class="header-content">
+        <a href="../../index.html" class="logo">
+            <span class="logo-icon"><i class="fas fa-cogs"></i></span>
+            <span>Windows Services Guide</span>
+        </a>
+        
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="../../index.html" class="active"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificates</a></li>
+                <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+            </ul>
+        </nav>
+
+        <button class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb-section">
+    <button class="back-button" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i> Back
+    </button>
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span>/</span>
+        <a href="../tools.html">Tools</a>
+        <span>/</span>
+        <a href="../tools.html#windows">Windows Tools</a>
+        <span>/</span>
+        <span>Windows Services Guide</span>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="content-box">
+        <div class="tool-header">
+            <h1><i class="fas fa-server"></i> Complete Windows Services Guide</h1>
+            <p>Expert guide to managing Windows services for optimal performance, security, and stability. Learn which services to disable safely and which to keep running.</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon critical">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="critical-count">12</h3>
+                    <p class="en">Critical Services</p>
+                    <p class="bn" style="display: none;">সমালোচনামূলক সার্ভিস</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon optional">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="optional-count">18</h3>
+                    <p class="en">Optional Services</p>
+                    <p class="bn" style="display: none;">ঐচ্ছিক সার্ভিস</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon safe">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="safe-count">24</h3>
+                    <p class="en">Safe to Disable</p>
+                    <p class="bn" style="display: none;">নিরাপদে বন্ধ করা যায়</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon total">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>50+</h3>
+                    <p class="en">Total Services Covered</p>
+                    <p class="bn" style="display: none;">মোট সার্ভিস কভার করা হয়েছে</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- How to Access Services -->
+        <div class="access-section">
+            <h2><i class="fas fa-door-open"></i> <span class="en">How to Access Windows Services</span><span class="bn" style="display: none;">কিভাবে Windows সার্ভিসে অ্যাক্সেস করবেন</span></h2>
+            <div class="access-grid">
+                <div class="method-card">
+                    <h3><i class="fas fa-bolt"></i> <span class="en">Method 1: Run Dialog (Fastest)</span><span class="bn" style="display: none;">পদ্ধতি ১: Run ডায়ালগ (দ্রুততম)</span></h3>
+                    <p class="en">Press <code>Win + R</code> keys together</p>
+                    <p class="bn" style="display: none;">একসাথে <code>Win + R</code> কী টিপুন</p>
+                    <code>services.msc</code>
+                </div>
+                <div class="method-card">
+                    <h3><i class="fas fa-tasks"></i> <span class="en">Method 2: Task Manager</span><span class="bn" style="display: none;">পদ্ধতি ২: টাস্ক ম্যানেজার</span></h3>
+                    <p class="en">Open Task Manager → Services Tab → Click "Open Services"</p>
+                    <p class="bn" style="display: none;">টাস্ক ম্যানেজার খুলুন → সার্ভিস ট্যাব → "Open Services" ক্লিক করুন</p>
+                </div>
+                <div class="method-card">
+                    <h3><i class="fas fa-cog"></i> <span class="en">Method 3: Control Panel</span><span class="bn" style="display: none;">পদ্ধতি ৩: কন্ট্রোল প্যানেল</span></h3>
+                    <p class="en">Control Panel → Administrative Tools → Services</p>
+                    <p class="bn" style="display: none;">কন্ট্রোল প্যানেল → প্রশাসনিক টুলস → সার্ভিস</p>
+                </div>
+                <div class="method-card">
+                    <h3><i class="fas fa-terminal"></i> <span class="en">Method 4: PowerShell</span><span class="bn" style="display: none;">পদ্ধতি ৪: PowerShell</span></h3>
+                    <p class="en">Run PowerShell as Administrator</p>
+                    <p class="bn" style="display: none;">PowerShell অ্যাডমিনিস্ট্রেটর হিসেবে খুলুন</p>
+                    <code>Get-Service</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Warning Box -->
+        <div class="warning-box">
+            <h3><i class="fas fa-exclamation-triangle"></i> <span class="en">Important Warning</span><span class="bn" style="display: none;">গুরুত্বপূর্ণ সতর্কতা</span></h3>
+            <p class="en">Disabling critical Windows services can cause system instability, boot failure, or loss of important functionality. Always create a system restore point before making changes. Only disable services if you understand their function and impact.</p>
+            <p class="bn" style="display: none;">সমালোচনামূলক Windows সার্ভিস বন্ধ করলে সিস্টেম অস্থিরতা, বুট ব্যর্থতা বা গুরুত্বপূর্ণ কার্যকারিতা হারাতে পারে। পরিবর্তন করার আগে সর্বদা একটি সিস্টেম রিস্টোর পয়েন্ট তৈরি করুন। শুধুমাত্র সার্ভিসগুলি বন্ধ করুন যদি আপনি তাদের কার্যকারিতা এবং প্রভাব বুঝতে পারেন।</p>
+            <ul class="en">
+                <li>Always research a service before disabling it</li>
+                <li>Set services to "Manual" instead of "Disabled" when unsure</li>
+                <li>Test changes one service at a time</li>
+                <li>Keep backups of important data</li>
+            </ul>
+            <ul class="bn" style="display: none;">
+                <li>সার্ভিস বন্ধ করার আগে সর্বদা গবেষণা করুন</li>
+                <li>নিশ্চিত না হলে সার্ভিস "Disabled" এর পরিবর্তে "Manual" সেট করুন</li>
+                <li>একবারে একটি সার্ভিস পরিবর্তন করে পরীক্ষা করুন</li>
+                <li>গুরুত্বপূর্ণ ডেটার ব্যাকআপ রাখুন</li>
+            </ul>
+        </div>
+
+        <!-- Search and Filter -->
+        <div class="search-filter-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search for a service by name or description..." class="en">
+                <input type="text" id="searchInputBn" placeholder="সার্ভিসের নাম বা বর্ণনা অনুসন্ধান করুন..." class="bn" style="display: none;">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-layer-group"></i> <span class="en">All Services</span><span class="bn" style="display: none;">সব সার্ভিস</span>
+                </button>
+                <button class="filter-btn" data-filter="critical">
+                    <i class="fas fa-exclamation-triangle"></i> <span class="en">Critical</span><span class="bn" style="display: none;">সমালোচনামূলক</span>
+                </button>
+                <button class="filter-btn" data-filter="optional">
+                    <i class="fas fa-info-circle"></i> <span class="en">Optional</span><span class="bn" style="display: none;">ঐচ্ছিক</span>
+                </button>
+                <button class="filter-btn" data-filter="safe">
+                    <i class="fas fa-check-circle"></i> <span class="en">Safe to Disable</span><span class="bn" style="display: none;">নিরাপদে বন্ধ করা যায়</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Services Navigation -->
+        <div class="services-nav">
+            <h3><i class="fas fa-bookmark"></i> <span class="en">Quick Navigation</span><span class="bn" style="display: none;">দ্রুত নেভিগেশন</span></h3>
+            <div class="nav-links">
+                <a href="#critical-services" class="nav-link active critical">
+                    <i class="fas fa-shield-alt"></i> <span class="en">Critical Services</span><span class="bn" style="display: none;">সমালোচনামূলক সার্ভিস</span>
+                </a>
+                <a href="#optional-services" class="nav-link optional">
+                    <i class="fas fa-info-circle"></i> <span class="en">Optional Services</span><span class="bn" style="display: none;">ঐচ্ছিক সার্ভিস</span>
+                </a>
+                <a href="#safe-services" class="nav-link safe">
+                    <i class="fas fa-check-circle"></i> <span class="en">Safe to Disable</span><span class="bn" style="display: none;">নিরাপদে বন্ধ করা যায়</span>
+                </a>
+                <a href="#security-services" class="nav-link security">
+                    <i class="fas fa-lock"></i> <span class="en">Security Services</span><span class="bn" style="display: none;">নিরাপত্তা সার্ভিস</span>
+                </a>
+                <a href="#network-services" class="nav-link network">
+                    <i class="fas fa-network-wired"></i> <span class="en">Network Services</span><span class="bn" style="display: none;">নেটওয়ার্ক সার্ভিস</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Critical Services Section -->
+        <div class="services-section" id="critical-services">
+            <div class="section-header critical">
+                <i class="fas fa-shield-alt"></i>
+                <h2><span class="en">Critical Services (Never Disable)</span><span class="bn" style="display: none;">সমালোচনামূলক সার্ভিস (কখনো বন্ধ করবেন না)</span></h2>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Service cards will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Optional Services Section -->
+        <div class="services-section" id="optional-services">
+            <div class="section-header optional">
+                <i class="fas fa-info-circle"></i>
+                <h2><span class="en">Optional Services (Disable if Not Needed)</span><span class="bn" style="display: none;">ঐচ্ছিক সার্ভিস (প্রয়োজন না হলে বন্ধ করুন)</span></h2>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Service cards will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Safe to Disable Services Section -->
+        <div class="services-section" id="safe-services">
+            <div class="section-header safe">
+                <i class="fas fa-check-circle"></i>
+                <h2><span class="en">Safe to Disable Services</span><span class="bn" style="display: none;">নিরাপদে বন্ধ করা যায় এমন সার্ভিস</span></h2>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Service cards will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Security Services Section -->
+        <div class="services-section" id="security-services">
+            <div class="section-header security">
+                <i class="fas fa-lock"></i>
+                <h2><span class="en">Security Services</span><span class="bn" style="display: none;">নিরাপত্তা সার্ভিস</span></h2>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Service cards will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Network Services Section -->
+        <div class="services-section" id="network-services">
+            <div class="section-header network">
+                <i class="fas fa-network-wired"></i>
+                <h2><span class="en">Network Services</span><span class="bn" style="display: none;">নেটওয়ার্ক সার্ভিস</span></h2>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Service cards will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Quick Reference Table -->
+        <div class="quick-reference">
+            <h2><i class="fas fa-table"></i> <span class="en">Quick Reference Table</span><span class="bn" style="display: none;">দ্রুত রেফারেন্স টেবিল</span></h2>
+            <table class="reference-table">
+                <thead>
+                    <tr>
+                        <th class="en">Service Name</th>
+                        <th class="bn" style="display: none;">সার্ভিসের নাম</th>
+                        <th class="en">Status</th>
+                        <th class="bn" style="display: none;">স্ট্যাটাস</th>
+                        <th class="en">Impact</th>
+                        <th class="bn" style="display: none;">প্রভাব</th>
+                        <th class="en">Recommendation</th>
+                        <th class="bn" style="display: none;">সুপারিশ</th>
+                    </tr>
+                </thead>
+                <tbody id="reference-table-body">
+                    <!-- Table rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3 class="en">About This Guide</h3>
+            <h3 class="bn" style="display: none;">এই গাইড সম্পর্কে</h3>
+            <p class="en">This comprehensive Windows Services Guide is maintained by Asadul Islam, an IT professional with expertise in Windows system optimization and security.</p>
+            <p class="bn" style="display: none;">এই ব্যাপক Windows সার্ভিস গাইডটি Asadul Islam দ্বারা বজায় রাখা হয়, যিনি Windows সিস্টেম অপ্টিমাইজেশন এবং নিরাপত্তায় বিশেষজ্ঞ একজন আইটি পেশাদার।</p>
+            <p class="en">Last Updated: December 2024</p>
+            <p class="bn" style="display: none;">সর্বশেষ আপডেট: ডিসেম্বর ২০২৪</p>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="en">Quick Links</h3>
+            <h3 class="bn" style="display: none;">দ্রুত লিঙ্ক</h3>
+            <div class="quick-links">
+                <a href="../../index.html"><i class="fas fa-home"></i> <span class="en">Home</span><span class="bn" style="display: none;">হোম</span></a>
+                <a href="../../skills.html"><i class="fas fa-cogs"></i> <span class="en">Skills</span><span class="bn" style="display: none;">দক্ষতা</span></a>
+                <a href="../tools.html"><i class="fas fa-tools"></i> <span class="en">Tools</span><span class="bn" style="display: none;">টুলস</span></a>
+                <a href="../../certificate.html"><i class="fas fa-certificate"></i> <span class="en">Certificates</span><span class="bn" style="display: none;">সার্টিফিকেট</span></a>
+                <a href="../../contact.html"><i class="fas fa-phone"></i> <span class="en">Contact</span><span class="bn" style="display: none;">যোগাযোগ</span></a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3 class="en">Connect With Me</h3>
+            <h3 class="bn" style="display: none;">আমার সাথে সংযুক্ত হোন</h3>
+            <p class="en">Follow for more tech guides and tutorials</p>
+            <p class="bn" style="display: none;">আরও টেক গাইড এবং টিউটোরিয়ালের জন্য অনুসরণ করুন</p>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="mailto:asadul.islam.asad@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p class="en">© 2024 Asadul Islam | Windows Services Guide | All Rights Reserved</p>
+        <p class="bn" style="display: none;">© ২০২৪ Asadul Islam | Windows সার্ভিস গাইড | সর্বস্বত্ব সংরক্ষিত</p>
+        <p class="en">Disclaimer: Use this guide at your own risk. Always create backups before making system changes.</p>
+        <p class="bn" style="display: none;">দায়বদ্ধতা: এই গাইডটি আপনার নিজের ঝুঁকিতে ব্যবহার করুন। সিস্টেম পরিবর্তন করার আগে সর্বদা ব্যাকআপ তৈরি করুন।</p>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script>
+    // Services Data (English and Bengali)
+    const servicesData = {
+        en: {
+            critical: [
+                {
+                    name: "Windows Update",
+                    executable: "wuauserv",
+                    description: "Enables detection, download, and installation of updates for Windows and other programs. Essential for system security and stability.",
+                    startup: "Automatic (Delayed Start)",
+                    dependencies: "Remote Procedure Call (RPC), DCOM Server Process Launcher",
+                    impact: "System becomes vulnerable to security threats without updates",
+                    recommendation: "Keep this service running. It's essential for receiving security patches and system updates.",
+                    impactLevel: "high"
+                },
+                {
+                    name: "Windows Defender Antivirus Service",
+                    executable: "WinDefend",
+                    description: "Provides real-time protection against malware, viruses, and security threats. Critical for system security.",
+                    startup: "Automatic",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "No antivirus protection, system vulnerable to malware",
+                    recommendation: "Never disable unless using alternative antivirus software.",
+                    impactLevel: "high"
+                },
+                {
+                    name: "Remote Procedure Call (RPC)",
+                    executable: "RpcSs",
+                    description: "Core Windows service that enables communication between processes. Many Windows features depend on this service.",
+                    startup: "Automatic",
+                    dependencies: "None",
+                    impact: "Windows cannot function without it",
+                    recommendation: "Must remain enabled. Windows cannot function without it.",
+                    impactLevel: "high"
+                },
+                {
+                    name: "DHCP Client",
+                    executable: "dhcp",
+                    description: "Manages network configuration by registering and updating IP addresses and DNS records for your computer.",
+                    startup: "Automatic",
+                    dependencies: "AFD Networking Support Environment, TCP/IP Protocol Driver",
+                    impact: "Cannot obtain IP address automatically, network connectivity issues",
+                    recommendation: "Keep enabled for automatic network connectivity.",
+                    impactLevel: "high"
+                },
+                {
+                    name: "DNS Client",
+                    executable: "Dnscache",
+                    description: "Caches DNS names and registers the computer name. Resolves DNS names and caches them locally.",
+                    startup: "Automatic",
+                    dependencies: "TCP/IP Protocol Driver",
+                    impact: "Slow internet browsing, cannot resolve domain names",
+                    recommendation: "Keep enabled for proper internet functionality.",
+                    impactLevel: "high"
+                },
+                {
+                    name: "Cryptographic Services",
+                    executable: "CryptSvc",
+                    description: "Provides key management, certificate validation, and cryptographic operations for Windows.",
+                    startup: "Automatic",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "Windows updates may fail, software installation issues",
+                    recommendation: "Keep enabled for system security and updates.",
+                    impactLevel: "high"
+                },
+                {
+                    name: "Windows Management Instrumentation (WMI)",
+                    executable: "Winmgmt",
+                    description: "Provides a common interface and object model to access management information about operating system, devices, applications and services.",
+                    startup: "Automatic",
+                    dependencies: "Remote Procedure Call (RPC), DCOM Server Process Launcher",
+                    impact: "Many management tools and system monitoring applications will not work",
+                    recommendation: "Keep enabled for system management and monitoring.",
+                    impactLevel: "high"
+                }
+            ],
+            optional: [
+                {
+                    name: "Print Spooler",
+                    executable: "Spooler",
+                    description: "Manages all print jobs sent to the printer. Only needed if you use a printer.",
+                    startup: "Automatic",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "Cannot print documents",
+                    recommendation: "Disable if you don't use a printer. Can improve security.",
+                    impactLevel: "low"
+                },
+                {
+                    name: "Bluetooth Support Service",
+                    executable: "bthserv",
+                    description: "Supports discovery and association of remote Bluetooth devices.",
+                    startup: "Manual",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "Bluetooth devices will not work",
+                    recommendation: "Disable if you don't use Bluetooth devices.",
+                    impactLevel: "low"
+                },
+                {
+                    name: "Windows Search",
+                    executable: "WSearch",
+                    description: "Provides content indexing and property caching for fast file searches.",
+                    startup: "Automatic (Delayed Start)",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "Slow file searches, Start menu search may not work properly",
+                    recommendation: "Can be disabled to reduce disk usage, but searches will be slower.",
+                    impactLevel: "medium"
+                },
+                {
+                    name: "Xbox Services",
+                    executable: "XboxGipSvc",
+                    description: "Provides Xbox Live gaming services and features.",
+                    startup: "Manual",
+                    dependencies: "None",
+                    impact: "Xbox gaming features will not work",
+                    recommendation: "Safe to disable if you don't use Xbox gaming features.",
+                    impactLevel: "low"
+                },
+                {
+                    name: "Windows Error Reporting",
+                    executable: "WerSvc",
+                    description: "Allows errors to be reported when programs stop working and allows existing solutions to be delivered.",
+                    startup: "Manual",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "Error reports will not be sent to Microsoft",
+                    recommendation: "Safe to disable if you don't want to send error reports to Microsoft.",
+                    impactLevel: "low"
+                },
+                {
+                    name: "Superfetch",
+                    executable: "SysMain",
+                    description: "Maintains and improves system performance over time by analyzing usage patterns.",
+                    startup: "Automatic",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "May reduce system performance on systems with HDD",
+                    recommendation: "Disable on systems with SSD for better performance.",
+                    impactLevel: "medium"
+                }
+            ],
+            safe: [
+                {
+                    name: "Fax",
+                    executable: "Fax",
+                    description: "Enables sending and receiving faxes using fax resources on this computer or network.",
+                    startup: "Manual",
+                    dependencies: "Remote Procedure Call (RPC), Telephony",
+                    impact: "Cannot send or receive faxes",
+                    recommendation: "Safe to disable for most modern users.",
+                    impactLevel: "low"
+                },
+                {
+                    name: "Remote Registry",
+                    executable: "RemoteRegistry",
+                    description: "Enables remote users to modify registry settings on this computer.",
+                    startup: "Manual",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "Cannot modify registry remotely",
+                    recommendation: "Disable for improved security unless you need remote registry access.",
+                    impactLevel: "medium"
+                },
+                {
+                    name: "Downloaded Maps Manager",
+                    executable: "MapsBroker",
+                    description: "Windows service for application access to downloaded maps.",
+                    startup: "Manual",
+                    dependencies: "None",
+                    impact: "Windows Maps app may not work properly",
+                    recommendation: "Safe to disable if you don't use Windows Maps app.",
+                    impactLevel: "low"
+                },
+                {
+                    name: "Windows Insider Service",
+                    executable: "wisvc",
+                    description: "Manages the Windows Insider Program settings.",
+                    startup: "Manual",
+                    dependencies: "None",
+                    impact: "Cannot participate in Windows Insider Program",
+                    recommendation: "Safe to disable if not participating in Insider Program.",
+                    impactLevel: "low"
+                },
+                {
+                    name: "Touch Keyboard and Handwriting Panel Service",
+                    executable: "TabletInputService",
+                    description: "Enables Touch Keyboard and Handwriting Panel pen and ink functionality.",
+                    startup: "Manual",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "Touch keyboard may not work on touch devices",
+                    recommendation: "Safe to disable on non-touch devices.",
+                    impactLevel: "low"
+                },
+                {
+                    name: "Windows Camera Frame Server",
+                    executable: "FrameServer",
+                    description: "Allows multiple clients to access video frames from cameras.",
+                    startup: "Manual",
+                    dependencies: "None",
+                    impact: "Multiple apps cannot access camera simultaneously",
+                    recommendation: "Safe to disable if you don't use camera with multiple apps.",
+                    impactLevel: "low"
+                }
+            ],
+            security: [
+                {
+                    name: "Windows Defender Firewall",
+                    executable: "mpssvc",
+                    description: "Windows Defender Firewall helps protect your computer by preventing unauthorized users from gaining access.",
+                    startup: "Automatic",
+                    dependencies: "Base Filtering Engine, Remote Procedure Call (RPC)",
+                    impact: "No firewall protection, system vulnerable to network attacks",
+                    recommendation: "Keep enabled unless using third-party firewall.",
+                    impactLevel: "high"
+                },
+                {
+                    name: "Windows Security Service",
+                    executable: "SecurityHealthService",
+                    description: "Monitors security health components and provides a centralized security dashboard.",
+                    startup: "Automatic",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "Security Center warnings and monitoring disabled",
+                    recommendation: "Keep enabled for security monitoring.",
+                    impactLevel: "medium"
+                },
+                {
+                    name: "Application Identity",
+                    executable: "AppIDSvc",
+                    description: "Determines and verifies the identity of an application. Used by AppLocker.",
+                    startup: "Manual",
+                    dependencies: "None",
+                    impact: "AppLocker policies will not be enforced",
+                    recommendation: "Disable if not using AppLocker.",
+                    impactLevel: "low"
+                }
+            ],
+            network: [
+                {
+                    name: "Network Connections",
+                    executable: "Netman",
+                    description: "Manages objects in the Network and Dial-Up Connections folder.",
+                    startup: "Manual",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "Cannot view or modify network connections",
+                    recommendation: "Keep enabled for network management.",
+                    impactLevel: "medium"
+                },
+                {
+                    name: "Network Location Awareness",
+                    executable: "NlaSvc",
+                    description: "Collects and stores network configuration and location information.",
+                    startup: "Automatic",
+                    dependencies: "AFD Networking Support Environment, TCP/IP Protocol Driver",
+                    impact: "Network awareness features may not work properly",
+                    recommendation: "Keep enabled for proper network functionality.",
+                    impactLevel: "medium"
+                },
+                {
+                    name: "SSDP Discovery",
+                    executable: "SSDPSRV",
+                    description: "Discovers networked devices and services that use the SSDP discovery protocol.",
+                    startup: "Manual",
+                    dependencies: "HTTP",
+                    impact: "UPnP devices may not be discovered automatically",
+                    recommendation: "Disable if not using UPnP devices.",
+                    impactLevel: "low"
+                }
+            ]
+        },
+        bn: {
+            critical: [
+                {
+                    name: "Windows Update",
+                    executable: "wuauserv",
+                    description: "Windows এবং অন্যান্য প্রোগ্রামের জন্য আপডেট সনাক্তকরণ, ডাউনলোড এবং ইনস্টলেশন সক্ষম করে। সিস্টেম নিরাপত্তা এবং স্থিতিশীলতার জন্য অপরিহার্য।",
+                    startup: "স্বয়ংক্রিয় (বিলম্বিত শুরু)",
+                    dependencies: "Remote Procedure Call (RPC), DCOM Server Process Launcher",
+                    impact: "আপডেট ছাড়া সিস্টেম নিরাপত্তা হুমকির জন্য ঝুঁকিপূর্ণ হয়ে পড়ে",
+                    recommendation: "এই সার্ভিসটি চালু রাখুন। এটি নিরাপত্তা প্যাচ এবং সিস্টেম আপডেট পাওয়ার জন্য অপরিহার্য।",
+                    impactLevel: "high"
+                },
+                {
+                    name: "Windows Defender Antivirus Service",
+                    executable: "WinDefend",
+                    description: "ম্যালওয়্যার, ভাইরাস এবং নিরাপত্তা হুমকির বিরুদ্ধে রিয়েল-টাইম সুরক্ষা প্রদান করে। সিস্টেম নিরাপত্তার জন্য গুরুত্বপূর্ণ।",
+                    startup: "স্বয়ংক্রিয়",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "কোন অ্যান্টিভাইরাস সুরক্ষা নেই, সিস্টেম ম্যালওয়্যারের জন্য ঝুঁকিপূর্ণ",
+                    recommendation: "বিকল্প অ্যান্টিভাইরাস সফ্টওয়্যার ব্যবহার না করলে কখনো বন্ধ করবেন না।",
+                    impactLevel: "high"
+                },
+                {
+                    name: "Remote Procedure Call (RPC)",
+                    executable: "RpcSs",
+                    description: "কোর Windows সার্ভিস যা প্রক্রিয়াগুলির মধ্যে যোগাযোগ সক্ষম করে। অনেক Windows বৈশিষ্ট্য এই সার্ভিসের উপর নির্ভর করে।",
+                    startup: "স্বয়ংক্রিয়",
+                    dependencies: "কোনটিই না",
+                    impact: "এটি ছাড়া Windows কাজ করতে পারে না",
+                    recommendation: "সক্রিয় থাকতে হবে। এটি ছাড়া Windows কাজ করতে পারে না।",
+                    impactLevel: "high"
+                },
+                {
+                    name: "DHCP Client",
+                    executable: "dhcp",
+                    description: "আপনার কম্পিউটারের জন্য IP ঠিকানা এবং DNS রেকর্ড নিবন্ধন এবং আপডেট করে নেটওয়ার্ক কনফিগারেশন পরিচালনা করে।",
+                    startup: "স্বয়ংক্রিয়",
+                    dependencies: "AFD Networking Support Environment, TCP/IP Protocol Driver",
+                    impact: "স্বয়ংক্রিয়ভাবে IP ঠিকানা পাওয়া যাবে না, নেটওয়ার্ক সংযোগ সমস্যা",
+                    recommendation: "স্বয়ংক্রিয় নেটওয়ার্ক সংযোগের জন্য সক্রিয় রাখুন।",
+                    impactLevel: "high"
+                }
+            ],
+            optional: [
+                {
+                    name: "Print Spooler",
+                    executable: "Spooler",
+                    description: "প্রিন্টারে পাঠানো সমস্ত প্রিন্ট জব পরিচালনা করে। শুধুমাত্র প্রয়োজন যদি আপনি প্রিন্টার ব্যবহার করেন।",
+                    startup: "স্বয়ংক্রিয়",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "ডকুমেন্ট প্রিন্ট করা যাবে না",
+                    recommendation: "প্রিন্টার ব্যবহার না করলে বন্ধ করুন। নিরাপত্তা উন্নত করতে পারে।",
+                    impactLevel: "low"
+                },
+                {
+                    name: "Bluetooth Support Service",
+                    executable: "bthserv",
+                    description: "রিমোট Bluetooth ডিভাইসগুলির সনাক্তকরণ এবং সংযোগ সমর্থন করে।",
+                    startup: "ম্যানুয়াল",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "Bluetooth ডিভাইস কাজ করবে না",
+                    recommendation: "Bluetooth ডিভাইস ব্যবহার না করলে বন্ধ করুন।",
+                    impactLevel: "low"
+                }
+            ],
+            safe: [
+                {
+                    name: "ফ্যাক্স",
+                    executable: "Fax",
+                    description: "এই কম্পিউটার বা নেটওয়ার্কে ফ্যাক্স রিসোর্স ব্যবহার করে ফ্যাক্স পাঠানো এবং গ্রহণ করা সক্ষম করে।",
+                    startup: "ম্যানুয়াল",
+                    dependencies: "Remote Procedure Call (RPC), Telephony",
+                    impact: "ফ্যাক্স পাঠানো বা গ্রহণ করা যাবে না",
+                    recommendation: "বেশিরভাগ আধুনিক ব্যবহারকারীর জন্য বন্ধ করা নিরাপদ।",
+                    impactLevel: "low"
+                },
+                {
+                    name: "Remote Registry",
+                    executable: "RemoteRegistry",
+                    description: "রিমোট ব্যবহারকারীদের এই কম্পিউটারে রেজিস্ট্রি সেটিংস পরিবর্তন করতে দেয়।",
+                    startup: "ম্যানুয়াল",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "রিমোটলি রেজিস্ট্রি পরিবর্তন করা যাবে না",
+                    recommendation: "নিরাপত্তা উন্নত করতে বন্ধ করুন, যদি না আপনার রিমোট রেজিস্ট্রি অ্যাক্সেস প্রয়োজন হয়।",
+                    impactLevel: "medium"
+                }
+            ],
+            security: [
+                {
+                    name: "Windows Defender Firewall",
+                    executable: "mpssvc",
+                    description: "Windows Defender ফায়ারওয়াল অননুমোদিত ব্যবহারকারীদের অ্যাক্সেস পাওয়া থেকে প্রতিরোধ করে আপনার কম্পিউটার সুরক্ষা করতে সাহায্য করে।",
+                    startup: "স্বয়ংক্রিয়",
+                    dependencies: "Base Filtering Engine, Remote Procedure Call (RPC)",
+                    impact: "কোন ফায়ারওয়াল সুরক্ষা নেই, সিস্টেম নেটওয়ার্ক আক্রমণের জন্য ঝুঁকিপূর্ণ",
+                    recommendation: "তৃতীয় পক্ষের ফায়ারওয়াল ব্যবহার না করলে সক্রিয় রাখুন।",
+                    impactLevel: "high"
+                }
+            ],
+            network: [
+                {
+                    name: "Network Connections",
+                    executable: "Netman",
+                    description: "নেটওয়ার্ক এবং ডায়াল-আপ কানেকশন ফোল্ডারে অবজেক্ট পরিচালনা করে।",
+                    startup: "ম্যানুয়াল",
+                    dependencies: "Remote Procedure Call (RPC)",
+                    impact: "নেটওয়ার্ক সংযোগ দেখতে বা পরিবর্তন করতে পারবে না",
+                    recommendation: "নেটওয়ার্ক পরিচালনার জন্য সক্রিয় রাখুন।",
+                    impactLevel: "medium"
+                }
+            ]
+        }
+    };
+
+    // Current language
+    let currentLang = 'en';
+
+    // DOM Elements
+    const langEnBtn = document.getElementById('lang-en');
+    const langBnBtn = document.getElementById('lang-bn');
+    const hamburger = document.getElementById('hamburger');
+    const navbar = document.getElementById('navbar');
+    const searchInput = document.getElementById('searchInput');
+    const searchInputBn = document.getElementById('searchInputBn');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const servicesGrids = document.querySelectorAll('.services-grid');
+    const referenceTableBody = document.getElementById('reference-table-body');
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+        // Load initial services
+        renderServices();
+        renderReferenceTable();
+        updateStats();
+        
+        // Set up event listeners
+        setupEventListeners();
+        
+        // Initialize Google Analytics
+        initGoogleAnalytics();
+        
+        // Highlight current section in navigation
+        highlightCurrentSection();
+    });
+
+    // Set up event listeners
+    function setupEventListeners() {
+        // Language switcher
+        langEnBtn.addEventListener('click', () => switchLanguage('en'));
+        langBnBtn.addEventListener('click', () => switchLanguage('bn'));
+        
+        // Hamburger menu
+        hamburger.addEventListener('click', toggleNavbar);
+        
+        // Close navbar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && 
+                !navbar.contains(e.target) && 
+                !hamburger.contains(e.target) && 
+                navbar.classList.contains('active')) {
+                toggleNavbar();
+            }
+        });
+        
+        // Search functionality
+        searchInput.addEventListener('input', handleSearch);
+        searchInputBn.addEventListener('input', handleSearch);
+        
+        // Filter buttons
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Filter services
+                const filter = this.getAttribute('data-filter');
+                filterServices(filter);
+            });
+        });
+        
+        // Navigation links
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    // Update active nav link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Scroll to section
+                    window.scrollTo({
+                        top: targetSection.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Scroll spy for highlighting current section
+        window.addEventListener('scroll', highlightCurrentSection);
+        
+        // Back to top button
+        window.addEventListener('scroll', showBackToTopButton);
+        
+        // Print page
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                e.preventDefault();
+                window.print();
+            }
+        });
+    }
+
+    // Switch language
+    function switchLanguage(lang) {
+        currentLang = lang;
+        
+        // Update language buttons
+        if (lang === 'en') {
+            langEnBtn.classList.add('active');
+            langBnBtn.classList.remove('active');
+            searchInput.style.display = 'block';
+            searchInputBn.style.display = 'none';
+        } else {
+            langEnBtn.classList.remove('active');
+            langBnBtn.classList.add('active');
+            searchInput.style.display = 'none';
+            searchInputBn.style.display = 'block';
+        }
+        
+        // Update all text content
+        updateTextContent();
+        
+        // Re-render services and table
+        renderServices();
+        renderReferenceTable();
+        updateStats();
+        
+        // Track language change
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'language_change', {
+                'event_category': 'engagement',
+                'event_label': lang
+            });
+        }
+    }
+
+    // Update all text content based on language
+    function updateTextContent() {
+        const elements = document.querySelectorAll('.en, .bn');
+        elements.forEach(el => {
+            if (el.classList.contains(currentLang)) {
+                el.style.display = 'inline';
+            } else {
+                el.style.display = 'none';
+            }
+        });
+    }
+
+    // Render services
+    function renderServices() {
+        const sections = ['critical', 'optional', 'safe', 'security', 'network'];
+        
+        sections.forEach(section => {
+            const grid = document.querySelector(`#${section}-services .services-grid`);
+            if (!grid) return;
+            
+            grid.innerHTML = '';
+            const services = servicesData[currentLang][section] || [];
+            
+            services.forEach((service, index) => {
+                const card = createServiceCard(service, section, index);
+                grid.appendChild(card);
+            });
+        });
+    }
+
+    // Create service card
+    function createServiceCard(service, section, index) {
+        const card = document.createElement('div');
+        card.className = `service-card ${section}`;
+        card.setAttribute('data-service-name', service.name.toLowerCase());
+        card.setAttribute('data-service-section', section);
+        card.style.animationDelay = `${index * 0.1}s`;
+        
+        let impactText = '';
+        let impactClass = '';
+        
+        switch(service.impactLevel) {
+            case 'high':
+                impactText = currentLang === 'en' ? 'High Impact' : 'উচ্চ প্রভাব';
+                impactClass = 'impact-high';
+                break;
+            case 'medium':
+                impactText = currentLang === 'en' ? 'Medium Impact' : 'মাধ্যমিক প্রভাব';
+                impactClass = 'impact-medium';
+                break;
+            case 'low':
+                impactText = currentLang === 'en' ? 'Low Impact' : 'নিম্ন প্রভাব';
+                impactClass = 'impact-low';
+                break;
+        }
+        
+        let statusText = '';
+        let statusClass = '';
+        
+        switch(section) {
+            case 'critical':
+                statusText = currentLang === 'en' ? 'CRITICAL' : 'সমালোচনামূলক';
+                statusClass = 'status-critical';
+                break;
+            case 'optional':
+                statusText = currentLang === 'en' ? 'OPTIONAL' : 'ঐচ্ছিক';
+                statusClass = 'status-optional';
+                break;
+            case 'safe':
+                statusText = currentLang === 'en' ? 'SAFE' : 'নিরাপদ';
+                statusClass = 'status-safe';
+                break;
+            case 'security':
+                statusText = currentLang === 'en' ? 'SECURITY' : 'নিরাপত্তা';
+                statusClass = 'status-security';
+                break;
+            case 'network':
+                statusText = currentLang === 'en' ? 'NETWORK' : 'নেটওয়ার্ক';
+                statusClass = 'status-network';
+                break;
+        }
+        
+        card.innerHTML = `
+            <div class="service-header">
+                <div class="service-name-container">
+                    <div class="service-name">
+                        <i class="fas fa-${getServiceIcon(section)}"></i>
+                        ${service.name}
+                    </div>
+                    <div class="service-executable">${service.executable}</div>
+                </div>
+                <span class="service-status ${statusClass}">${statusText}</span>
+            </div>
+            <div class="service-description">${service.description}</div>
+            <div class="service-details">
+                <div class="detail-row">
+                    <div class="detail-label">${currentLang === 'en' ? 'Startup Type' : 'শুরুর ধরন'}</div>
+                    <div class="detail-value">${service.startup}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">${currentLang === 'en' ? 'Dependencies' : 'নির্ভরতা'}</div>
+                    <div class="detail-value">${service.dependencies || (currentLang === 'en' ? 'None' : 'কোনটিই না')}</div>
+                </div>
+                <div class="detail-row">
+                    <div class="detail-label">${currentLang === 'en' ? 'If Disabled' : 'বন্ধ করলে'}</div>
+                    <div class="detail-value">${service.impact}</div>
+                </div>
+                <div class="impact-level ${impactClass}">
+                    <i class="fas fa-${getImpactIcon(service.impactLevel)}"></i> ${impactText}
+                </div>
+            </div>
+            <div class="recommendation">
+                <h4><i class="fas fa-lightbulb"></i> ${currentLang === 'en' ? 'Recommendation' : 'সুপারিশ'}</h4>
+                <p>${service.recommendation}</p>
+            </div>
+        `;
+        
+        return card;
+    }
+
+    // Render reference table
+    function renderReferenceTable() {
+        referenceTableBody.innerHTML = '';
+        const sections = ['critical', 'optional', 'safe', 'security', 'network'];
+        let allServices = [];
+        
+        sections.forEach(section => {
+            const services = servicesData[currentLang][section] || [];
+            services.forEach(service => {
+                allServices.push({
+                    ...service,
+                    section: section
+                });
+            });
+        });
+        
+        // Sort services by name
+        allServices.sort((a, b) => a.name.localeCompare(b.name));
+        
+        allServices.forEach(service => {
+            let statusText = '';
+            let statusClass = '';
+            
+            switch(service.section) {
+                case 'critical':
+                    statusText = currentLang === 'en' ? 'Critical' : 'সমালোচনামূলক';
+                    statusClass = 'status-critical';
+                    break;
+                case 'optional':
+                    statusText = currentLang === 'en' ? 'Optional' : 'ঐচ্ছিক';
+                    statusClass = 'status-optional';
+                    break;
+                case 'safe':
+                    statusText = currentLang === 'en' ? 'Safe' : 'নিরাপদ';
+                    statusClass = 'status-safe';
+                    break;
+                case 'security':
+                    statusText = currentLang === 'en' ? 'Security' : 'নিরাপত্তা';
+                    statusClass = 'status-security';
+                    break;
+                case 'network':
+                    statusText = currentLang === 'en' ? 'Network' : 'নেটওয়ার্ক';
+                    statusClass = 'status-network';
+                    break;
+            }
+            
+            let impactText = '';
+            
+            switch(service.impactLevel) {
+                case 'high':
+                    impactText = currentLang === 'en' ? 'High' : 'উচ্চ';
+                    break;
+                case 'medium':
+                    impactText = currentLang === 'en' ? 'Medium' : 'মাধ্যম';
+                    break;
+                case 'low':
+                    impactText = currentLang === 'en' ? 'Low' : 'নিম্ন';
+                    break;
+            }
+            
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${service.name}</td>
+                <td><span class="table-status ${statusClass}">${statusText}</span></td>
+                <td>${impactText}</td>
+                <td>${service.recommendation}</td>
+            `;
+            referenceTableBody.appendChild(row);
+        });
+    }
+
+    // Update statistics
+    function updateStats() {
+        const criticalCount = servicesData[currentLang].critical.length;
+        const optionalCount = servicesData[currentLang].optional.length;
+        const safeCount = servicesData[currentLang].safe.length;
+        
+        document.getElementById('critical-count').textContent = criticalCount;
+        document.getElementById('optional-count').textContent = optionalCount;
+        document.getElementById('safe-count').textContent = safeCount;
+    }
+
+    // Handle search
+    function handleSearch() {
+        const searchTerm = currentLang === 'en' ? 
+            searchInput.value.toLowerCase() : 
+            searchInputBn.value.toLowerCase();
+        
+        if (searchTerm.length === 0) {
+            // Show all services
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.style.display = 'block';
+            });
+            return;
+        }
+        
+        document.querySelectorAll('.service-card').forEach(card => {
+            const serviceName = card.getAttribute('data-service-name');
+            const serviceDescription = card.querySelector('.service-description').textContent.toLowerCase();
+            const serviceExecutable = card.querySelector('.service-executable').textContent.toLowerCase();
+            
+            if (serviceName.includes(searchTerm) || 
+                serviceDescription.includes(searchTerm) || 
+                serviceExecutable.includes(searchTerm)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        
+        // Track search
+        if (typeof gtag !== 'undefined' && searchTerm.length > 2) {
+            gtag('event', 'search', {
+                'event_category': 'engagement',
+                'event_label': searchTerm
+            });
+        }
+    }
+
+    // Filter services
+    function filterServices(filter) {
+        const allCards = document.querySelectorAll('.service-card');
+        
+        if (filter === 'all') {
+            allCards.forEach(card => {
+                card.style.display = 'block';
+            });
+        } else {
+            allCards.forEach(card => {
+                const section = card.getAttribute('data-service-section');
+                if (section === filter) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Scroll to first section
+        const firstSection = document.querySelector('.services-section');
+        if (firstSection) {
+            window.scrollTo({
+                top: firstSection.offsetTop - 100,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Track filter
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'filter', {
+                'event_category': 'engagement',
+                'event_label': filter
+            });
+        }
+    }
+
+    // Toggle navbar on mobile
+    function toggleNavbar() {
+        navbar.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    }
+
+    // Highlight current section in navigation
+    function highlightCurrentSection() {
+        const sections = document.querySelectorAll('.services-section');
+        const scrollPosition = window.scrollY + 150;
+        
+        let currentSection = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+        
+        if (currentSection) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    }
+
+    // Show back to top button when scrolled down
+    function showBackToTopButton() {
+        // This function can be expanded to show a back-to-top button
+        // Currently handled by CSS
+    }
+
+    // Initialize Google Analytics
+    function initGoogleAnalytics() {
+        if (typeof gtag !== 'undefined') {
+            gtag('config', 'G-5H7RZ72M1J');
+            
+            // Track page views
+            gtag('event', 'page_view', {
+                'page_title': 'Windows Services Guide',
+                'page_location': window.location.href,
+                'page_path': window.location.pathname
+            });
+        }
+    }
+
+    // Helper function to get service icon
+    function getServiceIcon(section) {
+        switch(section) {
+            case 'critical': return 'exclamation-triangle';
+            case 'optional': return 'info-circle';
+            case 'safe': return 'check-circle';
+            case 'security': return 'lock';
+            case 'network': return 'network-wired';
+            default: return 'cog';
+        }
+    }
+
+    // Helper function to get impact icon
+    function getImpactIcon(impactLevel) {
+        switch(impactLevel) {
+            case 'high': return 'exclamation-circle';
+            case 'medium': return 'minus-circle';
+            case 'low': return 'check-circle';
+            default: return 'info-circle';
+        }
+    }
+
+    // Breadcrumb navigation (fallback)
+    function setBreadcrumb(items) {
+        const breadcrumb = document.getElementById('breadcrumb');
+        if (breadcrumb && items && items.length > 0) {
+            breadcrumb.innerHTML = items.map(item => 
+                item.link ? `<a href="${item.link}">${item.name}</a>` : item.name
+            ).join(' / ');
+        }
+    }
+
+    // Set initial breadcrumb
+    setBreadcrumb([
+        { name: "Home", link: "../../index.html" },
+        { name: "Tools", link: "../tools.html" },
+        { name: "Windows Tools", link: "../tools.html#windows" },
+        { name: "Services Guide" }
+    ]);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Health Check Tool - Monitor Server Status</title>
+    
+    <meta name="description" content="Server Health Check Tool - Monitor server status, check CPU, memory, disk usage, and network connectivity. Real-time server monitoring tool for system administrators.">
+    <meta name="keywords" content="server health, server monitoring, CPU usage, memory usage, disk space, network monitoring, system admin tools">
+    <meta name="author" content="Asadul Islam">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+        }
+
+        .page-wrapper {
+            background: rgba(255, 255, 255, 0.95);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .logo-icon {
+            background: #764ba2;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            gap: 8px;
+        }
+
+        .navbar a:hover {
+            color: #667eea;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #667eea;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-size: 0.9em;
+            color: #5a6c7d;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .tool-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tool-header h1 {
+            font-size: 42px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+           
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .tool-header p {
+            font-size: 18px;
+            color: #718096;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Server Health Tool Specific Styles */
+        .server-form {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 2px dashed rgba(102, 126, 234, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 16px;
+        }
+
+        .server-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .server-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .port-input {
+            width: 120px;
+            padding: 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .check-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .check-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .input-row {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* Health Status Cards */
+        .health-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .status-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+
+        .status-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .status-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .status-icon.healthy {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .status-icon.warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .status-icon.critical {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        }
+
+        .status-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .status-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .status-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .status-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+
+        .status-fill.healthy { background: #10b981; }
+        .status-fill.warning { background: #f59e0b; }
+        .status-fill.critical { background: #ef4444; }
+
+        /* Log Output */
+        .log-output {
+            background: #1e293b;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #cbd5e1;
+        }
+
+        .log-content {
+            font-family: 'Courier New', monospace;
+            color: #cbd5e1;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-line {
+            margin-bottom: 5px;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .log-line.info { background: rgba(59, 130, 246, 0.1); }
+        .log-line.success { background: rgba(16, 185, 129, 0.1); }
+        .log-line.warning { background: rgba(245, 158, 11, 0.1); }
+        .log-line.error { background: rgba(239, 68, 68, 0.1); }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(102, 126, 234, 0.1);
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Features Section */
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-color: #667eea;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: #667eea;
+            font-size: 30px;
+        }
+
+        .feature-card h3 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature-card p {
+            color: #718096;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 80px;
+            color: #2c3e50;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 50px 20px 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .footer-column a,
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 14px;
+            text-decoration: none;
+            line-height: 1.8;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #667eea;
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f0f3ff;
+            color: #2563eb;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 14px;
+            color: #5a6c7d;
+            background: #f8fafc;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: white;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .navbar a {
+                padding: 15px;
+            }
+
+            .tool-header h1 {
+                font-size: 32px;
+            }
+
+            .input-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .port-input {
+                width: 100%;
+            }
+
+            .check-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .tool-container {
+                padding: 25px;
+            }
+
+            .server-form {
+                padding: 25px;
+            }
+
+            .health-status {
+                grid-template-columns: 1fr;
+            }
+
+            .features-section {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+<!-- Header -->
+<div class="fixed-header-container">
+    <div class="header-content">
+        <div class="logo">
+            <span class="logo-icon">SA</span>
+            <span>SysAdmin Tools</span>
+        </div>
+        
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb" id="breadcrumb"></div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="tool-container">
+        <div class="tool-header">
+            <h1>Server Health Check</h1>
+            <p>Monitor your server's health in real-time. Check CPU usage, memory consumption, disk space, network connectivity, and service status.</p>
+        </div>
+
+        <div class="server-form">
+            <div class="form-group">
+                <label class="form-label">Server IP Address or Hostname</label>
+                <div class="input-row">
+                    <input type="text" class="server-input" id="serverAddress" 
+                           placeholder="e.g., 192.168.1.1 or example.com" 
+                           value="localhost" autocomplete="off">
+                    <input type="text" class="port-input" id="serverPort" 
+                           placeholder="Port" value="22">
+                    <button class="check-btn" id="checkHealthBtn">
+                        <i class="fas fa-heartbeat"></i> Check Health
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Check Interval (seconds)</label>
+                <div class="input-row">
+                    <select class="server-input" id="checkInterval">
+                        <option value="5">5 seconds</option>
+                        <option value="10" selected>10 seconds</option>
+                        <option value="30">30 seconds</option>
+                        <option value="60">1 minute</option>
+                    </select>
+                    <button class="check-btn" id="startMonitoringBtn">
+                        <i class="fas fa-play"></i> Start Monitoring
+                    </button>
+                    <button class="check-btn" id="stopMonitoringBtn" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                        <i class="fas fa-stop"></i> Stop
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+            <div class="loading-text">Checking Server Health...</div>
+            <div class="loading-subtext">Please wait while we analyze server metrics</div>
+        </div>
+
+        <!-- Health Status Section -->
+        <div class="health-status" id="healthStatus">
+            <!-- Status cards will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Log Output -->
+        <div class="log-output">
+            <div class="log-header">
+                <h3><i class="fas fa-terminal"></i> Health Check Log</h3>
+                <button class="check-btn" id="clearLogBtn" style="padding: 10px 20px; font-size: 14px;">
+                    <i class="fas fa-trash"></i> Clear Log
+                </button>
+            </div>
+            <div class="log-content" id="logContent">
+                <div class="log-line info">[INFO] Server Health Check Tool initialized</div>
+                <div class="log-line info">[INFO] Ready to check server status</div>
+                <div class="log-line info">[INFO] Enter server details and click "Check Health"</div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-server"></i>
+                </div>
+                <h3>Real-time Monitoring</h3>
+                <p>Monitor CPU, memory, disk usage, and network statistics in real-time with configurable intervals.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Security Check</h3>
+                <p>Check for open ports, service status, and potential security vulnerabilities on your server.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Performance Analytics</h3>
+                <p>Get detailed performance metrics and historical data for capacity planning and optimization.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About This Tool</h3>
+            <p>Server Health Check tool for system administrators to monitor server performance and health status in real-time.</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <div class="quick-links-container">
+                <div class="quick-links">
+                    <a href="../../index.html">Home</a>
+                    <a href="../../skills.html">Skills</a>
+                    <a href="../tools.html">Tools</a>
+                    <a href="../../certificate.html">Certificate</a>
+                    <a href="../../contact.html">Contact</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © 2024 System Admin Tools | Server Health Check | Real-time Monitoring
+    </div>
+</footer>
+
+</div>
+
+<script>
+// Google Analytics
+(function() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+    document.head.appendChild(script);
+    
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5H7RZ72M1J', {
+        'send_page_view': true,
+        'anonymize_ip': true
+    });
+    window.gtag = gtag;
+})();
+
+// Hamburger menu
+const hamburger = document.getElementById("hamburger");
+const navbar = document.getElementById("navbar");
+hamburger.onclick = () => navbar.classList.toggle("active");
+
+// Set Breadcrumb
+setBreadcrumb([
+    { name: "Home", link: "../../index.html" },
+    { name: "Tools", link: "../tools.html" },
+    { name: "SysAdmin Tools", link: "../tools.html" },
+    { name: "Server Health Check" }
+]);
+
+function setBreadcrumb(items) {
+    document.getElementById("breadcrumb").innerHTML =
+        items.map(i => i.link ? `<a href="${i.link}">${i.name}</a>` : i.name).join(" / ");
+}
+
+// Server Health Check JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    const serverAddress = document.getElementById('serverAddress');
+    const serverPort = document.getElementById('serverPort');
+    const checkHealthBtn = document.getElementById('checkHealthBtn');
+    const startMonitoringBtn = document.getElementById('startMonitoringBtn');
+    const stopMonitoringBtn = document.getElementById('stopMonitoringBtn');
+    const checkInterval = document.getElementById('checkInterval');
+    const healthStatus = document.getElementById('healthStatus');
+    const logContent = document.getElementById('logContent');
+    const clearLogBtn = document.getElementById('clearLogBtn');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+
+    let monitoringInterval = null;
+    let isMonitoring = false;
+
+    // Predefined server status templates
+    const statusTemplates = {
+        localhost: {
+            cpu: { value: 25, status: 'healthy', max: 100 },
+            memory: { value: 65, status: 'warning', max: 100 },
+            disk: { value: 45, status: 'healthy', max: 100 },
+            network: { value: 85, status: 'healthy', max: 100 },
+            uptime: { value: 99.9, status: 'healthy', max: 100 }
+        },
+        production: {
+            cpu: { value: 75, status: 'warning', max: 100 },
+            memory: { value: 90, status: 'critical', max: 100 },
+            disk: { value: 85, status: 'warning', max: 100 },
+            network: { value: 95, status: 'healthy', max: 100 },
+            uptime: { value: 99.5, status: 'healthy', max: 100 }
+        },
+        default: {
+            cpu: { value: 40, status: 'healthy', max: 100 },
+            memory: { value: 60, status: 'healthy', max: 100 },
+            disk: { value: 30, status: 'healthy', max: 100 },
+            network: { value: 75, status: 'healthy', max: 100 },
+            uptime: { value: 99.8, status: 'healthy', max: 100 }
+        }
+    };
+
+    // Initialize with sample status
+    updateHealthStatus('localhost');
+
+    // Add log entry
+    function addLog(message, type = 'info') {
+        const timestamp = new Date().toLocaleTimeString();
+        const logLine = document.createElement('div');
+        logLine.className = `log-line ${type}`;
+        logLine.textContent = `[${timestamp}] ${message}`;
+        logContent.appendChild(logLine);
+        logContent.scrollTop = logContent.scrollHeight;
+    }
+
+    // Update health status display
+    function updateHealthStatus(serverType) {
+        const status = statusTemplates[serverType] || statusTemplates.default;
+        
+        healthStatus.innerHTML = `
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-icon ${status.cpu.status}">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div>
+                        <div class="status-title">CPU Usage</div>
+                    </div>
+                </div>
+                <div class="status-value">${status.cpu.value}%</div>
+                <div class="status-bar">
+                    <div class="status-fill ${status.cpu.status}" style="width: ${status.cpu.value}%"></div>
+                </div>
+                <div style="color: #6b7280; font-size: 14px;">
+                    ${getStatusMessage('CPU', status.cpu.value, status.cpu.status)}
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-icon ${status.memory.status}">
+                        <i class="fas fa-memory"></i>
+                    </div>
+                    <div>
+                        <div class="status-title">Memory Usage</div>
+                    </div>
+                </div>
+                <div class="status-value">${status.memory.value}%</div>
+                <div class="status-bar">
+                    <div class="status-fill ${status.memory.status}" style="width: ${status.memory.value}%"></div>
+                </div>
+                <div style="color: #6b7280; font-size: 14px;">
+                    ${getStatusMessage('Memory', status.memory.value, status.memory.status)}
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-icon ${status.disk.status}">
+                        <i class="fas fa-hdd"></i>
+                    </div>
+                    <div>
+                        <div class="status-title">Disk Space</div>
+                    </div>
+                </div>
+                <div class="status-value">${status.disk.value}%</div>
+                <div class="status-bar">
+                    <div class="status-fill ${status.disk.status}" style="width: ${status.disk.value}%"></div>
+                </div>
+                <div style="color: #6b7280; font-size: 14px;">
+                    ${getStatusMessage('Disk', status.disk.value, status.disk.status)}
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-icon ${status.network.status}">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <div>
+                        <div class="status-title">Network Uptime</div>
+                    </div>
+                </div>
+                <div class="status-value">${status.network.value}%</div>
+                <div class="status-bar">
+                    <div class="status-fill ${status.network.status}" style="width: ${status.network.value}%"></div>
+                </div>
+                <div style="color: #6b7280; font-size: 14px;">
+                    ${getStatusMessage('Network', status.network.value, status.network.status)}
+                </div>
+            </div>
+
+            <div class="status-card">
+                <div class="status-header">
+                    <div class="status-icon ${status.uptime.status}">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <div class="status-title">Server Uptime</div>
+                    </div>
+                </div>
+                <div class="status-value">${status.uptime.value}%</div>
+                <div class="status-bar">
+                    <div class="status-fill ${status.uptime.status}" style="width: ${status.uptime.value}%"></div>
+                </div>
+                <div style="color: #6b7280; font-size: 14px;">
+                    ${getStatusMessage('Uptime', status.uptime.value, status.uptime.status)}
+                </div>
+            </div>
+        `;
+    }
+
+    function getStatusMessage(type, value, status) {
+        const messages = {
+            healthy: `${type} usage is normal`,
+            warning: `${type} usage is high, consider optimization`,
+            critical: `${type} usage is critical! Immediate action required`
+        };
+        return messages[status] || 'Status unknown';
+    }
+
+    // Simulate server health check
+    function simulateHealthCheck() {
+        const address = serverAddress.value.trim();
+        const port = serverPort.value.trim();
+        
+        if (!address) {
+            addLog('Please enter a server address', 'error');
+            return;
+        }
+
+        loadingSpinner.style.display = 'block';
+        
+        // Simulate API call
+        setTimeout(() => {
+            loadingSpinner.style.display = 'none';
+            
+            // Determine server type based on address
+            let serverType = 'default';
+            if (address.includes('localhost') || address.includes('127.0.0.1')) {
+                serverType = 'localhost';
+            } else if (address.includes('prod') || address.includes('production')) {
+                serverType = 'production';
+            }
+
+            updateHealthStatus(serverType);
+            
+            // Add log entry
+            addLog(`Health check completed for ${address}:${port}`, 'success');
+            addLog(`CPU: ${statusTemplates[serverType].cpu.value}% (${statusTemplates[serverType].cpu.status})`, 'info');
+            addLog(`Memory: ${statusTemplates[serverType].memory.value}% (${statusTemplates[serverType].memory.status})`, 'info');
+            addLog(`Disk: ${statusTemplates[serverType].disk.value}% (${statusTemplates[serverType].disk.status})`, 'info');
+            
+            // Track event
+            if (window.gtag) {
+                gtag('event', 'server_health_check', {
+                    'event_category': 'sysadmin_tools',
+                    'event_label': address
+                });
+            }
+        }, 1500);
+    }
+
+    // Start monitoring
+    function startMonitoring() {
+        if (isMonitoring) return;
+        
+        const address = serverAddress.value.trim();
+        if (!address) {
+            addLog('Please enter a server address to start monitoring', 'error');
+            return;
+        }
+
+        const interval = parseInt(checkInterval.value) * 1000;
+        isMonitoring = true;
+        
+        addLog(`Started monitoring ${address} (every ${interval/1000} seconds)`, 'success');
+        
+        // Initial check
+        simulateHealthCheck();
+        
+        // Set up interval
+        monitoringInterval = setInterval(() => {
+            addLog(`Scheduled health check for ${address}`, 'info');
+            simulateHealthCheck();
+        }, interval);
+    }
+
+    // Stop monitoring
+    function stopMonitoring() {
+        if (!isMonitoring) return;
+        
+        clearInterval(monitoringInterval);
+        isMonitoring = false;
+        monitoringInterval = null;
+        
+        addLog('Monitoring stopped', 'info');
+    }
+
+    // Event Listeners
+    checkHealthBtn.addEventListener('click', simulateHealthCheck);
+    startMonitoringBtn.addEventListener('click', startMonitoring);
+    stopMonitoringBtn.addEventListener('click', stopMonitoring);
+    clearLogBtn.addEventListener('click', () => {
+        logContent.innerHTML = '';
+        addLog('Log cleared', 'info');
+    });
+
+    // Enter key for server address
+    serverAddress.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            simulateHealthCheck();
+        }
+    });
+
+    // Auto-focus
+    setTimeout(() => {
+        serverAddress.focus();
+    }, 500);
+
+    // Track page view
+    if (window.gtag) {
+        gtag('event', 'page_view', {
+            'page_title': 'Server Health Check Tool',
+            'page_location': window.location.href
+        });
+    }
+});
+</script>
+</body>
+</html>

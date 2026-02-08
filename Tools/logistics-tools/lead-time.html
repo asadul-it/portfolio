@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Time Calculator - Logistics Tools</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Calculate accurate lead times for shipments and logistics operations. Estimate delivery times based on distance, service type, customs clearance, and processing factors.">
+    <meta name="keywords"
+        content="lead time calculator, delivery time estimator, logistics lead time, shipping time calculator, transit time, supply chain timing, logistics planning">
+    <meta name="author" content="Logistics Tools">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Lead Time Calculator - Logistics Tools">
+    <meta property="og:description"
+        content="Professional lead time calculator for accurate delivery time estimation in logistics and supply chain operations.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/logistics-tools/lead-time.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/tools/lead-time-calculator.jpg">
+    <meta property="og:site_name" content="Logistics Tools">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lead Time Calculator - Logistics Tools">
+    <meta name="twitter:description"
+        content="Calculate accurate lead times for logistics and supply chain planning.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/tools/lead-time-calculator.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/Tools/logistics-tools/lead-time.html">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Lead Time Calculator",
+        "description": "Advanced lead time calculator for logistics and supply chain timing",
+        "url": "https://asadul-it.github.io/portfolio/Tools/logistics-tools/lead-time.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "author": {
+            "@type": "Organization",
+            "name": "Logistics Tools"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .header-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 19px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: #2563eb;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+            background-color: #f7fafc;
+        }
+
+        .navbar a.active {
+            color: #2563eb;
+            background-color: #ebf4ff;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            background: #f7fafc;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #2563eb;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1300px;
+            margin: 25px auto 15px auto;
+            padding: 0 25px;
+            font-size: 15px;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: #cbd5e0;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            max-width: 1300px;
+            margin: 0 auto 50px auto;
+            padding: 0 25px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 17px;
+            color: #718096;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .calculator-box {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .calculator-box h2 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ebf4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .calculator-box h2 i {
+            color: #2563eb;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-section h3 {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-section h3 i {
+            color: #2563eb;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 15px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+            background-color: #ffffff;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .distance-input-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .distance-slider {
+            flex: 1;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: #e2e8f0;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .distance-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #2563eb;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .distance-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #2563eb;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .distance-value {
+            min-width: 80px;
+            text-align: center;
+            font-weight: 600;
+            color: #2563eb;
+            font-size: 18px;
+        }
+
+        .transport-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .transport-option {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .transport-option:hover {
+            border-color: #cbd5e0;
+            background-color: #f7fafc;
+        }
+
+        .transport-option.selected {
+            border-color: #2563eb;
+            background-color: #ebf4ff;
+        }
+
+        .transport-option i {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #4a5568;
+        }
+
+        .transport-option.selected i {
+            color: #2563eb;
+        }
+
+        .transport-option h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+
+        .transport-option p {
+            font-size: 13px;
+            color: #718096;
+            line-height: 1.4;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #2563eb;
+        }
+
+        .checkbox-group label {
+            font-weight: 600;
+            color: #4a5568;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .input-hint {
+            font-size: 13px;
+            color: #a0aec0;
+            margin-top: 6px;
+            display: block;
+        }
+
+        .calculate-button {
+            width: 100%;
+            padding: 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .calculate-button:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .calculate-button:active {
+            transform: translateY(0);
+        }
+
+        .result-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .result-header h2 {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        .reset-button {
+            background: #edf2f7;
+            color: #4a5568;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reset-button:hover {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .lead-time-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .lead-time-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .summary-card i {
+            font-size: 32px;
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+
+        .summary-card .label {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .summary-card .value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            line-height: 1.2;
+        }
+
+        .summary-card .unit {
+            font-size: 16px;
+            color: #718096;
+            font-weight: 600;
+        }
+
+        .timeline-container {
+            margin-bottom: 30px;
+        }
+
+        .timeline-container h3 {
+            font-size: 20px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline {
+            position: relative;
+            height: 100px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        .timeline-track {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            right: 20px;
+            height: 4px;
+            background: #e2e8f0;
+            transform: translateY(-50%);
+            border-radius: 2px;
+        }
+
+        .timeline-milestone {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 16px;
+            height: 16px;
+            background: #ffffff;
+            border: 3px solid #2563eb;
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .timeline-label {
+            position: absolute;
+            top: calc(50% + 20px);
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #718096;
+            white-space: nowrap;
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            height: 4px;
+            background: #2563eb;
+            transform: translateY(-50%);
+            border-radius: 2px;
+            transition: width 1s ease;
+        }
+
+        .details-breakdown {
+            margin-bottom: 30px;
+        }
+
+        .details-breakdown h3 {
+            font-size: 20px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-item .label {
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .detail-item .value {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .recommendations {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .recommendations h3 {
+            font-size: 20px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .recommendations-list {
+            list-style: none;
+        }
+
+        .recommendations-list li {
+            padding: 12px 0;
+            color: #4a5568;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .recommendations-list li:last-child {
+            border-bottom: none;
+        }
+
+        .recommendations-list li i {
+            color: #2563eb;
+            margin-top: 2px;
+        }
+
+        .info-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 50px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-section h2 {
+            font-size: 28px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .info-section p {
+            color: #4a5568;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-card h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 8px 0;
+            color: #4a5568;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li i {
+            color: #2563eb;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: auto;
+            padding: 45px 25px 35px 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .footer-column p {
+            color: #718096;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-column a {
+            color: #4a5568;
+            font-size: 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+            transform: translateX(3px);
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f7fafc;
+            color: #2563eb;
+            font-size: 18px;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-bottom: 0;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 15px;
+            color: #718096;
+            background: #f8fafc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #e2e8f0;
+                z-index: 100;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar a {
+                padding: 18px 25px;
+                border-bottom: 1px solid #f1f1f1;
+                justify-content: flex-start;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .page-header p {
+                font-size: 16px;
+            }
+
+            .calculator-box {
+                padding: 30px 25px;
+            }
+
+            .calculator-box h2 {
+                font-size: 22px;
+            }
+
+            .transport-options {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-card .value {
+                font-size: 28px;
+            }
+
+            .info-section {
+                padding: 30px 25px;
+            }
+
+            .info-section h2 {
+                font-size: 24px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                text-align: center;
+            }
+
+            .quick-links {
+                align-items: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .breadcrumb {
+                padding: 0 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lead-time-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-box {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo">
+                <span class="logo-icon">LT</span>
+                <span class="logo-text">Logistics Tools</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html" class="active"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="../tools.html">Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="logistics-tools.html">Logistics Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Lead Time Calculator</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Lead Time Calculator</h1>
+            <p>Calculate accurate lead times for shipments based on distance, transport mode, customs clearance, and processing factors for effective logistics planning.</p>
+        </div>
+
+        <div class="calculator-container">
+            <div class="calculator-box">
+                <h2><i class="fas fa-clock"></i> Calculate Lead Time</h2>
+                
+                <div class="input-section">
+                    <h3><i class="fas fa-route"></i> Shipment Details</h3>
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="distance">Distance</label>
+                            <div class="distance-input-group">
+                                <input type="range" id="distanceSlider" class="distance-slider" min="50" max="5000" value="500">
+                                <div class="distance-value" id="distanceValue">500 km</div>
+                            </div>
+                            <input type="hidden" id="distance" value="500">
+                            <span class="input-hint">Adjust slider for distance (50-5000 km)</span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="originCountry">Origin Country</label>
+                            <select id="originCountry">
+                                <option value="US">United States</option>
+                                <option value="CN">China</option>
+                                <option value="DE">Germany</option>
+                                <option value="IN">India</option>
+                                <option value="BD">Bangladesh</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="JP">Japan</option>
+                                <option value="SG">Singapore</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="destinationCountry">Destination Country</label>
+                            <select id="destinationCountry">
+                                <option value="US">United States</option>
+                                <option value="CN">China</option>
+                                <option value="DE">Germany</option>
+                                <option value="IN">India</option>
+                                <option value="BD" selected>Bangladesh</option>
+                                <option value="GB">United Kingdom</option>
+                                <option value="JP">Japan</option>
+                                <option value="SG">Singapore</option>
+                            </select>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="shipmentType">Shipment Type</label>
+                            <select id="shipmentType">
+                                <option value="general">General Cargo</option>
+                                <option value="perishable">Perishable Goods</option>
+                                <option value="hazardous">Hazardous Materials</option>
+                                <option value="fragile">Fragile Items</option>
+                                <option value="oversized">Oversized Cargo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-section">
+                    <h3><i class="fas fa-shipping-fast"></i> Transport Mode</h3>
+                    <div class="transport-options">
+                        <div class="transport-option selected" id="transportRoad">
+                            <i class="fas fa-truck"></i>
+                            <h4>Road</h4>
+                            <p>40-80 km/h</p>
+                        </div>
+                        <div class="transport-option" id="transportRail">
+                            <i class="fas fa-train"></i>
+                            <h4>Rail</h4>
+                            <p>60-100 km/h</p>
+                        </div>
+                        <div class="transport-option" id="transportSea">
+                            <i class="fas fa-ship"></i>
+                            <h4>Sea</h4>
+                            <p>20-40 km/h</p>
+                        </div>
+                        <div class="transport-option" id="transportAir">
+                            <i class="fas fa-plane"></i>
+                            <h4>Air</h4>
+                            <p>800-900 km/h</p>
+                        </div>
+                        <div class="transport-option" id="transportMulti">
+                            <i class="fas fa-exchange-alt"></i>
+                            <h4>Multimodal</h4>
+                            <p>Combined modes</p>
+                        </div>
+                        <div class="transport-option" id="transportExpress">
+                            <i class="fas fa-bolt"></i>
+                            <h4>Express</h4>
+                            <p>Priority service</p>
+                        </div>
+                    </div>
+                    <input type="hidden" id="transportMode" value="road">
+                </div>
+
+                <div class="input-section">
+                    <h3><i class="fas fa-cogs"></i> Additional Factors</h3>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="customsClearance" checked>
+                        <label for="customsClearance">Customs Clearance Required</label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="weekendDelivery">
+                        <label for="weekendDelivery">Weekend/Holiday Delivery</label>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="specialHandling">
+                        <label for="specialHandling">Special Handling Required</label>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="processingDays">Additional Processing Days</label>
+                        <input type="number" id="processingDays" min="0" max="30" value="2">
+                        <span class="input-hint">Additional days for documentation, handling, etc.</span>
+                    </div>
+                </div>
+
+                <button class="calculate-button" id="calculateBtn">
+                    <i class="fas fa-calculator"></i> Calculate Lead Time
+                </button>
+            </div>
+
+            <div class="result-box">
+                <div class="result-header">
+                    <h2><i class="fas fa-chart-line"></i> Lead Time Results</h2>
+                    <button class="reset-button" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+
+                <div class="lead-time-summary">
+                    <div class="summary-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="label">Total Lead Time</div>
+                        <div class="value" id="totalLeadTime">0</div>
+                        <div class="unit">days</div>
+                    </div>
+                    <div class="summary-card">
+                        <i class="fas fa-road"></i>
+                        <div class="label">Transit Time</div>
+                        <div class="value" id="transitTime">0</div>
+                        <div class="unit">days</div>
+                    </div>
+                    <div class="summary-card">
+                        <i class="fas fa-file-contract"></i>
+                        <div class="label">Processing Time</div>
+                        <div class="value" id="processingTime">0</div>
+                        <div class="unit">days</div>
+                    </div>
+                    <div class="summary-card">
+                        <i class="fas fa-calendar-check"></i>
+                        <div class="label">Estimated Delivery</div>
+                        <div class="value" id="deliveryDate">--</div>
+                        <div class="unit">date</div>
+                    </div>
+                </div>
+
+                <div class="timeline-container">
+                    <h3><i class="fas fa-project-diagram"></i> Shipment Timeline</h3>
+                    <div class="timeline" id="timeline">
+                        <div class="timeline-track"></div>
+                        <div class="timeline-progress" id="timelineProgress" style="width: 0%"></div>
+                        <div class="timeline-milestone" id="milestoneStart" style="left: 0%"></div>
+                        <div class="timeline-milestone" id="milestoneProcessing" style="left: 25%"></div>
+                        <div class="timeline-milestone" id="milestoneTransit" style="left: 50%"></div>
+                        <div class="timeline-milestone" id="milestoneCustoms" style="left: 75%"></div>
+                        <div class="timeline-milestone" id="milestoneDelivery" style="left: 100%"></div>
+                        
+                        <div class="timeline-label" style="left: 0%">Start</div>
+                        <div class="timeline-label" style="left: 25%">Processing</div>
+                        <div class="timeline-label" style="left: 50%">In Transit</div>
+                        <div class="timeline-label" style="left: 75%">Customs</div>
+                        <div class="timeline-label" style="left: 100%">Delivery</div>
+                    </div>
+                </div>
+
+                <div class="details-breakdown">
+                    <h3><i class="fas fa-list-alt"></i> Time Breakdown</h3>
+                    <div class="detail-item">
+                        <span class="label">Transport Mode</span>
+                        <span class="value" id="transportModeDisplay">Road</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Distance</span>
+                        <span class="value" id="distanceDisplay">500 km</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Average Speed</span>
+                        <span class="value" id="averageSpeed">60 km/day</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Customs Clearance</span>
+                        <span class="value" id="customsTime">2 days</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Additional Processing</span>
+                        <span class="value" id="additionalProcessing">2 days</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Buffer Time</span>
+                        <span class="value" id="bufferTime">1 day</span>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <h3><i class="fas fa-lightbulb"></i> Optimization Suggestions</h3>
+                    <ul class="recommendations-list" id="recommendationsList">
+                        <li><i class="fas fa-check-circle"></i> Recommendations will appear here after calculation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>Lead Time Calculation Factors</h2>
+            <p>Understand the key factors that influence lead time in logistics and supply chain operations for better planning and efficiency.</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-truck"></i> Transport Modes</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Road: 40-80 km/h, affected by traffic</li>
+                        <li><i class="fas fa-check"></i> Rail: 60-100 km/h, fixed schedules</li>
+                        <li><i class="fas fa-check"></i> Sea: 20-40 km/h, port delays common</li>
+                        <li><i class="fas fa-check"></i> Air: 800-900 km/h, fastest but costly</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-file-contract"></i> Processing Factors</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Documentation: 1-3 business days</li>
+                        <li><i class="fas fa-check"></i> Customs clearance: 2-5 days average</li>
+                        <li><i class="fas fa-check"></i> Special handling: Adds 1-2 days</li>
+                        <li><i class="fas fa-check"></i> Weekend/holidays: Add buffer days</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Common Delays</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Weather conditions</li>
+                        <li><i class="fas fa-check"></i> Port congestion</li>
+                        <li><i class="fas fa-check"></i> Documentation errors</li>
+                        <li><i class="fas fa-check"></i> Customs inspections</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== Hidden SEO Content ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/WebApplication">
+        <span itemprop="name">Lead Time Calculator</span>
+        <span itemprop="description">Advanced lead time calculator for logistics and supply chain timing estimation</span>
+        <span itemprop="applicationCategory">BusinessApplication</span>
+        <span itemprop="operatingSystem">Any</span>
+        <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="price">0</span>
+            <span itemprop="priceCurrency">USD</span>
+        </span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Logistics Tools</h3>
+                <p>Professional logistics and lead time calculation tools for accurate delivery time estimation and supply chain planning.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Logistics Tools | All Rights Reserved
+        </div>
+    </footer>
+
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // DOM Elements
+        const distanceSlider = document.getElementById('distanceSlider');
+        const distanceValue = document.getElementById('distanceValue');
+        const distanceInput = document.getElementById('distance');
+        const originCountry = document.getElementById('originCountry');
+        const destinationCountry = document.getElementById('destinationCountry');
+        const shipmentType = document.getElementById('shipmentType');
+        
+        // Transport options
+        const transportRoad = document.getElementById('transportRoad');
+        const transportRail = document.getElementById('transportRail');
+        const transportSea = document.getElementById('transportSea');
+        const transportAir = document.getElementById('transportAir');
+        const transportMulti = document.getElementById('transportMulti');
+        const transportExpress = document.getElementById('transportExpress');
+        const transportModeInput = document.getElementById('transportMode');
+        
+        // Additional factors
+        const customsClearance = document.getElementById('customsClearance');
+        const weekendDelivery = document.getElementById('weekendDelivery');
+        const specialHandling = document.getElementById('specialHandling');
+        const processingDays = document.getElementById('processingDays');
+        
+        // Buttons
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        // Result Elements
+        const totalLeadTime = document.getElementById('totalLeadTime');
+        const transitTime = document.getElementById('transitTime');
+        const processingTime = document.getElementById('processingTime');
+        const deliveryDate = document.getElementById('deliveryDate');
+        const timelineProgress = document.getElementById('timelineProgress');
+        const transportModeDisplay = document.getElementById('transportModeDisplay');
+        const distanceDisplay = document.getElementById('distanceDisplay');
+        const averageSpeed = document.getElementById('averageSpeed');
+        const customsTime = document.getElementById('customsTime');
+        const additionalProcessing = document.getElementById('additionalProcessing');
+        const bufferTime = document.getElementById('bufferTime');
+        const recommendationsList = document.getElementById('recommendationsList');
+
+        // Transport mode speeds (km per day)
+        const transportSpeeds = {
+            'road': 1200,      // 50 km/h * 24 hours
+            'rail': 1800,      // 75 km/h * 24 hours
+            'sea': 720,        // 30 km/h * 24 hours
+            'air': 21600,      // 900 km/h * 24 hours
+            'multi': 1000,     // Average of multiple modes
+            'express': 1500    // Priority road transport
+        };
+
+        // Transport mode display names
+        const transportNames = {
+            'road': 'Road Transport',
+            'rail': 'Rail Transport',
+            'sea': 'Sea Freight',
+            'air': 'Air Freight',
+            'multi': 'Multimodal Transport',
+            'express': 'Express Delivery'
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDistanceDisplay();
+            calculateLeadTime();
+            
+            // Set breadcrumb
+            setBreadcrumb([
+                { name: "Home", link: "../../index.html" },
+                { name: "Tools", link: "../tools.html" },
+                { name: "Logistics Tools", link: "../tools.html#logistics" },
+                { name: "Lead Time Calculator" }
+            ]);
+        });
+
+        // Distance slider
+        distanceSlider.addEventListener('input', function() {
+            distanceValue.textContent = this.value + ' km';
+            distanceInput.value = this.value;
+            calculateLeadTime();
+        });
+
+        // Transport mode selection
+        transportRoad.addEventListener('click', function() { selectTransport('road'); });
+        transportRail.addEventListener('click', function() { selectTransport('rail'); });
+        transportSea.addEventListener('click', function() { selectTransport('sea'); });
+        transportAir.addEventListener('click', function() { selectTransport('air'); });
+        transportMulti.addEventListener('click', function() { selectTransport('multi'); });
+        transportExpress.addEventListener('click', function() { selectTransport('express'); });
+
+        function selectTransport(mode) {
+            // Update UI
+            transportRoad.classList.remove('selected');
+            transportRail.classList.remove('selected');
+            transportSea.classList.remove('selected');
+            transportAir.classList.remove('selected');
+            transportMulti.classList.remove('selected');
+            transportExpress.classList.remove('selected');
+            
+            if (mode === 'road') transportRoad.classList.add('selected');
+            else if (mode === 'rail') transportRail.classList.add('selected');
+            else if (mode === 'sea') transportSea.classList.add('selected');
+            else if (mode === 'air') transportAir.classList.add('selected');
+            else if (mode === 'multi') transportMulti.classList.add('selected');
+            else if (mode === 'express') transportExpress.classList.add('selected');
+            
+            // Update hidden input
+            transportModeInput.value = mode;
+            transportModeDisplay.textContent = transportNames[mode];
+            
+            calculateLeadTime();
+        }
+
+        // Other input changes
+        originCountry.addEventListener('change', calculateLeadTime);
+        destinationCountry.addEventListener('change', calculateLeadTime);
+        shipmentType.addEventListener('change', calculateLeadTime);
+        customsClearance.addEventListener('change', calculateLeadTime);
+        weekendDelivery.addEventListener('change', calculateLeadTime);
+        specialHandling.addEventListener('change', calculateLeadTime);
+        processingDays.addEventListener('input', calculateLeadTime);
+
+        // Calculate button
+        calculateBtn.addEventListener('click', function() {
+            calculateLeadTime();
+            
+            // Track calculation event
+            if (window.gtag) {
+                gtag('event', 'calculate_lead_time', {
+                    'event_category': 'calculator',
+                    'event_label': 'lead_time_calculation'
+                });
+            }
+        });
+
+        // Reset button
+        resetBtn.addEventListener('click', function() {
+            distanceSlider.value = '500';
+            distanceValue.textContent = '500 km';
+            distanceInput.value = '500';
+            originCountry.value = 'US';
+            destinationCountry.value = 'BD';
+            shipmentType.value = 'general';
+            selectTransport('road');
+            customsClearance.checked = true;
+            weekendDelivery.checked = false;
+            specialHandling.checked = false;
+            processingDays.value = '2';
+            
+            updateDistanceDisplay();
+            calculateLeadTime();
+            
+            // Track reset event
+            if (window.gtag) {
+                gtag('event', 'reset_calculator', {
+                    'event_category': 'calculator',
+                    'event_label': 'lead_time_calculator_reset'
+                });
+            }
+        });
+
+        // Update distance display
+        function updateDistanceDisplay() {
+            distanceDisplay.textContent = distanceSlider.value + ' km';
+        }
+
+        // Calculate lead time function
+        function calculateLeadTime() {
+            // Get input values
+            const distance = parseInt(distanceSlider.value);
+            const mode = transportModeInput.value;
+            const origin = originCountry.value;
+            const destination = destinationCountry.value;
+            const shipment = shipmentType.value;
+            const hasCustoms = customsClearance.checked;
+            const hasWeekend = weekendDelivery.checked;
+            const hasSpecial = specialHandling.checked;
+            const extraDays = parseInt(processingDays.value) || 0;
+            
+            // Calculate transit time
+            const speed = transportSpeeds[mode];
+            const transitDays = Math.ceil(distance / speed);
+            
+            // Calculate processing time
+            let processing = extraDays;
+            
+            // Add customs time
+            let customsDays = 0;
+            if (hasCustoms) {
+                customsDays = (origin !== destination) ? 3 : 1;
+                processing += customsDays;
+            }
+            
+            // Add special handling time
+            if (hasSpecial) {
+                processing += 2;
+            }
+            
+            // Add buffer time
+            const bufferDays = 1;
+            processing += bufferDays;
+            
+            // Calculate total lead time
+            let totalDays = transitDays + processing;
+            
+            // Adjust for weekend delivery
+            if (!hasWeekend) {
+                totalDays = adjustForWeekends(totalDays);
+            }
+            
+            // Calculate delivery date
+            const today = new Date();
+            const delivery = new Date(today);
+            delivery.setDate(delivery.getDate() + totalDays);
+            
+            // Update display
+            totalLeadTime.textContent = totalDays;
+            transitTime.textContent = transitDays;
+            processingTime.textContent = processing;
+            
+            // Format delivery date
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            deliveryDate.textContent = delivery.toLocaleDateString('en-US', options);
+            
+            // Update details
+            distanceDisplay.textContent = distance.toLocaleString() + ' km';
+            averageSpeed.textContent = speed.toLocaleString() + ' km/day';
+            customsTime.textContent = customsDays + ' day' + (customsDays !== 1 ? 's' : '');
+            additionalProcessing.textContent = extraDays + ' day' + (extraDays !== 1 ? 's' : '');
+            bufferTime.textContent = bufferDays + ' day' + (bufferDays !== 1 ? 's' : '');
+            
+            // Update timeline
+            updateTimeline(transitDays, processing, totalDays);
+            
+            // Generate recommendations
+            generateRecommendations(totalDays, transitDays, mode, origin, destination, hasCustoms);
+        }
+
+        // Adjust days for weekends
+        function adjustForWeekends(days) {
+            const today = new Date();
+            let adjustedDays = days;
+            let currentDate = new Date(today);
+            
+            for (let i = 0; i < days; i++) {
+                currentDate.setDate(currentDate.getDate() + 1);
+                const dayOfWeek = currentDate.getDay();
+                if (dayOfWeek === 0 || dayOfWeek === 6) { // Sunday or Saturday
+                    adjustedDays++;
+                }
+            }
+            
+            return adjustedDays;
+        }
+
+        // Update timeline visualization
+        function updateTimeline(transitDays, processingDays, totalDays) {
+            // Calculate percentages for each phase
+            const processingPercentage = (processingDays / totalDays) * 100;
+            const transitPercentage = (transitDays / totalDays) * 100;
+            
+            // Update milestone positions
+            document.getElementById('milestoneProcessing').style.left = '25%';
+            document.getElementById('milestoneTransit').style.left = '50%';
+            document.getElementById('milestoneCustoms').style.left = '75%';
+            
+            // Animate timeline progress
+            timelineProgress.style.width = '100%';
+            
+            // Add animation class for smooth transition
+            timelineProgress.style.transition = 'width 1.5s ease';
+        }
+
+        // Generate recommendations
+        function generateRecommendations(totalDays, transitDays, mode, origin, destination, hasCustoms) {
+            const recommendations = [];
+            
+            // Time-based recommendations
+            if (totalDays > 14) {
+                recommendations.push('Consider faster transport modes like air freight for time-critical shipments');
+            } else if (totalDays < 3) {
+                recommendations.push('Excellent lead time. Ensure all documentation is prepared in advance');
+            }
+            
+            // Mode-specific recommendations
+            if (mode === 'sea' && transitDays > 10) {
+                recommendations.push('Sea freight is cost-effective but slow. Consider multimodal options for balance');
+            }
+            
+            if (mode === 'air' && totalDays > 5) {
+                recommendations.push('Air freight delays often occur in ground handling. Coordinate with local agents');
+            }
+            
+            // Customs recommendations
+            if (hasCustoms && origin !== destination) {
+                recommendations.push('International shipment: Ensure all customs documentation is complete and accurate');
+                recommendations.push('Consider pre-clearance options to reduce customs processing time');
+            }
+            
+            // Distance-based recommendations
+            const distance = parseInt(distanceSlider.value);
+            if (distance > 2000 && mode === 'road') {
+                recommendations.push('Long distance road transport: Consider rail or multimodal for better reliability');
+            }
+            
+            // General recommendations
+            recommendations.push('Maintain regular communication with carriers and customs brokers');
+            recommendations.push('Build buffer time into your supply chain planning for unexpected delays');
+            recommendations.push('Use tracking systems to monitor shipment progress in real-time');
+            
+            // Update recommendations list
+            recommendationsList.innerHTML = '';
+            recommendations.slice(0, 5).forEach(rec => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check-circle"></i> ${rec}`;
+                recommendationsList.appendChild(li);
+            });
+        }
+
+        // Breadcrumb function
+        function setBreadcrumb(items) {
+            const breadcrumbElement = document.getElementById('breadcrumb');
+            if (breadcrumbElement) {
+                breadcrumbElement.innerHTML = items.map((item, index) => {
+                    if (item.link) {
+                        return `<a href="${item.link}">${item.name}</a>`;
+                    } else {
+                        return `<span>${item.name}</span>`;
+                    }
+                }).join('<span class="breadcrumb-separator">/</span>');
+            }
+        }
+
+        // Hamburger menu
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        if (hamburger && navbar) {
+            hamburger.onclick = () => {
+                navbar.classList.toggle("active");
+                hamburger.classList.toggle("active");
+            };
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNavbar = navbar.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (!isClickInsideNavbar && !isClickOnHamburger && navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Track interactions
+        document.addEventListener('DOMContentLoaded', function () {
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track mobile menu usage
+            if (hamburger) {
+                hamburger.addEventListener('click', function () {
+                    if (window.gtag) {
+                        gtag('event', 'mobile_menu_toggle', {
+                            'event_category': 'ui_interaction',
+                            'event_label': 'mobile_menu_opened'
+                        });
+                    }
+                });
+            }
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function () {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

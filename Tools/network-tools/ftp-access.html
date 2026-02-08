@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDIX Server Test - FTP Scanner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .logo-icon {
+            background: #000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            gap: 8px;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .btn-export {
+            background: #2d3748;
+            color: white;
+        }
+
+        .btn-export:hover {
+            background: #1a202c;
+        }
+
+        .btn-scan {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-scan:hover {
+            background: #38a169;
+        }
+
+        .btn-scan:disabled {
+            background: #a0aec0;
+            cursor: not-allowed;
+        }
+
+        .btn-stop {
+            background: #f56565;
+            color: white;
+        }
+
+        .btn-stop:hover {
+            background: #e53e3e;
+        }
+
+        .btn-clear {
+            background: #edf2f7;
+            color: #2d3748;
+        }
+
+        .btn-clear:hover {
+            background: #e2e8f0;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #2563eb;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-size: 0.9em;
+            color: #5a6c7d;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        /* Hero */
+        .hero {
+            background: white;
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .hero p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Progress Section */
+        .progress-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 24px;
+        }
+
+        .progress-circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin-bottom: 24px;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle-bg {
+            stroke: #e2e8f0;
+            fill: transparent;
+        }
+
+        .progress-ring-circle {
+            stroke: #48bb78;
+            fill: transparent;
+            stroke-dasharray: 439.8;
+            stroke-dashoffset: 439.8;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 42px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 16px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #4a5568;
+        }
+
+        .filter-btn {
+            padding: 6px 14px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: #4299e1;
+            color: white;
+            border-color: #4299e1;
+        }
+
+        .filter-btn.green {
+            background: #48bb78;
+            color: white;
+            border-color: #48bb78;
+        }
+
+        .filter-btn.red {
+            background: #f56565;
+            color: white;
+            border-color: #f56565;
+        }
+
+        .search-box {
+            margin-left: auto;
+        }
+
+        .search-input {
+            padding: 6px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 13px;
+            width: 200px;
+        }
+
+        /* Table */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 40px;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            overflow-x: auto;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        thead {
+            background: #2d3748;
+            color: white;
+        }
+
+        th {
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        tbody tr {
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.2s;
+        }
+
+        tbody tr:hover {
+            background: #f7fafc;
+        }
+
+        td {
+            padding: 12px 16px;
+            font-size: 13px;
+        }
+
+        .site-name {
+            font-weight: 500;
+            color: #2d3748;
+        }
+
+        .site-type {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .type-ftp {
+            background: #bee3f8;
+            color: #2c5282;
+        }
+
+        .type-video {
+            background: #c6f6d5;
+            color: #276749;
+        }
+
+        .type-tv {
+            background: #fbd38d;
+            color: #744210;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-open .status-dot {
+            background: #48bb78;
+        }
+
+        .status-closed .status-dot,
+        .status-failed .status-dot {
+            background: #f56565;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            color: #4299e1;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: #ebf8ff;
+        }
+
+        .icon-btn:disabled {
+            color: #cbd5e0;
+            cursor: not-allowed;
+        }
+
+        .visit-link {
+            color: #4299e1;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            pointer-events: auto;
+        }
+
+        .visit-link:hover {
+            text-decoration: underline;
+        }
+
+        .visit-link.disabled {
+            color: #cbd5e0;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+
+        .empty-state i {
+            font-size: 4em;
+            margin-bottom: 16px;
+            color: #cbd5e0;
+        }
+
+        /* Footer Banner */
+        .footer-banner {
+            background: linear-gradient(135deg, #e53e3e, #fc8181);
+            color: white;
+            padding: 24px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .footer-banner h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .footer-banner p {
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .btn-join {
+            background: white;
+            color: #e53e3e;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background: #fff;
+            border-top: 2px solid #f0f3ff;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a,
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 0.9em;
+            text-decoration: none;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+        }
+
+        .footer-center {
+            text-align: center;
+        }
+
+        .footer-center a {
+            display: block;
+            margin: 6px 0;
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f0f3ff;
+            color: #2563eb;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.85em;
+            color: #5a6c7d;
+        }
+
+        /* Loading animation */
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #fff;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+            }
+
+            .navbar a {
+                padding: 12px 20px;
+            }
+
+            .header-buttons {
+                flex-wrap: wrap;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .progress-circle {
+                width: 150px;
+                height: 150px;
+            }
+
+            .progress-text {
+                font-size: 32px;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .search-input {
+                width: 100%;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="fixed-header-container">
+    <div class="header-content">
+        <div class="logo">
+            <span class="logo-icon">BD</span>
+            <span>ASAD</span>
+        </div>
+        
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-buttons">
+            <button class="btn btn-export" onclick="exportData()">
+                <i class="fas fa-download"></i>
+                Export
+            </button>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb" id="breadcrumb"></div>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>BDIX Server Test</h1>
+    <p>with this tool, you can easily find all open bdix servers</p>
+</div>
+
+<!-- Progress Section -->
+<div class="progress-section">
+    <div class="progress-circle">
+        <svg class="progress-ring" width="200" height="200">
+            <circle class="progress-ring-circle-bg" cx="100" cy="100" r="70" stroke-width="16"/>
+            <circle class="progress-ring-circle" id="progressCircle" cx="100" cy="100" r="70" stroke-width="16"/>
+        </svg>
+        <div class="progress-text" id="progressText">0/68</div>
+    </div>
+    
+    <div class="control-buttons">
+        <button class="btn btn-scan" id="scanBtn" onclick="startScan()">
+            <i class="fas fa-play"></i>
+            Start Scan
+        </button>
+        <button class="btn btn-stop" id="stopBtn" onclick="stopScan()" style="display:none;">
+            <i class="fas fa-stop"></i>
+            Stop
+        </button>
+        <button class="btn btn-clear" onclick="clearResults()">
+            <i class="fas fa-trash"></i>
+            Clear
+        </button>
+    </div>
+</div>
+
+<!-- Filter Section -->
+<div class="filter-section">
+    <span class="filter-label">
+        <i class="fas fa-filter"></i>
+        Filter:
+    </span>
+    <button class="filter-btn active" onclick="filterServers('all')">Show All</button>
+    <button class="filter-btn green" onclick="filterServers('open')">Online</button>
+    <button class="filter-btn red" onclick="filterServers('closed')">Closed</button>
+    <div class="search-box">
+        <input type="text" class="search-input" placeholder="Search..." id="searchInput" onkeyup="searchServers()">
+    </div>
+</div>
+
+<!-- Table -->
+<div class="container">
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Site Name</th>
+                    <th>Site Type</th>
+                    <th>Last Checked</th>
+                    <th>Site Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="serverTableBody">
+                <tr>
+                    <td colspan="5">
+                        <div class="empty-state">
+                            <i class="fas fa-satellite-dish"></i>
+                            <h3>No servers scanned yet</h3>
+                            <p>Click "Start Scan" to discover FTP servers</p>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Footer Banner -->
+<div class="footer-banner">
+    <h3>আপনি কি নিজেও একটি FTP সার্ভার তৈরি করতে আগ্রহী?</h3>
+    <p>তাহলে দেরি না করে আজই Join করুন আমাদের সাথে এবং পান বিস্তারিত Guide</p>
+    <button class="btn-join" onclick="alert('Join us now!')">
+        <i class="fas fa-users"></i> Join Us
+    </button>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About</h3>
+            <p>Professional BDIX FTP server scanning tool for Bangladesh network.</p>
+        </div>
+
+        <div class="footer-column footer-center">
+            <h3>Quick Pages</h3>
+            <a href="../../index.html">Home</a>
+            <a href="../../skills.html">Skills</a>
+            <a href="../tools.html">Tools</a>
+            <a href="../../contact.html">Contact</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>IT Tools</h3>
+            <a href="../network.html">Network Tools</a><br>
+            <a href="../security.html">Security Tools</a><br>
+            <a href="../calculator.html">Calculator</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Follow Me</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © 2024 Online Tools | All Rights Reserved
+    </div>
+</footer>
+
+<script>
+// Hamburger menu
+const hamburger = document.getElementById("hamburger");
+const navbar = document.getElementById("navbar");
+hamburger.onclick = () => navbar.classList.toggle("active");
+
+// Breadcrumb
+setBreadcrumb([
+    { name: "Home", link: "../../index.html" },
+    { name: "Tools", link: "../tools.html" },
+    { name: "Network" },
+    { name: "BDIX FTP Scanner" }
+]);
+
+function setBreadcrumb(items) {
+    document.getElementById("breadcrumb").innerHTML =
+        items.map(i => i.link ? `<a href="${i.link}">${i.name}</a>` : i.name).join(" / ");
+}
+
+// Server Database
+const allServers = [
+    { name: 'Dhaka-link', type: 'FTP', url: 'ftp://dhaka.link.net', status: 'Failed' },
+    { name: 'MovieBD FTP', type: 'FTP', url: 'ftp://moviebd.net', status: 'Failed' },
+    { name: 'Halchal Home', type: 'Video', url: 'ftp://halchal.home.bd', status: 'Open' },
+    { name: 'MovieDor Partners', type: 'Video', url: 'ftp://moviedorpartners.net', status: 'Open' },
+    { name: 'Alpha Media Zone', type: 'Video', url: 'ftp://alphamediazone.com', status: 'Open' },
+    { name: 'Dhango', type: 'TV', url: 'ftp://dhango.tv', status: 'Failed' },
+    { name: 'DhakaCine', type: 'Video', url: 'ftp://dhakacine.net', status: 'Open' },
+    { name: 'MTHubPlex', type: 'Video', url: 'ftp://mthubplex.com', status: 'Failed' },
+    { name: 'CircleFTP', type: 'Video', url: 'ftp://circleftp.net', status: 'Closed' },
+    { name: 'Cine-Play', type: 'FTP', url: 'ftp://cineplay.net', status: 'Closed' },
+    { name: 'IOC FTP', type: 'Video', url: 'ftp://iocftp.com', status: 'Closed' },
+    { name: 'H FTPbd', type: 'FTP', url: 'ftp://hftpbd.net', status: 'Open' },
+    { name: 'FILE EBOOK', type: 'Video', url: 'ftp://fileebook.com', status: 'Closed' },
+    { name: 'Idea Khushi', type: 'Video', url: 'ftp://ideakhushi.net', status: 'Closed' },
+    { name: 'FS MovieBox', type: 'Video', url: 'ftp://fsmoviebox.com', status: 'Closed' },
+    { name: 'Data House', type: 'FTP', url: 'ftp://datahouse.net', status: 'Closed' },
+    { name: 'Just Movies', type: 'Video', url: 'ftp://justmovies.net', status: 'Closed' },
+    { name: 'The HB', type: 'FTP', url: 'ftp://thehb.net', status: 'Failed' },
+    { name: 'CTG Movies', type: 'Video', url: 'ftp://ctgmovies.com', status: 'Closed' },
+    { name: 'Media FTP', type: 'FTP', url: 'ftp://mediaftp.net', status: 'Closed' },
+    { name: 'FTP Media Duel Net', type: 'Video', url: 'ftp://ftpmediaduelnet.com', status: 'Closed' },
+    { name: 'Blu-ray Cyber Net', type: 'Video', url: 'ftp://bluraycybernet.com', status: 'Closed' },
+    { name: 'Teedev Media', type: 'FTP', url: 'ftp://teedevmedia.net', status: 'Closed' },
+    { name: 'MovieBuzz', type: 'Video', url: 'ftp://moviebuzz.net', status: 'Closed' },
+    { name: 'CTG Fun Media', type: 'FTP', url: 'ftp://ctgfunmedia.com', status: 'Closed' },
+    { name: 'FTP House', type: 'Video', url: 'ftp://ftphouse.net', status: 'Closed' },
+    { name: 'Cinema Bazaar', type: 'Video', url: 'ftp://cinemabazaar.com', status: 'Closed' },
+    { name: 'Media Box', type: 'Video', url: 'ftp://mediabox.net', status: 'Closed' },
+    { name: 'Bangla Flix', type: 'Video', url: 'ftp://banglaflix.com', status: 'Closed' },
+    { name: 'Computer Comprise Network', type: 'FTP', url: 'ftp://computercomprise.net', status: 'Open' },
+    { name: 'Cine Box Ak', type: 'Video', url: 'ftp://cineboxak.com', status: 'Closed' },
+    { name: 'AKA Flix', type: 'Video', url: 'ftp://akaflix.net', status: 'Open' },
+    { name: 'FHF Online', type: 'Video', url: 'ftp://fhfonline.com', status: 'Closed' },
+    { name: 'Stargate Network', type: 'Video', url: 'ftp://stargatenetwork.net', status: 'Closed' },
+    { name: 'Riad Network', type: 'Video', url: 'ftp://riadnetwork.com', status: 'Closed' },
+    { name: 'Cine FTO com', type: 'Video', url: 'ftp://cinefto.com', status: 'Closed' },
+    { name: 'Unique FTP', type: 'Video', url: 'ftp://uniqueftp.net', status: 'Open' },
+    { name: 'Metro Music', type: 'Video', url: 'ftp://metromusic.net', status: 'Closed' },
+    { name: 'New Online (Mirrornet)', type: 'Video', url: 'ftp://newonline.net', status: 'Closed' },
+    { name: 'ComicBD', type: 'Video', url: 'ftp://comicbd.net', status: 'Closed' },
+    { name: 'Movipur', type: 'Video', url: 'ftp://movipur.com', status: 'Closed' },
+    { name: 'Sweet BOX', type: 'TV', url: 'ftp://sweetbox.tv', status: 'Closed' },
+    { name: 'BDIPTV', type: 'TV', url: 'ftp://bdiptv.net', status: 'Closed' },
+    { name: 'Amin Media', type: 'TV', url: 'ftp://aminmedia.net', status: 'Closed' },
+    { name: 'Broscape', type: 'TV', url: 'ftp://broscape.tv', status: 'Open' },
+    { name: 'Smart Studio', type: 'Video', url: 'ftp://smartstudio.net', status: 'Closed' },
+    { name: 'Smart Flix', type: 'Video', url: 'ftp://smartflix.com', status: 'Closed' },
+    { name: 'Dhaka Movies', type: 'Video', url: 'ftp://dhakamovies.net', status: 'Closed' },
+    { name: 'FTPBD', type: 'Video', url: 'ftp://ftpbd.net', status: 'Closed' },
+    { name: 'Solo IT', type: 'Video', url: 'ftp://soloit.net', status: 'Closed' },
+    { name: 'Pally IT', type: 'Video', url: 'ftp://pallyit.com', status: 'Closed' },
+    { name: 'BanglaFlix', type: 'Video', url: 'ftp://banglaflix.tv', status: 'Open' },
+    { name: 'Cine Bioscope', type: 'Video', url: 'ftp://cinebioscope.net', status: 'Closed' },
+    { name: 'Pine BD', type: 'FTP', url: 'ftp://pinebd.com', status: 'Closed' },
+    { name: 'Movie BD', type: 'FTP', url: 'ftp://moviebd.com', status: 'Closed' },
+    { name: 'Shan Xpress', type: 'Video', url: 'ftp://shanxpress.net', status: 'Closed' },
+    { name: 'DN Media', type: 'Video', url: 'ftp://dnmedia.com', status: 'Closed' },
+    { name: 'Media House', type: 'Video', url: 'ftp://mediahouse.net', status: 'Closed' },
+    { name: 'Jhonhow Live', type: 'Video', url: 'ftp://jhonhowlive.com', status: 'Closed' },
+    { name: 'Movie Bazar', type: 'FTP', url: 'ftp://moviebazar.net', status: 'Closed' },
+    { name: 'Khalid', type: 'Video', url: 'ftp://khalid.net', status: 'Closed' },
+    { name: 'Net of Home', type: 'Video', url: 'ftp://netofhome.com', status: 'Closed' },
+    { name: 'Pinas Media BD', type: 'FTP', url: 'ftp://pinasmediabd.net', status: 'Closed' },
+    { name: 'City Fire Line', type: 'Video', url: 'ftp://cityfireline.com', status: 'Open' },
+    { name: 'Amodeo Aker FTP', type: 'Video', url: 'ftp://amodeoakerftp.net', status: 'Open' },
+    { name: 'TechWorld & web', type: 'Video', url: 'ftp://techworldweb.com', status: 'Open' },
+    { name: 'Media Mail', type: 'Video', url: 'ftp://mediamail.net', status: 'Closed' },
+    { name: 'Rainbow FTP', type: 'Video', url: 'ftp://rainbowftp.com', status: 'Closed' }
+];
+
+let scannedServers = [];
+let currentIndex = 0;
+let filteredServers = [];
+let isScanning = false;
+let scanInterval = null;
+let currentFilter = 'all';
+
+// Start scan
+function startScan() {
+    isScanning = true;
+    currentIndex = 0;
+    scannedServers = [];
+    
+    document.getElementById('scanBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = 'flex';
+    
+    scanInterval = setInterval(() => {
+        if (currentIndex < allServers.length) {
+            scannedServers.push(allServers[currentIndex]);
+            currentIndex++;
+            updateProgress();
+            filterServers(currentFilter);
+        } else {
+            stopScan();
+        }
+    }, 150);
+}
+
+// Stop scan
+function stopScan() {
+    isScanning = false;
+    clearInterval(scanInterval);
+    
+    document.getElementById('scanBtn').style.display = 'flex';
+    document.getElementById('stopBtn').style.display = 'none';
+}
+
+// Clear results
+function clearResults() {
+    if (confirm('Are you sure you want to clear all results?')) {
+        stopScan();
+        scannedServers = [];
+        currentIndex = 0;
+        updateProgress();
+        renderTable();
+    }
+}
+
+// Update progress
+function updateProgress() {
+    const total = allServers.length;
+    const checked = currentIndex;
+    const percentage = (checked / total) * 100;
+    
+    document.getElementById('progressText').textContent = `${checked}/${total}`;
+    
+    const circle = document.getElementById('progressCircle');
+    const circumference = 2 * Math.PI * 70;
+    const offset = circumference - (percentage / 100) * circumference;
+    circle.style.strokeDashoffset = offset;
+}
+
+// Filter servers
+function filterServers(type) {
+    currentFilter = type;
+    
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    event?.target?.classList.add('active');
+    
+    if (type === 'all') {
+        filteredServers = [...scannedServers];
+    } else if (type === 'open') {
+        filteredServers = scannedServers.filter(s => s.status === 'Open');
+    } else if (type === 'closed') {
+        filteredServers = scannedServers.filter(s => s.status === 'Closed' || s.status === 'Failed');
+    }
+    
+    renderTable();
+}
+
+// Search servers
+function searchServers() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    
+    if (searchTerm === '') {
+        filterServers(currentFilter);
+        return;
+    }
+    
+    filteredServers = scannedServers.filter(server => 
+        server.name.toLowerCase().includes(searchTerm)
+    );
+    
+    renderTable();
+}
+
+// Render table
+function renderTable() {
+    const tbody = document.getElementById('serverTableBody');
+    
+    if (scannedServers.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    <div class="empty-state">
+                        <i class="fas fa-satellite-dish"></i>
+                        <h3>No servers scanned yet</h3>
+                        <p>Click "Start Scan" to discover FTP servers</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    if (filteredServers.length === 0) {
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="5">
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <h3>No servers found</h3>
+                        <p>Try changing your filter or search term</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+        return;
+    }
+    
+    tbody.innerHTML = '';
+    
+    filteredServers.forEach(server => {
+        const isOpen = server.status === 'Open';
+        const statusClass = isOpen ? 'status-open' : (server.status === 'Failed' ? 'status-failed' : 'status-closed');
+        
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td class="site-name">${server.name}</td>
+            <td>
+                <span class="site-type type-${server.type.toLowerCase()}">
+                    ${server.type}
+                </span>
+            </td>
+            <td>${getCurrentTime()}</td>
+            <td>
+                <span class="status-badge ${statusClass}">
+                    <span class="status-dot"></span>
+                    ${server.status}
+                </span>
+            </td>
+            <td>
+                <div class="action-btns">
+                    <button class="icon-btn" onclick="viewServer('${server.name}')">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    ${isOpen ? 
+                        `<a href="${server.url}" class="visit-link" target="_blank" rel="noopener noreferrer">
+                            visit <i class="fas fa-external-link-alt"></i>
+                        </a>` : 
+                        `<span class="visit-link disabled">
+                            visit <i class="fas fa-external-link-alt"></i>
+                        </span>`
+                    }
+                </div>
+            </td>
+        `;
+        
+        tbody.appendChild(row);
+    });
+}
+
+// Get current time
+function getCurrentTime() {
+    const now = new Date();
+    return now.toLocaleTimeString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit', 
+        hour12: true 
+    });
+}
+
+// View server details
+function viewServer(name) {
+    const server = allServers.find(s => s.name === name);
+    if (server) {
+        alert(`Server Details:\n\nName: ${server.name}\nType: ${server.type}\nURL: ${server.url}\nStatus: ${server.status}`);
+    }
+}
+
+// Export data
+function exportData() {
+    if (scannedServers.length === 0) {
+        alert('No data to export. Please scan servers first.');
+        return;
+    }
+    
+    const csv = 'Site Name,Site Type,URL,Status\n' + 
+        scannedServers.map(s => `${s.name},${s.type},${s.url},${s.status}`).join('\n');
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'bdix_servers_' + new Date().toISOString().split('T')[0] + '.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+
+// Initialize
+updateProgress();
+</script>
+
+</body>
+</html>

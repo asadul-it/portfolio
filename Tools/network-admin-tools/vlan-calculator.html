@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLAN Calculator - Network Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header with white background */
+        .header {
+            background: white;
+            color: #000000;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #000000;
+        }
+
+        .logo h1 {
+            font-size: 1.8em;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 2em;
+            color: #000000;
+        }
+
+        /* Navigation */
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: color 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+            background: #000000;
+        }
+
+        .nav-links a.active {
+            color: #ffffff;
+            background: #000000;
+        }
+
+        /* Language Toggle */
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f5f5f5;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .language-toggle:hover {
+            background: #e0e0e0;
+        }
+
+        .lang-flag {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #000000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .lang-text {
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #000000;
+        }
+
+        /* Hero Section - All White */
+        .hero {
+            background: white;
+            color: #000000;
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 0;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .hero h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .hero p {
+            font-size: 1.1em;
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 0 auto;
+            color: #000000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid #000000;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+
+        .back-link:hover {
+            color: #ffffff;
+            background: #000000;
+        }
+
+        /* Calculator Section */
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-section {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .result-section {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            color: #000000;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #000000;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            color: #000000;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+
+        .input-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #000000;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            color: #000000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .input-select:focus {
+            outline: none;
+            border-color: #000000;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 15px;
+            background: #000000;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .calculate-btn:hover {
+            background: #333333;
+            transform: translateY(-2px);
+        }
+
+        /* VLAN Table */
+        .vlan-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border: 2px solid #000000;
+        }
+
+        .vlan-table th {
+            background: #000000;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .vlan-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            color: #000000;
+        }
+
+        .vlan-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .vlan-table tr:hover {
+            background: #f0f0f0;
+        }
+
+        /* Result Grid */
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .result-item {
+            background: #f8f9fa;
+            border: 2px solid #000000;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .result-label {
+            font-size: 0.9em;
+            color: #666666;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .result-value {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        /* Diagram Section */
+        .diagram-section {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .switch-diagram {
+            position: relative;
+            width: 200px;
+            height: 300px;
+            background: #f0f0f0;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .switch-port {
+            width: 30px;
+            height: 20px;
+            background: #000000;
+            position: absolute;
+            left: -15px;
+            border-radius: 3px;
+        }
+
+        .port-label {
+            position: absolute;
+            left: -40px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8em;
+            color: #000000;
+            font-weight: 600;
+        }
+
+        .vlan-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+            display: inline-block;
+        }
+
+        /* Info Section */
+        .info-section {
+            background: white;
+            border: 2px solid #000000;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-section h3 {
+            color: #000000;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+
+        .info-section ul {
+            margin-left: 20px;
+            color: #000000;
+        }
+
+        .info-section li {
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: white;
+            padding: 40px 20px;
+            margin-top: 30px;
+            border-top: 2px solid #000000;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h3 {
+            color: #000000;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .footer-column p, .footer-column ul li, .footer-column ul li a {
+            color: #000000;
+            font-size: 0.95em;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #000000;
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            color: #000000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #000000;
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 1px solid #000000;
+            color: #000000;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .hero h2 {
+                font-size: 1.8em;
+            }
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .diagram-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header with white background -->
+<div class="header">
+    <div class="header-container">
+        <a href="../../index.html" class="logo">
+            <i class="fas fa-sitemap"></i>
+            <h1>VLAN Calculator</h1>
+        </a>
+        
+        <div class="nav-links">
+            <a href="../../index.html">Home</a>
+            <a href="../../skills.html">Skills</a>
+            <a href="../tools.html">Tools</a>
+            <a href="../../certificate.html">Certificate</a>
+            <a href="../../contact.html">Contact</a>
+            
+            <div class="language-toggle" id="languageToggle">
+                <div class="lang-flag" id="langFlag">EN</div>
+                <span class="lang-text" id="langText">English</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hero Section - All White -->
+<div class="hero">
+    <h2 id="heroTitle">VLAN Calculator</h2>
+    <p id="heroSubtitle">Calculate VLAN configurations, subnet allocations, and inter-VLAN routing</p>
+</div>
+
+<div class="container">
+    <a href="../tools.html" class="back-link"><i class="fas fa-arrow-left"></i> <span id="backText">Back to Tools</span></a>
+
+    <div class="calculator-container">
+        <div class="input-section">
+            <h3 class="section-title"><i class="fas fa-cogs"></i> <span id="inputTitle">VLAN Configuration</span></h3>
+            
+            <div class="input-group">
+                <label class="input-label" id="networkLabel">Base Network:</label>
+                <input type="text" class="input-field" id="baseNetwork" placeholder="192.168.0.0/16" value="192.168.0.0/16">
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label" id="vlanCountLabel">Number of VLANs:</label>
+                <input type="number" class="input-field" id="vlanCount" placeholder="8" value="8" min="1" max="4094">
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label" id="hostsLabel">Hosts per VLAN:</label>
+                <input type="number" class="input-field" id="hostsPerVlan" placeholder="50" value="50" min="2" max="65534">
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label" id="vlanTypeLabel">VLAN Type:</label>
+                <select class="input-select" id="vlanType">
+                    <option value="data">Data VLANs</option>
+                    <option value="voice">Voice VLANs</option>
+                    <option value="management">Management VLANs</option>
+                    <option value="guest">Guest VLANs</option>
+                    <option value="iot">IoT VLANs</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label class="input-label" id="routingLabel">Inter-VLAN Routing:</label>
+                <select class="input-select" id="routingType">
+                    <option value="router">Router on a Stick</option>
+                    <option value="layer3">Layer 3 Switch</option>
+                    <option value="firewall">Firewall-based</option>
+                </select>
+            </div>
+            
+            <button class="calculate-btn" id="calculateBtn">
+                <i class="fas fa-calculator"></i> <span id="calculateText">Calculate VLAN Configuration</span>
+            </button>
+        </div>
+        
+        <div class="result-section">
+            <h3 class="section-title"><i class="fas fa-chart-pie"></i> <span id="resultTitle">VLAN Results</span></h3>
+            
+            <div class="result-grid">
+                <div class="result-item">
+                    <div class="result-label" id="totalVlansLabel">Total VLANs:</div>
+                    <div class="result-value" id="totalVlans">8</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="hostsPerLabel">Hosts per VLAN:</div>
+                    <div class="result-value" id="hostsPerVlanResult">50</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="subnetSizeLabel">Subnet Size:</div>
+                    <div class="result-value" id="subnetSize">/26 (64 hosts)</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="totalHostsLabel">Total Host Capacity:</div>
+                    <div class="result-value" id="totalHosts">400</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="vlanRangeLabel">VLAN ID Range:</div>
+                    <div class="result-value" id="vlanRange">10 - 17</div>
+                </div>
+                
+                <div class="result-item">
+                    <div class="result-label" id="ipUsageLabel">IP Usage:</div>
+                    <div class="result-value" id="ipUsage">12.5%</div>
+                </div>
+            </div>
+            
+            <h4 style="margin-top: 20px; color: #000000; font-weight: 600;" id="vlanTableLabel">VLAN Details:</h4>
+            <div style="max-height: 300px; overflow-y: auto; margin-top: 10px;">
+                <table class="vlan-table" id="vlanTable">
+                    <thead>
+                        <tr>
+                            <th id="vlanIdHeader">VLAN ID</th>
+                            <th id="vlanNameHeader">VLAN Name</th>
+                            <th id="subnetHeader">Subnet</th>
+                            <th id="gatewayHeader">Gateway</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vlanTableBody">
+                        <!-- VLAN rows will be generated here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="diagram-section">
+        <h3 class="section-title"><i class="fas fa-project-diagram"></i> <span id="diagramTitle">VLAN Network Diagram</span></h3>
+        
+        <div class="diagram-container">
+            <div class="switch-diagram">
+                <div style="text-align: center; font-weight: 700; color: #000000; margin-bottom: 20px;">Core Switch</div>
+                <div class="switch-port" style="top: 50px;"></div>
+                <div class="port-label" style="top: 50px;">Trunk</div>
+                
+                <div class="switch-port" style="top: 100px;"></div>
+                <div class="port-label" style="top: 100px;">VLAN 10</div>
+                
+                <div class="switch-port" style="top: 150px;"></div>
+                <div class="port-label" style="top: 150px;">VLAN 20</div>
+                
+                <div class="switch-port" style="top: 200px;"></div>
+                <div class="port-label" style="top: 200px;">VLAN 30</div>
+                
+                <div class="switch-port" style="top: 250px;"></div>
+                <div class="port-label" style="top: 250px;">Mgmt</div>
+            </div>
+            
+            <div style="flex: 1; max-width: 400px;">
+                <h4 style="color: #000000; margin-bottom: 15px;" id="legendTitle">VLAN Legend:</h4>
+                <div id="vlanLegend">
+                    <!-- VLAN legend will be generated here -->
+                </div>
+                
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border: 2px solid #000000; border-radius: 8px;">
+                    <h4 style="color: #000000; margin-bottom: 10px;" id="configTitle">Configuration Notes:</h4>
+                    <ul id="configNotes" style="margin-left: 20px; color: #000000;">
+                        <li>Enable trunk ports between switches</li>
+                        <li>Configure router interfaces for each VLAN</li>
+                        <li>Set up DHCP scopes for each subnet</li>
+                        <li>Configure access control lists (ACLs)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-section">
+        <h3><i class="fas fa-info-circle"></i> <span id="infoTitle">VLAN Best Practices</span></h3>
+        <ul id="infoList">
+            <li><strong>VLAN 1:</strong> Never use for production traffic. Keep for management only or disable entirely.</li>
+            <li><strong>Management VLAN:</strong> Use a dedicated VLAN (typically VLAN 99 or similar) for switch management.</li>
+            <li><strong>Voice VLANs:</strong> Separate voice traffic from data for Quality of Service (QoS) purposes.</li>
+            <li><strong>Guest VLANs:</strong> Isolate guest traffic from internal network resources.</li>
+            <li><strong>Native VLAN:</strong> Change from default VLAN 1 to an unused VLAN for security.</li>
+            <li><strong>VTP Mode:</strong> Use transparent mode to avoid accidental VLAN database changes.</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Tools</h3>
+            <p>Free collection of online tools for everyday tasks. No installation required, works directly in your browser.</p>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a href="../../skills.html">Skills</a></li>
+                <li><a href="../tools.html">Tools</a></li>
+                <li><a href="../../certificate.html">Certificate</a></li>
+                <li><a href="../../contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="mailto:asadul.it@yahoo.com">asadul.it@yahoo.com</a></li>
+                <li><a href="tel:01706927793">01706927793</a></li>
+                <li>Savar, Dhaka</li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Online Tools. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// Language data
+const translations = {
+    en: {
+        heroTitle: "VLAN Calculator",
+        heroSubtitle: "Calculate VLAN configurations, subnet allocations, and inter-VLAN routing",
+        backText: "Back to Tools",
+        inputTitle: "VLAN Configuration",
+        networkLabel: "Base Network:",
+        vlanCountLabel: "Number of VLANs:",
+        hostsLabel: "Hosts per VLAN:",
+        vlanTypeLabel: "VLAN Type:",
+        routingLabel: "Inter-VLAN Routing:",
+        calculateText: "Calculate VLAN Configuration",
+        resultTitle: "VLAN Results",
+        totalVlansLabel: "Total VLANs:",
+        hostsPerLabel: "Hosts per VLAN:",
+        subnetSizeLabel: "Subnet Size:",
+        totalHostsLabel: "Total Host Capacity:",
+        vlanRangeLabel: "VLAN ID Range:",
+        ipUsageLabel: "IP Usage:",
+        vlanTableLabel: "VLAN Details:",
+        vlanIdHeader: "VLAN ID",
+        vlanNameHeader: "VLAN Name",
+        subnetHeader: "Subnet",
+        gatewayHeader: "Gateway",
+        diagramTitle: "VLAN Network Diagram",
+        legendTitle: "VLAN Legend:",
+        configTitle: "Configuration Notes:",
+        infoTitle: "VLAN Best Practices",
+        infoList: [
+            "VLAN 1: Never use for production traffic. Keep for management only or disable entirely.",
+            "Management VLAN: Use a dedicated VLAN (typically VLAN 99 or similar) for switch management.",
+            "Voice VLANs: Separate voice traffic from data for Quality of Service (QoS) purposes.",
+            "Guest VLANs: Isolate guest traffic from internal network resources.",
+            "Native VLAN: Change from default VLAN 1 to an unused VLAN for security.",
+            "VTP Mode: Use transparent mode to avoid accidental VLAN database changes."
+        ]
+    },
+    bn: {
+        heroTitle: "ভিএলএএন ক্যালকুলেটর",
+        heroSubtitle: "ভিএলএএন কনফিগারেশন, সাবনেট বরাদ্দ এবং ইন্টার-ভিএলএএন রাউটিং গণনা করুন",
+        backText: "টুলসে ফিরে যান",
+        inputTitle: "ভিএলএএন কনফিগারেশন",
+        networkLabel: "বেস নেটওয়ার্ক:",
+        vlanCountLabel: "ভিএলএএন সংখ্যা:",
+        hostsLabel: "প্রতি ভিএলএএন হোস্ট:",
+        vlanTypeLabel: "ভিএলএএন ধরন:",
+        routingLabel: "ইন্টার-ভিএলএএন রাউটিং:",
+        calculateText: "ভিএলএএন কনফিগারেশন গণনা করুন",
+        resultTitle: "ভিএলএএন ফলাফল",
+        totalVlansLabel: "মোট ভিএলএএন:",
+        hostsPerLabel: "প্রতি ভিএলএএন হোস্ট:",
+        subnetSizeLabel: "সাবনেট সাইজ:",
+        totalHostsLabel: "মোট হোস্ট ক্ষমতা:",
+        vlanRangeLabel: "ভিএলএএন আইডি রেঞ্জ:",
+        ipUsageLabel: "আইপি ব্যবহার:",
+        vlanTableLabel: "ভিএলএএন বিবরণ:",
+        vlanIdHeader: "ভিএলএএন আইডি",
+        vlanNameHeader: "ভিএলএএন নাম",
+        subnetHeader: "সাবনেট",
+        gatewayHeader: "গেটওয়ে",
+        diagramTitle: "ভিএলএএন নেটওয়ার্ক ডায়াগ্রাম",
+        legendTitle: "ভিএলএএন লেজেন্ড:",
+        configTitle: "কনফিগারেশন নোট:",
+        infoTitle: "ভিএলএএন সেরা অনুশীলন",
+        infoList: [
+            "ভিএলএএন 1: কখনই প্রোডাকশন ট্রাফিকের জন্য ব্যবহার করবেন না। শুধুমাত্র ম্যানেজমেন্টের জন্য রাখুন বা সম্পূর্ণরূপে নিষ্ক্রিয় করুন।",
+            "ম্যানেজমেন্ট ভিএলএএন: সুইচ ম্যানেজমেন্টের জন্য একটি নির্দিষ্ট ভিএলএএন ব্যবহার করুন (সাধারণত ভিএলএএন 99 বা অনুরূপ)।",
+            "ভয়েস ভিএলএএন: কোয়ালিটি অফ সার্ভিস (কিউওএস) উদ্দেশ্যে ভয়েস ট্রাফিক ডেটা থেকে আলাদা করুন।",
+            "অতিথি ভিএলএএন: অভ্যন্তরীণ নেটওয়ার্ক সম্পদ থেকে অতিথি ট্রাফিক বিচ্ছিন্ন করুন।",
+            "নেটিভ ভিএলএএন: নিরাপত্তার জন্য ডিফল্ট ভিএলএএন 1 থেকে একটি অব্যবহৃত ভিএলএএন পরিবর্তন করুন।",
+            "ভিটিপি মোড: আকস্মিক ভিএলএএন ডাটাবেস পরিবর্তন এড়াতে ট্রান্সপারেন্ট মোড ব্যবহার করুন।"
+        ]
+    }
+};
+
+// Current language state
+let currentLang = 'en';
+
+// Toggle language
+document.getElementById('languageToggle').addEventListener('click', function() {
+    currentLang = currentLang === 'en' ? 'bn' : 'en';
+    updateLanguage();
+    calculateVLAN();
+});
+
+// Update all text elements based on language
+function updateLanguage() {
+    // Update UI elements
+    document.getElementById('langFlag').textContent = currentLang === 'en' ? 'EN' : 'বাং';
+    document.getElementById('langText').textContent = currentLang === 'en' ? 'English' : 'বাংলা';
+    
+    // Update all translatable elements
+    const elements = Object.keys(translations[currentLang]);
+    elements.forEach(key => {
+        const element = document.getElementById(key);
+        if (element) {
+            if (key.includes('List')) {
+                // Handle lists separately
+                const list = document.getElementById(key);
+                const items = translations[currentLang][key];
+                list.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+            } else if (key.includes('Header')) {
+                // Skip table headers - they're updated in calculateVLAN
+            } else {
+                element.textContent = translations[currentLang][key];
+            }
+        }
+    });
+}
+
+// VLAN name generator
+function getVLANName(vlanType, vlanId) {
+    const names = {
+        data: ["Sales", "Marketing", "Engineering", "HR", "Finance", "Operations", "IT", "Admin"],
+        voice: ["Voice", "VoIP", "Telephony", "Conference", "Meeting"],
+        management: ["Management", "Admin", "Infrastructure", "Monitoring", "Control"],
+        guest: ["Guest", "Visitor", "Public", "WiFi", "External"],
+        iot: ["IoT", "SmartDevices", "Sensors", "Cameras", "Automation"]
+    };
+    
+    const typeNames = names[vlanType] || names.data;
+    const index = (vlanId - 10) % typeNames.length;
+    return typeNames[index];
+}
+
+// Get color for VLAN
+function getVLANColor(vlanId) {
+    const colors = [
+        "#FF6B6B", "#4ECDC4", "#FFD166", "#06D6A0", "#118AB2",
+        "#073B4C", "#EF476F", "#7209B7", "#3A86FF", "#FB5607"
+    ];
+    return colors[(vlanId - 10) % colors.length];
+}
+
+// Calculate smallest CIDR for given number of hosts
+function getCidrForHosts(hosts) {
+    const needed = hosts + 2; // Add network and broadcast
+    for (let i = 32; i >= 0; i--) {
+        if (Math.pow(2, 32 - i) >= needed) {
+            return i;
+        }
+    }
+    return 32;
+}
+
+// IP to decimal conversion
+function ipToDecimal(ip) {
+    return ip.split('.').reduce((acc, octet, index) => acc + (parseInt(octet) << (8 * (3 - index))), 0);
+}
+
+// Decimal to IP conversion
+function decimalToIp(decimal) {
+    return [
+        (decimal >>> 24) & 255,
+        (decimal >>> 16) & 255,
+        (decimal >>> 8) & 255,
+        decimal & 255
+    ].join('.');
+}
+
+// Calculate VLAN configuration
+function calculateVLAN() {
+    try {
+        const baseNetwork = document.getElementById('baseNetwork').value;
+        const vlanCount = parseInt(document.getElementById('vlanCount').value);
+        const hostsPerVlan = parseInt(document.getElementById('hostsPerVlan').value);
+        const vlanType = document.getElementById('vlanType').value;
+        const routingType = document.getElementById('routingType').value;
+        
+        // Validate inputs
+        if (!baseNetwork.includes('/')) throw new Error('Base network must be in CIDR notation (e.g., 192.168.0.0/16)');
+        if (isNaN(vlanCount) || vlanCount < 1 || vlanCount > 4094) throw new Error('VLAN count must be between 1 and 4094');
+        if (isNaN(hostsPerVlan) || hostsPerVlan < 2 || hostsPerVlan > 65534) throw new Error('Hosts per VLAN must be between 2 and 65534');
+        
+        // Parse base network
+        const [baseIp, baseCidr] = baseNetwork.split('/');
+        const baseCidrNum = parseInt(baseCidr);
+        
+        if (!/^(\d{1,3}\.){3}\d{1,3}$/.test(baseIp)) throw new Error('Invalid base IP address');
+        if (isNaN(baseCidrNum) || baseCidrNum < 0 || baseCidrNum > 32) throw new Error('Invalid CIDR notation');
+        
+        // Calculate required subnet size for each VLAN
+        const requiredCidr = getCidrForHosts(hostsPerVlan);
+        const subnetSize = Math.pow(2, 32 - requiredCidr);
+        
+        // Calculate total IPs needed
+        const totalIpsNeeded = subnetSize * vlanCount;
+        const baseNetworkSize = Math.pow(2, 32 - baseCidrNum);
+        
+        if (totalIpsNeeded > baseNetworkSize) {
+            throw new Error('Base network too small for requested VLAN configuration');
+        }
+        
+        // Calculate results
+        const totalHosts = hostsPerVlan * vlanCount;
+        const ipUsage = ((totalIpsNeeded / baseNetworkSize) * 100).toFixed(1);
+        const vlanStartId = 10;
+        const vlanEndId = vlanStartId + vlanCount - 1;
+        
+        // Update summary results
+        document.getElementById('totalVlans').textContent = vlanCount;
+        document.getElementById('hostsPerVlanResult').textContent = hostsPerVlan;
+        document.getElementById('subnetSize').textContent = `/${requiredCidr} (${subnetSize} hosts)`;
+        document.getElementById('totalHosts').textContent = totalHosts;
+        document.getElementById('vlanRange').textContent = `${vlanStartId} - ${vlanEndId}`;
+        document.getElementById('ipUsage').textContent = `${ipUsage}%`;
+        
+        // Generate VLAN table
+        generateVLANTable(baseIp, baseCidrNum, requiredCidr, vlanCount, vlanType);
+        
+        // Update VLAN legend
+        updateVLANLegend(vlanCount, vlanType);
+        
+        // Update configuration notes
+        updateConfigNotes(routingType, vlanCount);
+        
+    } catch (error) {
+        alert(`${currentLang === 'en' ? 'Error:' : 'ত্রুটি:'} ${error.message}`);
+    }
+}
+
+// Generate VLAN table
+function generateVLANTable(baseIp, baseCidr, requiredCidr, vlanCount, vlanType) {
+    const baseDecimal = ipToDecimal(baseIp);
+    const subnetSize = Math.pow(2, 32 - requiredCidr);
+    const tableBody = document.getElementById('vlanTableBody');
+    
+    let html = '';
+    let currentDecimal = baseDecimal;
+    
+    for (let i = 0; i < vlanCount; i++) {
+        const vlanId = 10 + i;
+        const vlanName = getVLANName(vlanType, vlanId);
+        const networkAddress = decimalToIp(currentDecimal);
+        const gatewayAddress = decimalToIp(currentDecimal + 1); // First usable IP
+        
+        html += `
+            <tr>
+                <td>${vlanId}</td>
+                <td>${vlanName}</td>
+                <td>${networkAddress}/${requiredCidr}</td>
+                <td>${gatewayAddress}</td>
+            </tr>
+        `;
+        
+        currentDecimal += subnetSize;
+    }
+    
+    tableBody.innerHTML = html;
+}
+
+// Update VLAN legend
+function updateVLANLegend(vlanCount, vlanType) {
+    const legend = document.getElementById('vlanLegend');
+    let html = '';
+    
+    for (let i = 0; i < Math.min(vlanCount, 10); i++) {
+        const vlanId = 10 + i;
+        const vlanName = getVLANName(vlanType, vlanId);
+        const color = getVLANColor(vlanId);
+        
+        html += `
+            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                <span class="vlan-color" style="background: ${color};"></span>
+                <span style="color: #000000;">VLAN ${vlanId}: ${vlanName}</span>
+            </div>
+        `;
+    }
+    
+    legend.innerHTML = html;
+}
+
+// Update configuration notes
+function updateConfigNotes(routingType, vlanCount) {
+    const notes = document.getElementById('configNotes');
+    let html = '';
+    
+    const notesMap = {
+        router: [
+            "Configure router with subinterfaces for each VLAN",
+            "Set up 802.1Q trunking between router and switch",
+            "Configure DHCP helper addresses on router interfaces",
+            "Implement ACLs for inter-VLAN traffic control"
+        ],
+        layer3: [
+            "Enable IP routing on Layer 3 switch",
+            "Configure SVIs (Switch Virtual Interfaces) for each VLAN",
+            "Set up routing protocols if needed (OSPF, EIGRP)",
+            "Configure DHCP services on switch if applicable"
+        ],
+        firewall: [
+            "Configure firewall interfaces for each VLAN",
+            "Set up security zones and policies",
+            "Implement NAT rules if required",
+            "Configure VPN access for remote VLAN connectivity"
+        ]
+    };
+    
+    const selectedNotes = notesMap[routingType] || notesMap.router;
+    
+    selectedNotes.forEach(note => {
+        html += `<li>${note}</li>`;
+    });
+    
+    html += `<li>${currentLang === 'en' ? 'Total VLANs to configure:' : 'কনফিগার করতে মোট ভিএলএএন:'} ${vlanCount}</li>`;
+    
+    notes.innerHTML = html;
+}
+
+// Event Listeners
+document.getElementById('calculateBtn').addEventListener('click', calculateVLAN);
+
+// Add input event listeners for real-time calculation
+document.getElementById('baseNetwork').addEventListener('input', calculateVLAN);
+document.getElementById('vlanCount').addEventListener('input', calculateVLAN);
+document.getElementById('hostsPerVlan').addEventListener('input', calculateVLAN);
+document.getElementById('vlanType').addEventListener('change', calculateVLAN);
+document.getElementById('routingType').addEventListener('change', calculateVLAN);
+
+// Initialize
+updateLanguage();
+calculateVLAN();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NS Lookup Tool - DNS Lookup & Domain Information | Asadul Islam</title>
+    
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description" content="Free NS Lookup Tool by Asadul Islam. Check DNS records, nameservers, IP addresses, and domain information. Professional DNS lookup tool for IT professionals and developers.">
+    <meta name="keywords" content="NS Lookup, DNS Lookup, Nameserver Lookup, Domain Lookup, DNS Records, A Record, AAAA Record, MX Record, TXT Record, CNAME Record, SOA Record, Asadul Islam, asadul islam asad, IT Tools, Network Tools, Bangladesh">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="NS Lookup Tool - DNS Lookup & Domain Information">
+    <meta property="og:description" content="Free professional DNS lookup tool. Check nameservers, DNS records, IP addresses and domain information instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/tools/network/ns-lookup.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/profile.jpg">
+    <meta property="og:site_name" content="Asadul Islam Portfolio">
+    
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="NS Lookup Tool - DNS Lookup & Domain Information">
+    <meta name="twitter:description" content="Free professional DNS lookup tool by Asadul Islam. Check DNS records and domain information.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/profile.jpg">
+    
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/tools/network/ns-lookup.html">
+    
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "NS Lookup Tool",
+        "description": "Professional DNS lookup tool for checking nameservers and DNS records",
+        "url": "https://asadul-it.github.io/portfolio/tools/network/ns-lookup.html",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "author": {
+            "@type": "Person",
+            "name": "Asadul Islam",
+            "jobTitle": "IT Engineer"
+        }
+    }
+    </script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #f5f7fa;
+            color: #2c3e50;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .logo-icon {
+            background: #000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            gap: 8px;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #2563eb;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-size: 0.9em;
+            color: #5a6c7d;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tool-header h1 {
+            font-size: 32px;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .tool-header p {
+            font-size: 16px;
+            color: #718096;
+        }
+
+        .lookup-container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2d3748;
+            font-size: 14px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .domain-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .domain-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .record-type {
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            cursor: pointer;
+            min-width: 120px;
+        }
+
+        .btn-lookup {
+            padding: 12px 32px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-lookup:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-lookup:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e2e8f0;
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .results-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            display: none;
+        }
+
+        .results-container.show {
+            display: block;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .result-header h2 {
+            font-size: 20px;
+            color: #2d3748;
+        }
+
+        .btn-copy {
+            padding: 8px 16px;
+            background: #48bb78;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .btn-copy:hover {
+            background: #38a169;
+        }
+
+        .result-item {
+            padding: 15px;
+            background: #f7fafc;
+            border-left: 4px solid #2563eb;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .result-value {
+            color: #4a5568;
+            font-size: 14px;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+        }
+
+        .error-message {
+            background: #fff5f5;
+            border-left: 4px solid #f56565;
+            padding: 15px;
+            border-radius: 6px;
+            color: #c53030;
+            font-size: 14px;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            margin-top: 30px;
+        }
+
+        .info-section h2 {
+            font-size: 22px;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-card {
+            padding: 20px;
+            background: #f7fafc;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .info-card h3 {
+            font-size: 16px;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .info-card p {
+            font-size: 14px;
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: #fff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 35px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a,
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 0.9em;
+            text-decoration: none;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+        }
+
+        .footer-center {
+            text-align: center;
+        }
+
+        .footer-center a {
+            display: block;
+            margin: 6px 0;
+            font-weight: 600;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f0f3ff;
+            color: #2563eb;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.85em;
+            color: #5a6c7d;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #fff;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+            }
+
+            .navbar a {
+                padding: 12px 20px;
+            }
+
+            .tool-header h1 {
+                font-size: 24px;
+            }
+
+            .lookup-container {
+                padding: 25px 20px;
+            }
+
+            .input-wrapper {
+                flex-direction: column;
+            }
+
+            .btn-lookup {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="fixed-header-container">
+    <div class="header-content">
+        <div class="logo">
+            <span class="logo-icon">NS</span>
+            <span>Lookup</span>
+        </div>
+        
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</div>
+
+<!-- Breadcrumb -->
+<div class="breadcrumb" id="breadcrumb"></div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <div class="tool-header">
+        <h1>NS Lookup Tool</h1>
+        <p>Check DNS records and nameserver information for any domain</p>
+    </div>
+
+    <div class="lookup-container">
+        <div class="input-group">
+            <label for="domainInput">
+                <i class="fas fa-globe"></i> Domain Name
+            </label>
+            <div class="input-wrapper">
+                <input 
+                    type="text" 
+                    id="domainInput" 
+                    class="domain-input" 
+                    placeholder="example.com"
+                    value="google.com"
+                >
+                <select id="recordType" class="record-type">
+                    <option value="A">A Record</option>
+                    <option value="AAAA">AAAA Record</option>
+                    <option value="MX">MX Record</option>
+                    <option value="NS">NS Record</option>
+                    <option value="TXT">TXT Record</option>
+                    <option value="CNAME">CNAME</option>
+                    <option value="SOA">SOA Record</option>
+                </select>
+                <button class="btn-lookup" onclick="performLookup()">
+                    <i class="fas fa-search"></i>
+                    Lookup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingIndicator" class="loading" style="display: none;">
+        <div class="spinner"></div>
+        <p style="margin-top: 15px;">Performing DNS lookup...</p>
+    </div>
+
+    <div id="resultsContainer" class="results-container">
+        <div class="result-header">
+            <h2><i class="fas fa-check-circle" style="color: #48bb78;"></i> DNS Lookup Results</h2>
+            <button class="btn-copy" onclick="copyResults()">
+                <i class="fas fa-copy"></i>
+                Copy
+            </button>
+        </div>
+        <div id="resultsContent"></div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+        <h2>Understanding DNS Records</h2>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3><i class="fas fa-server"></i> A Record</h3>
+                <p>Maps domain names to IPv4 addresses. Essential for directing traffic to your server.</p>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-network-wired"></i> AAAA Record</h3>
+                <p>Maps domain names to IPv6 addresses. The next-generation internet protocol.</p>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-envelope"></i> MX Record</h3>
+                <p>Specifies mail servers for the domain. Critical for email delivery.</p>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-dns"></i> NS Record</h3>
+                <p>Identifies authoritative nameservers for the domain.</p>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-file-alt"></i> TXT Record</h3>
+                <p>Stores text information. Used for verification and security policies.</p>
+            </div>
+            <div class="info-card">
+                <h3><i class="fas fa-link"></i> CNAME Record</h3>
+                <p>Creates an alias for another domain name. Used for subdomains.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== Hidden SEO Content ==================== -->
+<div style="display: none;" itemscope itemtype="https://schema.org/Person">
+    <span itemprop="name">Asadul Islam</span>
+    <span itemprop="alternateName">asadul islam</span>
+    <span itemprop="alternateName">asadul</span>
+    <span itemprop="alternateName">asadul islam asad</span>
+    <span itemprop="alternateName">Asadul Islam Asad</span>
+    <span itemprop="jobTitle">IT Professional</span>
+    <span itemprop="jobTitle">Network Engineer</span>
+    <span itemprop="jobTitle">System Administrator</span>
+    <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+        <span itemprop="addressCountry">Bangladesh</span>
+    </span>
+    <span itemprop="knowsLanguage">Bengali</span>
+    <span itemprop="knowsLanguage">English</span>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About</h3>
+            <p>Professional DNS lookup tool for network administrators and developers.</p>
+        </div>
+
+        <div class="footer-column footer-center">
+            <h3>Quick Pages</h3>
+            <a href="../../index.html">Home</a>
+            <a href="../../skills.html">Skills</a>
+            <a href="../tools.html">Tools</a>
+            <a href="../../contact.html">Contact</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>IT Tools</h3>
+            <a href="../network.html">Network Tools</a><br>
+            <a href="../security.html">Security Tools</a><br>
+            <a href="../calculator.html">Calculator</a>
+        </div>
+
+        <div class="footer-column">
+            <h3>Follow Me</h3>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © 2024 Online Tools | All Rights Reserved
+    </div>
+</footer>
+
+<script>
+// Google Analytics 4
+(function() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+    document.head.appendChild(script);
+    
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5H7RZ72M1J', {
+        'send_page_view': true,
+        'anonymize_ip': true,
+        'allow_google_signals': false
+    });
+    window.gtag = gtag;
+})();
+
+// Hamburger menu
+const hamburger = document.getElementById("hamburger");
+const navbar = document.getElementById("navbar");
+hamburger.onclick = () => navbar.classList.toggle("active");
+
+// Breadcrumb
+setBreadcrumb([
+    { name: "Home", link: "../../index.html" },
+    { name: "Tools", link: "../tools.html" },
+    { name: "Network", link: "../network.html" },
+    { name: "NS Lookup" }
+]);
+
+function setBreadcrumb(items) {
+    document.getElementById("breadcrumb").innerHTML =
+        items.map(i => i.link ? `<a href="${i.link}">${i.name}</a>` : i.name).join(" / ");
+}
+
+// DNS Lookup Function
+async function performLookup() {
+    const domain = document.getElementById('domainInput').value.trim();
+    const recordType = document.getElementById('recordType').value;
+    
+    if (!domain) {
+        alert('Please enter a domain name');
+        return;
+    }
+    
+    // Show loading
+    document.getElementById('loadingIndicator').style.display = 'block';
+    document.getElementById('resultsContainer').classList.remove('show');
+    
+    // Track lookup in GA
+    if (window.gtag) {
+        gtag('event', 'dns_lookup', {
+            'event_category': 'tool_usage',
+            'event_label': recordType,
+            'domain': domain
+        });
+    }
+    
+    try {
+        // Using Google DNS-over-HTTPS API
+        const response = await fetch(`https://dns.google/resolve?name=${domain}&type=${recordType}`);
+        const data = await response.json();
+        
+        displayResults(data, domain, recordType);
+    } catch (error) {
+        displayError('Failed to perform DNS lookup. Please check the domain and try again.');
+    } finally {
+        document.getElementById('loadingIndicator').style.display = 'none';
+    }
+}
+
+function displayResults(data, domain, recordType) {
+    const container = document.getElementById('resultsContent');
+    
+    if (data.Status !== 0 || !data.Answer || data.Answer.length === 0) {
+        container.innerHTML = `
+            <div class="error-message">
+                <i class="fas fa-exclamation-circle"></i>
+                No ${recordType} records found for ${domain}
+            </div>
+        `;
+    } else {
+        let html = '';
+        data.Answer.forEach((record, index) => {
+            html += `
+                <div class="result-item">
+                    <div class="result-label">${recordType} Record #${index + 1}</div>
+                    <div class="result-value">${record.data}</div>
+                    ${record.TTL ? `<div class="result-label" style="margin-top: 8px; font-size: 12px;">TTL: ${record.TTL} seconds</div>` : ''}
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+    
+    document.getElementById('resultsContainer').classList.add('show');
+}
+
+function displayError(message) {
+    const container = document.getElementById('resultsContent');
+    container.innerHTML = `
+        <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            ${message}
+        </div>
+    `;
+    document.getElementById('resultsContainer').classList.add('show');
+}
+
+function copyResults() {
+    const results = document.getElementById('resultsContent').innerText;
+    navigator.clipboard.writeText(results).then(() => {
+        const btn = event.target.closest('.btn-copy');
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => {
+            btn.innerHTML = originalHTML;
+        }, 2000);
+    });
+}
+
+// Allow Enter key to trigger lookup
+document.getElementById('domainInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        performLookup();
+    }
+});
+
+// Custom Event Tracking
+document.addEventListener('DOMContentLoaded', function() {
+    // Track navigation clicks
+    document.querySelectorAll('.navbar a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (window.gtag) {
+                gtag('event', 'navigation_click', {
+                    'event_category': 'navigation',
+                    'event_label': e.target.textContent.trim(),
+                    'page_location': window.location.href
+                });
+            }
+        });
+    });
+    
+    // Track mobile menu usage
+    const mobileToggle = document.getElementById('hamburger');
+    if (mobileToggle) {
+        mobileToggle.addEventListener('click', function() {
+            if (window.gtag) {
+                gtag('event', 'mobile_menu_toggle', {
+                    'event_category': 'ui_interaction',
+                    'event_label': 'mobile_menu_opened'
+                });
+            }
+        });
+    }
+    
+    // Track scroll depth
+    let maxScrollDepth = 0;
+    window.addEventListener('scroll', function() {
+        const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+            maxScrollDepth = scrollDepth;
+            if (window.gtag) {
+                gtag('event', 'scroll_depth', {
+                    'event_category': 'engagement',
+                    'event_label': scrollDepth + '%_scrolled',
+                    'value': scrollDepth
+                });
+            }
+        }
+    });
+});
+</script>
+
+</body>
+</html>

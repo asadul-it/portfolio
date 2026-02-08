@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Information - System Tools</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Asadul Islam - Professional IT Engineer Portfolio. Expert in IT Infrastructure, Networking, Security, and Technical Support. View CV, projects, and contact information for Asadul Islam Asad.">
+    <meta name="keywords"
+        content="Asadul Islam, asadul islam, asadul, asadul islam asad, Asadul Islam Asad, আসাদুল, আসাদুল ইসলাম, আসাদুল ইসলাম আছাদ, IT Engineer, IT Professional, IT Infrastructure, Networking, Security, Portfolio, CV, Bangladesh, Browser Info, System Information">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali, English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Browser Information - Asadul Islam">
+    <meta property="og:description"
+        content="Professional IT Engineer with expertise in IT Infrastructure, Networking, System Security, and Technical Support. Check your browser information and system details.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/profile.jpg">
+    <meta property="og:site_name" content="Asadul Islam Portfolio">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Browser Information - Asadul Islam">
+    <meta name="twitter:description"
+        content="Professional IT Engineer Portfolio. IT Infrastructure and technical support expert from Bangladesh.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/profile.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Asadul Islam",
+        "alternateName": ["asadul islam", "asadul", "asadul islam asad", "Asadul Islam Asad"],
+        "jobTitle": "IT Engineer",
+        "url": "https://asadul-it.github.io/portfolio/",
+        "image": "https://asadul-it.github.io/portfolio/img/profile.jpg",
+        "sameAs": [
+            "https://linkedin.com/in/asadulislam",
+            "https://github.com/asadul-it",
+            "https://facebook.com/asadulislam"
+        ],
+        "address": {
+            "@type": "PostalAddress",
+            "addressCountry": "Bangladesh"
+        },
+        "knowsAbout": ["IT Infrastructure", "Networking", "Security", "Technical Support"],
+        "alumniOf": "Information Technology",
+        "nationality": "Bangladeshi"
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* ==================== Header Section ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .logo-icon {
+            background: #000000;
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        /* ==================== Hamburger Menu ==================== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #2563eb;
+            transition: all 0.3s ease;
+        }
+
+        /* ==================== Breadcrumb Section ==================== */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            font-size: 0.9em;
+            color: #5a6c7d;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==================== Main Content Area ==================== */
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .page-title p {
+            font-size: 16px;
+            color: #718096;
+        }
+
+        /* ==================== Browser Info Cards Grid ==================== */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f3ff;
+        }
+
+        .info-card-icon {
+            width: 50px;
+            height: 50px;
+            background: #f0f3ff;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #2563eb;
+        }
+
+        .info-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 14px;
+            flex: 0 0 40%;
+        }
+
+        .info-value {
+            color: #2d3748;
+            font-size: 14px;
+            text-align: right;
+            flex: 1;
+            word-break: break-word;
+        }
+
+        /* ==================== Special Features Section ==================== */
+        .features-section {
+            margin-top: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: #f0f3ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #2563eb;
+            margin: 0 auto 15px;
+        }
+
+        .feature-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        .feature-value {
+            font-size: 16px;
+            color: #718096;
+            font-weight: 600;
+        }
+
+        /* ==================== Status Indicators ==================== */
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .status-enabled {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-disabled {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-unknown {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* ==================== Copy Button ==================== */
+        .copy-all-section {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .copy-button {
+            background: #2563eb;
+            color: #ffffff;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .copy-button:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+        }
+
+        .copy-button:active {
+            transform: translateY(0);
+        }
+
+        .copy-button.copied {
+            background: #059669;
+        }
+
+        /* ==================== Footer Section ==================== */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 35px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: center;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+        }
+
+        .footer-column a,
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 0.9em;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f0f3ff;
+            color: #2563eb;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 15px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 0.85em;
+            color: #5a6c7d;
+        }
+
+        /* ==================== Responsive Design ==================== */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar a {
+                padding: 12px 20px;
+                border-bottom: 1px solid #f3f4f6;
+            }
+
+            .header-buttons {
+                flex-wrap: wrap;
+            }
+
+            .page-title h1 {
+                font-size: 28px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .logo span:not(.logo-icon) {
+                font-size: 14px;
+            }
+
+            .copy-button {
+                padding: 12px 30px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title h1 {
+                font-size: 24px;
+            }
+
+            .info-card {
+                padding: 20px;
+            }
+
+            .feature-card {
+                padding: 20px;
+            }
+
+            .info-label,
+            .info-value {
+                font-size: 13px;
+            }
+
+            .copy-all-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ==================== Header ==================== -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">BD</span>
+                <span>Browser Information</span>
+            </div>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== Breadcrumb ==================== -->
+    <div class="breadcrumb" id="breadcrumb"></div>
+
+    <!-- ==================== Main Content ==================== -->
+    <div class="main-content">
+        
+        <!-- Page Title -->
+        <div class="page-title">
+            <h1>Browser Information</h1>
+            <p>Complete details about your browser, operating system, and device</p>
+        </div>
+
+        <!-- Browser Info Grid -->
+        <div class="info-grid">
+            
+            <!-- Browser Details Card -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h2 class="info-card-title">Browser Details</h2>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Browser Name:</span>
+                    <span class="info-value" id="browserName">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Version:</span>
+                    <span class="info-value" id="browserVersion">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">User Agent:</span>
+                    <span class="info-value" id="userAgent">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Engine:</span>
+                    <span class="info-value" id="browserEngine">-</span>
+                </div>
+            </div>
+
+            <!-- Operating System Card -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h2 class="info-card-title">Operating System</h2>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">OS Name:</span>
+                    <span class="info-value" id="osName">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Platform:</span>
+                    <span class="info-value" id="platform">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Architecture:</span>
+                    <span class="info-value" id="architecture">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Device Type:</span>
+                    <span class="info-value" id="deviceType">-</span>
+                </div>
+            </div>
+
+            <!-- Screen Information Card -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <h2 class="info-card-title">Screen Information</h2>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Resolution:</span>
+                    <span class="info-value" id="screenResolution">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Available Size:</span>
+                    <span class="info-value" id="availableSize">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Color Depth:</span>
+                    <span class="info-value" id="colorDepth">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Pixel Ratio:</span>
+                    <span class="info-value" id="pixelRatio">-</span>
+                </div>
+            </div>
+
+            <!-- Browser Features Card -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <h2 class="info-card-title">Browser Features</h2>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Cookies:</span>
+                    <span class="info-value" id="cookiesEnabled">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">JavaScript:</span>
+                    <span class="info-value" id="javascriptEnabled">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Local Storage:</span>
+                    <span class="info-value" id="localStorageEnabled">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Session Storage:</span>
+                    <span class="info-value" id="sessionStorageEnabled">-</span>
+                </div>
+            </div>
+
+            <!-- Network Information Card -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <i class="fas fa-wifi"></i>
+                    </div>
+                    <h2 class="info-card-title">Network Information</h2>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Online Status:</span>
+                    <span class="info-value" id="onlineStatus">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Connection Type:</span>
+                    <span class="info-value" id="connectionType">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Language:</span>
+                    <span class="info-value" id="language">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Time Zone:</span>
+                    <span class="info-value" id="timeZone">-</span>
+                </div>
+            </div>
+
+            <!-- Geolocation Card -->
+            <div class="info-card">
+                <div class="info-card-header">
+                    <div class="info-card-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h2 class="info-card-title">Location & Time</h2>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Current Time:</span>
+                    <span class="info-value" id="currentTime">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Geolocation API:</span>
+                    <span class="info-value" id="geolocationSupport">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Do Not Track:</span>
+                    <span class="info-value" id="doNotTrack">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Battery API:</span>
+                    <span class="info-value" id="batterySupport">-</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Features Section -->
+        <div class="features-section">
+            <div class="features-grid">
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-memory"></i>
+                    </div>
+                    <h3 class="feature-title">Device Memory</h3>
+                    <p class="feature-value" id="deviceMemory">-</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3 class="feature-title">CPU Cores</h3>
+                    <p class="feature-value" id="cpuCores">-</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Touch Support</h3>
+                    <p class="feature-value" id="touchSupport">-</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-window-maximize"></i>
+                    </div>
+                    <h3 class="feature-title">Window Size</h3>
+                    <p class="feature-value" id="windowSize">-</p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Copy All Information Section -->
+        <div class="copy-all-section">
+            <button class="copy-button" id="copyAllBtn">
+                <i class="fas fa-copy"></i>
+                Copy All Information
+            </button>
+        </div>
+
+    </div>
+
+    <!-- ==================== Hidden SEO Content ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/Person">
+        <span itemprop="name">Asadul Islam</span>
+        <span itemprop="alternateName">asadul islam</span>
+        <span itemprop="alternateName">asadul</span>
+        <span itemprop="alternateName">asadul islam asad</span>
+        <span itemprop="alternateName">Asadul Islam Asad</span>
+        <span itemprop="jobTitle">IT Professional</span>
+        <span itemprop="jobTitle">Network Engineer</span>
+        <span itemprop="jobTitle">System Administrator</span>
+        <span itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <span itemprop="addressCountry">Bangladesh</span>
+        </span>
+        <span itemprop="knowsLanguage">Bengali</span>
+        <span itemprop="knowsLanguage">English</span>
+    </div>
+
+    <!-- ==================== Footer ==================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About</h3>
+                <p>Professional browser information tool for system administrators and IT professionals.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow Me</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Online Tools | All Rights Reserved
+        </div>
+    </footer>
+
+    <!-- ==================== JavaScript ==================== -->
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        
+        hamburger.onclick = function() {
+            navbar.classList.toggle("active");
+        };
+
+        // Breadcrumb navigation setup
+        setBreadcrumb([
+            { name: "Home", link: "../../index.html" },
+            { name: "Tools", link: "../tools.html" },
+            { name: "Browser Info" }
+        ]);
+
+        function setBreadcrumb(items) {
+            const breadcrumbHtml = items.map(function(item) {
+                if (item.link) {
+                    return '<a href="' + item.link + '">' + item.name + '</a>';
+                } else {
+                    return item.name;
+                }
+            }).join(" / ");
+            
+            document.getElementById("breadcrumb").innerHTML = breadcrumbHtml;
+        }
+
+        // Custom Event Tracking for Interactions
+        document.addEventListener('DOMContentLoaded', function () {
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(function(link) {
+                link.addEventListener('click', function (e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track mobile menu usage
+            const mobileToggle = document.getElementById('hamburger');
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', function () {
+                    if (window.gtag) {
+                        gtag('event', 'mobile_menu_toggle', {
+                            'event_category': 'ui_interaction',
+                            'event_label': 'mobile_menu_opened'
+                        });
+                    }
+                });
+            }
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function () {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+
+        // ==================== Browser Information Detection ==================== //
+
+        // Function to create status indicator HTML
+        function createStatusIndicator(isEnabled) {
+            if (isEnabled === true) {
+                return '<span class="status-indicator status-enabled"><span class="status-dot"></span>Enabled</span>';
+            } else if (isEnabled === false) {
+                return '<span class="status-indicator status-disabled"><span class="status-dot"></span>Disabled</span>';
+            } else {
+                return '<span class="status-indicator status-unknown"><span class="status-dot"></span>Unknown</span>';
+            }
+        }
+
+        // Function to detect browser name and version
+        function detectBrowser() {
+            const userAgent = navigator.userAgent;
+            let browserName = "Unknown";
+            let browserVersion = "Unknown";
+            let browserEngine = "Unknown";
+
+            // Detect browser name and version
+            if (userAgent.indexOf("Firefox") > -1) {
+                browserName = "Mozilla Firefox";
+                browserVersion = userAgent.match(/Firefox\/([0-9.]+)/)[1];
+                browserEngine = "Gecko";
+            } else if (userAgent.indexOf("Edg") > -1) {
+                browserName = "Microsoft Edge";
+                browserVersion = userAgent.match(/Edg\/([0-9.]+)/)[1];
+                browserEngine = "Blink";
+            } else if (userAgent.indexOf("Chrome") > -1) {
+                browserName = "Google Chrome";
+                browserVersion = userAgent.match(/Chrome\/([0-9.]+)/)[1];
+                browserEngine = "Blink";
+            } else if (userAgent.indexOf("Safari") > -1) {
+                browserName = "Apple Safari";
+                browserVersion = userAgent.match(/Version\/([0-9.]+)/)[1];
+                browserEngine = "WebKit";
+            } else if (userAgent.indexOf("Opera") > -1 || userAgent.indexOf("OPR") > -1) {
+                browserName = "Opera";
+                browserVersion = userAgent.match(/(?:Opera|OPR)\/([0-9.]+)/)[1];
+                browserEngine = "Blink";
+            }
+
+            return { browserName, browserVersion, browserEngine };
+        }
+
+        // Function to detect operating system
+        function detectOS() {
+            const userAgent = navigator.userAgent;
+            const platform = navigator.platform;
+            let osName = "Unknown";
+            let deviceType = "Desktop";
+
+            // Detect OS
+            if (userAgent.indexOf("Win") > -1) {
+                osName = "Windows";
+            } else if (userAgent.indexOf("Mac") > -1) {
+                osName = "macOS";
+            } else if (userAgent.indexOf("Linux") > -1) {
+                osName = "Linux";
+            } else if (userAgent.indexOf("Android") > -1) {
+                osName = "Android";
+                deviceType = "Mobile";
+            } else if (userAgent.indexOf("iOS") > -1 || userAgent.indexOf("iPhone") > -1 || userAgent.indexOf("iPad") > -1) {
+                osName = "iOS";
+                deviceType = userAgent.indexOf("iPad") > -1 ? "Tablet" : "Mobile";
+            }
+
+            return { osName, platform, deviceType };
+        }
+
+        // Function to check storage support
+        function checkStorage(type) {
+            try {
+                const storage = window[type];
+                const testKey = '__storage_test__';
+                storage.setItem(testKey, 'test');
+                storage.removeItem(testKey);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // Function to get connection type
+        function getConnectionType() {
+            if (navigator.connection) {
+                return navigator.connection.effectiveType || "Unknown";
+            }
+            return "Not Available";
+        }
+
+        // Function to update current time
+        function updateCurrentTime() {
+            const now = new Date();
+            const timeString = now.toLocaleString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        // Function to populate all browser information
+        function populateBrowserInfo() {
+            // Browser Details
+            const browserInfo = detectBrowser();
+            document.getElementById('browserName').textContent = browserInfo.browserName;
+            document.getElementById('browserVersion').textContent = browserInfo.browserVersion;
+            document.getElementById('userAgent').textContent = navigator.userAgent;
+            document.getElementById('browserEngine').textContent = browserInfo.browserEngine;
+
+            // Operating System
+            const osInfo = detectOS();
+            document.getElementById('osName').textContent = osInfo.osName;
+            document.getElementById('platform').textContent = osInfo.platform;
+            document.getElementById('architecture').textContent = navigator.platform;
+            document.getElementById('deviceType').textContent = osInfo.deviceType;
+
+            // Screen Information
+            document.getElementById('screenResolution').textContent = screen.width + ' x ' + screen.height + ' px';
+            document.getElementById('availableSize').textContent = screen.availWidth + ' x ' + screen.availHeight + ' px';
+            document.getElementById('colorDepth').textContent = screen.colorDepth + ' bit';
+            document.getElementById('pixelRatio').textContent = window.devicePixelRatio + 'x';
+
+            // Browser Features
+            document.getElementById('cookiesEnabled').innerHTML = createStatusIndicator(navigator.cookieEnabled);
+            document.getElementById('javascriptEnabled').innerHTML = createStatusIndicator(true);
+            document.getElementById('localStorageEnabled').innerHTML = createStatusIndicator(checkStorage('localStorage'));
+            document.getElementById('sessionStorageEnabled').innerHTML = createStatusIndicator(checkStorage('sessionStorage'));
+
+            // Network Information
+            document.getElementById('onlineStatus').innerHTML = createStatusIndicator(navigator.onLine);
+            document.getElementById('connectionType').textContent = getConnectionType();
+            document.getElementById('language').textContent = navigator.language || navigator.userLanguage;
+            document.getElementById('timeZone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+            // Location & Time
+            updateCurrentTime();
+            setInterval(updateCurrentTime, 1000);
+            document.getElementById('geolocationSupport').innerHTML = createStatusIndicator('geolocation' in navigator);
+            document.getElementById('doNotTrack').textContent = navigator.doNotTrack || "Not Set";
+            document.getElementById('batterySupport').innerHTML = createStatusIndicator('getBattery' in navigator);
+
+            // Features
+            document.getElementById('deviceMemory').textContent = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Not Available';
+            document.getElementById('cpuCores').textContent = navigator.hardwareConcurrency || 'Not Available';
+            document.getElementById('touchSupport').textContent = navigator.maxTouchPoints > 0 ? 'Yes (' + navigator.maxTouchPoints + ' points)' : 'No';
+            document.getElementById('windowSize').textContent = window.innerWidth + ' x ' + window.innerHeight + ' px';
+        }
+
+        // Function to gather all information as text
+        function getAllInfoText() {
+            const browserInfo = detectBrowser();
+            const osInfo = detectOS();
+            
+            let infoText = "=== BROWSER INFORMATION ===\n\n";
+            
+            infoText += "BROWSER DETAILS:\n";
+            infoText += "Browser Name: " + browserInfo.browserName + "\n";
+            infoText += "Version: " + browserInfo.browserVersion + "\n";
+            infoText += "Engine: " + browserInfo.browserEngine + "\n";
+            infoText += "User Agent: " + navigator.userAgent + "\n\n";
+            
+            infoText += "OPERATING SYSTEM:\n";
+            infoText += "OS Name: " + osInfo.osName + "\n";
+            infoText += "Platform: " + osInfo.platform + "\n";
+            infoText += "Device Type: " + osInfo.deviceType + "\n\n";
+            
+            infoText += "SCREEN INFORMATION:\n";
+            infoText += "Resolution: " + screen.width + " x " + screen.height + " px\n";
+            infoText += "Available Size: " + screen.availWidth + " x " + screen.availHeight + " px\n";
+            infoText += "Color Depth: " + screen.colorDepth + " bit\n";
+            infoText += "Pixel Ratio: " + window.devicePixelRatio + "x\n\n";
+            
+            infoText += "BROWSER FEATURES:\n";
+            infoText += "Cookies: " + (navigator.cookieEnabled ? "Enabled" : "Disabled") + "\n";
+            infoText += "JavaScript: Enabled\n";
+            infoText += "Local Storage: " + (checkStorage('localStorage') ? "Enabled" : "Disabled") + "\n";
+            infoText += "Session Storage: " + (checkStorage('sessionStorage') ? "Enabled" : "Disabled") + "\n\n";
+            
+            infoText += "NETWORK INFORMATION:\n";
+            infoText += "Online Status: " + (navigator.onLine ? "Online" : "Offline") + "\n";
+            infoText += "Connection Type: " + getConnectionType() + "\n";
+            infoText += "Language: " + (navigator.language || navigator.userLanguage) + "\n";
+            infoText += "Time Zone: " + Intl.DateTimeFormat().resolvedOptions().timeZone + "\n\n";
+            
+            infoText += "ADDITIONAL FEATURES:\n";
+            infoText += "Device Memory: " + (navigator.deviceMemory ? navigator.deviceMemory + " GB" : "Not Available") + "\n";
+            infoText += "CPU Cores: " + (navigator.hardwareConcurrency || "Not Available") + "\n";
+            infoText += "Touch Support: " + (navigator.maxTouchPoints > 0 ? "Yes (" + navigator.maxTouchPoints + " points)" : "No") + "\n";
+            infoText += "Window Size: " + window.innerWidth + " x " + window.innerHeight + " px\n";
+            infoText += "Geolocation Support: " + ('geolocation' in navigator ? "Yes" : "No") + "\n";
+            infoText += "Do Not Track: " + (navigator.doNotTrack || "Not Set") + "\n";
+            infoText += "Battery API: " + ('getBattery' in navigator ? "Supported" : "Not Supported") + "\n\n";
+            
+            infoText += "Generated on: " + new Date().toLocaleString() + "\n";
+            
+            return infoText;
+        }
+
+        // Copy all information to clipboard
+        document.getElementById('copyAllBtn').addEventListener('click', function() {
+            const button = this;
+            const infoText = getAllInfoText();
+            
+            navigator.clipboard.writeText(infoText).then(function() {
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.innerHTML = '<i class="fas fa-copy"></i> Copy All Information';
+                    button.classList.remove('copied');
+                }, 2000);
+
+                if (window.gtag) {
+                    gtag('event', 'copy_browser_info', {
+                        'event_category': 'tool_usage',
+                        'event_label': 'browser_info_copied'
+                    });
+                }
+            }).catch(function(err) {
+                alert('Failed to copy information. Please try again.');
+                console.error('Copy failed:', err);
+            });
+        });
+
+        // Initialize browser information on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            populateBrowserInfo();
+        });
+
+        // Update window size on resize
+        window.addEventListener('resize', function() {
+            document.getElementById('windowSize').textContent = window.innerWidth + ' x ' + window.innerHeight + ' px';
+        });
+
+        // Update online status when it changes
+        window.addEventListener('online', function() {
+            document.getElementById('onlineStatus').innerHTML = createStatusIndicator(true);
+        });
+
+        window.addEventListener('offline', function() {
+            document.getElementById('onlineStatus').innerHTML = createStatusIndicator(false);
+        });
+
+    </script>
+
+</body>
+
+</html>

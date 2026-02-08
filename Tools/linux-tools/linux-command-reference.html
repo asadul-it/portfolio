@@ -1,0 +1,3011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Command Master - Complete Reference Guide for System Administrators</title>
+    
+    <!-- ==================== Enhanced SEO Meta Tags ==================== -->
+    <meta name="description" content="Complete Linux Command Master Reference. Essential commands with examples, search functionality, category filtering, and interactive examples for Linux system administration.">
+    <meta name="keywords" content="linux commands, linux command reference, linux terminal, bash commands, linux tutorial, system administration, ubuntu commands, debian commands, shell scripting, Asadul Islam">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English, Bengali">
+    
+    <!-- ==================== Open Graph Tags ==================== -->
+    <meta property="og:title" content="Linux Command Master - Ultimate Reference Guide">
+    <meta property="og:description" content="Comprehensive Linux command reference with search, filtering, and interactive examples for developers and system administrators.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/linux-tools/linux-command-reference.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/assets/linux-commands-preview.png">
+    
+    <!-- ==================== Additional Fonts ==================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ==================== Preconnect for Performance ==================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        /* ==================== CSS Variables for Theme ==================== */
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --primary-light: #34d399;
+            --secondary: #3b82f6;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #06b6d4;
+            --purple: #8b5cf6;
+            --dark: #1e293b;
+            --dark-light: #334155;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --terminal-bg: #1a1a1a;
+            --terminal-green: #10b981;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-dark: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f0 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==================== Header Styles ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            background: var(--gradient-primary);
+            color: white;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gray);
+            letter-spacing: 1px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            padding: 8px 16px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .navbar a:hover {
+            color: var(--primary);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .navbar a.active {
+            color: var(--primary);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .navbar a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .navbar i {
+            font-size: 16px;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ==================== Breadcrumb Styles ==================== */
+        .breadcrumb-section {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .breadcrumb {
+            font-size: 15px;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .breadcrumb a:hover {
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .breadcrumb i {
+            font-size: 12px;
+            color: var(--gray-light);
+        }
+
+        /* ==================== Main Content Styles ==================== */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 30px;
+        }
+
+        .content-box {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+
+        /* ==================== Tool Header ==================== */
+        .tool-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .tool-header h1 {
+            font-size: 42px;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .tool-header h1 i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .tool-header p {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ==================== Search and Filter Section ==================== */
+        .search-filter-section {
+            margin-bottom: 40px;
+            background: var(--light);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 50px 16px 20px;
+            border: 2px solid var(--gray-light);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 18px;
+        }
+
+        .stats {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 2px solid var(--gray-light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .filter-btn i {
+            font-size: 12px;
+        }
+
+        /* ==================== Quick Reference Section ==================== */
+        .quick-reference {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--info);
+        }
+
+        .quick-reference h3 {
+            color: #0369a1;
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .reference-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #bae6fd;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .reference-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(3, 105, 161, 0.1);
+            border-color: var(--info);
+        }
+
+        .reference-item .command {
+            font-family: 'Source Code Pro', monospace;
+            color: var(--info);
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .reference-item .desc {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* ==================== Category Tabs ==================== */
+        .category-tabs {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        .category-tab {
+            flex: 0 0 auto;
+            padding: 12px 24px;
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-tab:hover {
+            background: var(--light);
+        }
+
+        .category-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            position: relative;
+        }
+
+        .category-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        /* ==================== Commands Container ==================== */
+        .commands-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .command-category {
+            margin-bottom: 0;
+        }
+
+        .category-header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .category-header h2 {
+            font-size: 20px;
+        }
+
+        .category-header i {
+            font-size: 22px;
+        }
+
+        .category-header.file-mgmt {
+            background: linear-gradient(135deg, var(--primary) 0%, #059669 100%);
+        }
+
+        .category-header.system-info {
+            background: linear-gradient(135deg, var(--secondary) 0%, #2563eb 100%);
+        }
+
+        .category-header.user-mgmt {
+            background: linear-gradient(135deg, var(--purple) 0%, #7c3aed 100%);
+        }
+
+        .category-header.package-mgmt {
+            background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+        }
+
+        .category-header.network {
+            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+        }
+
+        .category-header.permissions {
+            background: linear-gradient(135deg, var(--info) 0%, #0891b2 100%);
+        }
+
+        .category-header.process-mgmt {
+            background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+        }
+
+        .category-header.compression {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+        }
+
+        .category-header.text-processing {
+            background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+        }
+
+        .category-header.advanced {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+        }
+
+        .commands-grid {
+            display: grid;
+            gap: 15px;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 0 0 12px 12px;
+            border: 2px solid var(--gray-light);
+            border-top: none;
+        }
+
+        .command-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .command-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .command-item::before {
+            content: '$';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-family: 'Source Code Pro', monospace;
+            color: var(--gray-light);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .command-name {
+            font-family: 'Source Code Pro', monospace;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .command-name i {
+            font-size: 14px;
+            color: var(--warning);
+        }
+
+        .command-desc {
+            color: var(--dark-light);
+            margin-bottom: 12px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .command-syntax {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            font-family: 'Source Code Pro', monospace;
+            color: var(--dark);
+            font-size: 14px;
+        }
+
+        .command-examples {
+            margin-top: 15px;
+        }
+
+        .example-header {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gray);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .command-example {
+            background: var(--terminal-bg);
+            color: var(--terminal-green);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 14px;
+            margin-top: 8px;
+            position: relative;
+            border: 1px solid #2d3748;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .command-example::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .command-example::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .command-example::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+        }
+
+        /* ==================== Cheat Sheet Section ==================== */
+        .cheat-sheet {
+            margin-top: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 16px;
+            border-left: 4px solid var(--warning);
+        }
+
+        .cheat-sheet h3 {
+            color: #92400e;
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cheat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .cheat-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #fbbf24;
+        }
+
+        .cheat-item h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cheat-commands {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .cheat-command {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background: #fffbeb;
+            border-radius: 6px;
+        }
+
+        .cheat-command .cmd {
+            font-family: 'Source Code Pro', monospace;
+            color: #92400e;
+            font-weight: 600;
+        }
+
+        .cheat-command .desc {
+            font-size: 12px;
+            color: #b45309;
+        }
+
+        /* ==================== Terminal Simulator ==================== */
+        .terminal-simulator {
+            margin-top: 50px;
+            background: var(--terminal-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .terminal-header {
+            background: #2d3748;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ef4444; }
+        .terminal-dot.yellow { background: #f59e0b; }
+        .terminal-dot.green { background: #10b981; }
+
+        .terminal-title {
+            color: #cbd5e1;
+            font-size: 14px;
+            margin-left: auto;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: 'Source Code Pro', monospace;
+            color: #cbd5e1;
+            min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .terminal-prompt {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .terminal-output {
+            margin-bottom: 15px;
+            color: #94a3b8;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        .terminal-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .terminal-input span {
+            color: var(--primary);
+        }
+
+        .terminal-input input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 16px;
+            outline: none;
+        }
+
+        /* ==================== Footer Styles ==================== */
+        footer {
+            background: var(--dark);
+            color: white;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px 30px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .footer-column p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quick-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 15px;
+        }
+
+        .footer-bottom a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* ==================== Utility Classes ==================== */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge-popular {
+            background: var(--warning);
+            color: #92400e;
+        }
+
+        .badge-advanced {
+            background: var(--danger);
+            color: white;
+        }
+
+        .badge-basic {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tool-tip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tool-tip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+
+        /* ==================== Responsive Design ==================== */
+        @media (max-width: 1200px) {
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .commands-container {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 992px) {
+            .commands-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cheat-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .reference-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navbar a {
+                padding: 15px 20px;
+                border-radius: 10px;
+            }
+
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .breadcrumb-section {
+                padding: 0 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .main-content {
+                padding: 0 20px;
+            }
+
+            .content-box {
+                padding: 30px 20px;
+            }
+
+            .tool-header h1 {
+                font-size: 28px;
+                flex-direction: column;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .category-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .category-tab {
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            .reference-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .command-item {
+                padding: 15px;
+            }
+            
+            .command-name {
+                font-size: 16px;
+            }
+            
+            .tool-header h1 {
+                font-size: 24px;
+            }
+            
+            .category-tab {
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="fixed-header-container">
+    <div class="header-content">
+        <a href="../../index.html" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-terminal"></i>
+            </div>
+            <div class="logo-text">
+                <span>LINUX COMMANDS</span>
+                <span class="logo-sub">MASTER REFERENCE</span>
+            </div>
+        </a>
+        
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="../../index.html" class="active"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<div class="breadcrumb-section">
+    <button class="back-button" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i> Back to Tools
+    </button>
+    <div class="breadcrumb" id="breadcrumb"></div>
+</div>
+
+<div class="main-content">
+    <div class="content-box">
+        <div class="tool-header">
+            <h1><i class="fas fa-terminal"></i> Linux Command Master Reference</h1>
+            <p>Comprehensive Linux command reference with search, filtering, and interactive examples for system administrators and developers.</p>
+        </div>
+
+        <!-- Search and Filter Section -->
+        <div class="search-filter-section">
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search commands (e.g., 'ls', 'chmod', 'apt install')...">
+                    <div class="search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat-item">
+                        <i class="fas fa-code"></i>
+                        <span id="totalCommands">Loading...</span> commands
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-filter"></i>
+                        <span id="visibleCommands">0</span> visible
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-layer-group"></i>
+                        <span id="totalCategories">0</span> categories
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-layer-group"></i> All Commands
+                </button>
+                <button class="filter-btn" data-filter="basic">
+                    <i class="fas fa-star"></i> Basic
+                </button>
+                <button class="filter-btn" data-filter="advanced">
+                    <i class="fas fa-rocket"></i> Advanced
+                </button>
+                <button class="filter-btn" data-filter="popular">
+                    <i class="fas fa-fire"></i> Popular
+                </button>
+            </div>
+        </div>
+
+        <!-- Quick Reference Section -->
+        <div class="quick-reference">
+            <h3><i class="fas fa-bolt"></i> Quick Reference - Most Used Commands</h3>
+            <div class="reference-grid">
+                <div class="reference-item" onclick="scrollToCommand('ls')">
+                    <div class="command">ls</div>
+                    <div class="desc">List directory contents</div>
+                </div>
+                <div class="reference-item" onclick="scrollToCommand('cd')">
+                    <div class="command">cd</div>
+                    <div class="desc">Change directory</div>
+                </div>
+                <div class="reference-item" onclick="scrollToCommand('cp')">
+                    <div class="command">cp</div>
+                    <div class="desc">Copy files/directories</div>
+                </div>
+                <div class="reference-item" onclick="scrollToCommand('mv')">
+                    <div class="command">mv</div>
+                    <div class="desc">Move/rename files</div>
+                </div>
+                <div class="reference-item" onclick="scrollToCommand('rm')">
+                    <div class="command">rm</div>
+                    <div class="desc">Remove files/directories</div>
+                </div>
+                <div class="reference-item" onclick="scrollToCommand('grep')">
+                    <div class="command">grep</div>
+                    <div class="desc">Search text patterns</div>
+                </div>
+                <div class="reference-item" onclick="scrollToCommand('chmod')">
+                    <div class="command">chmod</div>
+                    <div class="desc">Change permissions</div>
+                </div>
+                <div class="reference-item" onclick="scrollToCommand('sudo')">
+                    <div class="command">sudo</div>
+                    <div class="desc">Execute as superuser</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="category-tabs" id="categoryTabs">
+            <!-- Tabs will be generated dynamically -->
+        </div>
+
+        <!-- Commands Container -->
+        <div class="commands-container" id="commandsContainer">
+            <!-- File Management -->
+            <div class="command-category" data-category="file-management" data-tags="basic,popular">
+                <div class="category-header file-mgmt">
+                    <i class="fas fa-folder"></i>
+                    <h2>File Management Commands</h2>
+                </div>
+                <div class="commands-grid">
+                    <div class="command-item" data-name="ls" data-tags="basic,popular">
+                        <div class="command-name">
+                            <span>ls</span>
+                            <span class="badge badge-basic">Basic</span>
+                            <span class="badge badge-popular">Popular</span>
+                        </div>
+                        <div class="command-desc">List directory contents with various options for formatting and sorting.</div>
+                        <div class="command-syntax">ls [OPTIONS] [FILE]...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                ls -la
+                                <button class="copy-btn" onclick="copyCommand('ls -la')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="command-example">
+                                ls -lh
+                                <button class="copy-btn" onclick="copyCommand('ls -lh')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="command-example">
+                                ls -t
+                                <button class="copy-btn" onclick="copyCommand('ls -t')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="cd" data-tags="basic,popular">
+                        <div class="command-name">
+                            <span>cd</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Change the current working directory. Use '-' to go to previous directory.</div>
+                        <div class="command-syntax">cd [DIRECTORY]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                cd /var/www
+                                <button class="copy-btn" onclick="copyCommand('cd /var/www')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="command-example">
+                                cd ~
+                                <button class="copy-btn" onclick="copyCommand('cd ~')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="command-example">
+                                cd -
+                                <button class="copy-btn" onclick="copyCommand('cd -')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="cp" data-tags="basic">
+                        <div class="command-name">
+                            <span>cp</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Copy files and directories. Use -r for recursive copy of directories.</div>
+                        <div class="command-syntax">cp [OPTIONS] SOURCE DEST</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                cp file.txt backup/
+                                <button class="copy-btn" onclick="copyCommand('cp file.txt backup/')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="command-example">
+                                cp -r directory/ backup/
+                                <button class="copy-btn" onclick="copyCommand('cp -r directory/ backup/')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="mv" data-tags="basic">
+                        <div class="command-name">
+                            <span>mv</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Move or rename files and directories. Also used for batch file operations.</div>
+                        <div class="command-syntax">mv [OPTIONS] SOURCE DEST</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                mv oldname.txt newname.txt
+                                <button class="copy-btn" onclick="copyCommand('mv oldname.txt newname.txt')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="command-example">
+                                mv *.txt archive/
+                                <button class="copy-btn" onclick="copyCommand('mv *.txt archive/')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="rm" data-tags="basic" data-warning="danger">
+                        <div class="command-name">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>rm</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Remove files or directories. <strong>Warning:</strong> Use with caution, especially with -rf flags.</div>
+                        <div class="command-syntax">rm [OPTIONS] FILE...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                rm file.txt
+                                <button class="copy-btn" onclick="copyCommand('rm file.txt')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="command-example">
+                                rm -rf directory/
+                                <button class="copy-btn" onclick="copyCommand('rm -rf directory/')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="mkdir" data-tags="basic">
+                        <div class="command-name">
+                            <span>mkdir</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Create new directories. Use -p to create parent directories as needed.</div>
+                        <div class="command-syntax">mkdir [OPTIONS] DIRECTORY...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                mkdir new_folder
+                                <button class="copy-btn" onclick="copyCommand('mkdir new_folder')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="command-example">
+                                mkdir -p /path/to/directory
+                                <button class="copy-btn" onclick="copyCommand('mkdir -p /path/to/directory')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="touch" data-tags="basic">
+                        <div class="command-name">
+                            <span>touch</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Create empty files or update timestamps of existing files.</div>
+                        <div class="command-syntax">touch [OPTIONS] FILE...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                touch newfile.txt
+                                <button class="copy-btn" onclick="copyCommand('touch newfile.txt')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="find" data-tags="advanced">
+                        <div class="command-name">
+                            <span>find</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Search for files in a directory hierarchy with powerful filtering options.</div>
+                        <div class="command-syntax">find [PATH] [OPTIONS] [EXPRESSION]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                find . -name "*.txt"
+                                <button class="copy-btn" onclick="copyCommand('find . -name "*.txt"')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="command-example">
+                                find /home -size +100M
+                                <button class="copy-btn" onclick="copyCommand('find /home -size +100M')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Information -->
+            <div class="command-category" data-category="system-info" data-tags="basic,popular">
+                <div class="category-header system-info">
+                    <i class="fas fa-info-circle"></i>
+                    <h2>System Information Commands</h2>
+                </div>
+                <div class="commands-grid">
+                    <div class="command-item" data-name="uname" data-tags="basic">
+                        <div class="command-name">
+                            <span>uname</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Display system information including kernel name, version, and hardware.</div>
+                        <div class="command-syntax">uname [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                uname -a
+                                <button class="copy-btn" onclick="copyCommand('uname -a')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="df" data-tags="basic">
+                        <div class="command-name">
+                            <span>df</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Display disk space usage for file systems. Use -h for human-readable format.</div>
+                        <div class="command-syntax">df [OPTIONS] [FILE]...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                df -h
+                                <button class="copy-btn" onclick="copyCommand('df -h')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="free" data-tags="basic">
+                        <div class="command-name">
+                            <span>free</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Display amount of free and used memory in the system. Use -h for human-readable.</div>
+                        <div class="command-syntax">free [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                free -h
+                                <button class="copy-btn" onclick="copyCommand('free -h')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="top" data-tags="basic,popular">
+                        <div class="command-name">
+                            <span>top</span>
+                            <span class="badge badge-basic">Basic</span>
+                            <span class="badge badge-popular">Popular</span>
+                        </div>
+                        <div class="command-desc">Display real-time system processes and resource usage. Press 'q' to quit.</div>
+                        <div class="command-syntax">top [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                top
+                                <button class="copy-btn" onclick="copyCommand('top')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="htop" data-tags="advanced">
+                        <div class="command-name">
+                            <span>htop</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Interactive process viewer with colorful interface and mouse support.</div>
+                        <div class="command-syntax">htop [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                htop
+                                <button class="copy-btn" onclick="copyCommand('htop')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="uptime" data-tags="basic">
+                        <div class="command-name">
+                            <span>uptime</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Display how long the system has been running, load averages, and logged-in users.</div>
+                        <div class="command-syntax">uptime [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                uptime
+                                <button class="copy-btn" onclick="copyCommand('uptime')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="ps" data-tags="basic">
+                        <div class="command-name">
+                            <span>ps</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Display information about running processes. Use aux for detailed list.</div>
+                        <div class="command-syntax">ps [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                ps aux
+                                <button class="copy-btn" onclick="copyCommand('ps aux')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Management -->
+            <div class="command-category" data-category="user-mgmt" data-tags="advanced">
+                <div class="category-header user-mgmt">
+                    <i class="fas fa-users"></i>
+                    <h2>User Management Commands</h2>
+                </div>
+                <div class="commands-grid">
+                    <div class="command-item" data-name="useradd" data-tags="advanced">
+                        <div class="command-name">
+                            <span>useradd</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Create a new user account. Requires sudo/root privileges.</div>
+                        <div class="command-syntax">useradd [OPTIONS] USERNAME</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sudo useradd -m username
+                                <button class="copy-btn" onclick="copyCommand('sudo useradd -m username')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="passwd" data-tags="basic">
+                        <div class="command-name">
+                            <span>passwd</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Change user password. Use without arguments to change current user's password.</div>
+                        <div class="command-syntax">passwd [USERNAME]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sudo passwd username
+                                <button class="copy-btn" onclick="copyCommand('sudo passwd username')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="usermod" data-tags="advanced">
+                        <div class="command-name">
+                            <span>usermod</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Modify user account properties like groups, home directory, or shell.</div>
+                        <div class="command-syntax">usermod [OPTIONS] USERNAME</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sudo usermod -aG sudo username
+                                <button class="copy-btn" onclick="copyCommand('sudo usermod -aG sudo username')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="userdel" data-tags="advanced">
+                        <div class="command-name">
+                            <span>userdel</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Delete user account. Use -r to remove home directory and mail spool.</div>
+                        <div class="command-syntax">userdel [OPTIONS] USERNAME</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sudo userdel -r username
+                                <button class="copy-btn" onclick="copyCommand('sudo userdel -r username')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="who" data-tags="basic">
+                        <div class="command-name">
+                            <span>who</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Display information about users currently logged into the system.</div>
+                        <div class="command-syntax">who [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                who
+                                <button class="copy-btn" onclick="copyCommand('who')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="id" data-tags="basic">
+                        <div class="command-name">
+                            <span>id</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Display user and group information for the specified user or current user.</div>
+                        <div class="command-syntax">id [USERNAME]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                id
+                                <button class="copy-btn" onclick="copyCommand('id')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Package Management -->
+            <div class="command-category" data-category="package-mgmt" data-tags="basic,popular">
+                <div class="category-header package-mgmt">
+                    <i class="fas fa-box"></i>
+                    <h2>Package Management Commands (Ubuntu/Debian)</h2>
+                </div>
+                <div class="commands-grid">
+                    <div class="command-item" data-name="apt update" data-tags="basic">
+                        <div class="command-name">
+                            <span>apt update</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Update package lists from repositories. Should be run before installing new packages.</div>
+                        <div class="command-syntax">apt update</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sudo apt update
+                                <button class="copy-btn" onclick="copyCommand('sudo apt update')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="apt upgrade" data-tags="basic">
+                        <div class="command-name">
+                            <span>apt upgrade</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Upgrade installed packages to their latest versions. Use -y to skip confirmation.</div>
+                        <div class="command-syntax">apt upgrade [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sudo apt upgrade -y
+                                <button class="copy-btn" onclick="copyCommand('sudo apt upgrade -y')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="apt install" data-tags="basic,popular">
+                        <div class="command-name">
+                            <span>apt install</span>
+                            <span class="badge badge-basic">Basic</span>
+                            <span class="badge badge-popular">Popular</span>
+                        </div>
+                        <div class="command-desc">Install new packages from repositories. Can install multiple packages at once.</div>
+                        <div class="command-syntax">apt install PACKAGE...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sudo apt install nginx
+                                <button class="copy-btn" onclick="copyCommand('sudo apt install nginx')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="apt remove" data-tags="basic">
+                        <div class="command-name">
+                            <span>apt remove</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Remove installed packages while keeping configuration files. Use purge to remove everything.</div>
+                        <div class="command-syntax">apt remove PACKAGE...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sudo apt remove package-name
+                                <button class="copy-btn" onclick="copyCommand('sudo apt remove package-name')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="apt search" data-tags="basic">
+                        <div class="command-name">
+                            <span>apt search</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Search for packages in repositories by keyword. Useful for finding software.</div>
+                        <div class="command-syntax">apt search KEYWORD</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                apt search nginx
+                                <button class="copy-btn" onclick="copyCommand('apt search nginx')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="apt list" data-tags="basic">
+                        <div class="command-name">
+                            <span>apt list</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">List packages based on criteria. Use --installed to see installed packages.</div>
+                        <div class="command-syntax">apt list [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                apt list --installed
+                                <button class="copy-btn" onclick="copyCommand('apt list --installed')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="dpkg" data-tags="advanced">
+                        <div class="command-name">
+                            <span>dpkg</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Low-level package manager for Debian. Used to install local .deb files.</div>
+                        <div class="command-syntax">dpkg [OPTIONS] ACTION</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sudo dpkg -i package.deb
+                                <button class="copy-btn" onclick="copyCommand('sudo dpkg -i package.deb')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Network Commands -->
+            <div class="command-category" data-category="network" data-tags="basic,popular">
+                <div class="category-header network">
+                    <i class="fas fa-network-wired"></i>
+                    <h2>Network Commands</h2>
+                </div>
+                <div class="commands-grid">
+                    <div class="command-item" data-name="ping" data-tags="basic,popular">
+                        <div class="command-name">
+                            <span>ping</span>
+                            <span class="badge badge-basic">Basic</span>
+                            <span class="badge badge-popular">Popular</span>
+                        </div>
+                        <div class="command-desc">Test network connectivity to a host. Sends ICMP echo requests and measures response time.</div>
+                        <div class="command-syntax">ping [OPTIONS] HOST</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                ping google.com
+                                <button class="copy-btn" onclick="copyCommand('ping google.com')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="ifconfig" data-tags="basic">
+                        <div class="command-name">
+                            <span>ifconfig</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Display or configure network interfaces. (Deprecated, use 'ip' command instead)</div>
+                        <div class="command-syntax">ifconfig [INTERFACE] [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                ifconfig
+                                <button class="copy-btn" onclick="copyCommand('ifconfig')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="ip" data-tags="advanced">
+                        <div class="command-name">
+                            <span>ip</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Modern replacement for ifconfig. Show/manipulate routing, network devices, and tunnels.</div>
+                        <div class="command-syntax">ip [OPTIONS] OBJECT COMMAND</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                ip addr show
+                                <button class="copy-btn" onclick="copyCommand('ip addr show')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="netstat" data-tags="advanced">
+                        <div class="command-name">
+                            <span>netstat</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Display network connections, routing tables, interface statistics, and masquerade connections.</div>
+                        <div class="command-syntax">netstat [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                netstat -tuln
+                                <button class="copy-btn" onclick="copyCommand('netstat -tuln')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="curl" data-tags="basic,popular">
+                        <div class="command-name">
+                            <span>curl</span>
+                            <span class="badge badge-basic">Basic</span>
+                            <span class="badge badge-popular">Popular</span>
+                        </div>
+                        <div class="command-desc">Transfer data from or to a server. Supports various protocols including HTTP, HTTPS, FTP.</div>
+                        <div class="command-syntax">curl [OPTIONS] URL</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                curl https://example.com
+                                <button class="copy-btn" onclick="copyCommand('curl https://example.com')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="wget" data-tags="basic">
+                        <div class="command-name">
+                            <span>wget</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Download files from the web. Supports recursive downloads and resume functionality.</div>
+                        <div class="command-syntax">wget [OPTIONS] URL</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                wget https://example.com/file.zip
+                                <button class="copy-btn" onclick="copyCommand('wget https://example.com/file.zip')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="ssh" data-tags="basic,popular">
+                        <div class="command-name">
+                            <span>ssh</span>
+                            <span class="badge badge-basic">Basic</span>
+                            <span class="badge badge-popular">Popular</span>
+                        </div>
+                        <div class="command-desc">Secure Shell - log into remote machines and execute commands securely.</div>
+                        <div class="command-syntax">ssh [OPTIONS] USER@HOST</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                ssh user@192.168.1.100
+                                <button class="copy-btn" onclick="copyCommand('ssh user@192.168.1.100')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Permission Commands -->
+            <div class="command-category" data-category="permissions" data-tags="basic,popular">
+                <div class="category-header permissions">
+                    <i class="fas fa-lock"></i>
+                    <h2>Permission Commands</h2>
+                </div>
+                <div class="commands-grid">
+                    <div class="command-item" data-name="chmod" data-tags="basic,popular">
+                        <div class="command-name">
+                            <span>chmod</span>
+                            <span class="badge badge-basic">Basic</span>
+                            <span class="badge badge-popular">Popular</span>
+                        </div>
+                        <div class="command-desc">Change file mode bits (permissions). Can use numeric (755) or symbolic (u+x) notation.</div>
+                        <div class="command-syntax">chmod [OPTIONS] MODE FILE...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                chmod 755 script.sh
+                                <button class="copy-btn" onclick="copyCommand('chmod 755 script.sh')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                            <div class="command-example">
+                                chmod +x script.sh
+                                <button class="copy-btn" onclick="copyCommand('chmod +x script.sh')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="chown" data-tags="basic">
+                        <div class="command-name">
+                            <span>chown</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Change file owner and group. Usually requires superuser privileges.</div>
+                        <div class="command-syntax">chown [OPTIONS] OWNER[:GROUP] FILE...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sudo chown user:group file.txt
+                                <button class="copy-btn" onclick="copyCommand('sudo chown user:group file.txt')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="chgrp" data-tags="basic">
+                        <div class="command-name">
+                            <span>chgrp</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Change group ownership of files. Alternative to chown for changing group only.</div>
+                        <div class="command-syntax">chgrp [OPTIONS] GROUP FILE...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sudo chgrp www-data file.txt
+                                <button class="copy-btn" onclick="copyCommand('sudo chgrp www-data file.txt')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="umask" data-tags="advanced">
+                        <div class="command-name">
+                            <span>umask</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Set default permissions for newly created files and directories.</div>
+                        <div class="command-syntax">umask [OPTIONS] [MASK]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                umask 022
+                                <button class="copy-btn" onclick="copyCommand('umask 022')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process Management -->
+            <div class="command-category" data-category="process-mgmt" data-tags="basic,popular">
+                <div class="category-header process-mgmt">
+                    <i class="fas fa-tasks"></i>
+                    <h2>Process Management Commands</h2>
+                </div>
+                <div class="commands-grid">
+                    <div class="command-item" data-name="ps" data-tags="basic">
+                        <div class="command-name">
+                            <span>ps</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Report a snapshot of current processes. Use aux for detailed output.</div>
+                        <div class="command-syntax">ps [OPTIONS]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                ps aux | grep nginx
+                                <button class="copy-btn" onclick="copyCommand('ps aux | grep nginx')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="kill" data-tags="basic">
+                        <div class="command-name">
+                            <span>kill</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Send signals to processes. Default signal is TERM (15). Use -9 for force kill.</div>
+                        <div class="command-syntax">kill [OPTIONS] PID</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                kill 1234
+                                <button class="copy-btn" onclick="copyCommand('kill 1234')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="pkill" data-tags="basic">
+                        <div class="command-name">
+                            <span>pkill</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Send signals to processes by name instead of PID. Useful for killing processes by name.</div>
+                        <div class="command-syntax">pkill [OPTIONS] PATTERN</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                pkill firefox
+                                <button class="copy-btn" onclick="copyCommand('pkill firefox')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="bg" data-tags="advanced">
+                        <div class="command-name">
+                            <span>bg</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Place a job in the background, allowing it to run while you use the terminal.</div>
+                        <div class="command-syntax">bg [JOB_SPEC]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                bg %1
+                                <button class="copy-btn" onclick="copyCommand('bg %1')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="fg" data-tags="advanced">
+                        <div class="command-name">
+                            <span>fg</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Bring a background job to the foreground, making it the active terminal process.</div>
+                        <div class="command-syntax">fg [JOB_SPEC]</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                fg %1
+                                <button class="copy-btn" onclick="copyCommand('fg %1')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Processing -->
+            <div class="command-category" data-category="text-processing" data-tags="advanced,popular">
+                <div class="category-header text-processing">
+                    <i class="fas fa-file-alt"></i>
+                    <h2>Text Processing Commands</h2>
+                </div>
+                <div class="commands-grid">
+                    <div class="command-item" data-name="grep" data-tags="basic,popular">
+                        <div class="command-name">
+                            <span>grep</span>
+                            <span class="badge badge-basic">Basic</span>
+                            <span class="badge badge-popular">Popular</span>
+                        </div>
+                        <div class="command-desc">Search text patterns in files. Powerful for filtering and searching through output.</div>
+                        <div class="command-syntax">grep [OPTIONS] PATTERN [FILE]...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                grep "error" logfile.txt
+                                <button class="copy-btn" onclick="copyCommand('grep "error" logfile.txt')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="sed" data-tags="advanced">
+                        <div class="command-name">
+                            <span>sed</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Stream editor for filtering and transforming text. Powerful for batch editing.</div>
+                        <div class="command-syntax">sed [OPTIONS] SCRIPT [FILE]...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sed 's/old/new/g' file.txt
+                                <button class="copy-btn" onclick="copyCommand('sed \'s/old/new/g\' file.txt')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="awk" data-tags="advanced">
+                        <div class="command-name">
+                            <span>awk</span>
+                            <span class="badge badge-advanced">Advanced</span>
+                        </div>
+                        <div class="command-desc">Pattern scanning and processing language. Excellent for text extraction and reporting.</div>
+                        <div class="command-syntax">awk [OPTIONS] 'PROGRAM' [FILE]...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                awk '{print $1}' file.txt
+                                <button class="copy-btn" onclick="copyCommand('awk \'{print $1}\' file.txt')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="command-item" data-name="sort" data-tags="basic">
+                        <div class="command-name">
+                            <span>sort</span>
+                            <span class="badge badge-basic">Basic</span>
+                        </div>
+                        <div class="command-desc">Sort lines of text files. Can sort alphabetically, numerically, or by other criteria.</div>
+                        <div class="command-syntax">sort [OPTIONS] [FILE]...</div>
+                        <div class="command-examples">
+                            <div class="example-header">
+                                <i class="fas fa-code"></i> Examples:
+                            </div>
+                            <div class="command-example">
+                                sort file.txt
+                                <button class="copy-btn" onclick="copyCommand('sort file.txt')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cheat Sheet Section -->
+        <div class="cheat-sheet">
+            <h3><i class="fas fa-clipboard-list"></i> Linux Command Cheat Sheet</h3>
+            <div class="cheat-grid">
+                <div class="cheat-item">
+                    <h4><i class="fas fa-file"></i> File Operations</h4>
+                    <div class="cheat-commands">
+                        <div class="cheat-command">
+                            <span class="cmd">cat file</span>
+                            <span class="desc">Display file contents</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">head -n 5 file</span>
+                            <span class="desc">Show first 5 lines</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">tail -f file</span>
+                            <span class="desc">Follow file in real-time</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">wc -l file</span>
+                            <span class="desc">Count lines in file</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cheat-item">
+                    <h4><i class="fas fa-search"></i> Search Operations</h4>
+                    <div class="cheat-commands">
+                        <div class="cheat-command">
+                            <span class="cmd">grep -r "text" .</span>
+                            <span class="desc">Recursive search</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">find . -type f -name "*.txt"</span>
+                            <span class="desc">Find text files</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">locate filename</span>
+                            <span class="desc">Quick file search</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">which command</span>
+                            <span class="desc">Find command path</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cheat-item">
+                    <h4><i class="fas fa-network-wired"></i> Network Operations</h4>
+                    <div class="cheat-commands">
+                        <div class="cheat-command">
+                            <span class="cmd">ssh user@host</span>
+                            <span class="desc">Remote login</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">scp file user@host:/path</span>
+                            <span class="desc">Secure copy</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">netstat -an | grep LISTEN</span>
+                            <span class="desc">Show listening ports</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">dig example.com</span>
+                            <span class="desc">DNS lookup</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cheat-item">
+                    <h4><i class="fas fa-cogs"></i> System Operations</h4>
+                    <div class="cheat-commands">
+                        <div class="cheat-command">
+                            <span class="cmd">sudo !!</span>
+                            <span class="desc">Repeat last command as sudo</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">history | grep apt</span>
+                            <span class="desc">Search command history</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">tar -czvf archive.tar.gz dir/</span>
+                            <span class="desc">Create compressed archive</span>
+                        </div>
+                        <div class="cheat-command">
+                            <span class="cmd">du -sh *</span>
+                            <span class="desc">Show directory sizes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal Simulator -->
+        <div class="terminal-simulator">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <div class="terminal-dot red"></div>
+                    <div class="terminal-dot yellow"></div>
+                    <div class="terminal-dot green"></div>
+                </div>
+                <div class="terminal-title">Terminal Simulator</div>
+            </div>
+            <div class="terminal-body" id="terminalBody">
+                <div class="terminal-output">
+<span style="color: var(--primary)">$</span> Welcome to Linux Command Reference Terminal Simulator
+<span style="color: var(--primary)">$</span> Try typing commands like 'ls', 'pwd', or 'date'
+<span style="color: var(--primary)">$</span> Type 'help' for available commands
+                </div>
+                <div class="terminal-prompt">
+                    <span>$</span> <input type="text" id="terminalInput" placeholder="Type a command..." autocomplete="off">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Linux Command Reference</h3>
+            <p>A comprehensive Linux command reference tool designed to help developers and system administrators quickly find and understand essential Linux commands with practical examples.</p>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <div class="quick-links">
+                <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../../skills.html"><i class="fas fa-cogs"></i> Skills</a>
+                <a href="../tools.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="../../certificate.html"><i class="fas fa-certificate"></i> Certificate</a>
+                <a href="../../contact.html"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Linux Resources</h3>
+            <div class="quick-links">
+                <a href="https://linux.die.net/man/" target="_blank"><i class="fas fa-book"></i> Linux Man Pages</a>
+                <a href="https://tldp.org/" target="_blank"><i class="fas fa-file-alt"></i> TLDP Guides</a>
+                <a href="https://ubuntu.com/tutorials/command-line-for-beginners" target="_blank"><i class="fas fa-graduation-cap"></i> Ubuntu Tutorial</a>
+                <a href="https://linuxjourney.com/" target="_blank"><i class="fas fa-road"></i> Linux Journey</a>
+                <a href="https://explainshell.com/" target="_blank"><i class="fas fa-terminal"></i> Explain Shell</a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Other Tools</h3>
+            <div class="quick-links">
+                <a href="cron-job-helper.html"><i class="fas fa-clock"></i> Cron Job Helper</a>
+                <a href="#"><i class="fas fa-server"></i> Server Monitor</a>
+                <a href="#"><i class="fas fa-network-wired"></i> Network Tools</a>
+                <a href="#"><i class="fas fa-shield-alt"></i> Security Tools</a>
+                <a href="#"><i class="fas fa-database"></i> Database Tools</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © <span id="currentYear"></span> Asadul Islam | All Rights Reserved | 
+        <a href="https://github.com/asadul-it" target="_blank">GitHub Profile</a> | 
+        <a href="../../privacy.html">Privacy Policy</a>
+    </div>
+</footer>
+
+<script>
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Initialize Google Analytics
+    (function() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5H7RZ72M1J');
+        window.gtag = gtag;
+    })();
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById("hamburger");
+    const navbar = document.getElementById("navbar");
+    hamburger.onclick = () => {
+        navbar.classList.toggle("active");
+        hamburger.classList.toggle("active");
+    };
+
+    // Close navbar when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navbar.contains(e.target) && !hamburger.contains(e.target)) {
+            navbar.classList.remove("active");
+            hamburger.classList.remove("active");
+        }
+    });
+
+    // Set breadcrumb
+    setBreadcrumb([
+        { name: "Home", link: "../../index.html" },
+        { name: "Tools", link: "../tools.html" },
+        { name: "Linux Tools", link: "../tools.html#linux" },
+        { name: "Command Reference" }
+    ]);
+
+    function setBreadcrumb(items) {
+        document.getElementById("breadcrumb").innerHTML =
+            items.map((i, index) => {
+                if (i.link) {
+                    return `<a href="${i.link}">${i.name}</a>`;
+                } else if (index < items.length - 1) {
+                    return `<span>${i.name}</span><i class="fas fa-chevron-right"></i>`;
+                } else {
+                    return `<span class="current">${i.name}</span>`;
+                }
+            }).join("");
+    }
+
+    // Command data storage
+    const commandsData = {
+        categories: [
+            { id: 'file-management', name: 'File Management', icon: 'fas fa-folder' },
+            { id: 'system-info', name: 'System Info', icon: 'fas fa-info-circle' },
+            { id: 'user-mgmt', name: 'User Management', icon: 'fas fa-users' },
+            { id: 'package-mgmt', name: 'Package Management', icon: 'fas fa-box' },
+            { id: 'network', name: 'Network', icon: 'fas fa-network-wired' },
+            { id: 'permissions', name: 'Permissions', icon: 'fas fa-lock' },
+            { id: 'process-mgmt', name: 'Process Management', icon: 'fas fa-tasks' },
+            { id: 'text-processing', name: 'Text Processing', icon: 'fas fa-file-alt' }
+        ]
+    };
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeCategories();
+        updateStats();
+        setupEventListeners();
+        
+        // Terminal input handler
+        document.getElementById('terminalInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                executeTerminalCommand(this.value);
+                this.value = '';
+            }
+        });
+        
+        // Copy command tracking
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (window.gtag) {
+                    const command = this.parentElement.textContent.replace('Copy', '').trim();
+                    gtag('event', 'copy_command', {
+                        'event_category': 'tool_usage',
+                        'event_label': command
+                    });
+                }
+            });
+        });
+    });
+
+    function initializeCategories() {
+        const categoryTabs = document.getElementById('categoryTabs');
+        
+        // Create "All Categories" tab
+        const allTab = document.createElement('div');
+        allTab.className = 'category-tab active';
+        allTab.innerHTML = `<i class="fas fa-layer-group"></i> All Categories`;
+        allTab.onclick = () => filterByCategory('all');
+        categoryTabs.appendChild(allTab);
+        
+        // Create category tabs
+        commandsData.categories.forEach(category => {
+            const tab = document.createElement('div');
+            tab.className = 'category-tab';
+            tab.innerHTML = `<i class="${category.icon}"></i> ${category.name}`;
+            tab.onclick = () => filterByCategory(category.id);
+            categoryTabs.appendChild(tab);
+        });
+    }
+
+    function filterByCategory(categoryId) {
+        // Update active tab
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        if (categoryId === 'all') {
+            document.querySelectorAll('.category-tab')[0].classList.add('active');
+            document.querySelectorAll('.command-category').forEach(cat => {
+                cat.style.display = 'block';
+            });
+        } else {
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                if (tab.textContent.includes(commandsData.categories.find(c => c.id === categoryId).name)) {
+                    tab.classList.add('active');
+                }
+            });
+            
+            document.querySelectorAll('.command-category').forEach(cat => {
+                if (cat.getAttribute('data-category') === categoryId) {
+                    cat.style.display = 'block';
+                } else {
+                    cat.style.display = 'none';
+                }
+            });
+        }
+        
+        updateStats();
+        
+        // Track category filter
+        if (window.gtag) {
+            gtag('event', 'filter_category', {
+                'event_category': 'tool_usage',
+                'event_label': categoryId
+            });
+        }
+    }
+
+    function filterByTag(tag) {
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+        
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+        searchCommands(searchTerm, tag);
+        
+        // Track tag filter
+        if (window.gtag) {
+            gtag('event', 'filter_tag', {
+                'event_category': 'tool_usage',
+                'event_label': tag
+            });
+        }
+    }
+
+    function searchCommands(searchTerm = '', tagFilter = 'all') {
+        const commandItems = document.querySelectorAll('.command-item');
+        let visibleCount = 0;
+        
+        commandItems.forEach(item => {
+            const name = item.getAttribute('data-name').toLowerCase();
+            const desc = item.querySelector('.command-desc').textContent.toLowerCase();
+            const tags = item.getAttribute('data-tags');
+            const examples = Array.from(item.querySelectorAll('.command-example')).map(exp => 
+                exp.textContent.toLowerCase().replace('copy', '')
+            ).join(' ');
+            
+            const matchesSearch = searchTerm === '' || 
+                name.includes(searchTerm) || 
+                desc.includes(searchTerm) ||
+                examples.includes(searchTerm);
+                
+            const matchesTag = tagFilter === 'all' || 
+                (tagFilter === 'popular' && tags.includes('popular')) ||
+                (tagFilter === 'basic' && tags.includes('basic')) ||
+                (tagFilter === 'advanced' && tags.includes('advanced'));
+            
+            if (matchesSearch && matchesTag) {
+                item.style.display = 'block';
+                visibleCount++;
+                
+                // Highlight search term
+                if (searchTerm) {
+                    highlightText(item, searchTerm);
+                }
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        
+        // Update category visibility
+        document.querySelectorAll('.command-category').forEach(category => {
+            const visibleItems = category.querySelectorAll('.command-item[style="display: block"]');
+            category.style.display = visibleItems.length > 0 ? 'block' : 'none';
+        });
+        
+        document.getElementById('visibleCommands').textContent = visibleCount;
+        
+        // Track search
+        if (window.gtag && searchTerm) {
+            gtag('event', 'search_command', {
+                'event_category': 'tool_usage',
+                'event_label': searchTerm
+            });
+        }
+    }
+
+    function highlightText(element, searchTerm) {
+        const walker = document.createTreeWalker(
+            element,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+        );
+        
+        let node;
+        const nodes = [];
+        while (node = walker.nextNode()) {
+            nodes.push(node);
+        }
+        
+        nodes.forEach(node => {
+            const text = node.textContent;
+            const regex = new RegExp(`(${searchTerm})`, 'gi');
+            const newText = text.replace(regex, '<mark>$1</mark>');
+            
+            if (newText !== text) {
+                const span = document.createElement('span');
+                span.innerHTML = newText;
+                node.parentNode.replaceChild(span, node);
+            }
+        });
+    }
+
+    function updateStats() {
+        const totalCommands = document.querySelectorAll('.command-item').length;
+        const totalCategories = commandsData.categories.length;
+        const visibleCommands = document.querySelectorAll('.command-item[style="display: block"]').length || totalCommands;
+        
+        document.getElementById('totalCommands').textContent = totalCommands;
+        document.getElementById('totalCategories').textContent = totalCategories;
+        document.getElementById('visibleCommands').textContent = visibleCommands;
+    }
+
+    function setupEventListeners() {
+        // Search input
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+            searchCommands(this.value.toLowerCase(), activeFilter);
+        });
+        
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                searchCommands(document.getElementById('searchInput').value.toLowerCase(), filter);
+            });
+        });
+        
+        // Navigation tracking
+        document.querySelectorAll('.navbar a, .quick-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (window.gtag && !this.getAttribute('href').startsWith('#')) {
+                    gtag('event', 'navigation_click', {
+                        'event_category': 'navigation',
+                        'event_label': e.target.textContent.trim()
+                    });
+                }
+            });
+        });
+    }
+
+    function copyCommand(text) {
+        // Clean up the text (remove any extra spaces or newlines)
+        const cleanText = text.replace(/\s+/g, ' ').trim();
+        
+        navigator.clipboard.writeText(cleanText).then(() => {
+            showNotification(`Copied: ${cleanText}`, 'success');
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+            showNotification('Failed to copy command', 'error');
+        });
+    }
+
+    function showNotification(message, type) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+            <span>${message}</span>
+        `;
+        
+        // Style the notification
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#10b981' : '#ef4444'};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        // Add animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        document.body.appendChild(notification);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+
+    function scrollToCommand(commandName) {
+        const commandElement = document.querySelector(`.command-item[data-name="${commandName}"]`);
+        if (commandElement) {
+            // Show the category
+            const category = commandElement.closest('.command-category');
+            category.style.display = 'block';
+            
+            // Scroll to the command
+            commandElement.scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'center'
+            });
+            
+            // Highlight the command briefly
+            commandElement.style.boxShadow = '0 0 0 3px rgba(16, 185, 129, 0.3)';
+            setTimeout(() => {
+                commandElement.style.boxShadow = '';
+            }, 2000);
+            
+            // Update search to show this command
+            document.getElementById('searchInput').value = commandName;
+            searchCommands(commandName);
+        }
+    }
+
+    function executeTerminalCommand(input) {
+        const terminalBody = document.getElementById('terminalBody');
+        const inputLine = document.createElement('div');
+        inputLine.className = 'terminal-output';
+        inputLine.innerHTML = `<span style="color: var(--primary)">$</span> ${input}`;
+        terminalBody.appendChild(inputLine);
+        
+        // Process command
+        let output = '';
+        const cmd = input.toLowerCase().trim();
+        
+        if (cmd === 'help') {
+            output = `Available commands:\n- ls: List directory\n- pwd: Print working directory\n- date: Show current date\n- whoami: Show current user\n- clear: Clear terminal\n- help: Show this help`;
+        } else if (cmd === 'ls') {
+            output = `file1.txt  file2.txt  folder1/  folder2/`;
+        } else if (cmd === 'pwd') {
+            output = `/home/user`;
+        } else if (cmd === 'date') {
+            output = new Date().toString();
+        } else if (cmd === 'whoami') {
+            output = `user`;
+        } else if (cmd === 'clear') {
+            terminalBody.innerHTML = `<div class="terminal-output">
+<span style="color: var(--primary)">$</span> Terminal cleared
+<span style="color: var(--primary)">$</span> Type 'help' for available commands
+            </div>
+            <div class="terminal-prompt">
+                <span>$</span> <input type="text" id="terminalInput" placeholder="Type a command..." autocomplete="off">
+            </div>`;
+            // Reattach event listener
+            document.getElementById('terminalInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    executeTerminalCommand(this.value);
+                    this.value = '';
+                }
+            });
+            return;
+        } else if (cmd === '') {
+            // Do nothing for empty command
+        } else {
+            output = `Command not found: ${input}. Type 'help' for available commands.`;
+        }
+        
+        if (output) {
+            const outputLine = document.createElement('div');
+            outputLine.className = 'terminal-output';
+            outputLine.textContent = output;
+            terminalBody.appendChild(outputLine);
+        }
+        
+        // Scroll to bottom
+        terminalBody.scrollTop = terminalBody.scrollHeight;
+        
+        // Update prompt
+        const prompt = terminalBody.querySelector('.terminal-prompt');
+        terminalBody.appendChild(prompt);
+        prompt.querySelector('input').focus();
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + F to focus search
+        if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+            e.preventDefault();
+            document.getElementById('searchInput').focus();
+        }
+        
+        // Ctrl/Cmd + K to clear search
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            document.getElementById('searchInput').value = '';
+            searchCommands('');
+        }
+        
+        // Esc to clear search
+        if (e.key === 'Escape') {
+            document.getElementById('searchInput').value = '';
+            searchCommands('');
+            document.getElementById('searchInput').blur();
+        }
+    });
+</script>
+</body>
+</html>

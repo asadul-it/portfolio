@@ -1,0 +1,1942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAM Usage Calculator | System Administration Tools</title>
+    
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description" content="Professional RAM Usage Calculator tool for system administrators. Calculate memory requirements, plan server capacity, and optimize system performance with this advanced calculator.">
+    <meta name="keywords" content="RAM calculator, memory calculator, system administration tools, server planning, IT infrastructure, memory optimization, RAM usage, server capacity planning">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    
+    <!-- ==================== Open Graph Tags ==================== -->
+    <meta property="og:title" content="Professional RAM Usage Calculator | System Admin Tools">
+    <meta property="og:description" content="Advanced RAM usage calculator for system administrators and IT professionals. Plan server memory requirements efficiently.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/tools/sysadmin-tools/ram-usage-calculator.html">
+    <meta property="og:site_name" content="System Administration Tools">
+    
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/tools/sysadmin-tools/ram-usage-calculator.html">
+    
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "RAM Usage Calculator",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "description": "Professional RAM usage calculator for system administrators",
+        "url": "https://asadul-it.github.io/portfolio/tools/sysadmin-tools/ram-usage-calculator.html",
+        "author": {
+            "@type": "Person",
+            "name": "Asadul Islam"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <!-- ==================== Fonts and Icons ==================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==================== CSS Reset & Base Styles ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --text-dark: #1f2937;
+            --text-medium: #4b5563;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==================== Header Styles ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: transform var(--transition-fast);
+        }
+
+        .logo-container:hover {
+            transform: translateY(-1px);
+        }
+
+        .logo-icon {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+
+        .logo-icon:hover {
+            background-color: var(--primary-dark);
+            transform: rotate(5deg);
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .logo-subtext {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==================== Navigation Styles ==================== */
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-blue);
+            transition: width var(--transition-normal);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ==================== Hamburger Menu ==================== */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-blue);
+            border-radius: 3px;
+            transition: all var(--transition-normal);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* ==================== Breadcrumb Styles ==================== */
+        .breadcrumb-container {
+            background-color: #f9fafb;
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            font-size: 14px;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .breadcrumb-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-light);
+            font-size: 12px;
+        }
+
+        .breadcrumb-current {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* ==================== Main Content Styles ==================== */
+        .main-content-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .page-description {
+            font-size: 18px;
+            color: var(--text-medium);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ==================== Calculator Container ==================== */
+        .calculator-container {
+            background-color: #ffffff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .calculator-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-dark));
+            padding: 24px 32px;
+            color: #ffffff;
+        }
+
+        .calculator-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .calculator-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .calculator-body {
+            padding: 40px 32px;
+        }
+
+        /* ==================== Calculator Grid ==================== */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .input-section, .results-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            color: var(--primary-blue);
+        }
+
+        /* ==================== Input Groups ==================== */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-label i {
+            color: var(--primary-blue);
+            width: 20px;
+        }
+
+        .input-hint {
+            font-size: 13px;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: -5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-dark);
+            background-color: #ffffff;
+            transition: all var(--transition-fast);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-field.error {
+            border-color: var(--danger-color);
+        }
+
+        .input-unit {
+            position: absolute;
+            right: 16px;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .select-field {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234b5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 44px;
+        }
+
+        /* ==================== Button Styles ==================== */
+        .button-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .button {
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .button-primary {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            flex: 1;
+        }
+
+        .button-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .button-secondary {
+            background-color: #f3f4f6;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .button-secondary:hover {
+            background-color: #e5e7eb;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .button-icon {
+            font-size: 18px;
+        }
+
+        /* ==================== Results Display ==================== */
+        .results-display {
+            background-color: #f8fafc;
+            border-radius: var(--radius-md);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .result-unit {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-left: 4px;
+        }
+
+        .result-note {
+            margin-top: 20px;
+            padding: 16px;
+            background-color: var(--primary-light);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            color: var(--text-dark);
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        /* ==================== Visualization Section ==================== */
+        .visualization-section {
+            margin-top: 40px;
+        }
+
+        .visualization-container {
+            background-color: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .visualization-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .visualization-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .visualization-legend {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .legend-text {
+            color: var(--text-medium);
+        }
+
+        .ram-bar-container {
+            width: 100%;
+            height: 120px;
+            background-color: #f1f5f9;
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .ram-bar {
+            position: absolute;
+            height: 100%;
+            transition: width 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .ram-bar-used {
+            background-color: var(--primary-blue);
+            left: 0;
+        }
+
+        .ram-bar-available {
+            background-color: var(--success-color);
+        }
+
+        .ram-bar-overallocated {
+            background-color: var(--danger-color);
+        }
+
+        .ram-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+
+        /* ==================== Information Section ==================== */
+        .info-section {
+            margin-top: 40px;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .info-card {
+            background-color: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition-normal);
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .info-card-icon {
+            width: 48px;
+            height: 48px;
+            background-color: var(--primary-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: var(--primary-blue);
+            font-size: 20px;
+        }
+
+        .info-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .info-card-content {
+            font-size: 14px;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* ==================== Footer Styles ==================== */
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            margin-top: 80px;
+            padding-top: 40px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-blue);
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-link {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-blue);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #f3f4f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding: 24px 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* ==================== Responsive Styles ==================== */
+        @media (max-width: 1024px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 12px 20px;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .navbar {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                box-shadow: var(--shadow-lg);
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all var(--transition-normal);
+                z-index: 999;
+            }
+            
+            .navbar.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .nav-item {
+                width: 100%;
+            }
+            
+            .nav-link {
+                padding: 16px 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .nav-link:last-child {
+                border-bottom: none;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+            
+            .page-description {
+                font-size: 16px;
+            }
+            
+            .calculator-body {
+                padding: 32px 20px;
+            }
+            
+            .calculator-header {
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .button {
+                width: 100%;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            
+            .visualization-container {
+                padding: 24px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content-container {
+                padding: 0 16px;
+            }
+            
+            .calculator-body {
+                padding: 24px 16px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .result-value {
+                font-size: 18px;
+            }
+            
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ==================== Utility Classes ==================== */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mt-40 {
+            margin-top: 40px;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        /* ==================== Animation Keyframes ==================== */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+            }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== Header Section ==================== -->
+    <header class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo-container">
+                <div class="logo-icon">
+                    RAM
+                </div>
+                <div>
+                    <div class="logo-text">RAM Usage Calculator</div>
+                    <div class="logo-subtext">System Administration Tools</div>
+                </div>
+            </a>
+            
+            <nav class="navbar" id="navbar">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">
+                            <i class="fas fa-home nav-icon"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../skills.html" class="nav-link">
+                            <i class="fas fa-cogs nav-icon"></i>
+                            <span>Skills</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../tools.html" class="nav-link active">
+                            <i class="fas fa-tools nav-icon"></i>
+                            <span>Tools</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../certificate.html" class="nav-link">
+                            <i class="fas fa-certificate nav-icon"></i>
+                            <span>Certificate</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../contact.html" class="nav-link">
+                            <i class="fas fa-phone nav-icon"></i>
+                            <span>Contact</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <button class="hamburger-menu" id="hamburger">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== Breadcrumb Section ==================== -->
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+            <!-- Breadcrumb will be populated by JavaScript -->
+        </nav>
+    </div>
+
+    <!-- ==================== Main Content Section ==================== -->
+    <main class="main-content-container">
+        <div class="page-header">
+            <h1 class="page-title">Professional RAM Usage Calculator</h1>
+            <p class="page-description">
+                Calculate and optimize RAM requirements for servers, applications, and virtual machines. 
+                Plan your infrastructure memory allocation with precision.
+            </p>
+        </div>
+
+        <!-- ==================== Calculator Container ==================== -->
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h2 class="calculator-title">
+                    <i class="fas fa-calculator"></i>
+                    RAM Usage Calculator
+                </h2>
+                <p class="calculator-subtitle">Enter your requirements to calculate optimal RAM configuration</p>
+            </div>
+            
+            <div class="calculator-body">
+                <div class="calculator-grid">
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-sliders-h section-icon"></i>
+                            Input Parameters
+                        </h3>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-server"></i>
+                                Number of Users
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="users" 
+                                    class="input-field" 
+                                    min="1" 
+                                    max="100000" 
+                                    value="100"
+                                    step="1"
+                                >
+                                <span class="input-unit">Users</span>
+                            </div>
+                            <p class="input-hint">Estimated concurrent users accessing the system</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-tasks"></i>
+                                Applications Running
+                            </label>
+                            <div class="input-wrapper">
+                                <select id="applications" class="input-field select-field">
+                                    <option value="1">Light (Basic Web Apps)</option>
+                                    <option value="2" selected>Medium (Database + Web Server)</option>
+                                    <option value="3">Heavy (Multiple Services + Caching)</option>
+                                    <option value="4">Enterprise (Full Stack + Virtualization)</option>
+                                </select>
+                            </div>
+                            <p class="input-hint">Complexity and number of running applications</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-database"></i>
+                                Database Size
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="databaseSize" 
+                                    class="input-field" 
+                                    min="1" 
+                                    max="10000" 
+                                    value="50"
+                                    step="1"
+                                >
+                                <select id="databaseUnit" class="input-field select-field" style="margin-left: 10px; width: 120px;">
+                                    <option value="MB">MB</option>
+                                    <option value="GB" selected>GB</option>
+                                    <option value="TB">TB</option>
+                                </select>
+                            </div>
+                            <p class="input-hint">Estimated size of the database in memory</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-chart-line"></i>
+                                Expected Growth (%)
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="growth" 
+                                    class="input-field" 
+                                    min="0" 
+                                    max="500" 
+                                    value="20"
+                                    step="5"
+                                >
+                                <span class="input-unit">%</span>
+                            </div>
+                            <p class="input-hint">Expected growth in usage over the next 12 months</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-memory"></i>
+                                Current RAM
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="currentRam" 
+                                    class="input-field" 
+                                    min="1" 
+                                    max="1024" 
+                                    value="16"
+                                    step="1"
+                                >
+                                <select id="currentRamUnit" class="input-field select-field" style="margin-left: 10px; width: 120px;">
+                                    <option value="GB" selected>GB</option>
+                                    <option value="MB">MB</option>
+                                </select>
+                            </div>
+                            <p class="input-hint">Currently allocated RAM (if any)</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Results Section -->
+                    <div class="results-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-chart-bar section-icon"></i>
+                            Calculation Results
+                        </h3>
+                        
+                        <div class="results-display">
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-microchip"></i>
+                                    Recommended RAM
+                                </div>
+                                <div class="result-value" id="recommendedRam">32</div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-bolt"></i>
+                                    Peak Usage
+                                </div>
+                                <div class="result-value" id="peakUsage">24<span class="result-unit">GB</span></div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    Usage Percentage
+                                </div>
+                                <div class="result-value" id="usagePercent">75<span class="result-unit">%</span></div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Buffer Required
+                                </div>
+                                <div class="result-value" id="bufferRequired">8<span class="result-unit">GB</span></div>
+                            </div>
+                            
+                            <div class="result-note">
+                                <i class="fas fa-info-circle"></i>
+                                <strong>Note:</strong> These calculations include a 25% buffer for unexpected loads and system processes.
+                            </div>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button id="calculateBtn" class="button button-primary pulse-animation">
+                                <i class="fas fa-calculator button-icon"></i>
+                                Calculate RAM Requirements
+                            </button>
+                            <button id="resetBtn" class="button button-secondary">
+                                <i class="fas fa-redo button-icon"></i>
+                                Reset Calculator
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visualization Section -->
+                <div class="visualization-section">
+                    <div class="visualization-container">
+                        <div class="visualization-header">
+                            <h4 class="visualization-title">RAM Allocation Visualization</h4>
+                            <div class="visualization-legend">
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #2563eb;"></div>
+                                    <span class="legend-text">Used RAM</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #10b981;"></div>
+                                    <span class="legend-text">Available</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #ef4444;"></div>
+                                    <span class="legend-text">Over-allocated</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="ram-bar-container">
+                            <div id="ramBarUsed" class="ram-bar ram-bar-used" style="width: 60%;">Used: 24GB</div>
+                            <div id="ramBarAvailable" class="ram-bar ram-bar-available" style="width: 40%; left: 60%;">Available: 16GB</div>
+                        </div>
+                        
+                        <div class="ram-labels">
+                            <span>0 GB</span>
+                            <span id="ramMidLabel">16 GB</span>
+                            <span id="ramMaxLabel">32 GB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ==================== Information Section ==================== -->
+        <div class="info-section">
+            <h3 class="section-title text-center mb-40">
+                <i class="fas fa-info-circle section-icon"></i>
+                RAM Planning Guidelines
+            </h3>
+            
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h4 class="info-card-title">Optimal RAM Allocation</h4>
+                    <p class="info-card-content">
+                        For most servers, allocate 70-80% of available RAM to applications, leaving 20-30% for 
+                        operating system and buffer. This prevents swapping and maintains system stability.
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h4 class="info-card-title">Warning Signs</h4>
+                    <p class="info-card-content">
+                        Monitor for high swap usage, frequent out-of-memory errors, and decreased performance. 
+                        These indicate insufficient RAM and may require immediate attention.
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h4 class="info-card-title">Performance Tips</h4>
+                    <p class="info-card-content">
+                        Enable memory compression, optimize application memory usage, implement caching strategies, 
+                        and consider using faster RAM modules for performance-critical applications.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== Footer Section ==================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 class="footer-title">About This Tool</h3>
+                <p class="footer-description">
+                    Professional RAM Usage Calculator designed for system administrators, IT professionals, 
+                    and infrastructure planners. This tool helps optimize memory allocation and prevent 
+                    performance bottlenecks.
+                </p>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" class="social-link" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/asadul-it" class="social-link" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" class="social-link" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/8801706927793" class="social-link" target="_blank" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Quick Links</h3>
+                <div class="footer-links">
+                    <a href="../../index.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Home
+                    </a>
+                    <a href="../../skills.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Skills
+                    </a>
+                    <a href="../tools.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Tools
+                    </a>
+                    <a href="../../certificate.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Certificates
+                    </a>
+                    <a href="../../contact.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">System Tools</h3>
+                <div class="footer-links">
+                    <a href="ram-usage-calculator.html" class="footer-link">
+                        <i class="fas fa-memory"></i>
+                        RAM Usage Calculator
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-hdd"></i>
+                        Storage Calculator
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-network-wired"></i>
+                        Bandwidth Calculator
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-server"></i>
+                        Server Sizing Tool
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-shield-alt"></i>
+                        Security Audit Tools
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Professional IT Tools | System Administration Utilities | All Rights Reserved</p>
+            <p style="margin-top: 8px; font-size: 13px;">Designed for IT Professionals & System Administrators</p>
+        </div>
+    </footer>
+
+    <!-- ==================== JavaScript ==================== -->
+    <script>
+        // DOM Elements
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const breadcrumb = document.getElementById('breadcrumb');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        // Input Elements
+        const usersInput = document.getElementById('users');
+        const applicationsSelect = document.getElementById('applications');
+        const databaseSizeInput = document.getElementById('databaseSize');
+        const databaseUnitSelect = document.getElementById('databaseUnit');
+        const growthInput = document.getElementById('growth');
+        const currentRamInput = document.getElementById('currentRam');
+        const currentRamUnitSelect = document.getElementById('currentRamUnit');
+        
+        // Result Elements
+        const recommendedRamEl = document.getElementById('recommendedRam');
+        const peakUsageEl = document.getElementById('peakUsage');
+        const usagePercentEl = document.getElementById('usagePercent');
+        const bufferRequiredEl = document.getElementById('bufferRequired');
+        const ramBarUsed = document.getElementById('ramBarUsed');
+        const ramBarAvailable = document.getElementById('ramBarAvailable');
+        const ramMidLabel = document.getElementById('ramMidLabel');
+        const ramMaxLabel = document.getElementById('ramMaxLabel');
+        
+        // ==================== Utility Functions ====================
+        
+        function updateBreadcrumb() {
+            const breadcrumbItems = [
+                { name: 'Home', link: '../../index.html' },
+                { name: 'Tools', link: '../tools.html' },
+                { name: 'System Admin Tools', link: '../tools.html' },
+                { name: 'RAM Usage Calculator', link: 'ram-usage-calculator.html' }
+            ];
+            
+            let breadcrumbHTML = '';
+            
+            breadcrumbItems.forEach((item, index) => {
+                if (index === breadcrumbItems.length - 1) {
+                    breadcrumbHTML += `
+                        <div class="breadcrumb-item">
+                            <span class="breadcrumb-current">${item.name}</span>
+                        </div>
+                    `;
+                } else {
+                    breadcrumbHTML += `
+                        <div class="breadcrumb-item">
+                            <a href="${item.link}" class="breadcrumb-link">
+                                <i class="fas fa-home"></i>
+                                ${item.name}
+                            </a>
+                            <span class="breadcrumb-separator">/</span>
+                        </div>
+                    `;
+                }
+            });
+            
+            breadcrumb.innerHTML = breadcrumbHTML;
+        }
+        
+        function convertToGB(value, unit) {
+            switch(unit) {
+                case 'MB':
+                    return value / 1024;
+                case 'GB':
+                    return value;
+                case 'TB':
+                    return value * 1024;
+                default:
+                    return value;
+            }
+        }
+        
+        function formatBytes(bytes, decimals = 2) {
+            if (bytes === 0) return '0 GB';
+            
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['GB', 'TB', 'PB'];
+            
+            let i = 0;
+            while (bytes >= k && i < sizes.length - 1) {
+                bytes /= k;
+                i++;
+            }
+            
+            return `${parseFloat(bytes.toFixed(dm))} ${sizes[i]}`;
+        }
+        
+        function calculateRAMRequirements() {
+            // Get input values
+            const users = parseInt(usersInput.value) || 100;
+            const applicationComplexity = parseInt(applicationsSelect.value) || 2;
+            const dbSize = parseFloat(databaseSizeInput.value) || 50;
+            const dbUnit = databaseUnitSelect.value;
+            const growth = parseFloat(growthInput.value) || 20;
+            const currentRam = parseFloat(currentRamInput.value) || 16;
+            const currentRamUnit = currentRamUnitSelect.value;
+            
+            // Convert database size to GB
+            const dbSizeGB = convertToGB(dbSize, dbUnit);
+            
+            // Convert current RAM to GB
+            const currentRamGB = convertToGB(currentRam, currentRamUnit);
+            
+            // Base calculation formula
+            let baseRAM = 0;
+            
+            // Factor based on users
+            const userFactor = Math.min(users / 100, 10); // Cap at 10x for very large user counts
+            
+            // Application complexity factor (1-4)
+            const appFactor = applicationComplexity * 2;
+            
+            // Database size factor
+            const dbFactor = Math.min(dbSizeGB / 10, 20); // Cap at 20x for very large databases
+            
+            // Calculate base RAM
+            baseRAM = (userFactor * 2) + (appFactor * 4) + (dbFactor * 1.5);
+            
+            // Apply growth factor
+            const growthFactor = 1 + (growth / 100);
+            baseRAM *= growthFactor;
+            
+            // Add buffer (25% of calculated RAM)
+            const buffer = baseRAM * 0.25;
+            const recommendedRAM = Math.ceil(baseRAM + buffer);
+            
+            // Calculate peak usage (80% of recommended for simulation)
+            const peakUsage = Math.ceil(recommendedRAM * 0.8);
+            
+            // Calculate usage percentage if current RAM is provided
+            let usagePercent = 0;
+            if (currentRamGB > 0) {
+                usagePercent = Math.min(Math.round((peakUsage / currentRamGB) * 100), 200);
+            } else {
+                usagePercent = Math.round((peakUsage / recommendedRAM) * 100);
+            }
+            
+            // Calculate buffer required
+            const bufferRequired = Math.ceil(recommendedRAM * 0.25);
+            
+            // Update result display
+            recommendedRamEl.textContent = recommendedRAM;
+            peakUsageEl.innerHTML = `${peakUsage}<span class="result-unit">GB</span>`;
+            usagePercentEl.innerHTML = `${usagePercent}<span class="result-unit">%</span>`;
+            bufferRequiredEl.innerHTML = `${bufferRequired}<span class="result-unit">GB</span>`;
+            
+            // Update visualization
+            updateVisualization(currentRamGB, peakUsage, recommendedRAM);
+            
+            // Log calculation for debugging
+            console.log('RAM Calculation Results:', {
+                users,
+                applicationComplexity,
+                dbSizeGB,
+                growth,
+                currentRamGB,
+                baseRAM,
+                buffer,
+                recommendedRAM,
+                peakUsage,
+                usagePercent,
+                bufferRequired
+            });
+            
+            return {
+                recommendedRAM,
+                peakUsage,
+                usagePercent,
+                bufferRequired,
+                currentRamGB
+            };
+        }
+        
+        function updateVisualization(currentRamGB, peakUsage, recommendedRAM) {
+            const maxRAM = Math.max(currentRamGB, recommendedRAM, peakUsage);
+            const usedPercentage = Math.min((peakUsage / maxRAM) * 100, 100);
+            const currentRamPercentage = (currentRamGB / maxRAM) * 100;
+            const recommendedPercentage = (recommendedRAM / maxRAM) * 100;
+            
+            // Update bar widths
+            let availableWidth = 100;
+            
+            if (peakUsage > currentRamGB) {
+                // Over-allocated scenario
+                ramBarUsed.style.width = `${currentRamPercentage}%`;
+                ramBarUsed.textContent = `Used: ${peakUsage}GB (Over)`;
+                ramBarUsed.style.backgroundColor = '#ef4444';
+                
+                ramBarAvailable.style.width = `${100 - currentRamPercentage}%`;
+                ramBarAvailable.style.left = `${currentRamPercentage}%`;
+                ramBarAvailable.textContent = `Short: ${Math.round(peakUsage - currentRamGB)}GB`;
+                ramBarAvailable.style.backgroundColor = '#f59e0b';
+            } else {
+                // Normal scenario
+                ramBarUsed.style.width = `${usedPercentage}%`;
+                ramBarUsed.textContent = `Used: ${peakUsage}GB`;
+                ramBarUsed.style.backgroundColor = '#2563eb';
+                
+                const availablePercentage = 100 - usedPercentage;
+                ramBarAvailable.style.width = `${availablePercentage}%`;
+                ramBarAvailable.style.left = `${usedPercentage}%`;
+                ramBarAvailable.textContent = `Available: ${Math.round(maxRAM - peakUsage)}GB`;
+                ramBarAvailable.style.backgroundColor = '#10b981';
+            }
+            
+            // Update labels
+            ramMidLabel.textContent = `${Math.round(maxRAM / 2)} GB`;
+            ramMaxLabel.textContent = `${Math.round(maxRAM)} GB`;
+        }
+        
+        function resetCalculator() {
+            usersInput.value = 100;
+            applicationsSelect.value = 2;
+            databaseSizeInput.value = 50;
+            databaseUnitSelect.value = 'GB';
+            growthInput.value = 20;
+            currentRamInput.value = 16;
+            currentRamUnitSelect.value = 'GB';
+            
+            // Reset to default visualization
+            recommendedRamEl.textContent = '32';
+            peakUsageEl.innerHTML = '24<span class="result-unit">GB</span>';
+            usagePercentEl.innerHTML = '75<span class="result-unit">%</span>';
+            bufferRequiredEl.innerHTML = '8<span class="result-unit">GB</span>';
+            
+            ramBarUsed.style.width = '60%';
+            ramBarUsed.textContent = 'Used: 24GB';
+            ramBarUsed.style.backgroundColor = '#2563eb';
+            
+            ramBarAvailable.style.width = '40%';
+            ramBarAvailable.style.left = '60%';
+            ramBarAvailable.textContent = 'Available: 16GB';
+            ramBarAvailable.style.backgroundColor = '#10b981';
+            
+            ramMidLabel.textContent = '16 GB';
+            ramMaxLabel.textContent = '32 GB';
+            
+            // Show success message
+            showNotification('Calculator reset to default values', 'success');
+        }
+        
+        function showNotification(message, type = 'info') {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+                <button class="notification-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add styles for notification
+            const notificationStyles = `
+                .notification {
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: #ffffff;
+                    border-radius: 8px;
+                    padding: 16px 20px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    z-index: 10000;
+                    border-left: 4px solid #2563eb;
+                    animation: slideInRight 0.3s ease;
+                    max-width: 350px;
+                }
+                
+                .notification-success {
+                    border-left-color: #10b981;
+                }
+                
+                .notification i {
+                    font-size: 18px;
+                    color: #2563eb;
+                }
+                
+                .notification-success i {
+                    color: #10b981;
+                }
+                
+                .notification span {
+                    flex: 1;
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+                
+                .notification-close {
+                    background: none;
+                    border: none;
+                    color: #6b7280;
+                    cursor: pointer;
+                    font-size: 14px;
+                    padding: 4px;
+                    border-radius: 4px;
+                    transition: background 0.2s;
+                }
+                
+                .notification-close:hover {
+                    background: #f3f4f6;
+                }
+                
+                @keyframes slideInRight {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            
+            // Add styles if not already added
+            if (!document.querySelector('#notification-styles')) {
+                const styleEl = document.createElement('style');
+                styleEl.id = 'notification-styles';
+                styleEl.textContent = notificationStyles;
+                document.head.appendChild(styleEl);
+            }
+            
+            // Add to DOM
+            document.body.appendChild(notification);
+            
+            // Add close functionality
+            const closeBtn = notification.querySelector('.notification-close');
+            closeBtn.addEventListener('click', () => {
+                notification.style.animation = 'slideInRight 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            });
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideInRight 0.3s ease reverse';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
+        }
+        
+        function validateInputs() {
+            let isValid = true;
+            const inputs = [
+                usersInput,
+                databaseSizeInput,
+                growthInput,
+                currentRamInput
+            ];
+            
+            inputs.forEach(input => {
+                const value = parseFloat(input.value);
+                const min = parseFloat(input.min);
+                const max = parseFloat(input.max);
+                
+                if (isNaN(value) || value < min || value > max) {
+                    input.classList.add('error');
+                    isValid = false;
+                    
+                    // Show error notification
+                    showNotification(`Please enter a valid value for ${input.previousElementSibling.textContent.trim()} (${min}-${max})`, 'error');
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+            
+            return isValid;
+        }
+        
+        function initializeEventListeners() {
+            // Hamburger menu toggle
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navbar.classList.toggle('active');
+                
+                // Track mobile menu usage
+                if (window.gtag) {
+                    gtag('event', 'mobile_menu_toggle', {
+                        'event_category': 'ui_interaction',
+                        'event_label': 'mobile_menu_opened'
+                    });
+                }
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!navbar.contains(event.target) && !hamburger.contains(event.target) && navbar.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    navbar.classList.remove('active');
+                }
+            });
+            
+            // Calculate button click
+            calculateBtn.addEventListener('click', () => {
+                if (validateInputs()) {
+                    calculateRAMRequirements();
+                    
+                    // Show success notification
+                    showNotification('RAM requirements calculated successfully!', 'success');
+                    
+                    // Track calculation event
+                    if (window.gtag) {
+                        gtag('event', 'calculate_ram', {
+                            'event_category': 'calculator',
+                            'event_label': 'ram_calculation'
+                        });
+                    }
+                }
+            });
+            
+            // Reset button click
+            resetBtn.addEventListener('click', resetCalculator);
+            
+            // Input validation on change
+            const inputElements = [
+                usersInput,
+                databaseSizeInput,
+                growthInput,
+                currentRamInput
+            ];
+            
+            inputElements.forEach(input => {
+                input.addEventListener('input', () => {
+                    input.classList.remove('error');
+                });
+            });
+            
+            // Calculate on Enter key in inputs
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' && 
+                    (event.target.tagName === 'INPUT' || event.target.tagName === 'SELECT')) {
+                    if (validateInputs()) {
+                        calculateRAMRequirements();
+                        showNotification('Calculated with Enter key', 'success');
+                    }
+                }
+            });
+            
+            // Recalculate when any input changes (optional)
+            const recalcInputs = document.querySelectorAll('.input-field, .select-field');
+            recalcInputs.forEach(input => {
+                input.addEventListener('change', () => {
+                    if (validateInputs()) {
+                        calculateRAMRequirements();
+                    }
+                });
+            });
+        }
+        
+        function initializeTooltips() {
+            // Add tooltip functionality to info cards
+            const infoCards = document.querySelectorAll('.info-card');
+            infoCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-4px)';
+                    card.style.boxShadow = '0 10px 25px -5px rgba(0, 0, 0, 0.1)';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                    card.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
+                });
+            });
+        }
+        
+        // ==================== Initialize Application ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize breadcrumb
+            updateBreadcrumb();
+            
+            // Initialize event listeners
+            initializeEventListeners();
+            
+            // Initialize tooltips
+            initializeTooltips();
+            
+            // Calculate initial values
+            calculateRAMRequirements();
+            
+            // Add loading animation to calculate button
+            calculateBtn.classList.add('pulse-animation');
+            
+            // Track page view
+            if (window.gtag) {
+                gtag('event', 'page_view', {
+                    'page_title': 'RAM Usage Calculator',
+                    'page_location': window.location.href
+                });
+            }
+            
+            // Initialize scroll tracking
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', () => {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Google Analytics 4
+        (function() {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+            
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,1792 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Turnover Calculator - Logistics Tools</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Calculate inventory turnover ratio and days inventory outstanding. Analyze inventory management efficiency with our advanced logistics calculator.">
+    <meta name="keywords"
+        content="inventory turnover calculator, inventory turnover ratio, days inventory outstanding, DIO, inventory management, logistics calculator, supply chain metrics, inventory efficiency">
+    <meta name="author" content="Logistics Tools">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Inventory Turnover Calculator - Logistics Tools">
+    <meta property="og:description"
+        content="Advanced inventory turnover calculator for analyzing inventory management efficiency and supply chain performance.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/logistics-tools/inventory-turnover.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/tools/inventory-calculator.jpg">
+    <meta property="og:site_name" content="Logistics Tools">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Inventory Turnover Calculator - Logistics Tools">
+    <meta name="twitter:description"
+        content="Calculate inventory turnover ratio and days inventory outstanding for better inventory management.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/tools/inventory-calculator.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/Tools/logistics-tools/inventory-turnover.html">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Inventory Turnover Calculator",
+        "description": "Advanced inventory turnover and days inventory outstanding calculator",
+        "url": "https://asadul-it.github.io/portfolio/Tools/logistics-tools/inventory-turnover.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "author": {
+            "@type": "Organization",
+            "name": "Logistics Tools"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .header-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 19px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: #2563eb;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+            background-color: #f7fafc;
+        }
+
+        .navbar a.active {
+            color: #2563eb;
+            background-color: #ebf4ff;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            background: #f7fafc;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #2563eb;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1300px;
+            margin: 25px auto 15px auto;
+            padding: 0 25px;
+            font-size: 15px;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: #cbd5e0;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            max-width: 1300px;
+            margin: 0 auto 50px auto;
+            padding: 0 25px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 17px;
+            color: #718096;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .calculator-box {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .calculator-box h2 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ebf4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .calculator-box h2 i {
+            color: #2563eb;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        .input-section h3 {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-section h3 i {
+            color: #2563eb;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 15px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+            background-color: #ffffff;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .currency-group {
+            position: relative;
+        }
+
+        .currency-group input {
+            padding-left: 40px;
+        }
+
+        .currency-symbol {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #718096;
+            font-size: 16px;
+            font-weight: 600;
+            pointer-events: none;
+        }
+
+        .period-selector {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .period-option {
+            flex: 1;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .period-option:hover {
+            border-color: #cbd5e0;
+            background-color: #f7fafc;
+        }
+
+        .period-option.selected {
+            border-color: #2563eb;
+            background-color: #ebf4ff;
+        }
+
+        .period-option h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #2d3748;
+        }
+
+        .period-option p {
+            font-size: 13px;
+            color: #718096;
+        }
+
+        .input-hint {
+            font-size: 13px;
+            color: #a0aec0;
+            margin-top: 6px;
+            display: block;
+        }
+
+        .industry-comparison {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .industry-comparison h4 {
+            font-size: 16px;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .industry-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+        }
+
+        .industry-option {
+            padding: 10px;
+            background: #ffffff;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .industry-option:hover {
+            border-color: #cbd5e0;
+            background-color: #f7fafc;
+        }
+
+        .industry-option.selected {
+            border-color: #2563eb;
+            background-color: #ebf4ff;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        .calculate-button {
+            width: 100%;
+            padding: 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .calculate-button:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .calculate-button:active {
+            transform: translateY(0);
+        }
+
+        .result-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .result-header h2 {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        .reset-button {
+            background: #edf2f7;
+            color: #4a5568;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reset-button:hover {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .metric-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .metric-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .summary-card i {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .summary-card .label {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .summary-card .value {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .summary-card .unit {
+            font-size: 16px;
+            color: #718096;
+            font-weight: 600;
+        }
+
+        .summary-card.turnover .value {
+            color: #2563eb;
+        }
+
+        .summary-card.turnover i {
+            color: #2563eb;
+        }
+
+        .summary-card.days .value {
+            color: #10b981;
+        }
+
+        .summary-card.days i {
+            color: #10b981;
+        }
+
+        .summary-card.industry .value {
+            color: #8b5cf6;
+        }
+
+        .summary-card.industry i {
+            color: #8b5cf6;
+        }
+
+        .summary-card.status .value {
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .summary-card.status i {
+            font-size: 28px;
+        }
+
+        .summary-card.good .value {
+            color: #10b981;
+        }
+
+        .summary-card.good i {
+            color: #10b981;
+        }
+
+        .summary-card.average .value {
+            color: #f59e0b;
+        }
+
+        .summary-card.average i {
+            color: #f59e0b;
+        }
+
+        .summary-card.poor .value {
+            color: #ef4444;
+        }
+
+        .summary-card.poor i {
+            color: #ef4444;
+        }
+
+        .gauge-container {
+            margin: 30px 0;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .gauge-container h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .gauge {
+            height: 120px;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .gauge-background {
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 50%, #10b981 100%);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gauge-needle {
+            position: absolute;
+            top: -25px;
+            width: 4px;
+            height: 70px;
+            background: #2d3748;
+            transform-origin: bottom center;
+            transition: left 1s ease;
+            z-index: 2;
+        }
+
+        .gauge-needle::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -8px;
+            width: 20px;
+            height: 20px;
+            background: #2d3748;
+            border-radius: 50%;
+        }
+
+        .gauge-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #718096;
+            font-weight: 600;
+        }
+
+        .details-breakdown {
+            margin-bottom: 30px;
+        }
+
+        .details-breakdown h3 {
+            font-size: 20px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-item .label {
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .detail-item .value {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .recommendations {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .recommendations h3 {
+            font-size: 20px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .recommendations-list {
+            list-style: none;
+        }
+
+        .recommendations-list li {
+            padding: 12px 0;
+            color: #4a5568;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .recommendations-list li:last-child {
+            border-bottom: none;
+        }
+
+        .recommendations-list li i {
+            margin-top: 2px;
+        }
+
+        .good-recommendation i {
+            color: #10b981;
+        }
+
+        .average-recommendation i {
+            color: #f59e0b;
+        }
+
+        .poor-recommendation i {
+            color: #ef4444;
+        }
+
+        .info-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 50px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-section h2 {
+            font-size: 28px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .info-section p {
+            color: #4a5568;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-card h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 8px 0;
+            color: #4a5568;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li i {
+            color: #2563eb;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: auto;
+            padding: 45px 25px 35px 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .footer-column p {
+            color: #718096;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-column a {
+            color: #4a5568;
+            font-size: 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+            transform: translateX(3px);
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f7fafc;
+            color: #2563eb;
+            font-size: 18px;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-bottom: 0;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 15px;
+            color: #718096;
+            background: #f8fafc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #e2e8f0;
+                z-index: 100;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar a {
+                padding: 18px 25px;
+                border-bottom: 1px solid #f1f1f1;
+                justify-content: flex-start;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .page-header p {
+                font-size: 16px;
+            }
+
+            .calculator-box {
+                padding: 30px 25px;
+            }
+
+            .calculator-box h2 {
+                font-size: 22px;
+            }
+
+            .period-selector {
+                flex-direction: column;
+            }
+
+            .industry-options {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .summary-card .value {
+                font-size: 28px;
+            }
+
+            .info-section {
+                padding: 30px 25px;
+            }
+
+            .info-section h2 {
+                font-size: 24px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                text-align: center;
+            }
+
+            .quick-links {
+                align-items: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .breadcrumb {
+                padding: 0 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .metric-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-box {
+                padding: 25px 20px;
+            }
+
+            .industry-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo">
+                <span class="logo-icon">LT</span>
+                <span class="logo-text">Logistics Tools</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html" class="active"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="../tools.html">Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="logistics-tools.html">Logistics Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Inventory Turnover Calculator</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Inventory Turnover Calculator</h1>
+            <p>Calculate inventory turnover ratio and days inventory outstanding to measure inventory management efficiency and optimize your supply chain performance.</p>
+        </div>
+
+        <div class="calculator-container">
+            <div class="calculator-box">
+                <h2><i class="fas fa-calculator"></i> Calculate Inventory Turnover</h2>
+                
+                <div class="input-section">
+                    <h3><i class="fas fa-chart-line"></i> Financial Data</h3>
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="cogs">Cost of Goods Sold (COGS)</label>
+                            <div class="currency-group">
+                                <span class="currency-symbol">$</span>
+                                <input type="number" id="cogs" min="0" step="1000" value="500000" placeholder="Enter COGS">
+                            </div>
+                            <span class="input-hint">Total cost of goods sold during the period</span>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="avgInventory">Average Inventory Value</label>
+                            <div class="currency-group">
+                                <span class="currency-symbol">$</span>
+                                <input type="number" id="avgInventory" min="0" step="1000" value="100000" placeholder="Enter average inventory">
+                            </div>
+                            <span class="input-hint">(Beginning Inventory + Ending Inventory) ÷ 2</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-section">
+                    <h3><i class="fas fa-calendar-alt"></i> Time Period</h3>
+                    <div class="period-selector">
+                        <div class="period-option selected" id="periodAnnual">
+                            <h4>Annual</h4>
+                            <p>12 months</p>
+                        </div>
+                        <div class="period-option" id="periodQuarterly">
+                            <h4>Quarterly</h4>
+                            <p>3 months</p>
+                        </div>
+                        <div class="period-option" id="periodMonthly">
+                            <h4>Monthly</h4>
+                            <p>1 month</p>
+                        </div>
+                    </div>
+                    <input type="hidden" id="period" value="annual">
+                </div>
+
+                <div class="input-section">
+                    <h3><i class="fas fa-industry"></i> Industry Comparison</h3>
+                    <div class="industry-comparison">
+                        <h4><i class="fas fa-chart-bar"></i> Select Industry for Benchmarking</h4>
+                        <div class="industry-options">
+                            <div class="industry-option selected" data-industry="retail">Retail</div>
+                            <div class="industry-option" data-industry="manufacturing">Manufacturing</div>
+                            <div class="industry-option" data-industry="automotive">Automotive</div>
+                            <div class="industry-option" data-industry="electronics">Electronics</div>
+                            <div class="industry-option" data-industry="pharmaceutical">Pharmaceutical</div>
+                            <div class="industry-option" data-industry="food">Food & Beverage</div>
+                            <div class="industry-option" data-industry="apparel">Apparel</div>
+                            <div class="industry-option" data-industry="wholesale">Wholesale</div>
+                        </div>
+                        <input type="hidden" id="industry" value="retail">
+                    </div>
+                    <span class="input-hint">Industry average turnover ratios for comparison</span>
+                </div>
+
+                <button class="calculate-button" id="calculateBtn">
+                    <i class="fas fa-calculator"></i> Calculate Turnover Ratio
+                </button>
+            </div>
+
+            <div class="result-box">
+                <div class="result-header">
+                    <h2><i class="fas fa-chart-pie"></i> Turnover Analysis</h2>
+                    <button class="reset-button" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+
+                <div class="metric-summary">
+                    <div class="summary-card turnover">
+                        <i class="fas fa-sync-alt"></i>
+                        <div class="label">Inventory Turnover Ratio</div>
+                        <div class="value" id="turnoverRatio">5.0</div>
+                        <div class="unit">times per year</div>
+                    </div>
+                    <div class="summary-card days">
+                        <i class="fas fa-calendar-day"></i>
+                        <div class="label">Days Inventory Outstanding</div>
+                        <div class="value" id="daysInventory">73.0</div>
+                        <div class="unit">days</div>
+                    </div>
+                    <div class="summary-card industry">
+                        <i class="fas fa-industry"></i>
+                        <div class="label">Industry Average</div>
+                        <div class="value" id="industryAverage">8.5</div>
+                        <div class="unit">times per year</div>
+                    </div>
+                    <div class="summary-card status good" id="statusCard">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="label">Performance Status</div>
+                        <div class="value" id="performanceStatus">Good</div>
+                        <div class="unit">vs industry</div>
+                    </div>
+                </div>
+
+                <div class="gauge-container">
+                    <h3>Turnover Ratio Comparison</h3>
+                    <div class="gauge">
+                        <div class="gauge-background">
+                            <div class="gauge-needle" id="gaugeNeedle" style="left: 30%"></div>
+                        </div>
+                        <div class="gauge-labels">
+                            <span>Low (0-4)</span>
+                            <span>Average (4-8)</span>
+                            <span>High (8+)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-breakdown">
+                    <h3><i class="fas fa-list-alt"></i> Calculation Details</h3>
+                    <div class="detail-item">
+                        <span class="label">Cost of Goods Sold (COGS)</span>
+                        <span class="value" id="cogsDisplay">$500,000</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Average Inventory Value</span>
+                        <span class="value" id="inventoryDisplay">$100,000</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Calculation Period</span>
+                        <span class="value" id="periodDisplay">Annual (365 days)</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Turnover Formula</span>
+                        <span class="value">COGS ÷ Average Inventory</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">DIO Formula</span>
+                        <span class="value">365 ÷ Turnover Ratio</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Industry Benchmark</span>
+                        <span class="value" id="industryBenchmark">Retail</span>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <h3><i class="fas fa-lightbulb"></i> Optimization Recommendations</h3>
+                    <ul class="recommendations-list" id="recommendationsList">
+                        <li class="good-recommendation"><i class="fas fa-check-circle"></i> Your inventory turnover is healthy for your industry</li>
+                        <li class="good-recommendation"><i class="fas fa-check-circle"></i> Consider implementing just-in-time inventory for further improvement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>Understanding Inventory Turnover</h2>
+            <p>Inventory turnover ratio measures how efficiently a company manages its inventory by comparing the cost of goods sold to average inventory value during a specific period.</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-calculator"></i> Key Formulas</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Turnover Ratio = COGS ÷ Average Inventory</li>
+                        <li><i class="fas fa-check"></i> Days Inventory Outstanding (DIO) = 365 ÷ Turnover Ratio</li>
+                        <li><i class="fas fa-check"></i> Average Inventory = (Beginning + Ending Inventory) ÷ 2</li>
+                        <li><i class="fas fa-check"></i> COGS = Beginning Inventory + Purchases - Ending Inventory</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-chart-bar"></i> Industry Benchmarks</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Retail: 8-12 times per year</li>
+                        <li><i class="fas fa-check"></i> Manufacturing: 4-6 times per year</li>
+                        <li><i class="fas fa-check"></i> Automotive: 5-8 times per year</li>
+                        <li><i class="fas fa-check"></i> Electronics: 6-10 times per year</li>
+                        <li><i class="fas fa-check"></i> Pharmaceuticals: 2-4 times per year</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Interpretation Guide</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> High Turnover: Efficient inventory management, but risk of stockouts</li>
+                        <li><i class="fas fa-check"></i> Low Turnover: Excess inventory, potential obsolescence</li>
+                        <li><i class="fas fa-check"></i> Ideal Ratio: Varies by industry and business model</li>
+                        <li><i class="fas fa-check"></i> Seasonal Factors: Consider business seasonality in analysis</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== Hidden SEO Content ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/WebApplication">
+        <span itemprop="name">Inventory Turnover Calculator</span>
+        <span itemprop="description">Advanced inventory turnover ratio and days inventory outstanding calculator</span>
+        <span itemprop="applicationCategory">BusinessApplication</span>
+        <span itemprop="operatingSystem">Any</span>
+        <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="price">0</span>
+            <span itemprop="priceCurrency">USD</span>
+        </span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Logistics Tools</h3>
+                <p>Professional inventory management and turnover calculation tools for optimizing supply chain efficiency and inventory performance.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Logistics Tools | All Rights Reserved
+        </div>
+    </footer>
+
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // DOM Elements
+        const cogsInput = document.getElementById('cogs');
+        const avgInventoryInput = document.getElementById('avgInventory');
+        const periodAnnual = document.getElementById('periodAnnual');
+        const periodQuarterly = document.getElementById('periodQuarterly');
+        const periodMonthly = document.getElementById('periodMonthly');
+        const periodInput = document.getElementById('period');
+        const industryOptions = document.querySelectorAll('.industry-option');
+        const industryInput = document.getElementById('industry');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        // Result Elements
+        const turnoverRatio = document.getElementById('turnoverRatio');
+        const daysInventory = document.getElementById('daysInventory');
+        const industryAverage = document.getElementById('industryAverage');
+        const performanceStatus = document.getElementById('performanceStatus');
+        const statusCard = document.getElementById('statusCard');
+        const gaugeNeedle = document.getElementById('gaugeNeedle');
+        const cogsDisplay = document.getElementById('cogsDisplay');
+        const inventoryDisplay = document.getElementById('inventoryDisplay');
+        const periodDisplay = document.getElementById('periodDisplay');
+        const industryBenchmark = document.getElementById('industryBenchmark');
+        const recommendationsList = document.getElementById('recommendationsList');
+
+        // Industry benchmark data (average turnover ratios)
+        const industryBenchmarks = {
+            'retail': { turnover: 8.5, range: '8-12 times/year' },
+            'manufacturing': { turnover: 5.0, range: '4-6 times/year' },
+            'automotive': { turnover: 6.5, range: '5-8 times/year' },
+            'electronics': { turnover: 8.0, range: '6-10 times/year' },
+            'pharmaceutical': { turnover: 3.0, range: '2-4 times/year' },
+            'food': { turnover: 10.0, range: '8-12 times/year' },
+            'apparel': { turnover: 4.5, range: '3-6 times/year' },
+            'wholesale': { turnover: 6.0, range: '5-8 times/year' }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDisplay();
+            calculateTurnover();
+            
+            // Set breadcrumb
+            setBreadcrumb([
+                { name: "Home", link: "../../index.html" },
+                { name: "Tools", link: "../tools.html" },
+                { name: "Logistics Tools", link: "../tools.html#logistics" },
+                { name: "Inventory Turnover Calculator" }
+            ]);
+        });
+
+        // Period selection
+        periodAnnual.addEventListener('click', function() { selectPeriod('annual'); });
+        periodQuarterly.addEventListener('click', function() { selectPeriod('quarterly'); });
+        periodMonthly.addEventListener('click', function() { selectPeriod('monthly'); });
+
+        function selectPeriod(period) {
+            // Update UI
+            periodAnnual.classList.remove('selected');
+            periodQuarterly.classList.remove('selected');
+            periodMonthly.classList.remove('selected');
+            
+            if (period === 'annual') periodAnnual.classList.add('selected');
+            else if (period === 'quarterly') periodQuarterly.classList.add('selected');
+            else if (period === 'monthly') periodMonthly.classList.add('selected');
+            
+            // Update hidden input
+            periodInput.value = period;
+            
+            calculateTurnover();
+        }
+
+        // Industry selection
+        industryOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Update UI
+                industryOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                // Update hidden input
+                industryInput.value = this.dataset.industry;
+                industryBenchmark.textContent = this.textContent;
+                
+                calculateTurnover();
+            });
+        });
+
+        // Input changes
+        cogsInput.addEventListener('input', function() {
+            updateDisplay();
+            calculateTurnover();
+        });
+
+        avgInventoryInput.addEventListener('input', function() {
+            updateDisplay();
+            calculateTurnover();
+        });
+
+        // Calculate button
+        calculateBtn.addEventListener('click', function() {
+            calculateTurnover();
+            
+            // Track calculation event
+            if (window.gtag) {
+                gtag('event', 'calculate_inventory_turnover', {
+                    'event_category': 'calculator',
+                    'event_label': 'inventory_turnover_calculation'
+                });
+            }
+        });
+
+        // Reset button
+        resetBtn.addEventListener('click', function() {
+            cogsInput.value = '500000';
+            avgInventoryInput.value = '100000';
+            selectPeriod('annual');
+            industryOptions.forEach(opt => {
+                opt.classList.remove('selected');
+                if (opt.dataset.industry === 'retail') opt.classList.add('selected');
+            });
+            industryInput.value = 'retail';
+            industryBenchmark.textContent = 'Retail';
+            
+            updateDisplay();
+            calculateTurnover();
+            
+            // Track reset event
+            if (window.gtag) {
+                gtag('event', 'reset_calculator', {
+                    'event_category': 'calculator',
+                    'event_label': 'inventory_turnover_calculator_reset'
+                });
+            }
+        });
+
+        // Update display formatting
+        function updateDisplay() {
+            const cogs = parseFloat(cogsInput.value) || 0;
+            const inventory = parseFloat(avgInventoryInput.value) || 0;
+            
+            cogsDisplay.textContent = '$' + formatNumber(cogs);
+            inventoryDisplay.textContent = '$' + formatNumber(inventory);
+            
+            // Update period display
+            const period = periodInput.value;
+            let periodText = '';
+            if (period === 'annual') periodText = 'Annual (365 days)';
+            else if (period === 'quarterly') periodText = 'Quarterly (91 days)';
+            else if (period === 'monthly') periodText = 'Monthly (30 days)';
+            periodDisplay.textContent = periodText;
+        }
+
+        // Format number with commas
+        function formatNumber(num) {
+            return num.toLocaleString('en-US', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            });
+        }
+
+        // Calculate turnover function
+        function calculateTurnover() {
+            // Get input values
+            const cogs = parseFloat(cogsInput.value) || 0;
+            const inventory = parseFloat(avgInventoryInput.value) || 0;
+            const period = periodInput.value;
+            const industry = industryInput.value;
+            
+            // Get industry benchmark
+            const benchmark = industryBenchmarks[industry];
+            const industryTurnover = benchmark.turnover;
+            
+            // Calculate turnover ratio
+            let turnover = 0;
+            if (inventory > 0) {
+                turnover = cogs / inventory;
+            }
+            
+            // Adjust for period if not annual
+            let daysInPeriod = 365;
+            if (period === 'quarterly') daysInPeriod = 91;
+            else if (period === 'monthly') daysInPeriod = 30;
+            
+            // Convert to annual equivalent for comparison
+            let annualTurnover = turnover;
+            if (period === 'quarterly') annualTurnover = turnover * 4;
+            else if (period === 'monthly') annualTurnover = turnover * 12;
+            
+            // Calculate days inventory outstanding
+            let dio = 0;
+            if (turnover > 0) {
+                dio = daysInPeriod / turnover;
+            }
+            
+            // Update display
+            turnoverRatio.textContent = turnover.toFixed(1);
+            daysInventory.textContent = dio.toFixed(1);
+            industryAverage.textContent = industryTurnover.toFixed(1);
+            
+            // Determine performance status
+            let status = '';
+            let statusClass = '';
+            let statusIcon = '';
+            
+            if (annualTurnover >= industryTurnover * 1.2) {
+                status = 'Excellent';
+                statusClass = 'good';
+                statusIcon = 'fas fa-check-circle';
+            } else if (annualTurnover >= industryTurnover * 0.8) {
+                status = 'Good';
+                statusClass = 'good';
+                statusIcon = 'fas fa-check-circle';
+            } else if (annualTurnover >= industryTurnover * 0.6) {
+                status = 'Average';
+                statusClass = 'average';
+                statusIcon = 'fas fa-exclamation-circle';
+            } else {
+                status = 'Poor';
+                statusClass = 'poor';
+                statusIcon = 'fas fa-times-circle';
+            }
+            
+            performanceStatus.textContent = status;
+            
+            // Update status card
+            statusCard.className = 'summary-card status ' + statusClass;
+            const iconElement = statusCard.querySelector('i');
+            iconElement.className = statusIcon;
+            
+            // Update gauge
+            updateGauge(annualTurnover);
+            
+            // Generate recommendations
+            generateRecommendations(annualTurnover, industryTurnover, dio, industry);
+        }
+
+        // Update gauge visualization
+        function updateGauge(turnover) {
+            // Calculate needle position (0-100%)
+            let position = 0;
+            if (turnover <= 4) {
+                position = (turnover / 4) * 33.33;
+            } else if (turnover <= 8) {
+                position = 33.33 + ((turnover - 4) / 4) * 33.33;
+            } else if (turnover <= 12) {
+                position = 66.66 + ((turnover - 8) / 4) * 33.33;
+            } else {
+                position = 100;
+            }
+            
+            // Clamp position to 0-100
+            position = Math.min(100, Math.max(0, position));
+            
+            // Update needle position
+            gaugeNeedle.style.left = position + '%';
+        }
+
+        // Generate recommendations
+        function generateRecommendations(turnover, industryTurnover, dio, industry) {
+            const recommendations = [];
+            
+            // Turnover-based recommendations
+            if (turnover < industryTurnover * 0.6) {
+                recommendations.push({
+                    text: 'Low turnover ratio indicates excess inventory. Consider reducing stock levels and improving demand forecasting',
+                    type: 'poor'
+                });
+                recommendations.push({
+                    text: 'Implement inventory reduction strategies and review slow-moving items',
+                    type: 'poor'
+                });
+            } else if (turnover < industryTurnover * 0.8) {
+                recommendations.push({
+                    text: 'Below industry average. Review inventory management practices and consider just-in-time inventory',
+                    type: 'average'
+                });
+                recommendations.push({
+                    text: 'Analyze slow-moving items and consider promotions or discounts to clear excess stock',
+                    type: 'average'
+                });
+            } else if (turnover < industryTurnover * 1.2) {
+                recommendations.push({
+                    text: 'Good inventory management. Maintain current practices and monitor for improvements',
+                    type: 'good'
+                });
+                recommendations.push({
+                    text: 'Consider implementing automated inventory tracking for further optimization',
+                    type: 'good'
+                });
+            } else {
+                recommendations.push({
+                    text: 'Excellent turnover ratio. Ensure you are not experiencing frequent stockouts',
+                    type: 'good'
+                });
+                recommendations.push({
+                    text: 'Consider expanding product lines or markets to utilize efficient inventory management',
+                    type: 'good'
+                });
+            }
+            
+            // DIO-based recommendations
+            if (dio > 90) {
+                recommendations.push({
+                    text: 'High days inventory outstanding indicates slow inventory movement. Review purchasing strategies',
+                    type: 'poor'
+                });
+            } else if (dio > 60) {
+                recommendations.push({
+                    text: 'Consider reducing safety stock levels and improving supply chain coordination',
+                    type: 'average'
+                });
+            }
+            
+            // Industry-specific recommendations
+            if (industry === 'retail') {
+                recommendations.push({
+                    text: 'For retail, focus on seasonal inventory management and promotional planning',
+                    type: 'good'
+                });
+            } else if (industry === 'manufacturing') {
+                recommendations.push({
+                    text: 'Manufacturing: Consider lean manufacturing principles and just-in-time delivery',
+                    type: 'good'
+                });
+            } else if (industry === 'food') {
+                recommendations.push({
+                    text: 'Food industry: Monitor expiration dates closely and implement FIFO (First In First Out)',
+                    type: 'good'
+                });
+            }
+            
+            // Update recommendations list
+            recommendationsList.innerHTML = '';
+            recommendations.slice(0, 4).forEach(rec => {
+                const li = document.createElement('li');
+                li.className = rec.type + '-recommendation';
+                li.innerHTML = `<i class="${rec.type === 'good' ? 'fas fa-check-circle' : rec.type === 'average' ? 'fas fa-exclamation-circle' : 'fas fa-times-circle'}"></i> ${rec.text}`;
+                recommendationsList.appendChild(li);
+            });
+        }
+
+        // Breadcrumb function
+        function setBreadcrumb(items) {
+            const breadcrumbElement = document.getElementById('breadcrumb');
+            if (breadcrumbElement) {
+                breadcrumbElement.innerHTML = items.map((item, index) => {
+                    if (item.link) {
+                        return `<a href="${item.link}">${item.name}</a>`;
+                    } else {
+                        return `<span>${item.name}</span>`;
+                    }
+                }).join('<span class="breadcrumb-separator">/</span>');
+            }
+        }
+
+        // Hamburger menu
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        if (hamburger && navbar) {
+            hamburger.onclick = () => {
+                navbar.classList.toggle("active");
+                hamburger.classList.toggle("active");
+            };
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNavbar = navbar.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (!isClickInsideNavbar && !isClickOnHamburger && navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Track interactions
+        document.addEventListener('DOMContentLoaded', function () {
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track mobile menu usage
+            if (hamburger) {
+                hamburger.addEventListener('click', function () {
+                    if (window.gtag) {
+                        gtag('event', 'mobile_menu_toggle', {
+                            'event_category': 'ui_interaction',
+                            'event_label': 'mobile_menu_opened'
+                        });
+                    }
+                });
+            }
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function () {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

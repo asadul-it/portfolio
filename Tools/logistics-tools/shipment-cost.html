@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipment Cost Calculator - Logistics Tools</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Calculate shipment costs instantly with our advanced logistics calculator. Estimate shipping fees based on weight, distance, service type, and additional charges for accurate logistics planning.">
+    <meta name="keywords"
+        content="shipment cost calculator, logistics calculator, shipping cost estimator, freight calculator, delivery cost, logistics tools, shipping fees, courier cost">
+    <meta name="author" content="Logistics Tools">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Shipment Cost Calculator - Logistics Tools">
+    <meta property="og:description"
+        content="Professional shipment cost calculator for accurate logistics planning and shipping fee estimation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/logistics-tools/shipment-cost.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/tools/logistics-calculator.jpg">
+    <meta property="og:site_name" content="Logistics Tools">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Shipment Cost Calculator - Logistics Tools">
+    <meta name="twitter:description"
+        content="Advanced shipment cost calculator for logistics planning and shipping estimation.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/tools/logistics-calculator.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/Tools/logistics-tools/shipment-cost.html">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Shipment Cost Calculator",
+        "description": "Advanced shipment cost calculator for logistics planning",
+        "url": "https://asadul-it.github.io/portfolio/Tools/logistics-tools/shipment-cost.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "author": {
+            "@type": "Organization",
+            "name": "Logistics Tools"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .header-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 19px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: #2563eb;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+            background-color: #f7fafc;
+        }
+
+        .navbar a.active {
+            color: #2563eb;
+            background-color: #ebf4ff;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            background: #f7fafc;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #2563eb;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1300px;
+            margin: 25px auto 15px auto;
+            padding: 0 25px;
+            font-size: 15px;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: #cbd5e0;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            max-width: 1300px;
+            margin: 0 auto 50px auto;
+            padding: 0 25px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 17px;
+            color: #718096;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .calculator-box {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .calculator-box h2 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ebf4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .calculator-box h2 i {
+            color: #2563eb;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 15px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+            background-color: #ffffff;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-hint {
+            font-size: 13px;
+            color: #a0aec0;
+            margin-top: 6px;
+            display: block;
+        }
+
+        .range-slider {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .range-value {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 14px;
+            color: #718096;
+        }
+
+        .service-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .service-option {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .service-option:hover {
+            border-color: #cbd5e0;
+            background-color: #f7fafc;
+        }
+
+        .service-option.selected {
+            border-color: #2563eb;
+            background-color: #ebf4ff;
+        }
+
+        .service-option i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+
+        .service-option.selected i {
+            color: #2563eb;
+        }
+
+        .service-option h4 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #2d3748;
+        }
+
+        .service-option p {
+            font-size: 13px;
+            color: #718096;
+        }
+
+        .calculate-button {
+            width: 100%;
+            padding: 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .calculate-button:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .calculate-button:active {
+            transform: translateY(0);
+        }
+
+        .result-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .result-header h2 {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        .reset-button {
+            background: #edf2f7;
+            color: #4a5568;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reset-button:hover {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .cost-breakdown {
+            margin-bottom: 30px;
+        }
+
+        .cost-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .cost-item:last-child {
+            border-bottom: none;
+        }
+
+        .cost-item .label {
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .cost-item .value {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .total-cost {
+            background: #ebf4ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .total-cost .label {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+
+        .total-cost .value {
+            font-size: 42px;
+            font-weight: 700;
+            color: #2563eb;
+            line-height: 1;
+        }
+
+        .total-cost .currency {
+            font-size: 24px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .details-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .details-section h3 {
+            font-size: 20px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .detail-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .detail-card i {
+            font-size: 28px;
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+
+        .detail-card h4 {
+            font-size: 16px;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .detail-card p {
+            font-size: 14px;
+            color: #718096;
+            line-height: 1.5;
+        }
+
+        .info-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 50px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-section h2 {
+            font-size: 28px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .info-section p {
+            color: #4a5568;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-card h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 8px 0;
+            color: #4a5568;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li i {
+            color: #2563eb;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: auto;
+            padding: 45px 25px 35px 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .footer-column p {
+            color: #718096;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-column a {
+            color: #4a5568;
+            font-size: 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+            transform: translateX(3px);
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f7fafc;
+            color: #2563eb;
+            font-size: 18px;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-bottom: 0;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 15px;
+            color: #718096;
+            background: #f8fafc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #e2e8f0;
+                z-index: 100;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar a {
+                padding: 18px 25px;
+                border-bottom: 1px solid #f1f1f1;
+                justify-content: flex-start;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .page-header p {
+                font-size: 16px;
+            }
+
+            .calculator-box {
+                padding: 30px 25px;
+            }
+
+            .calculator-box h2 {
+                font-size: 22px;
+            }
+
+            .total-cost .value {
+                font-size: 36px;
+            }
+
+            .info-section {
+                padding: 30px 25px;
+            }
+
+            .info-section h2 {
+                font-size: 24px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                text-align: center;
+            }
+
+            .quick-links {
+                align-items: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .breadcrumb {
+                padding: 0 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .service-options {
+                grid-template-columns: 1fr;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-box {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo">
+                <span class="logo-icon">LT</span>
+                <span class="logo-text">Logistics Tools</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html" class="active"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="../tools.html">Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="logistics-tools.html">Logistics Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Shipment Cost Calculator</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Shipment Cost Calculator</h1>
+            <p>Calculate accurate shipping costs based on weight, distance, service type, and additional charges. Get instant estimates for your logistics planning.</p>
+        </div>
+
+        <div class="calculator-container">
+            <div class="calculator-box">
+                <h2><i class="fas fa-calculator"></i> Calculate Shipment Cost</h2>
+                
+                <div class="input-group">
+                    <label for="weight">Package Weight (kg)</label>
+                    <input type="number" id="weight" min="0.1" max="1000" step="0.1" placeholder="Enter weight in kilograms" value="5">
+                    <input type="range" id="weightRange" min="0.1" max="100" step="0.1" value="5" class="range-slider">
+                    <div class="range-value">
+                        <span>0.1 kg</span>
+                        <span id="weightValue">5 kg</span>
+                        <span>100 kg</span>
+                    </div>
+                    <span class="input-hint">Minimum weight: 0.1 kg | Maximum: 1000 kg</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="distance">Distance (km)</label>
+                    <input type="number" id="distance" min="1" max="5000" step="1" placeholder="Enter distance in kilometers" value="150">
+                    <input type="range" id="distanceRange" min="1" max="1000" step="1" value="150" class="range-slider">
+                    <div class="range-value">
+                        <span>1 km</span>
+                        <span id="distanceValue">150 km</span>
+                        <span>1000 km</span>
+                    </div>
+                    <span class="input-hint">Local delivery: 1-50 km | International: 1000+ km</span>
+                </div>
+
+                <div class="input-group">
+                    <label>Service Type</label>
+                    <div class="service-options">
+                        <div class="service-option selected" id="standardService">
+                            <i class="fas fa-truck"></i>
+                            <h4>Standard</h4>
+                            <p>5-7 business days</p>
+                        </div>
+                        <div class="service-option" id="expressService">
+                            <i class="fas fa-shipping-fast"></i>
+                            <h4>Express</h4>
+                            <p>1-2 business days</p>
+                        </div>
+                    </div>
+                    <input type="hidden" id="serviceType" value="standard">
+                </div>
+
+                <div class="input-group">
+                    <label for="additionalCharges">Additional Charges ($)</label>
+                    <input type="number" id="additionalCharges" min="0" step="0.01" placeholder="Enter additional charges if any" value="0">
+                    <span class="input-hint">Insurance, packaging, handling fees, etc.</span>
+                </div>
+
+                <button class="calculate-button" id="calculateBtn">
+                    <i class="fas fa-calculator"></i> Calculate Total Cost
+                </button>
+            </div>
+
+            <div class="result-box">
+                <div class="result-header">
+                    <h2><i class="fas fa-file-invoice-dollar"></i> Cost Breakdown</h2>
+                    <button class="reset-button" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+
+                <div class="cost-breakdown">
+                    <div class="cost-item">
+                        <span class="label">Base Rate (per kg/km)</span>
+                        <span class="value" id="baseRate">$0.15</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="label">Weight Charge (<span id="displayWeight">5</span> kg)</span>
+                        <span class="value" id="weightCharge">$12.50</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="label">Distance Charge (<span id="displayDistance">150</span> km)</span>
+                        <span class="value" id="distanceCharge">$22.50</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="label">Service Type (<span id="displayService">Standard</span>)</span>
+                        <span class="value" id="serviceCharge">$5.00</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="label">Additional Charges</span>
+                        <span class="value" id="additionalDisplay">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="total-cost">
+                    <div class="label">Total Shipment Cost</div>
+                    <div class="value"><span class="currency">$</span><span id="totalCost">40.00</span></div>
+                </div>
+
+                <div class="details-section">
+                    <h3><i class="fas fa-info-circle"></i> Calculation Details</h3>
+                    <div class="details-grid">
+                        <div class="detail-card">
+                            <i class="fas fa-weight-hanging"></i>
+                            <h4>Weight Factor</h4>
+                            <p>$2.50 per kg for standard service. Express service: $3.50 per kg.</p>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-road"></i>
+                            <h4>Distance Factor</h4>
+                            <p>$0.15 per km for standard service. Express service: $0.25 per km.</p>
+                        </div>
+                        <div class="detail-card">
+                            <i class="fas fa-bolt"></i>
+                            <h4>Service Surcharge</h4>
+                            <p>Standard: $5 flat fee. Express: $15 flat fee for priority handling.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>How Shipment Cost Calculation Works</h2>
+            <p>Our advanced algorithm calculates shipment costs based on multiple factors to give you the most accurate estimate for your logistics needs.</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-weight"></i> Weight Based Pricing</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 0-10 kg: $2.50 per kg</li>
+                        <li><i class="fas fa-check"></i> 10-50 kg: $2.00 per kg</li>
+                        <li><i class="fas fa-check"></i> 50-100 kg: $1.50 per kg</li>
+                        <li><i class="fas fa-check"></i> 100+ kg: $1.00 per kg</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-route"></i> Distance Tiers</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Local (1-50 km): $0.10 per km</li>
+                        <li><i class="fas fa-check"></i> Regional (50-200 km): $0.15 per km</li>
+                        <li><i class="fas fa-check"></i> National (200-500 km): $0.20 per km</li>
+                        <li><i class="fas fa-check"></i> Long Distance (500+ km): $0.25 per km</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-cubes"></i> Additional Factors</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Insurance: 1% of declared value</li>
+                        <li><i class="fas fa-check"></i> Packaging: $2-$10 based on size</li>
+                        <li><i class="fas fa-check"></i> Handling: $3 for fragile items</li>
+                        <li><i class="fas fa-check"></i> Weekend Delivery: 20% surcharge</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== Hidden SEO Content ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/WebApplication">
+        <span itemprop="name">Shipment Cost Calculator</span>
+        <span itemprop="description">Advanced logistics calculator for shipment cost estimation</span>
+        <span itemprop="applicationCategory">BusinessApplication</span>
+        <span itemprop="operatingSystem">Any</span>
+        <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="price">0</span>
+            <span itemprop="priceCurrency">USD</span>
+        </span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Logistics Tools</h3>
+                <p>Professional logistics and shipment calculation tools for accurate cost estimation and planning. Our calculators help businesses and individuals make informed shipping decisions.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Logistics Tools | All Rights Reserved
+        </div>
+    </footer>
+
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // DOM Elements
+        const weightInput = document.getElementById('weight');
+        const weightRange = document.getElementById('weightRange');
+        const weightValue = document.getElementById('weightValue');
+        const distanceInput = document.getElementById('distance');
+        const distanceRange = document.getElementById('distanceRange');
+        const distanceValue = document.getElementById('distanceValue');
+        const serviceTypeInput = document.getElementById('serviceType');
+        const additionalChargesInput = document.getElementById('additionalCharges');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const standardService = document.getElementById('standardService');
+        const expressService = document.getElementById('expressService');
+        
+        // Result Elements
+        const displayWeight = document.getElementById('displayWeight');
+        const displayDistance = document.getElementById('displayDistance');
+        const displayService = document.getElementById('displayService');
+        const baseRate = document.getElementById('baseRate');
+        const weightCharge = document.getElementById('weightCharge');
+        const distanceCharge = document.getElementById('distanceCharge');
+        const serviceCharge = document.getElementById('serviceCharge');
+        const additionalDisplay = document.getElementById('additionalDisplay');
+        const totalCost = document.getElementById('totalCost');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateWeightValue();
+            updateDistanceValue();
+            calculateCost();
+            
+            // Set breadcrumb
+            setBreadcrumb([
+                { name: "Home", link: "../../index.html" },
+                { name: "Tools", link: "../tools.html" },
+                { name: "Logistics Tools", link: "../tools.html#logistics" },
+                { name: "Shipment Cost Calculator" }
+            ]);
+        });
+
+        // Weight synchronization
+        weightInput.addEventListener('input', function() {
+            weightRange.value = this.value;
+            updateWeightValue();
+            calculateCost();
+        });
+
+        weightRange.addEventListener('input', function() {
+            weightInput.value = this.value;
+            updateWeightValue();
+            calculateCost();
+        });
+
+        // Distance synchronization
+        distanceInput.addEventListener('input', function() {
+            distanceRange.value = this.value;
+            updateDistanceValue();
+            calculateCost();
+        });
+
+        distanceRange.addEventListener('input', function() {
+            distanceInput.value = this.value;
+            updateDistanceValue();
+            calculateCost();
+        });
+
+        // Service type selection
+        standardService.addEventListener('click', function() {
+            standardService.classList.add('selected');
+            expressService.classList.remove('selected');
+            serviceTypeInput.value = 'standard';
+            displayService.textContent = 'Standard';
+            calculateCost();
+        });
+
+        expressService.addEventListener('click', function() {
+            expressService.classList.remove('selected');
+            expressService.classList.add('selected');
+            standardService.classList.remove('selected');
+            serviceTypeInput.value = 'express';
+            displayService.textContent = 'Express';
+            calculateCost();
+        });
+
+        // Additional charges
+        additionalChargesInput.addEventListener('input', function() {
+            calculateCost();
+        });
+
+        // Calculate button
+        calculateBtn.addEventListener('click', function() {
+            calculateCost();
+            
+            // Track calculation event
+            if (window.gtag) {
+                gtag('event', 'calculate_shipment_cost', {
+                    'event_category': 'calculator',
+                    'event_label': 'shipment_calculation',
+                    'value': parseFloat(totalCost.textContent)
+                });
+            }
+        });
+
+        // Reset button
+        resetBtn.addEventListener('click', function() {
+            weightInput.value = '5';
+            weightRange.value = '5';
+            distanceInput.value = '150';
+            distanceRange.value = '150';
+            additionalChargesInput.value = '0';
+            standardService.classList.add('selected');
+            expressService.classList.remove('selected');
+            serviceTypeInput.value = 'standard';
+            displayService.textContent = 'Standard';
+            
+            updateWeightValue();
+            updateDistanceValue();
+            calculateCost();
+            
+            // Track reset event
+            if (window.gtag) {
+                gtag('event', 'reset_calculator', {
+                    'event_category': 'calculator',
+                    'event_label': 'shipment_calculator_reset'
+                });
+            }
+        });
+
+        // Update weight display
+        function updateWeightValue() {
+            const weight = parseFloat(weightInput.value);
+            weightValue.textContent = weight.toFixed(1) + ' kg';
+            displayWeight.textContent = weight.toFixed(1);
+        }
+
+        // Update distance display
+        function updateDistanceValue() {
+            const distance = parseInt(distanceInput.value);
+            distanceValue.textContent = distance + ' km';
+            displayDistance.textContent = distance;
+        }
+
+        // Calculate cost function
+        function calculateCost() {
+            const weight = parseFloat(weightInput.value);
+            const distance = parseInt(distanceInput.value);
+            const serviceType = serviceTypeInput.value;
+            const additionalCharges = parseFloat(additionalChargesInput.value) || 0;
+            
+            // Calculate weight charge
+            let weightRate;
+            if (weight <= 10) weightRate = 2.50;
+            else if (weight <= 50) weightRate = 2.00;
+            else if (weight <= 100) weightRate = 1.50;
+            else weightRate = 1.00;
+            
+            if (serviceType === 'express') weightRate *= 1.4; // 40% premium for express
+            
+            const weightCost = weight * weightRate;
+            
+            // Calculate distance charge
+            let distanceRate;
+            if (distance <= 50) distanceRate = 0.10;
+            else if (distance <= 200) distanceRate = 0.15;
+            else if (distance <= 500) distanceRate = 0.20;
+            else distanceRate = 0.25;
+            
+            if (serviceType === 'express') distanceRate *= 1.67; // 67% premium for express
+            
+            const distanceCost = distance * distanceRate;
+            
+            // Calculate service charge
+            const serviceCost = serviceType === 'standard' ? 5.00 : 15.00;
+            
+            // Calculate base rate display
+            const displayBaseRate = serviceType === 'standard' ? 0.15 : 0.25;
+            
+            // Calculate total
+            const total = weightCost + distanceCost + serviceCost + additionalCharges;
+            
+            // Update display
+            baseRate.textContent = '$' + displayBaseRate.toFixed(2);
+            weightCharge.textContent = '$' + weightCost.toFixed(2);
+            distanceCharge.textContent = '$' + distanceCost.toFixed(2);
+            serviceCharge.textContent = '$' + serviceCost.toFixed(2);
+            additionalDisplay.textContent = '$' + additionalCharges.toFixed(2);
+            totalCost.textContent = total.toFixed(2);
+        }
+
+        // Breadcrumb function
+        function setBreadcrumb(items) {
+            const breadcrumbElement = document.getElementById('breadcrumb');
+            if (breadcrumbElement) {
+                breadcrumbElement.innerHTML = items.map((item, index) => {
+                    if (item.link) {
+                        return `<a href="${item.link}">${item.name}</a>`;
+                    } else {
+                        return `<span>${item.name}</span>`;
+                    }
+                }).join('<span class="breadcrumb-separator">/</span>');
+            }
+        }
+
+        // Hamburger menu
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        if (hamburger && navbar) {
+            hamburger.onclick = () => {
+                navbar.classList.toggle("active");
+                hamburger.classList.toggle("active");
+            };
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNavbar = navbar.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (!isClickInsideNavbar && !isClickOnHamburger && navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Track interactions
+        document.addEventListener('DOMContentLoaded', function () {
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track mobile menu usage
+            if (hamburger) {
+                hamburger.addEventListener('click', function () {
+                    if (window.gtag) {
+                        gtag('event', 'mobile_menu_toggle', {
+                            'event_category': 'ui_interaction',
+                            'event_label': 'mobile_menu_opened'
+                        });
+                    }
+                });
+            }
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function () {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

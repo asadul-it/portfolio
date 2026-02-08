@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uptime Calculator | System Administration Tools</title>
+    
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description" content="Professional Uptime Calculator for system administrators. Calculate SLA compliance, downtime minutes, and availability percentages for your IT infrastructure.">
+    <meta name="keywords" content="uptime calculator, SLA calculator, downtime calculator, availability calculator, system administration tools, IT infrastructure, network uptime, service availability">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    
+    <!-- ==================== Open Graph Tags ==================== -->
+    <meta property="og:title" content="Professional Uptime Calculator | System Admin Tools">
+    <meta property="og:description" content="Calculate SLA compliance, downtime, and availability percentages for your servers and services.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/tools/sysadmin-tools/uptime-calculator.html">
+    <meta property="og:site_name" content="System Administration Tools">
+    
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/tools/sysadmin-tools/uptime-calculator.html">
+    
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Uptime Calculator",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "description": "Professional uptime and SLA calculator for system administrators",
+        "url": "https://asadul-it.github.io/portfolio/tools/sysadmin-tools/uptime-calculator.html",
+        "author": {
+            "@type": "Person",
+            "name": "Asadul Islam"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <!-- ==================== Fonts and Icons ==================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==================== CSS Reset & Base Styles ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+            --danger-red: #ef4444;
+            --text-dark: #1f2937;
+            --text-medium: #4b5563;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+            --background-light: #f9fafb;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==================== Header Styles ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: transform var(--transition-fast);
+        }
+
+        .logo-container:hover {
+            transform: translateY(-1px);
+        }
+
+        .logo-icon {
+            background-color: var(--success-green);
+            color: #ffffff;
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+
+        .logo-icon:hover {
+            background-color: #0da271;
+            transform: rotate(5deg);
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .logo-subtext {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==================== Navigation Styles ==================== */
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-blue);
+            transition: width var(--transition-normal);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ==================== Hamburger Menu ==================== */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-blue);
+            border-radius: 3px;
+            transition: all var(--transition-normal);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* ==================== Breadcrumb Styles ==================== */
+        .breadcrumb-container {
+            background-color: var(--background-light);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            font-size: 14px;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .breadcrumb-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-light);
+            font-size: 12px;
+        }
+
+        .breadcrumb-current {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* ==================== Main Content Styles ==================== */
+        .main-content-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .page-description {
+            font-size: 18px;
+            color: var(--text-medium);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ==================== Calculator Container ==================== */
+        .calculator-container {
+            background-color: #ffffff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .calculator-header {
+            background: linear-gradient(135deg, var(--success-green), #0da271);
+            padding: 24px 32px;
+            color: #ffffff;
+        }
+
+        .calculator-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .calculator-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .calculator-body {
+            padding: 40px 32px;
+        }
+
+        /* ==================== Calculator Grid ==================== */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .input-section, .results-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            color: var(--success-green);
+        }
+
+        /* ==================== Input Groups ==================== */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-label i {
+            color: var(--success-green);
+            width: 20px;
+        }
+
+        .input-hint {
+            font-size: 13px;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: -5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-dark);
+            background-color: #ffffff;
+            transition: all var(--transition-fast);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--success-green);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+        }
+
+        .input-field.error {
+            border-color: var(--danger-red);
+        }
+
+        .input-unit {
+            position: absolute;
+            right: 16px;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .select-field {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234b5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 44px;
+        }
+
+        .sla-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .sla-preset-btn {
+            padding: 8px 16px;
+            background-color: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .sla-preset-btn:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .sla-preset-btn.active {
+            background-color: var(--success-green);
+            border-color: var(--success-green);
+            color: white;
+        }
+
+        /* ==================== Button Styles ==================== */
+        .button-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .button {
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .button-primary {
+            background-color: var(--success-green);
+            color: #ffffff;
+            flex: 1;
+        }
+
+        .button-primary:hover {
+            background-color: #0da271;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .button-secondary {
+            background-color: #f3f4f6;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .button-secondary:hover {
+            background-color: #e5e7eb;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .button-icon {
+            font-size: 18px;
+        }
+
+        /* ==================== Results Display ==================== */
+        .results-display {
+            background-color: var(--background-light);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--success-green);
+        }
+
+        .result-unit {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-left: 4px;
+        }
+
+        .result-note {
+            margin-top: 20px;
+            padding: 16px;
+            background-color: #ecfdf5;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            color: #065f46;
+            border-left: 4px solid var(--success-green);
+        }
+
+        /* ==================== SLA Table ==================== */
+        .sla-table-container {
+            margin-top: 40px;
+        }
+
+        .sla-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .sla-table th {
+            background-color: var(--success-green);
+            color: white;
+            font-weight: 700;
+            padding: 16px;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        .sla-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .sla-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .sla-table tr:nth-child(even) {
+            background-color: var(--background-light);
+        }
+
+        .sla-table .sla-percentage {
+            font-weight: 700;
+            color: var(--success-green);
+        }
+
+        .sla-table .uptime-class {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* ==================== Visualization Section ==================== */
+        .visualization-section {
+            margin-top: 40px;
+        }
+
+        .visualization-container {
+            background-color: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .visualization-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .visualization-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .visualization-legend {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .legend-text {
+            color: var(--text-medium);
+        }
+
+        .uptime-bar-container {
+            width: 100%;
+            height: 120px;
+            background-color: #f1f5f9;
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .uptime-bar {
+            position: absolute;
+            height: 100%;
+            transition: width 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .uptime-bar-up {
+            background-color: var(--success-green);
+            left: 0;
+        }
+
+        .uptime-bar-down {
+            background-color: var(--danger-red);
+        }
+
+        .uptime-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+
+        /* ==================== Information Section ==================== */
+        .info-section {
+            margin-top: 40px;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .info-card {
+            background-color: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition-normal);
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .info-card-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #ecfdf5;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: var(--success-green);
+            font-size: 20px;
+        }
+
+        .info-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .info-card-content {
+            font-size: 14px;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* ==================== Footer Styles ==================== */
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            margin-top: 80px;
+            padding-top: 40px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--success-green);
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-link {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-link:hover {
+            color: var(--success-green);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #f3f4f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+
+        .social-link:hover {
+            background-color: var(--success-green);
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding: 24px 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* ==================== Responsive Styles ==================== */
+        @media (max-width: 1024px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .sla-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 12px 20px;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .navbar {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                box-shadow: var(--shadow-lg);
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all var(--transition-normal);
+                z-index: 999;
+            }
+            
+            .navbar.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .nav-item {
+                width: 100%;
+            }
+            
+            .nav-link {
+                padding: 16px 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .nav-link:last-child {
+                border-bottom: none;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+            
+            .page-description {
+                font-size: 16px;
+            }
+            
+            .calculator-body {
+                padding: 32px 20px;
+            }
+            
+            .calculator-header {
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .button {
+                width: 100%;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            
+            .visualization-container {
+                padding: 24px 20px;
+            }
+            
+            .sla-presets {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content-container {
+                padding: 0 16px;
+            }
+            
+            .calculator-body {
+                padding: 24px 16px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .result-value {
+                font-size: 18px;
+            }
+            
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .visualization-legend {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* ==================== Utility Classes ==================== */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mt-40 {
+            margin-top: 40px;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        /* ==================== Animation Keyframes ==================== */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== Header Section ==================== -->
+    <header class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div>
+                    <div class="logo-text">Uptime Calculator</div>
+                    <div class="logo-subtext">System Administration Tools</div>
+                </div>
+            </a>
+            
+            <nav class="navbar" id="navbar">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">
+                            <i class="fas fa-home nav-icon"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../skills.html" class="nav-link">
+                            <i class="fas fa-cogs nav-icon"></i>
+                            <span>Skills</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../tools.html" class="nav-link active">
+                            <i class="fas fa-tools nav-icon"></i>
+                            <span>Tools</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../certificate.html" class="nav-link">
+                            <i class="fas fa-certificate nav-icon"></i>
+                            <span>Certificate</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../contact.html" class="nav-link">
+                            <i class="fas fa-phone nav-icon"></i>
+                            <span>Contact</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <button class="hamburger-menu" id="hamburger">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== Breadcrumb Section ==================== -->
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+            <!-- Breadcrumb will be populated by JavaScript -->
+        </nav>
+    </div>
+
+    <!-- ==================== Main Content Section ==================== -->
+    <main class="main-content-container">
+        <div class="page-header">
+            <h1 class="page-title">Professional Uptime Calculator</h1>
+            <p class="page-description">
+                Calculate Service Level Agreement (SLA) compliance, downtime minutes, and availability percentages 
+                for your servers, applications, and IT infrastructure.
+            </p>
+        </div>
+
+        <!-- ==================== Calculator Container ==================== -->
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h2 class="calculator-title">
+                    <i class="fas fa-calculator"></i>
+                    Uptime & SLA Calculator
+                </h2>
+                <p class="calculator-subtitle">Calculate downtime based on SLA percentage and time period</p>
+            </div>
+            
+            <div class="calculator-body">
+                <div class="calculator-grid">
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-sliders-h section-icon"></i>
+                            Input Parameters
+                        </h3>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-percentage"></i>
+                                SLA Uptime Percentage
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="uptimePercentage" 
+                                    class="input-field" 
+                                    min="90" 
+                                    max="99.999" 
+                                    value="99.9"
+                                    step="0.001"
+                                >
+                                <span class="input-unit">%</span>
+                            </div>
+                            <p class="input-hint">Enter the SLA uptime percentage (e.g., 99.9%)</p>
+                            
+                            <div class="sla-presets">
+                                <button class="sla-preset-btn" data-uptime="99">99%</button>
+                                <button class="sla-preset-btn active" data-uptime="99.9">99.9%</button>
+                                <button class="sla-preset-btn" data-uptime="99.99">99.99%</button>
+                                <button class="sla-preset-btn" data-uptime="99.999">99.999%</button>
+                                <button class="sla-preset-btn" data-uptime="99.9999">99.9999%</button>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-clock"></i>
+                                Time Period
+                            </label>
+                            <div class="input-wrapper">
+                                <select id="timePeriod" class="input-field select-field">
+                                    <option value="day">Per Day (24 hours)</option>
+                                    <option value="week">Per Week (168 hours)</option>
+                                    <option value="month" selected>Per Month (720 hours)</option>
+                                    <option value="quarter">Per Quarter (2160 hours)</option>
+                                    <option value="year">Per Year (8760 hours)</option>
+                                </select>
+                            </div>
+                            <p class="input-hint">Select the time period for SLA calculation</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-calendar-alt"></i>
+                                Custom Hours (Optional)
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="customHours" 
+                                    class="input-field" 
+                                    min="1" 
+                                    max="87600" 
+                                    value="720"
+                                    step="1"
+                                >
+                                <span class="input-unit">Hours</span>
+                            </div>
+                            <p class="input-hint">Enter custom total hours for calculation</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-server"></i>
+                                Number of Servers
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="serverCount" 
+                                    class="input-field" 
+                                    min="1" 
+                                    max="1000" 
+                                    value="1"
+                                    step="1"
+                                >
+                                <span class="input-unit">Servers</span>
+                            </div>
+                            <p class="input-hint">Number of servers in the infrastructure</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Results Section -->
+                    <div class="results-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-chart-bar section-icon"></i>
+                            Calculation Results
+                        </h3>
+                        
+                        <div class="results-display fade-in">
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-calendar-check"></i>
+                                    Total Hours
+                                </div>
+                                <div class="result-value" id="totalHours">720</div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-check-circle"></i>
+                                    Uptime Hours
+                                </div>
+                                <div class="result-value" id="uptimeHours">719.28<span class="result-unit">h</span></div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-times-circle"></i>
+                                    Downtime Hours
+                                </div>
+                                <div class="result-value" id="downtimeHours">0.72<span class="result-unit">h</span></div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-hourglass-half"></i>
+                                    Downtime Minutes
+                                </div>
+                                <div class="result-value" id="downtimeMinutes">43.2<span class="result-unit">min</span></div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    Per Server Downtime
+                                </div>
+                                <div class="result-value" id="perServerDowntime">43.2<span class="result-unit">min</span></div>
+                            </div>
+                            
+                            <div class="result-note">
+                                <i class="fas fa-info-circle"></i>
+                                <strong>Note:</strong> Based on <span id="currentSla">99.9%</span> SLA with <span id="currentPeriod">monthly</span> calculation period.
+                            </div>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button id="calculateBtn" class="button button-primary pulse-animation">
+                                <i class="fas fa-calculator button-icon"></i>
+                                Calculate Uptime
+                            </button>
+                            <button id="resetBtn" class="button button-secondary">
+                                <i class="fas fa-redo button-icon"></i>
+                                Reset Calculator
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visualization Section -->
+                <div class="visualization-section">
+                    <div class="visualization-container">
+                        <div class="visualization-header">
+                            <h4 class="visualization-title">Uptime vs Downtime Visualization</h4>
+                            <div class="visualization-legend">
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #10b981;"></div>
+                                    <span class="legend-text">Uptime</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #ef4444;"></div>
+                                    <span class="legend-text">Downtime</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="uptime-bar-container">
+                            <div id="uptimeBarUp" class="uptime-bar uptime-bar-up" style="width: 99.9%;">Uptime: 99.9%</div>
+                            <div id="uptimeBarDown" class="uptime-bar uptime-bar-down" style="width: 0.1%; left: 99.9%;">Downtime: 0.1%</div>
+                        </div>
+                        
+                        <div class="uptime-labels">
+                            <span>0%</span>
+                            <span id="uptimeMidLabel">50%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SLA Standards Table -->
+                <div class="sla-table-container">
+                    <h3 class="section-title">
+                        <i class="fas fa-table section-icon"></i>
+                        Common SLA Standards
+                    </h3>
+                    
+                    <table class="sla-table">
+                        <thead>
+                            <tr>
+                                <th>SLA Percentage</th>
+                                <th>Uptime Class</th>
+                                <th>Downtime per Year</th>
+                                <th>Downtime per Month</th>
+                                <th>Downtime per Week</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="sla-percentage">99%</td>
+                                <td class="uptime-class">Two Nines</td>
+                                <td>3 days, 15 hours, 36 minutes</td>
+                                <td>7 hours, 18 minutes</td>
+                                <td>1 hour, 41 minutes</td>
+                            </tr>
+                            <tr>
+                                <td class="sla-percentage">99.9%</td>
+                                <td class="uptime-class">Three Nines</td>
+                                <td>8 hours, 46 minutes</td>
+                                <td>43 minutes, 12 seconds</td>
+                                <td>10 minutes, 5 seconds</td>
+                            </tr>
+                            <tr>
+                                <td class="sla-percentage">99.99%</td>
+                                <td class="uptime-class">Four Nines</td>
+                                <td>52 minutes, 34 seconds</td>
+                                <td>4 minutes, 19 seconds</td>
+                                <td>1 minute, 1 second</td>
+                            </tr>
+                            <tr>
+                                <td class="sla-percentage">99.999%</td>
+                                <td class="uptime-class">Five Nines</td>
+                                <td>5 minutes, 15 seconds</td>
+                                <td>26 seconds</td>
+                                <td>6 seconds</td>
+                            </tr>
+                            <tr>
+                                <td class="sla-percentage">99.9999%</td>
+                                <td class="uptime-class">Six Nines</td>
+                                <td>31.5 seconds</td>
+                                <td>2.6 seconds</td>
+                                <td>0.6 seconds</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ==================== Information Section ==================== -->
+        <div class="info-section">
+            <h3 class="section-title text-center mb-40">
+                <i class="fas fa-info-circle section-icon"></i>
+                Uptime & SLA Guidelines
+            </h3>
+            
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="info-card-title">SLA Best Practices</h4>
+                    <p class="info-card-content">
+                        Define clear SLA metrics, monitor continuously, establish escalation procedures, 
+                        and include penalties/rewards. Regularly review and update SLA agreements based 
+                        on business needs and technological improvements.
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <h4 class="info-card-title">Improving Uptime</h4>
+                    <p class="info-card-content">
+                        Implement redundancy (load balancers, failover systems), regular maintenance schedules, 
+                        proactive monitoring, automated backups, and disaster recovery plans. Use multiple 
+                        internet providers and data centers for critical services.
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4 class="info-card-title">Monitoring & Reporting</h4>
+                    <p class="info-card-content">
+                        Use comprehensive monitoring tools (Nagios, Zabbix, PRTG), implement alerting systems, 
+                        maintain uptime/downtime logs, generate regular SLA compliance reports, and conduct 
+                        post-incident reviews for continuous improvement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== Footer Section ==================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 class="footer-title">About This Tool</h3>
+                <p class="footer-description">
+                    Professional Uptime Calculator designed for system administrators, IT managers, 
+                    and service providers. Calculate SLA compliance, downtime expectations, and 
+                    plan infrastructure redundancy effectively.
+                </p>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" class="social-link" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/asadul-it" class="social-link" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" class="social-link" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/8801706927793" class="social-link" target="_blank" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Quick Links</h3>
+                <div class="footer-links">
+                    <a href="../../index.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Home
+                    </a>
+                    <a href="../../skills.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Skills
+                    </a>
+                    <a href="../tools.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Tools
+                    </a>
+                    <a href="../../certificate.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Certificates
+                    </a>
+                    <a href="../../contact.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">System Tools</h3>
+                <div class="footer-links">
+                    <a href="ram-usage-calculator.html" class="footer-link">
+                        <i class="fas fa-memory"></i>
+                        RAM Usage Calculator
+                    </a>
+                    <a href="uptime-calculator.html" class="footer-link">
+                        <i class="fas fa-chart-line"></i>
+                        Uptime Calculator
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-hdd"></i>
+                        Storage Calculator
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-network-wired"></i>
+                        Bandwidth Calculator
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-server"></i>
+                        Server Sizing Tool
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Professional IT Tools | System Administration Utilities | All Rights Reserved</p>
+            <p style="margin-top: 8px; font-size: 13px;">Designed for IT Professionals & System Administrators</p>
+        </div>
+    </footer>
+
+    <!-- ==================== JavaScript ==================== -->
+    <script>
+        // DOM Elements
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const breadcrumb = document.getElementById('breadcrumb');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        // Input Elements
+        const uptimePercentageInput = document.getElementById('uptimePercentage');
+        const timePeriodSelect = document.getElementById('timePeriod');
+        const customHoursInput = document.getElementById('customHours');
+        const serverCountInput = document.getElementById('serverCount');
+        const slaPresetButtons = document.querySelectorAll('.sla-preset-btn');
+        
+        // Result Elements
+        const totalHoursEl = document.getElementById('totalHours');
+        const uptimeHoursEl = document.getElementById('uptimeHours');
+        const downtimeHoursEl = document.getElementById('downtimeHours');
+        const downtimeMinutesEl = document.getElementById('downtimeMinutes');
+        const perServerDowntimeEl = document.getElementById('perServerDowntime');
+        const currentSlaEl = document.getElementById('currentSla');
+        const currentPeriodEl = document.getElementById('currentPeriod');
+        
+        // Visualization Elements
+        const uptimeBarUp = document.getElementById('uptimeBarUp');
+        const uptimeBarDown = document.getElementById('uptimeBarDown');
+        const uptimeMidLabel = document.getElementById('uptimeMidLabel');
+        
+        // Time period definitions in hours
+        const timePeriods = {
+            day: 24,
+            week: 168,
+            month: 720,
+            quarter: 2160,
+            year: 8760
+        };
+        
+        const periodNames = {
+            day: "daily",
+            week: "weekly",
+            month: "monthly",
+            quarter: "quarterly",
+            year: "yearly"
+        };
+        
+        // ==================== Utility Functions ====================
+        
+        function updateBreadcrumb() {
+            const breadcrumbItems = [
+                { name: 'Home', link: '../../index.html' },
+                { name: 'Tools', link: '../tools.html' },
+                { name: 'System Admin Tools', link: '../tools.html' },
+                { name: 'Uptime Calculator', link: 'uptime-calculator.html' }
+            ];
+            
+            let breadcrumbHTML = '';
+            
+            breadcrumbItems.forEach((item, index) => {
+                if (index === breadcrumbItems.length - 1) {
+                    breadcrumbHTML += `
+                        <div class="breadcrumb-item">
+                            <span class="breadcrumb-current">${item.name}</span>
+                        </div>
+                    `;
+                } else {
+                    breadcrumbHTML += `
+                        <div class="breadcrumb-item">
+                            <a href="${item.link}" class="breadcrumb-link">
+                                <i class="fas fa-home"></i>
+                                ${item.name}
+                            </a>
+                            <span class="breadcrumb-separator">/</span>
+                        </div>
+                    `;
+                }
+            });
+            
+            breadcrumb.innerHTML = breadcrumbHTML;
+        }
+        
+        function formatTime(totalMinutes) {
+            if (totalMinutes >= 1440) { // More than a day
+                const days = Math.floor(totalMinutes / 1440);
+                const hours = Math.floor((totalMinutes % 1440) / 60);
+                const minutes = Math.round(totalMinutes % 60);
+                return `${days} day${days !== 1 ? 's' : ''}, ${hours} hour${hours !== 1 ? 's' : ''}, ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+            } else if (totalMinutes >= 60) { // More than an hour
+                const hours = Math.floor(totalMinutes / 60);
+                const minutes = Math.round(totalMinutes % 60);
+                return `${hours} hour${hours !== 1 ? 's' : ''}, ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+            } else if (totalMinutes >= 1) { // More than a minute
+                const minutes = Math.floor(totalMinutes);
+                const seconds = Math.round((totalMinutes - minutes) * 60);
+                return `${minutes} minute${minutes !== 1 ? 's' : ''}, ${seconds} second${seconds !== 1 ? 's' : ''}`;
+            } else { // Less than a minute
+                const seconds = Math.round(totalMinutes * 60);
+                return `${seconds} second${seconds !== 1 ? 's' : ''}`;
+            }
+        }
+        
+        function formatNumber(num, decimals = 2) {
+            return parseFloat(num.toFixed(decimals)).toLocaleString();
+        }
+        
+        function calculateUptime() {
+            // Get input values
+            const uptimePercentage = parseFloat(uptimePercentageInput.value) || 99.9;
+            const timePeriod = timePeriodSelect.value;
+            let totalHours = parseFloat(customHoursInput.value) || timePeriods[timePeriod];
+            const serverCount = parseInt(serverCountInput.value) || 1;
+            
+            // Validate inputs
+            if (uptimePercentage < 90 || uptimePercentage > 99.9999) {
+                showNotification('Please enter an uptime percentage between 90% and 99.9999%', 'error');
+                uptimePercentageInput.classList.add('error');
+                return;
+            }
+            
+            if (totalHours <= 0 || totalHours > 87600) {
+                showNotification('Please enter valid total hours (1-87600)', 'error');
+                customHoursInput.classList.add('error');
+                return;
+            }
+            
+            if (serverCount <= 0 || serverCount > 1000) {
+                showNotification('Please enter valid server count (1-1000)', 'error');
+                serverCountInput.classList.add('error');
+                return;
+            }
+            
+            // Calculate downtime
+            const downtimePercentage = 100 - uptimePercentage;
+            const downtimeHours = (downtimePercentage / 100) * totalHours;
+            const downtimeMinutes = downtimeHours * 60;
+            
+            // Calculate uptime
+            const uptimeHours = totalHours - downtimeHours;
+            
+            // Calculate per server downtime
+            const perServerDowntime = downtimeMinutes / serverCount;
+            
+            // Update result display
+            totalHoursEl.textContent = formatNumber(totalHours, 0);
+            uptimeHoursEl.innerHTML = `${formatNumber(uptimeHours, 2)}<span class="result-unit">h</span>`;
+            downtimeHoursEl.innerHTML = `${formatNumber(downtimeHours, 2)}<span class="result-unit">h</span>`;
+            downtimeMinutesEl.innerHTML = `${formatNumber(downtimeMinutes, 2)}<span class="result-unit">min</span>`;
+            perServerDowntimeEl.innerHTML = `${formatNumber(perServerDowntime, 2)}<span class="result-unit">min</span>`;
+            
+            // Update note
+            currentSlaEl.textContent = `${uptimePercentage}%`;
+            currentPeriodEl.textContent = periodNames[timePeriod];
+            
+            // Update visualization
+            updateVisualization(uptimePercentage, downtimePercentage, downtimeMinutes);
+            
+            // Add fade-in animation to results
+            const resultsDisplay = document.querySelector('.results-display');
+            resultsDisplay.classList.remove('fade-in');
+            void resultsDisplay.offsetWidth; // Trigger reflow
+            resultsDisplay.classList.add('fade-in');
+            
+            // Log calculation for debugging
+            console.log('Uptime Calculation Results:', {
+                uptimePercentage,
+                timePeriod,
+                totalHours,
+                serverCount,
+                uptimeHours,
+                downtimeHours,
+                downtimeMinutes,
+                perServerDowntime
+            });
+            
+            return {
+                uptimePercentage,
+                totalHours,
+                uptimeHours,
+                downtimeHours,
+                downtimeMinutes,
+                perServerDowntime
+            };
+        }
+        
+        function updateVisualization(uptimePercentage, downtimePercentage, downtimeMinutes) {
+            // Update bar widths
+            uptimeBarUp.style.width = `${uptimePercentage}%`;
+            uptimeBarDown.style.width = `${downtimePercentage}%`;
+            uptimeBarDown.style.left = `${uptimePercentage}%`;
+            
+            // Update bar labels
+            uptimeBarUp.textContent = `Uptime: ${formatNumber(uptimePercentage, 3)}%`;
+            
+            if (downtimePercentage < 0.1) {
+                uptimeBarDown.textContent = `Downtime: ${formatNumber(downtimePercentage, 4)}%`;
+            } else {
+                uptimeBarDown.textContent = `Downtime: ${formatNumber(downtimePercentage, 3)}%`;
+            }
+            
+            // Update mid label
+            uptimeMidLabel.textContent = '50%';
+        }
+        
+        function resetCalculator() {
+            uptimePercentageInput.value = 99.9;
+            timePeriodSelect.value = 'month';
+            customHoursInput.value = 720;
+            serverCountInput.value = 1;
+            
+            // Reset SLA preset buttons
+            slaPresetButtons.forEach(btn => {
+                if (btn.dataset.uptime === '99.9') {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Calculate with default values
+            calculateUptime();
+            
+            // Show success message
+            showNotification('Calculator reset to default values', 'success');
+        }
+        
+        function showNotification(message, type = 'info') {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            
+            let icon = 'info-circle';
+            if (type === 'success') icon = 'check-circle';
+            if (type === 'error') icon = 'exclamation-circle';
+            
+            notification.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${message}</span>
+                <button class="notification-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add styles for notification if not already added
+            if (!document.querySelector('#notification-styles')) {
+                const styleEl = document.createElement('style');
+                styleEl.id = 'notification-styles';
+                styleEl.textContent = `
+                    .notification {
+                        position: fixed;
+                        top: 100px;
+                        right: 20px;
+                        background: #ffffff;
+                        border-radius: 8px;
+                        padding: 16px 20px;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        z-index: 10000;
+                        border-left: 4px solid #10b981;
+                        animation: slideInRight 0.3s ease;
+                        max-width: 350px;
+                    }
+                    
+                    .notification-success {
+                        border-left-color: #10b981;
+                    }
+                    
+                    .notification-error {
+                        border-left-color: #ef4444;
+                    }
+                    
+                    .notification i {
+                        font-size: 18px;
+                        color: #10b981;
+                    }
+                    
+                    .notification-error i {
+                        color: #ef4444;
+                    }
+                    
+                    .notification span {
+                        flex: 1;
+                        font-size: 14px;
+                        font-weight: 500;
+                    }
+                    
+                    .notification-close {
+                        background: none;
+                        border: none;
+                        color: #6b7280;
+                        cursor: pointer;
+                        font-size: 14px;
+                        padding: 4px;
+                        border-radius: 4px;
+                        transition: background 0.2s;
+                    }
+                    
+                    .notification-close:hover {
+                        background: #f3f4f6;
+                    }
+                    
+                    @keyframes slideInRight {
+                        from {
+                            transform: translateX(100%);
+                            opacity: 0;
+                        }
+                        to {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                    }
+                `;
+                document.head.appendChild(styleEl);
+            }
+            
+            // Add to DOM
+            document.body.appendChild(notification);
+            
+            // Add close functionality
+            const closeBtn = notification.querySelector('.notification-close');
+            closeBtn.addEventListener('click', () => {
+                notification.style.animation = 'slideInRight 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            });
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideInRight 0.3s ease reverse';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
+        }
+        
+        function validateInputs() {
+            let isValid = true;
+            
+            const uptimePercentage = parseFloat(uptimePercentageInput.value);
+            if (isNaN(uptimePercentage) || uptimePercentage < 90 || uptimePercentage > 99.9999) {
+                uptimePercentageInput.classList.add('error');
+                isValid = false;
+                showNotification('Please enter a valid uptime percentage (90-99.9999%)', 'error');
+            } else {
+                uptimePercentageInput.classList.remove('error');
+            }
+            
+            const customHours = parseFloat(customHoursInput.value);
+            if (isNaN(customHours) || customHours <= 0 || customHours > 87600) {
+                customHoursInput.classList.add('error');
+                isValid = false;
+                if (!isValid) showNotification('Please enter valid total hours (1-87600)', 'error');
+            } else {
+                customHoursInput.classList.remove('error');
+            }
+            
+            const serverCount = parseInt(serverCountInput.value);
+            if (isNaN(serverCount) || serverCount <= 0 || serverCount > 1000) {
+                serverCountInput.classList.add('error');
+                isValid = false;
+                if (!isValid) showNotification('Please enter valid server count (1-1000)', 'error');
+            } else {
+                serverCountInput.classList.remove('error');
+            }
+            
+            return isValid;
+        }
+        
+        function initializeEventListeners() {
+            // Hamburger menu toggle
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navbar.classList.toggle('active');
+                
+                // Track mobile menu usage
+                if (window.gtag) {
+                    gtag('event', 'mobile_menu_toggle', {
+                        'event_category': 'ui_interaction',
+                        'event_label': 'mobile_menu_opened'
+                    });
+                }
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!navbar.contains(event.target) && !hamburger.contains(event.target) && navbar.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    navbar.classList.remove('active');
+                }
+            });
+            
+            // Calculate button click
+            calculateBtn.addEventListener('click', () => {
+                if (validateInputs()) {
+                    calculateUptime();
+                    
+                    // Show success notification
+                    showNotification('Uptime calculated successfully!', 'success');
+                    
+                    // Track calculation event
+                    if (window.gtag) {
+                        gtag('event', 'calculate_uptime', {
+                            'event_category': 'calculator',
+                            'event_label': 'uptime_calculation'
+                        });
+                    }
+                }
+            });
+            
+            // Reset button click
+            resetBtn.addEventListener('click', resetCalculator);
+            
+            // SLA preset buttons
+            slaPresetButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const uptimeValue = btn.dataset.uptime;
+                    uptimePercentageInput.value = uptimeValue;
+                    
+                    // Update active button
+                    slaPresetButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    // Recalculate
+                    if (validateInputs()) {
+                        calculateUptime();
+                    }
+                });
+            });
+            
+            // Time period change
+            timePeriodSelect.addEventListener('change', () => {
+                const period = timePeriodSelect.value;
+                if (customHoursInput.value === timePeriods['month'].toString()) {
+                    customHoursInput.value = timePeriods[period];
+                }
+                
+                if (validateInputs()) {
+                    calculateUptime();
+                }
+            });
+            
+            // Input validation on change
+            const inputElements = [
+                uptimePercentageInput,
+                customHoursInput,
+                serverCountInput
+            ];
+            
+            inputElements.forEach(input => {
+                input.addEventListener('input', () => {
+                    input.classList.remove('error');
+                    
+                    // Update SLA preset buttons based on uptime input
+                    if (input === uptimePercentageInput) {
+                        const currentValue = parseFloat(input.value);
+                        let closestPreset = null;
+                        let minDiff = Infinity;
+                        
+                        slaPresetButtons.forEach(btn => {
+                            const presetValue = parseFloat(btn.dataset.uptime);
+                            const diff = Math.abs(currentValue - presetValue);
+                            if (diff < minDiff && diff < 0.01) {
+                                minDiff = diff;
+                                closestPreset = btn;
+                            }
+                        });
+                        
+                        if (closestPreset) {
+                            slaPresetButtons.forEach(b => b.classList.remove('active'));
+                            closestPreset.classList.add('active');
+                        } else {
+                            slaPresetButtons.forEach(b => b.classList.remove('active'));
+                        }
+                    }
+                });
+            });
+            
+            // Calculate on Enter key in inputs
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' && 
+                    (event.target.tagName === 'INPUT' || event.target.tagName === 'SELECT')) {
+                    if (validateInputs()) {
+                        calculateUptime();
+                        showNotification('Calculated with Enter key', 'success');
+                    }
+                }
+            });
+            
+            // Recalculate when any input changes (with debounce)
+            let recalcTimeout;
+            const recalcInputs = document.querySelectorAll('.input-field, .select-field');
+            recalcInputs.forEach(input => {
+                input.addEventListener('change', () => {
+                    clearTimeout(recalcTimeout);
+                    recalcTimeout = setTimeout(() => {
+                        if (validateInputs()) {
+                            calculateUptime();
+                        }
+                    }, 300);
+                });
+            });
+        }
+        
+        // ==================== Initialize Application ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize breadcrumb
+            updateBreadcrumb();
+            
+            // Initialize event listeners
+            initializeEventListeners();
+            
+            // Calculate initial values
+            calculateUptime();
+            
+            // Add loading animation to calculate button
+            calculateBtn.classList.add('pulse-animation');
+            
+            // Track page view
+            if (window.gtag) {
+                gtag('event', 'page_view', {
+                    'page_title': 'Uptime Calculator',
+                    'page_location': window.location.href
+                });
+            }
+            
+            // Initialize scroll tracking
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', () => {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Google Analytics 4
+        (function() {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+            
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+    </script>
+</body>
+</html>

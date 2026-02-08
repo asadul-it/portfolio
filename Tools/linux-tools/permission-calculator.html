@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Permission Calculator - Advanced chmod & Permission Analyzer</title>
+    
+    <!-- ==================== Enhanced SEO Meta Tags ==================== -->
+    <meta name="description" content="Advanced Linux Permission Calculator. Convert chmod numeric to symbolic notation, analyze special permissions, calculate octal values, and learn file permission management.">
+    <meta name="keywords" content="linux permission calculator, chmod calculator, file permissions, linux chmod, permission converter, octal permissions, special permissions, setuid, setgid, sticky bit, Asadul Islam">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English, Bengali">
+    
+    <!-- ==================== Open Graph Tags ==================== -->
+    <meta property="og:title" content="Advanced Linux Permission Calculator - Ultimate chmod Tool">
+    <meta property="og:description" content="Comprehensive Linux permission calculator with numeric/symbolic conversion, special permissions, and interactive learning features.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/linux-tools/permission-calculator.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/assets/permission-calculator-preview.png">
+    
+    <!-- ==================== Additional Fonts ==================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ==================== Preconnect for Performance ==================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        /* ==================== CSS Variables for Theme ==================== */
+        :root {
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --primary-light: #a78bfa;
+            --secondary: #06b6d4;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --info: #3b82f6;
+            --dark: #1e293b;
+            --dark-light: #334155;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --terminal-bg: #1a1a1a;
+            --terminal-green: #10b981;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-dark: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f0 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==================== Header Styles ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            background: var(--gradient-primary);
+            color: white;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gray);
+            letter-spacing: 1px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            padding: 8px 16px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .navbar a:hover {
+            color: var(--primary);
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .navbar a.active {
+            color: var(--primary);
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .navbar a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .navbar i {
+            font-size: 16px;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ==================== Breadcrumb Styles ==================== */
+        .breadcrumb-section {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+        }
+
+        .breadcrumb {
+            font-size: 15px;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .breadcrumb a:hover {
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .breadcrumb i {
+            font-size: 12px;
+            color: var(--gray-light);
+        }
+
+        /* ==================== Main Content Styles ==================== */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 30px;
+        }
+
+        .content-box {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+
+        /* ==================== Tool Header ==================== */
+        .tool-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .tool-header h1 {
+            font-size: 42px;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .tool-header h1 i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .tool-header p {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ==================== Dual Input Section ==================== */
+        .dual-input-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .dual-input-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-group {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 16px;
+            border: 2px solid var(--gray-light);
+        }
+
+        .input-group h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .numeric-input {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .octal-digit {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .octal-label {
+            font-weight: 600;
+            color: var(--dark);
+            text-align: center;
+        }
+
+        .octal-input {
+            padding: 15px;
+            border: 2px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            font-family: 'Source Code Pro', monospace;
+            background: white;
+            transition: var(--transition);
+        }
+
+        .octal-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+
+        .octal-description {
+            font-size: 12px;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        .symbolic-input {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .permission-category {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .category-label {
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+
+        .permission-bits {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bit-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .bit-checkbox:hover {
+            border-color: var(--primary);
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .bit-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .bit-checkbox label {
+            flex: 1;
+            font-weight: 600;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        .bit-value {
+            font-family: 'Source Code Pro', monospace;
+            background: var(--light);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* ==================== Permission Display ==================== */
+        .permission-display {
+            background: var(--gradient-dark);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(30, 41, 59, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .permission-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+
+        .display-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .display-row {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        .permission-value {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 64px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .permission-symbolic {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 36px;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        .permission-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .breakdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 18px;
+        }
+
+        /* ==================== Special Permissions ==================== */
+        .special-permissions {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 40px 0;
+            border-left: 4px solid var(--info);
+        }
+
+        .special-permissions h3 {
+            color: #0369a1;
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .special-bits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .special-bit {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #bae6fd;
+        }
+
+        .special-bit h4 {
+            color: #0369a1;
+            margin-bottom: 10px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .special-bit p {
+            color: #0c4a6e;
+            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .special-bit-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .special-bit-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--info);
+        }
+
+        .special-bit-checkbox label {
+            font-weight: 600;
+            color: #0369a1;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .special-value {
+            font-family: 'Source Code Pro', monospace;
+            background: #e0f2fe;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #0369a1;
+            font-weight: 600;
+        }
+
+        /* ==================== Quick Presets ==================== */
+        .quick-presets {
+            margin: 40px 0;
+        }
+
+        .quick-presets h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .preset-btn {
+            background: white;
+            border: 2px solid var(--gray-light);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.1);
+        }
+
+        .preset-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preset-numeric {
+            font-family: 'Source Code Pro', monospace;
+            color: var(--primary);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .preset-symbolic {
+            font-family: 'Source Code Pro', monospace;
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .preset-desc {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* ==================== Command Output ==================== */
+        .command-section {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 40px 0;
+            border-left: 4px solid var(--success);
+        }
+
+        .command-section h3 {
+            color: #065f46;
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .command-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .command-input input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #a7f3d0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Source Code Pro', monospace;
+            transition: var(--transition);
+        }
+
+        .command-input input:focus {
+            outline: none;
+            border-color: var(--success);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+
+        .command-output {
+            background: var(--terminal-bg);
+            color: var(--terminal-green);
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Source Code Pro', monospace;
+            position: relative;
+            border: 1px solid #2d3748;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .command-output::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .command-output::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .command-output::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+        }
+
+        /* ==================== Permission Reference ==================== */
+        .permission-reference {
+            margin: 40px 0;
+        }
+
+        .permission-reference h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reference-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .reference-tab {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid var(--gray-light);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .reference-tab:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .reference-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .reference-content {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid var(--gray-light);
+            overflow: hidden;
+        }
+
+        .reference-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .reference-table th {
+            background: var(--light);
+            color: var(--dark);
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        .reference-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .reference-table tr:hover {
+            background: var(--light);
+        }
+
+        .permission-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            color: white;
+            border-radius: 4px;
+            margin-right: 8px;
+            font-weight: 700;
+        }
+
+        /* ==================== Footer Styles ==================== */
+        footer {
+            background: var(--dark);
+            color: white;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px 30px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .footer-column p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quick-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 15px;
+        }
+
+        .footer-bottom a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* ==================== Utility Classes ==================== */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge-common {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning);
+            color: #92400e;
+        }
+
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .tool-tip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tool-tip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+
+        /* ==================== Responsive Design ==================== */
+        @media (max-width: 1200px) {
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .preset-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .special-bits {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navbar a {
+                padding: 15px 20px;
+                border-radius: 10px;
+            }
+
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .breadcrumb-section {
+                padding: 0 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .main-content {
+                padding: 0 20px;
+            }
+
+            .content-box {
+                padding: 30px 20px;
+            }
+
+            .tool-header h1 {
+                font-size: 28px;
+                flex-direction: column;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .preset-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .permission-value {
+                font-size: 48px;
+            }
+            
+            .permission-symbolic {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .permission-value {
+                font-size: 36px;
+            }
+            
+            .permission-symbolic {
+                font-size: 18px;
+            }
+            
+            .octal-input {
+                font-size: 20px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="fixed-header-container">
+    <div class="header-content">
+        <a href="../../index.html" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-lock"></i>
+            </div>
+            <div class="logo-text">
+                <span>PERMISSION CALC</span>
+                <span class="logo-sub">ADVANCED TOOL</span>
+            </div>
+        </a>
+        
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="../../index.html" class="active"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<div class="breadcrumb-section">
+    <button class="back-button" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i> Back to Tools
+    </button>
+    <div class="breadcrumb" id="breadcrumb"></div>
+</div>
+
+<div class="main-content">
+    <div class="content-box">
+        <div class="tool-header">
+            <h1><i class="fas fa-lock"></i> Advanced Linux Permission Calculator</h1>
+            <p>Calculate, convert, and analyze Linux file permissions with this comprehensive chmod calculator tool.</p>
+        </div>
+
+        <!-- Dual Input Section -->
+        <div class="dual-input-section">
+            <div class="input-group">
+                <h3><i class="fas fa-hashtag"></i> Numeric (Octal) Input</h3>
+                <div class="numeric-input">
+                    <div class="octal-digit">
+                        <div class="octal-label">Special</div>
+                        <input type="number" id="specialDigit" class="octal-input" min="0" max="7" value="0" onchange="updateFromNumeric()">
+                        <div class="octal-description">Special bits (4,2,1)</div>
+                    </div>
+                    <div class="octal-digit">
+                        <div class="octal-label">Owner</div>
+                        <input type="number" id="ownerDigit" class="octal-input" min="0" max="7" value="7" onchange="updateFromNumeric()">
+                        <div class="octal-description">User permissions</div>
+                    </div>
+                    <div class="octal-digit">
+                        <div class="octal-label">Group</div>
+                        <input type="number" id="groupDigit" class="octal-input" min="0" max="7" value="5" onchange="updateFromNumeric()">
+                        <div class="octal-description">Group permissions</div>
+                    </div>
+                    <div class="octal-digit">
+                        <div class="octal-label">Others</div>
+                        <input type="number" id="othersDigit" class="octal-input" min="0" max="7" value="5" onchange="updateFromNumeric()">
+                        <div class="octal-description">Other users</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <h3><i class="fas fa-keyboard"></i> Symbolic Input</h3>
+                <div class="symbolic-input">
+                    <div class="permission-category">
+                        <div class="category-label"><i class="fas fa-user"></i> Owner (u)</div>
+                        <div class="permission-bits">
+                            <div class="bit-checkbox">
+                                <input type="checkbox" id="owner-read" checked onchange="updateFromSymbolic()">
+                                <label for="owner-read">Read</label>
+                                <span class="bit-value">4</span>
+                            </div>
+                            <div class="bit-checkbox">
+                                <input type="checkbox" id="owner-write" checked onchange="updateFromSymbolic()">
+                                <label for="owner-write">Write</label>
+                                <span class="bit-value">2</span>
+                            </div>
+                            <div class="bit-checkbox">
+                                <input type="checkbox" id="owner-execute" checked onchange="updateFromSymbolic()">
+                                <label for="owner-execute">Execute</label>
+                                <span class="bit-value">1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="permission-category">
+                        <div class="category-label"><i class="fas fa-users"></i> Group (g)</div>
+                        <div class="permission-bits">
+                            <div class="bit-checkbox">
+                                <input type="checkbox" id="group-read" checked onchange="updateFromSymbolic()">
+                                <label for="group-read">Read</label>
+                                <span class="bit-value">4</span>
+                            </div>
+                            <div class="bit-checkbox">
+                                <input type="checkbox" id="group-write" onchange="updateFromSymbolic()">
+                                <label for="group-write">Write</label>
+                                <span class="bit-value">2</span>
+                            </div>
+                            <div class="bit-checkbox">
+                                <input type="checkbox" id="group-execute" checked onchange="updateFromSymbolic()">
+                                <label for="group-execute">Execute</label>
+                                <span class="bit-value">1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="permission-category">
+                        <div class="category-label"><i class="fas fa-globe"></i> Others (o)</div>
+                        <div class="permission-bits">
+                            <div class="bit-checkbox">
+                                <input type="checkbox" id="others-read" checked onchange="updateFromSymbolic()">
+                                <label for="others-read">Read</label>
+                                <span class="bit-value">4</span>
+                            </div>
+                            <div class="bit-checkbox">
+                                <input type="checkbox" id="others-write" onchange="updateFromSymbolic()">
+                                <label for="others-write">Write</label>
+                                <span class="bit-value">2</span>
+                            </div>
+                            <div class="bit-checkbox">
+                                <input type="checkbox" id="others-execute" checked onchange="updateFromSymbolic()">
+                                <label for="others-execute">Execute</label>
+                                <span class="bit-value">1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Permission Display -->
+        <div class="permission-display">
+            <div class="display-row">
+                <div class="permission-value" id="numericValue">0755</div>
+                <div class="permission-symbolic" id="symbolicValue">rwxr-xr-x</div>
+            </div>
+            <div class="permission-breakdown">
+                <div class="breakdown-item">Owner: <strong>rwx</strong> (7)</div>
+                <div class="breakdown-item">Group: <strong>r-x</strong> (5)</div>
+                <div class="breakdown-item">Others: <strong>r-x</strong> (5)</div>
+            </div>
+        </div>
+
+        <!-- Special Permissions -->
+        <div class="special-permissions">
+            <h3><i class="fas fa-star"></i> Special Permissions</h3>
+            <div class="special-bits">
+                <div class="special-bit">
+                    <h4><i class="fas fa-user-shield"></i> SetUID (SUID)</h4>
+                    <p>When set, the file executes with the privileges of the file owner, regardless of who runs it.</p>
+                    <div class="special-bit-checkbox">
+                        <input type="checkbox" id="setuid" onchange="updateSpecialPermissions()">
+                        <label for="setuid">Set User ID on execution</label>
+                        <span class="special-value">4000</span>
+                    </div>
+                </div>
+                
+                <div class="special-bit">
+                    <h4><i class="fas fa-users-cog"></i> SetGID (SGID)</h4>
+                    <p>For files: execute with group privileges. For directories: new files inherit directory's group.</p>
+                    <div class="special-bit-checkbox">
+                        <input type="checkbox" id="setgid" onchange="updateSpecialPermissions()">
+                        <label for="setgid">Set Group ID on execution</label>
+                        <span class="special-value">2000</span>
+                    </div>
+                </div>
+                
+                <div class="special-bit">
+                    <h4><i class="fas fa-thumbtack"></i> Sticky Bit</h4>
+                    <p>When set on a directory, only the file owner can delete or rename files within that directory.</p>
+                    <div class="special-bit-checkbox">
+                        <input type="checkbox" id="sticky" onchange="updateSpecialPermissions()">
+                        <label for="sticky">Restricted deletion flag</label>
+                        <span class="special-value">1000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Presets -->
+        <div class="quick-presets">
+            <h3><i class="fas fa-bolt"></i> Quick Permission Presets</h3>
+            <div class="preset-grid">
+                <div class="preset-btn" onclick="loadPreset('755')">
+                    <div class="preset-title">Web Server Files <span class="badge badge-common">Common</span></div>
+                    <div class="preset-numeric">0755</div>
+                    <div class="preset-symbolic">rwxr-xr-x</div>
+                    <div class="preset-desc">Owner: full, Group/Others: read & execute</div>
+                </div>
+                
+                <div class="preset-btn" onclick="loadPreset('644')">
+                    <div class="preset-title">Configuration Files</div>
+                    <div class="preset-numeric">0644</div>
+                    <div class="preset-symbolic">rw-r--r--</div>
+                    <div class="preset-desc">Owner: read/write, Group/Others: read only</div>
+                </div>
+                
+                <div class="preset-btn" onclick="loadPreset('700')">
+                    <div class="preset-title">Private Scripts</div>
+                    <div class="preset-numeric">0700</div>
+                    <div class="preset-symbolic">rwx------</div>
+                    <div class="preset-desc">Owner only: full access</div>
+                </div>
+                
+                <div class="preset-btn" onclick="loadPreset('777')">
+                    <div class="preset-title">Public Directory <span class="badge badge-warning">Warning</span></div>
+                    <div class="preset-numeric">0777</div>
+                    <div class="preset-symbolic">rwxrwxrwx</div>
+                    <div class="preset-desc">Everyone: full access (insecure)</div>
+                </div>
+                
+                <div class="preset-btn" onclick="loadPreset('4755')">
+                    <div class="preset-title">SUID Executable</div>
+                    <div class="preset-numeric">4755</div>
+                    <div class="preset-symbolic">rwsr-xr-x</div>
+                    <div class="preset-desc">SetUID + normal executable</div>
+                </div>
+                
+                <div class="preset-btn" onclick="loadPreset('1777')">
+                    <div class="preset-title">Sticky Temp Directory</div>
+                    <div class="preset-numeric">1777</div>
+                    <div class="preset-symbolic">rwxrwxrwt</div>
+                    <div class="preset-desc">World-writable with sticky bit</div>
+                </div>
+                
+                <div class="preset-btn" onclick="loadPreset('600')">
+                    <div class="preset-title">Private Files</div>
+                    <div class="preset-numeric">0600</div>
+                    <div class="preset-symbolic">rw-------</div>
+                    <div class="preset-desc">Owner only: read/write</div>
+                </div>
+                
+                <div class="preset-btn" onclick="loadPreset('2755')">
+                    <div class="preset-title">SGID Directory</div>
+                    <div class="preset-numeric">2755</div>
+                    <div class="preset-symbolic">rwxr-sr-x</div>
+                    <div class="preset-desc">SetGID + normal directory</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Command Section -->
+        <div class="command-section">
+            <h3><i class="fas fa-terminal"></i> chmod Command Generator</h3>
+            <div class="command-input">
+                <input type="text" id="filenameInput" value="script.sh" placeholder="Enter filename..." oninput="updateCommand()">
+            </div>
+            <div class="command-output" id="commandOutput">
+                chmod 755 script.sh
+                <button class="copy-btn" onclick="copyCommand()">
+                    <i class="fas fa-copy"></i> Copy Command
+                </button>
+            </div>
+        </div>
+
+        <!-- Permission Reference -->
+        <div class="permission-reference">
+            <h3><i class="fas fa-book"></i> Permission Reference Guide</h3>
+            
+            <div class="reference-tabs">
+                <div class="reference-tab active" onclick="showReference('numeric')">Numeric Values</div>
+                <div class="reference-tab" onclick="showReference('symbolic')">Symbolic Notation</div>
+                <div class="reference-tab" onclick="showReference('examples')">Common Examples</div>
+                <div class="reference-tab" onclick="showReference('special')">Special Bits</div>
+            </div>
+            
+            <div class="reference-content">
+                <table class="reference-table" id="numericReference">
+                    <thead>
+                        <tr>
+                            <th>Octal Value</th>
+                            <th>Binary</th>
+                            <th>Permissions</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="permission-icon">0</span> 000</td>
+                            <td>000</td>
+                            <td>---</td>
+                            <td>No permissions</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">1</span> 001</td>
+                            <td>001</td>
+                            <td>--x</td>
+                            <td>Execute only</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">2</span> 010</td>
+                            <td>010</td>
+                            <td>-w-</td>
+                            <td>Write only</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">3</span> 011</td>
+                            <td>011</td>
+                            <td>-wx</td>
+                            <td>Write & Execute</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">4</span> 100</td>
+                            <td>100</td>
+                            <td>r--</td>
+                            <td>Read only</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">5</span> 101</td>
+                            <td>101</td>
+                            <td>r-x</td>
+                            <td>Read & Execute</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">6</span> 110</td>
+                            <td>110</td>
+                            <td>rw-</td>
+                            <td>Read & Write</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">7</span> 111</td>
+                            <td>111</td>
+                            <td>rwx</td>
+                            <td>Read, Write & Execute</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <table class="reference-table" id="symbolicReference" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Symbol</th>
+                            <th>Meaning</th>
+                            <th>Octal</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="permission-icon">r</span></td>
+                            <td>Read</td>
+                            <td>4</td>
+                            <td>Read file or list directory</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">w</span></td>
+                            <td>Write</td>
+                            <td>2</td>
+                            <td>Modify file or directory contents</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">x</span></td>
+                            <td>Execute</td>
+                            <td>1</td>
+                            <td>Execute file or enter directory</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">s</span></td>
+                            <td>SetUID/SetGID</td>
+                            <td>4/2</td>
+                            <td>Special execute with owner/group privileges</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">t</span></td>
+                            <td>Sticky</td>
+                            <td>1</td>
+                            <td>Restricted deletion in directories</td>
+                        </tr>
+                        <tr>
+                            <td><span class="permission-icon">-</span></td>
+                            <td>None</td>
+                            <td>0</td>
+                            <td>Permission not granted</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <table class="reference-table" id="examplesReference" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Use Case</th>
+                            <th>Octal</th>
+                            <th>Symbolic</th>
+                            <th>chmod Command</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Secure configuration file</td>
+                            <td>600</td>
+                            <td>rw-------</td>
+                            <td>chmod 600 config.conf</td>
+                        </tr>
+                        <tr>
+                            <td>Public web directory</td>
+                            <td>755</td>
+                            <td>rwxr-xr-x</td>
+                            <td>chmod 755 public_html/</td>
+                        </tr>
+                        <tr>
+                            <td>Shared group directory</td>
+                            <td>775</td>
+                            <td>rwxrwxr-x</td>
+                            <td>chmod 775 shared/</td>
+                        </tr>
+                        <tr>
+                            <td>Read-only documentation</td>
+                            <td>444</td>
+                            <td>r--r--r--</td>
+                            <td>chmod 444 README.md</td>
+                        </tr>
+                        <tr>
+                            <td>SUID root binary</td>
+                            <td>4755</td>
+                            <td>rwsr-xr-x</td>
+                            <td>chmod 4755 /usr/bin/passwd</td>
+                        </tr>
+                        <tr>
+                            <td>Sticky temp directory</td>
+                            <td>1777</td>
+                            <td>rwxrwxrwt</td>
+                            <td>chmod 1777 /tmp</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <table class="reference-table" id="specialReference" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>Special Bit</th>
+                            <th>Octal</th>
+                            <th>Symbol</th>
+                            <th>Effect</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>SetUID (SUID)</td>
+                            <td>4000</td>
+                            <td>s in user execute</td>
+                            <td>File runs with owner's privileges</td>
+                        </tr>
+                        <tr>
+                            <td>SetGID (SGID)</td>
+                            <td>2000</td>
+                            <td>s in group execute</td>
+                            <td>File runs with group's privileges</td>
+                        </tr>
+                        <tr>
+                            <td>Sticky Bit</td>
+                            <td>1000</td>
+                            <td>t in others execute</td>
+                            <td>Only owner can delete files in directory</td>
+                        </tr>
+                        <tr>
+                            <td>SetUID + SetGID</td>
+                            <td>6000</td>
+                            <td>s in both</td>
+                            <td>Both special bits set (rare)</td>
+                        </tr>
+                        <tr>
+                            <td>All Special Bits</td>
+                            <td>7000</td>
+                            <td>all special</td>
+                            <td>SUID + SGID + Sticky (rare)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Permission Calculator</h3>
+            <p>Advanced Linux permission calculator tool that helps understand, calculate, and convert file permissions between numeric (octal) and symbolic notation with special permission support.</p>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <div class="quick-links">
+                <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../../skills.html"><i class="fas fa-cogs"></i> Skills</a>
+                <a href="../tools.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="../../certificate.html"><i class="fas fa-certificate"></i> Certificate</a>
+                <a href="../../contact.html"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Linux Resources</h3>
+            <div class="quick-links">
+                <a href="https://linux.die.net/man/1/chmod" target="_blank"><i class="fas fa-book"></i> chmod man page</a>
+                <a href="https://www.gnu.org/software/coreutils/manual/html_node/chmod-invocation.html" target="_blank"><i class="fas fa-file-alt"></i> GNU chmod</a>
+                <a href="https://en.wikipedia.org/wiki/Chmod" target="_blank"><i class="fab fa-wikipedia-w"></i> chmod Wikipedia</a>
+                <a href="https://www.redhat.com/sysadmin/linux-permissions-explained" target="_blank"><i class="fas fa-graduation-cap"></i> Permissions Guide</a>
+                <a href="https://linuxjourney.com/lesson/file-permissions" target="_blank"><i class="fas fa-road"></i> Linux Journey</a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Other Tools</h3>
+            <div class="quick-links">
+                <a href="cron-job-helper.html"><i class="fas fa-clock"></i> Cron Job Helper</a>
+                <a href="linux-command-reference.html"><i class="fas fa-terminal"></i> Command Reference</a>
+                <a href="linux-distro-check.html"><i class="fab fa-linux"></i> Distro Check</a>
+                <a href="#"><i class="fas fa-server"></i> Server Monitor</a>
+                <a href="#"><i class="fas fa-network-wired"></i> Network Tools</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © <span id="currentYear"></span> Asadul Islam | All Rights Reserved | 
+        <a href="https://github.com/asadul-it" target="_blank">GitHub Profile</a> | 
+        <a href="../../privacy.html">Privacy Policy</a>
+    </div>
+</footer>
+
+<script>
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Initialize Google Analytics
+    (function() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5H7RZ72M1J');
+        window.gtag = gtag;
+    })();
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById("hamburger");
+    const navbar = document.getElementById("navbar");
+    hamburger.onclick = () => {
+        navbar.classList.toggle("active");
+        hamburger.classList.toggle("active");
+    };
+
+    // Close navbar when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navbar.contains(e.target) && !hamburger.contains(e.target)) {
+            navbar.classList.remove("active");
+            hamburger.classList.remove("active");
+        }
+    });
+
+    // Set breadcrumb
+    setBreadcrumb([
+        { name: "Home", link: "../../index.html" },
+        { name: "Tools", link: "../tools.html" },
+        { name: "Linux Tools", link: "../tools.html#linux" },
+        { name: "Permission Calculator" }
+    ]);
+
+    function setBreadcrumb(items) {
+        document.getElementById("breadcrumb").innerHTML =
+            items.map((i, index) => {
+                if (i.link) {
+                    return `<a href="${i.link}">${i.name}</a>`;
+                } else if (index < items.length - 1) {
+                    return `<span>${i.name}</span><i class="fas fa-chevron-right"></i>`;
+                } else {
+                    return `<span class="current">${i.name}</span>`;
+                }
+            }).join("");
+    }
+
+    // Permission calculation functions
+    function updateFromNumeric() {
+        // Get octal values
+        const special = parseInt(document.getElementById('specialDigit').value) || 0;
+        const owner = parseInt(document.getElementById('ownerDigit').value) || 0;
+        const group = parseInt(document.getElementById('groupDigit').value) || 0;
+        const others = parseInt(document.getElementById('othersDigit').value) || 0;
+        
+        // Update checkboxes based on octal values
+        updateCheckboxFromOctal('owner', owner);
+        updateCheckboxFromOctal('group', group);
+        updateCheckboxFromOctal('others', others);
+        
+        // Update special permissions checkboxes
+        document.getElementById('setuid').checked = (special & 4) !== 0;
+        document.getElementById('setgid').checked = (special & 2) !== 0;
+        document.getElementById('sticky').checked = (special & 1) !== 0;
+        
+        // Calculate full numeric value
+        const fullNumeric = special * 1000 + owner * 100 + group * 10 + others;
+        const numericString = fullNumeric.toString().padStart(4, '0');
+        
+        // Generate symbolic representation
+        const symbolic = generateSymbolic(special, owner, group, others);
+        
+        // Update displays
+        updateDisplays(numericString, symbolic);
+        updateCommand();
+    }
+
+    function updateFromSymbolic() {
+        // Calculate octal values from checkboxes
+        const owner = calculateOctalFromCheckboxes('owner');
+        const group = calculateOctalFromCheckboxes('group');
+        const others = calculateOctalFromCheckboxes('others');
+        
+        // Calculate special bits
+        let special = 0;
+        if (document.getElementById('setuid').checked) special += 4;
+        if (document.getElementById('setgid').checked) special += 2;
+        if (document.getElementById('sticky').checked) special += 1;
+        
+        // Update numeric inputs
+        document.getElementById('specialDigit').value = special;
+        document.getElementById('ownerDigit').value = owner;
+        document.getElementById('groupDigit').value = group;
+        document.getElementById('othersDigit').value = others;
+        
+        // Calculate full numeric value
+        const fullNumeric = special * 1000 + owner * 100 + group * 10 + others;
+        const numericString = fullNumeric.toString().padStart(4, '0');
+        
+        // Generate symbolic representation
+        const symbolic = generateSymbolic(special, owner, group, others);
+        
+        // Update displays
+        updateDisplays(numericString, symbolic);
+        updateCommand();
+    }
+
+    function updateSpecialPermissions() {
+        // Recalculate from current state
+        updateFromSymbolic();
+    }
+
+    function updateCheckboxFromOctal(prefix, octal) {
+        const read = document.getElementById(`${prefix}-read`);
+        const write = document.getElementById(`${prefix}-write`);
+        const execute = document.getElementById(`${prefix}-execute`);
+        
+        read.checked = (octal & 4) !== 0;
+        write.checked = (octal & 2) !== 0;
+        execute.checked = (octal & 1) !== 0;
+    }
+
+    function calculateOctalFromCheckboxes(prefix) {
+        const read = document.getElementById(`${prefix}-read`).checked ? 4 : 0;
+        const write = document.getElementById(`${prefix}-write`).checked ? 2 : 0;
+        const execute = document.getElementById(`${prefix}-execute`).checked ? 1 : 0;
+        
+        return read + write + execute;
+    }
+
+    function generateSymbolic(special, owner, group, others) {
+        let symbolic = '';
+        
+        // Owner permissions
+        symbolic += (owner & 4) ? 'r' : '-';
+        symbolic += (owner & 2) ? 'w' : '-';
+        if (special & 4) {
+            symbolic += (owner & 1) ? 's' : 'S';
+        } else {
+            symbolic += (owner & 1) ? 'x' : '-';
+        }
+        
+        // Group permissions
+        symbolic += (group & 4) ? 'r' : '-';
+        symbolic += (group & 2) ? 'w' : '-';
+        if (special & 2) {
+            symbolic += (group & 1) ? 's' : 'S';
+        } else {
+            symbolic += (group & 1) ? 'x' : '-';
+        }
+        
+        // Others permissions
+        symbolic += (others & 4) ? 'r' : '-';
+        symbolic += (others & 2) ? 'w' : '-';
+        if (special & 1) {
+            symbolic += (others & 1) ? 't' : 'T';
+        } else {
+            symbolic += (others & 1) ? 'x' : '-';
+        }
+        
+        return symbolic;
+    }
+
+    function updateDisplays(numeric, symbolic) {
+        document.getElementById('numericValue').textContent = numeric;
+        document.getElementById('symbolicValue').textContent = symbolic;
+        
+        // Update breakdown
+        const owner = numeric[1];
+        const group = numeric[2];
+        const others = numeric[3];
+        
+        const breakdownElement = document.querySelector('.permission-breakdown');
+        breakdownElement.innerHTML = `
+            <div class="breakdown-item">Owner: <strong>${getPermissionText(owner)}</strong> (${owner})</div>
+            <div class="breakdown-item">Group: <strong>${getPermissionText(group)}</strong> (${group})</div>
+            <div class="breakdown-item">Others: <strong>${getPermissionText(others)}</strong> (${others})</div>
+        `;
+    }
+
+    function getPermissionText(octal) {
+        const permissions = {
+            '0': '---',
+            '1': '--x',
+            '2': '-w-',
+            '3': '-wx',
+            '4': 'r--',
+            '5': 'r-x',
+            '6': 'rw-',
+            '7': 'rwx'
+        };
+        return permissions[octal] || '---';
+    }
+
+    function loadPreset(preset) {
+        // Parse preset string
+        const presetStr = preset.padStart(4, '0');
+        const special = parseInt(presetStr[0]) || 0;
+        const owner = parseInt(presetStr[1]) || 0;
+        const group = parseInt(presetStr[2]) || 0;
+        const others = parseInt(presetStr[3]) || 0;
+        
+        // Update numeric inputs
+        document.getElementById('specialDigit').value = special;
+        document.getElementById('ownerDigit').value = owner;
+        document.getElementById('groupDigit').value = group;
+        document.getElementById('othersDigit').value = others;
+        
+        // Update from numeric
+        updateFromNumeric();
+        
+        // Show notification
+        showNotification(`Loaded preset: ${preset}`, 'success');
+        
+        // Track in analytics
+        if (window.gtag) {
+            gtag('event', 'load_preset', {
+                'event_category': 'tool_usage',
+                'event_label': preset
+            });
+        }
+    }
+
+    function updateCommand() {
+        const numeric = document.getElementById('numericValue').textContent;
+        const filename = document.getElementById('filenameInput').value || 'filename';
+        const command = `chmod ${numeric} ${filename}`;
+        
+        document.getElementById('commandOutput').innerHTML = `
+            ${command}
+            <button class="copy-btn" onclick="copyCommand()">
+                <i class="fas fa-copy"></i> Copy Command
+            </button>
+        `;
+    }
+
+    function copyCommand() {
+        const command = document.getElementById('commandOutput').childNodes[0].textContent.trim();
+        
+        navigator.clipboard.writeText(command).then(() => {
+            showNotification('Command copied to clipboard!', 'success');
+            
+            if (window.gtag) {
+                gtag('event', 'copy_command', {
+                    'event_category': 'tool_usage',
+                    'event_label': command
+                });
+            }
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+            showNotification('Failed to copy command', 'error');
+        });
+    }
+
+    function showReference(refId) {
+        // Hide all reference tables
+        document.getElementById('numericReference').style.display = 'none';
+        document.getElementById('symbolicReference').style.display = 'none';
+        document.getElementById('examplesReference').style.display = 'none';
+        document.getElementById('specialReference').style.display = 'none';
+        
+        // Remove active class from all tabs
+        document.querySelectorAll('.reference-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+        
+        // Show selected reference table
+        document.getElementById(refId + 'Reference').style.display = 'table';
+        
+        // Add active class to clicked tab
+        event.target.classList.add('active');
+        
+        // Track reference tab click
+        if (window.gtag) {
+            gtag('event', 'view_reference', {
+                'event_category': 'tool_usage',
+                'event_label': refId
+            });
+        }
+    }
+
+    function showNotification(message, type) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+            <span>${message}</span>
+        `;
+        
+        // Style the notification
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#10b981' : '#ef4444'};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        // Add animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        document.body.appendChild(notification);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initial calculation
+        updateFromNumeric();
+        
+        // Navigation tracking
+        document.querySelectorAll('.navbar a, .quick-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (window.gtag && !this.getAttribute('href').startsWith('#')) {
+                    gtag('event', 'navigation_click', {
+                        'event_category': 'navigation',
+                        'event_label': e.target.textContent.trim()
+                    });
+                }
+            });
+        });
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + C to copy command
+        if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+            copyCommand();
+        }
+        
+        // Ctrl/Cmd + R to reset to default
+        if ((e.ctrlKey || e.metaKey) && e.key === 'r') {
+            e.preventDefault();
+            loadPreset('755');
+        }
+        
+        // Ctrl/Cmd + / to focus filename input
+        if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+            e.preventDefault();
+            document.getElementById('filenameInput').focus();
+        }
+    });
+</script>
+</body>
+</html>

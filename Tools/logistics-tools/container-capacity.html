@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Container Capacity Calculator - Logistics Tools</title>
+
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description"
+        content="Calculate container capacity, volume, and loading efficiency. Optimize container utilization with our advanced logistics calculator for shipping containers.">
+    <meta name="keywords"
+        content="container capacity calculator, container volume calculator, shipping container calculator, container loading, logistics calculator, freight container, container utilization">
+    <meta name="author" content="Logistics Tools">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <!-- ==================== Open Graph Tags for Social Media ==================== -->
+    <meta property="og:title" content="Container Capacity Calculator - Logistics Tools">
+    <meta property="og:description"
+        content="Advanced container capacity calculator for optimizing shipping container loading and utilization.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/logistics-tools/container-capacity.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/img/tools/container-calculator.jpg">
+    <meta property="og:site_name" content="Logistics Tools">
+
+    <!-- ==================== Twitter Card Tags ==================== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Container Capacity Calculator - Logistics Tools">
+    <meta name="twitter:description"
+        content="Calculate container capacity and optimize loading efficiency for shipping containers.">
+    <meta name="twitter:image" content="https://asadul-it.github.io/portfolio/img/tools/container-calculator.jpg">
+
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <meta name="geo.region" content="BD">
+    <meta name="geo.placename" content="Bangladesh">
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/Tools/logistics-tools/container-capacity.html">
+
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Container Capacity Calculator",
+        "description": "Advanced container capacity and loading optimization calculator",
+        "url": "https://asadul-it.github.io/portfolio/Tools/logistics-tools/container-capacity.html",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Any",
+        "author": {
+            "@type": "Organization",
+            "name": "Logistics Tools"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .header-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 19px;
+            font-weight: 700;
+            color: #2c3e50;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: #2563eb;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-text {
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4a5568;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover {
+            color: #2563eb;
+            background-color: #f7fafc;
+        }
+
+        .navbar a.active {
+            color: #2563eb;
+            background-color: #ebf4ff;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            background: #f7fafc;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: #2563eb;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1300px;
+            margin: 25px auto 15px auto;
+            padding: 0 25px;
+            font-size: 15px;
+            color: #718096;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: #2563eb;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: #cbd5e0;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            max-width: 1300px;
+            margin: 0 auto 50px auto;
+            padding: 0 25px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 17px;
+            color: #718096;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        .calculator-box {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .calculator-box h2 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ebf4ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .calculator-box h2 i {
+            color: #2563eb;
+        }
+
+        .container-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .container-type {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container-type:hover {
+            border-color: #cbd5e0;
+            background-color: #f7fafc;
+        }
+
+        .container-type.selected {
+            border-color: #2563eb;
+            background-color: #ebf4ff;
+        }
+
+        .container-type i {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: #4a5568;
+        }
+
+        .container-type.selected i {
+            color: #2563eb;
+        }
+
+        .container-type h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #2d3748;
+        }
+
+        .container-type p {
+            font-size: 13px;
+            color: #718096;
+            line-height: 1.4;
+        }
+
+        .input-section {
+            margin-bottom: 25px;
+        }
+
+        .input-section h3 {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-section h3 i {
+            color: #2563eb;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 15px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s;
+            background-color: #ffffff;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .input-unit {
+            position: relative;
+        }
+
+        .input-unit input {
+            padding-right: 60px;
+        }
+
+        .unit-label {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #718096;
+            font-size: 15px;
+            pointer-events: none;
+        }
+
+        .input-hint {
+            font-size: 13px;
+            color: #a0aec0;
+            margin-top: 6px;
+            display: block;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #2563eb;
+        }
+
+        .checkbox-group label {
+            font-weight: 600;
+            color: #4a5568;
+            cursor: pointer;
+        }
+
+        .calculate-button {
+            width: 100%;
+            padding: 16px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .calculate-button:hover {
+            background: #1e40af;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .calculate-button:active {
+            transform: translateY(0);
+        }
+
+        .result-box {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .result-header h2 {
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        .reset-button {
+            background: #edf2f7;
+            color: #4a5568;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reset-button:hover {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+
+        .capacity-summary {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .capacity-summary {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .summary-card i {
+            font-size: 32px;
+            color: #2563eb;
+            margin-bottom: 15px;
+        }
+
+        .summary-card .label {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .summary-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            line-height: 1.2;
+        }
+
+        .summary-card .unit {
+            font-size: 16px;
+            color: #718096;
+            font-weight: 600;
+        }
+
+        .details-breakdown {
+            margin-bottom: 30px;
+        }
+
+        .details-breakdown h3 {
+            font-size: 20px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-item .label {
+            color: #4a5568;
+            font-weight: 500;
+        }
+
+        .detail-item .value {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .utilization-section {
+            background: #ebf4ff;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 25px;
+        }
+
+        .utilization-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .utilization-header h3 {
+            font-size: 20px;
+            color: #2d3748;
+            margin: 0;
+        }
+
+        .utilization-percentage {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .utilization-bar {
+            height: 20px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .utilization-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
+            border-radius: 10px;
+            transition: width 1s ease;
+            position: relative;
+        }
+
+        .utilization-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .recommendations {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .recommendations h3 {
+            font-size: 20px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .recommendations-list {
+            list-style: none;
+        }
+
+        .recommendations-list li {
+            padding: 12px 0;
+            color: #4a5568;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .recommendations-list li:last-child {
+            border-bottom: none;
+        }
+
+        .recommendations-list li i {
+            color: #2563eb;
+            margin-top: 2px;
+        }
+
+        .info-section {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 40px;
+            margin-top: 50px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-section h2 {
+            font-size: 28px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .info-section p {
+            color: #4a5568;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            text-align: center;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .info-card {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-card h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            padding: 8px 0;
+            color: #4a5568;
+            border-bottom: 1px solid #f1f1f1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .info-card li i {
+            color: #2563eb;
+            font-size: 12px;
+        }
+
+        /* Footer */
+        footer {
+            background: #ffffff;
+            border-top: 2px solid #f0f3ff;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: auto;
+            padding: 45px 25px 35px 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .footer-column {
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .footer-column p {
+            color: #718096;
+            font-size: 15px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-column a {
+            color: #4a5568;
+            font-size: 15px;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .footer-column a:hover {
+            color: #2563eb;
+            transform: translateX(3px);
+        }
+
+        .quick-links-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f7fafc;
+            color: #2563eb;
+            font-size: 18px;
+            transition: all 0.3s;
+            text-decoration: none;
+            margin-bottom: 0;
+        }
+
+        .social-links a:hover {
+            background: #2563eb;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid #e5e7eb;
+            font-size: 15px;
+            color: #718096;
+            background: #f8fafc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .navbar {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                border-top: 1px solid #e2e8f0;
+                z-index: 100;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar a {
+                padding: 18px 25px;
+                border-bottom: 1px solid #f1f1f1;
+                justify-content: flex-start;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .page-header p {
+                font-size: 16px;
+            }
+
+            .calculator-box {
+                padding: 30px 25px;
+            }
+
+            .calculator-box h2 {
+                font-size: 22px;
+            }
+
+            .container-types {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-card .value {
+                font-size: 24px;
+            }
+
+            .info-section {
+                padding: 30px 25px;
+            }
+
+            .info-section h2 {
+                font-size: 24px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                text-align: center;
+            }
+
+            .quick-links {
+                align-items: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .breadcrumb {
+                padding: 0 20px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .capacity-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-box {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo">
+                <span class="logo-icon">LT</span>
+                <span class="logo-text">Logistics Tools</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul>
+                    <li><a href="../../index.html"><i class="fas fa-home"></i>Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                    <li><a href="../tools.html" class="active"><i class="fas fa-tools"></i>Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="../tools.html">Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <a href="logistics-tools.html">Logistics Tools</a>
+        <span class="breadcrumb-separator">/</span>
+        <span>Container Capacity Calculator</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="page-header">
+            <h1>Container Capacity Calculator</h1>
+            <p>Calculate container volume, loading capacity, and optimize container utilization for maximum efficiency in shipping and logistics operations.</p>
+        </div>
+
+        <div class="calculator-container">
+            <div class="calculator-box">
+                <h2><i class="fas fa-cube"></i> Container Configuration</h2>
+                
+                <div class="container-types">
+                    <div class="container-type selected" id="container20ft">
+                        <i class="fas fa-shipping-fast"></i>
+                        <h4>20ft Standard</h4>
+                        <p>20' x 8' x 8.5'<br>1,172 cu ft</p>
+                    </div>
+                    <div class="container-type" id="container40ft">
+                        <i class="fas fa-truck-loading"></i>
+                        <h4>40ft Standard</h4>
+                        <p>40' x 8' x 8.5'<br>2,387 cu ft</p>
+                    </div>
+                    <div class="container-type" id="container40ftHC">
+                        <i class="fas fa-layer-group"></i>
+                        <h4>40ft High Cube</h4>
+                        <p>40' x 8' x 9.5'<br>2,660 cu ft</p>
+                    </div>
+                </div>
+                
+                <input type="hidden" id="containerType" value="20ft">
+
+                <div class="input-section">
+                    <h3><i class="fas fa-ruler-combined"></i> Container Dimensions</h3>
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="containerLength">Length</label>
+                            <div class="input-unit">
+                                <input type="number" id="containerLength" min="1" step="0.01" value="20" readonly>
+                                <span class="unit-label">ft</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="containerWidth">Width</label>
+                            <div class="input-unit">
+                                <input type="number" id="containerWidth" min="1" step="0.01" value="8" readonly>
+                                <span class="unit-label">ft</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="containerHeight">Height</label>
+                            <div class="input-unit">
+                                <input type="number" id="containerHeight" min="1" step="0.01" value="8.5" readonly>
+                                <span class="unit-label">ft</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-section">
+                    <h3><i class="fas fa-box"></i> Package Dimensions</h3>
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="packageLength">Length</label>
+                            <div class="input-unit">
+                                <input type="number" id="packageLength" min="0.1" step="0.01" value="2">
+                                <span class="unit-label">ft</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="packageWidth">Width</label>
+                            <div class="input-unit">
+                                <input type="number" id="packageWidth" min="0.1" step="0.01" value="1.5">
+                                <span class="unit-label">ft</span>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label for="packageHeight">Height</label>
+                            <div class="input-unit">
+                                <input type="number" id="packageHeight" min="0.1" step="0.01" value="1">
+                                <span class="unit-label">ft</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="input-hint">Enter dimensions of individual packages/boxes</span>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="allowRotation" checked>
+                    <label for="allowRotation">Allow package rotation for optimal loading</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="includeWeight" checked>
+                    <label for="includeWeight">Include weight capacity calculation</label>
+                </div>
+
+                <div class="input-group" id="weightSection">
+                    <label for="packageWeight">Package Weight</label>
+                    <div class="input-unit">
+                        <input type="number" id="packageWeight" min="0.1" step="0.1" value="50">
+                        <span class="unit-label">lbs</span>
+                    </div>
+                    <span class="input-hint">Weight per individual package</span>
+                </div>
+
+                <button class="calculate-button" id="calculateBtn">
+                    <i class="fas fa-calculator"></i> Calculate Capacity
+                </button>
+            </div>
+
+            <div class="result-box">
+                <div class="result-header">
+                    <h2><i class="fas fa-chart-bar"></i> Capacity Results</h2>
+                    <button class="reset-button" id="resetBtn">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+
+                <div class="capacity-summary">
+                    <div class="summary-card">
+                        <i class="fas fa-boxes"></i>
+                        <div class="label">Total Packages</div>
+                        <div class="value" id="totalPackages">0</div>
+                        <div class="unit">units</div>
+                    </div>
+                    <div class="summary-card">
+                        <i class="fas fa-weight-hanging"></i>
+                        <div class="label">Total Weight</div>
+                        <div class="value" id="totalWeight">0</div>
+                        <div class="unit">lbs</div>
+                    </div>
+                    <div class="summary-card">
+                        <i class="fas fa-arrows-alt-v"></i>
+                        <div class="label">Container Volume</div>
+                        <div class="value" id="containerVolume">0</div>
+                        <div class="unit">cu ft</div>
+                    </div>
+                    <div class="summary-card">
+                        <i class="fas fa-percentage"></i>
+                        <div class="label">Utilization</div>
+                        <div class="value" id="utilizationPercent">0%</div>
+                        <div class="unit">of capacity</div>
+                    </div>
+                </div>
+
+                <div class="details-breakdown">
+                    <h3><i class="fas fa-list-alt"></i> Detailed Breakdown</h3>
+                    <div class="detail-item">
+                        <span class="label">Container Dimensions</span>
+                        <span class="value" id="containerDimensions">20 × 8 × 8.5 ft</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Package Dimensions</span>
+                        <span class="value" id="packageDimensions">2 × 1.5 × 1 ft</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Packages per Layer</span>
+                        <span class="value" id="packagesPerLayer">0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Number of Layers</span>
+                        <span class="value" id="numberOfLayers">0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Volume per Package</span>
+                        <span class="value" id="volumePerPackage">0 cu ft</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="label">Weight Capacity Used</span>
+                        <span class="value" id="weightCapacity">0%</span>
+                    </div>
+                </div>
+
+                <div class="utilization-section">
+                    <div class="utilization-header">
+                        <h3>Container Utilization</h3>
+                        <div class="utilization-percentage" id="utilizationValue">0%</div>
+                    </div>
+                    <div class="utilization-bar">
+                        <div class="utilization-fill" id="utilizationBar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="recommendations">
+                    <h3><i class="fas fa-lightbulb"></i> Optimization Recommendations</h3>
+                    <ul class="recommendations-list" id="recommendationsList">
+                        <li><i class="fas fa-check-circle"></i> Loading recommendations will appear here</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>Container Capacity Optimization Guide</h2>
+            <p>Maximize your container loading efficiency with these proven strategies and industry standards for container capacity utilization.</p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3><i class="fas fa-cube"></i> Container Standards</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 20ft Standard: 1,172 cu ft, 48,000 lbs max</li>
+                        <li><i class="fas fa-check"></i> 40ft Standard: 2,387 cu ft, 59,200 lbs max</li>
+                        <li><i class="fas fa-check"></i> 40ft High Cube: 2,660 cu ft, 58,700 lbs max</li>
+                        <li><i class="fas fa-check"></i> 45ft High Cube: 3,040 cu ft, 63,800 lbs max</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-layer-group"></i> Loading Best Practices</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Aim for 85-90% volume utilization</li>
+                        <li><i class="fas fa-check"></i> Stagger boxes for stability</li>
+                        <li><i class="fas fa-check"></i> Use pallets for efficient loading</li>
+                        <li><i class="fas fa-check"></i> Consider weight distribution</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Important Considerations</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Door opening clearance</li>
+                        <li><i class="fas fa-check"></i> Weight limits per axle</li>
+                        <li><i class="fas fa-check"></i> Cargo securing requirements</li>
+                        <li><i class="fas fa-check"></i> Temperature control needs</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== Hidden SEO Content ==================== -->
+    <div style="display: none;" itemscope itemtype="https://schema.org/WebApplication">
+        <span itemprop="name">Container Capacity Calculator</span>
+        <span itemprop="description">Advanced container capacity and loading optimization calculator for logistics</span>
+        <span itemprop="applicationCategory">BusinessApplication</span>
+        <span itemprop="operatingSystem">Any</span>
+        <span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <span itemprop="price">0</span>
+            <span itemprop="priceCurrency">USD</span>
+        </span>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Logistics Tools</h3>
+                <p>Professional logistics and container capacity calculation tools for optimizing shipping efficiency and container utilization.</p>
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <div class="quick-links-container">
+                    <div class="quick-links">
+                        <a href="../../index.html">Home</a>
+                        <a href="../../skills.html">Skills</a>
+                        <a href="../tools.html">Tools</a>
+                        <a href="../../certificate.html">Certificate</a>
+                        <a href="../../contact.html">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="https://github.com/asadul-it" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/8801706927793" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            © 2024 Logistics Tools | All Rights Reserved
+        </div>
+    </footer>
+
+    <script>
+        // Google Analytics 4
+        (function () {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+
+        // DOM Elements
+        const container20ft = document.getElementById('container20ft');
+        const container40ft = document.getElementById('container40ft');
+        const container40ftHC = document.getElementById('container40ftHC');
+        const containerTypeInput = document.getElementById('containerType');
+        const containerLength = document.getElementById('containerLength');
+        const containerWidth = document.getElementById('containerWidth');
+        const containerHeight = document.getElementById('containerHeight');
+        const packageLength = document.getElementById('packageLength');
+        const packageWidth = document.getElementById('packageWidth');
+        const packageHeight = document.getElementById('packageHeight');
+        const packageWeight = document.getElementById('packageWeight');
+        const allowRotation = document.getElementById('allowRotation');
+        const includeWeight = document.getElementById('includeWeight');
+        const weightSection = document.getElementById('weightSection');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        // Result Elements
+        const totalPackages = document.getElementById('totalPackages');
+        const totalWeight = document.getElementById('totalWeight');
+        const containerVolume = document.getElementById('containerVolume');
+        const utilizationPercent = document.getElementById('utilizationPercent');
+        const containerDimensions = document.getElementById('containerDimensions');
+        const packageDimensions = document.getElementById('packageDimensions');
+        const packagesPerLayer = document.getElementById('packagesPerLayer');
+        const numberOfLayers = document.getElementById('numberOfLayers');
+        const volumePerPackage = document.getElementById('volumePerPackage');
+        const weightCapacity = document.getElementById('weightCapacity');
+        const utilizationValue = document.getElementById('utilizationValue');
+        const utilizationBar = document.getElementById('utilizationBar');
+        const recommendationsList = document.getElementById('recommendationsList');
+
+        // Container presets (length, width, height in feet, max weight in lbs)
+        const containerPresets = {
+            '20ft': { length: 20, width: 8, height: 8.5, maxWeight: 48000, name: '20ft Standard' },
+            '40ft': { length: 40, width: 8, height: 8.5, maxWeight: 59200, name: '40ft Standard' },
+            '40ftHC': { length: 40, width: 8, height: 9.5, maxWeight: 58700, name: '40ft High Cube' }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateWeightSectionVisibility();
+            calculateCapacity();
+            
+            // Set breadcrumb
+            setBreadcrumb([
+                { name: "Home", link: "../../index.html" },
+                { name: "Tools", link: "../tools.html" },
+                { name: "Logistics Tools", link: "../tools.html#logistics" },
+                { name: "Container Capacity Calculator" }
+            ]);
+        });
+
+        // Container type selection
+        container20ft.addEventListener('click', function() {
+            selectContainer('20ft');
+        });
+
+        container40ft.addEventListener('click', function() {
+            selectContainer('40ft');
+        });
+
+        container40ftHC.addEventListener('click', function() {
+            selectContainer('40ftHC');
+        });
+
+        function selectContainer(type) {
+            // Update UI
+            container20ft.classList.remove('selected');
+            container40ft.classList.remove('selected');
+            container40ftHC.classList.remove('selected');
+            
+            if (type === '20ft') container20ft.classList.add('selected');
+            else if (type === '40ft') container40ft.classList.add('selected');
+            else if (type === '40ftHC') container40ftHC.classList.add('selected');
+            
+            // Update values
+            const preset = containerPresets[type];
+            containerLength.value = preset.length;
+            containerWidth.value = preset.width;
+            containerHeight.value = preset.height;
+            containerTypeInput.value = type;
+            
+            calculateCapacity();
+        }
+
+        // Package dimensions change
+        packageLength.addEventListener('input', calculateCapacity);
+        packageWidth.addEventListener('input', calculateCapacity);
+        packageHeight.addEventListener('input', calculateCapacity);
+        packageWeight.addEventListener('input', calculateCapacity);
+        
+        // Checkbox changes
+        allowRotation.addEventListener('change', calculateCapacity);
+        includeWeight.addEventListener('change', function() {
+            updateWeightSectionVisibility();
+            calculateCapacity();
+        });
+
+        function updateWeightSectionVisibility() {
+            if (includeWeight.checked) {
+                weightSection.style.display = 'block';
+            } else {
+                weightSection.style.display = 'none';
+            }
+        }
+
+        // Calculate button
+        calculateBtn.addEventListener('click', function() {
+            calculateCapacity();
+            
+            // Track calculation event
+            if (window.gtag) {
+                gtag('event', 'calculate_container_capacity', {
+                    'event_category': 'calculator',
+                    'event_label': 'container_capacity_calculation'
+                });
+            }
+        });
+
+        // Reset button
+        resetBtn.addEventListener('click', function() {
+            selectContainer('20ft');
+            packageLength.value = '2';
+            packageWidth.value = '1.5';
+            packageHeight.value = '1';
+            packageWeight.value = '50';
+            allowRotation.checked = true;
+            includeWeight.checked = true;
+            updateWeightSectionVisibility();
+            calculateCapacity();
+            
+            // Track reset event
+            if (window.gtag) {
+                gtag('event', 'reset_calculator', {
+                    'event_category': 'calculator',
+                    'event_label': 'container_calculator_reset'
+                });
+            }
+        });
+
+        // Calculate capacity function
+        function calculateCapacity() {
+            // Get container dimensions
+            const cLength = parseFloat(containerLength.value);
+            const cWidth = parseFloat(containerWidth.value);
+            const cHeight = parseFloat(containerHeight.value);
+            
+            // Get package dimensions
+            const pLength = parseFloat(packageLength.value);
+            const pWidth = parseFloat(packageWidth.value);
+            const pHeight = parseFloat(packageHeight.value);
+            
+            // Get weight
+            const pWeight = parseFloat(packageWeight.value) || 0;
+            
+            // Calculate volumes
+            const containerVol = cLength * cWidth * cHeight;
+            const packageVol = pLength * pWidth * pHeight;
+            
+            // Calculate number of packages with and without rotation
+            let packagesX, packagesY, packagesZ;
+            
+            if (allowRotation.checked) {
+                // Try different orientations
+                const orientations = [
+                    { l: pLength, w: pWidth, h: pHeight },
+                    { l: pLength, w: pHeight, h: pWidth },
+                    { l: pWidth, w: pLength, h: pHeight },
+                    { l: pWidth, w: pHeight, h: pLength },
+                    { l: pHeight, w: pLength, h: pWidth },
+                    { l: pHeight, w: pWidth, h: pLength }
+                ];
+                
+                let maxPackages = 0;
+                let bestOrientation;
+                
+                orientations.forEach(orientation => {
+                    const x = Math.floor(cLength / orientation.l);
+                    const y = Math.floor(cWidth / orientation.w);
+                    const z = Math.floor(cHeight / orientation.h);
+                    const total = x * y * z;
+                    
+                    if (total > maxPackages) {
+                        maxPackages = total;
+                        bestOrientation = orientation;
+                        packagesX = x;
+                        packagesY = y;
+                        packagesZ = z;
+                    }
+                });
+            } else {
+                packagesX = Math.floor(cLength / pLength);
+                packagesY = Math.floor(cWidth / pWidth);
+                packagesZ = Math.floor(cHeight / pHeight);
+            }
+            
+            const totalPackagesCount = packagesX * packagesY * packagesZ;
+            const totalVolumeUsed = totalPackagesCount * packageVol;
+            const utilization = (totalVolumeUsed / containerVol) * 100;
+            
+            // Weight calculations
+            const totalWeightCount = totalPackagesCount * pWeight;
+            const containerType = containerTypeInput.value;
+            const maxWeight = containerPresets[containerType].maxWeight;
+            const weightUtilization = (totalWeightCount / maxWeight) * 100;
+            
+            // Update display
+            totalPackages.textContent = totalPackagesCount.toLocaleString();
+            totalWeight.textContent = Math.round(totalWeightCount).toLocaleString();
+            containerVolume.textContent = Math.round(containerVol).toLocaleString();
+            utilizationPercent.textContent = utilization.toFixed(1) + '%';
+            
+            containerDimensions.textContent = `${cLength} × ${cWidth} × ${cHeight} ft`;
+            packageDimensions.textContent = `${pLength} × ${pWidth} × ${pHeight} ft`;
+            packagesPerLayer.textContent = (packagesX * packagesY).toLocaleString();
+            numberOfLayers.textContent = packagesZ.toLocaleString();
+            volumePerPackage.textContent = packageVol.toFixed(2) + ' cu ft';
+            weightCapacity.textContent = weightUtilization.toFixed(1) + '%';
+            
+            // Update utilization bar
+            utilizationValue.textContent = utilization.toFixed(1) + '%';
+            utilizationBar.style.width = Math.min(utilization, 100) + '%';
+            
+            // Generate recommendations
+            generateRecommendations(utilization, totalPackagesCount, containerType, pWeight, totalWeightCount, maxWeight);
+        }
+
+        function generateRecommendations(utilization, totalPackages, containerType, pWeight, totalWeight, maxWeight) {
+            const recommendations = [];
+            
+            // Volume-based recommendations
+            if (utilization < 70) {
+                recommendations.push('Consider using a smaller container size for better cost efficiency');
+                recommendations.push('Explore alternative packaging to increase loading density');
+            } else if (utilization >= 70 && utilization < 85) {
+                recommendations.push('Good utilization rate. Consider stacking patterns for stability');
+                recommendations.push('Check if additional lightweight items can be added');
+            } else if (utilization >= 85 && utilization < 95) {
+                recommendations.push('Excellent utilization. Ensure proper weight distribution');
+                recommendations.push('Verify door clearance for loading and unloading');
+            } else if (utilization >= 95) {
+                recommendations.push('Maximum utilization achieved. Consider professional loading assistance');
+                recommendations.push('Ensure proper securing to prevent cargo shift');
+            }
+            
+            // Weight-based recommendations
+            if (includeWeight.checked) {
+                const weightRatio = (totalWeight / maxWeight) * 100;
+                if (weightRatio > 90) {
+                    recommendations.push('Warning: Approaching maximum weight capacity');
+                    recommendations.push('Consider weight distribution across container floor');
+                }
+                
+                if (weightRatio < 50 && utilization > 80) {
+                    recommendations.push('High volume but low weight - consider lighter packaging materials');
+                }
+            }
+            
+            // Container-specific recommendations
+            if (containerType === '20ft' && totalPackages > 500) {
+                recommendations.push('High package count - consider automated loading equipment');
+            }
+            
+            if (containerType === '40ftHC' && parseFloat(packageHeight.value) > 7) {
+                recommendations.push('Tall packages - ensure proper vertical clearance');
+            }
+            
+            // Safety recommendations
+            recommendations.push('Always use appropriate dunnage and securing materials');
+            recommendations.push('Consult with logistics provider for specific requirements');
+            
+            // Update recommendations list
+            recommendationsList.innerHTML = '';
+            recommendations.slice(0, 6).forEach(rec => {
+                const li = document.createElement('li');
+                li.innerHTML = `<i class="fas fa-check-circle"></i> ${rec}`;
+                recommendationsList.appendChild(li);
+            });
+        }
+
+        // Breadcrumb function
+        function setBreadcrumb(items) {
+            const breadcrumbElement = document.getElementById('breadcrumb');
+            if (breadcrumbElement) {
+                breadcrumbElement.innerHTML = items.map((item, index) => {
+                    if (item.link) {
+                        return `<a href="${item.link}">${item.name}</a>`;
+                    } else {
+                        return `<span>${item.name}</span>`;
+                    }
+                }).join('<span class="breadcrumb-separator">/</span>');
+            }
+        }
+
+        // Hamburger menu
+        const hamburger = document.getElementById("hamburger");
+        const navbar = document.getElementById("navbar");
+        if (hamburger && navbar) {
+            hamburger.onclick = () => {
+                navbar.classList.toggle("active");
+                hamburger.classList.toggle("active");
+            };
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInsideNavbar = navbar.contains(event.target);
+            const isClickOnHamburger = hamburger.contains(event.target);
+            
+            if (!isClickInsideNavbar && !isClickOnHamburger && navbar.classList.contains('active')) {
+                navbar.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Track interactions
+        document.addEventListener('DOMContentLoaded', function () {
+            // Track navigation clicks
+            document.querySelectorAll('.navbar a').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    if (window.gtag) {
+                        gtag('event', 'navigation_click', {
+                            'event_category': 'navigation',
+                            'event_label': e.target.textContent.trim(),
+                            'page_location': window.location.href
+                        });
+                    }
+                });
+            });
+
+            // Track mobile menu usage
+            if (hamburger) {
+                hamburger.addEventListener('click', function () {
+                    if (window.gtag) {
+                        gtag('event', 'mobile_menu_toggle', {
+                            'event_category': 'ui_interaction',
+                            'event_label': 'mobile_menu_opened'
+                        });
+                    }
+                });
+            }
+
+            // Track scroll depth
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', function () {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

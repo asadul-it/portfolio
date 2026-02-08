@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সম্পূর্ণ BSOD ত্রুটি নির্দেশিকা - ব্লু স্ক্রিন অফ ডেথ সমাধান</title>
+    
+    <!-- ==================== উন্নত এসইও মেটা ট্যাগ ==================== -->
+    <meta name="description" content="সম্পূর্ণ BSOD (ব্লু স্ক্রিন অফ ডেথ) ত্রুটি নির্দেশিকা। উইন্ডোজ BSOD ত্রুটির জন্য বিস্তারিত সমাধান, স্টপ কোড, এবং সমস্যা সমাধানের ধাপসমূহ।">
+    <meta name="keywords" content="BSOD, ব্লু স্ক্রিন অফ ডেথ, উইন্ডোজ ত্রুটি, স্টপ কোড, BSOD সমাধান, উইন্ডোজ ক্র্যাশ, কম্পিউটার মেরামত, সিস্টেম ত্রুটি, আসাদুল ইসলাম">
+    <meta name="author" content="আসাদুল ইসলাম">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Bengali, English, Bangla">
+    
+    <!-- ==================== ওপেন গ্রাফ ট্যাগ ==================== -->
+    <meta property="og:title" content="সম্পূর্ণ BSOD ত্রুটি নির্দেশিকা - উইন্ডোজ ব্লু স্ক্রিন সমাধান">
+    <meta property="og:description" content="উইন্ডোজ ব্লু স্ক্রিন অফ ডেথ (BSOD) ত্রুটি নির্ণয় ও সমাধানের সম্পূর্ণ নির্দেশিকা।">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/windows-tools/bsod-error-guide.html">
+    
+    <!-- ==================== ফন্ট ও আইকন ==================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #0178d4;
+            --dark-blue: #005a9e;
+            --error-red: #dc2626;
+            --warning-yellow: #f59e0b;
+            --success-green: #059669;
+            --light-bg: #f5f7fa;
+            --dark-text: #1e293b;
+            --medium-text: #475569;
+            --light-text: #64748b;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Hind Siliguri', sans-serif;
+            background: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+        }
+
+        .bangla-font {
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        /* ভাষা টগল বাটন */
+        .language-switcher {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(1, 120, 212, 0.1);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-left: 15px;
+        }
+
+        .language-switcher:hover {
+            background: rgba(1, 120, 212, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .language-switcher i {
+            color: var(--primary-blue);
+        }
+
+        .language-text {
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        /* হেডার */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            background: var(--primary-blue);
+            color: white;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(15deg);
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--dark-text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .navbar a:hover {
+            color: var(--primary-blue);
+            background: rgba(1, 120, 212, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .navbar a.active {
+            color: var(--primary-blue);
+            background: rgba(1, 120, 212, 0.1);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            background: rgba(1, 120, 212, 0.1);
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 3px;
+            background: var(--primary-blue);
+            transition: 0.3s;
+        }
+
+        /* ব্রেডক্রম্ব */
+        .breadcrumb-section {
+            max-width: 1400px;
+            margin: 25px auto 15px;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .back-button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(1, 120, 212, 0.3);
+        }
+
+        .back-button:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(1, 120, 212, 0.4);
+        }
+
+        .breadcrumb {
+            font-size: 0.95em;
+            color: var(--medium-text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: var(--primary-blue);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--dark-blue);
+            text-decoration: underline;
+        }
+
+        /* মূল কন্টেন্ট */
+        .main-content {
+            max-width: 1400px;
+            margin: 30px auto 50px;
+            padding: 0 30px;
+        }
+
+        .content-box {
+            background: white;
+            border-radius: 16px;
+            padding: 50px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 40px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .content-box:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .tool-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .tool-header h1 {
+            font-size: 42px;
+            color: var(--dark-text);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tool-header h1 i {
+            color: var(--primary-blue);
+            background: rgba(1, 120, 212, 0.1);
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .tool-header p {
+            font-size: 18px;
+            color: var(--medium-text);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* স্ট্যাটস সেকশন */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--dark-text);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: var(--medium-text);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* সার্চ বক্স */
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 16px 24px 16px 50px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 4px 20px rgba(1, 120, 212, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-text);
+            font-size: 18px;
+        }
+
+        .search-result-count {
+            margin-top: 10px;
+            color: var(--medium-text);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* BSOD সিমুলেটর */
+        .bsod-simulator {
+            background: var(--primary-blue);
+            color: white;
+            padding: 50px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(1, 120, 212, 0.3);
+        }
+
+        .bsod-emoji {
+            font-size: 120px;
+            margin-bottom: 25px;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .bsod-simulator h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .bsod-simulator p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .bsod-code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 30px;
+            text-align: center;
+            border-left: 4px solid white;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            margin-top: 25px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: white;
+            width: 0%;
+            animation: loading 3s linear infinite;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* দ্রুত সমাধান সেকশন */
+        .quick-fixes {
+            background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+            border-left: 6px solid var(--warning-yellow);
+            padding: 35px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .quick-fixes h2 {
+            color: #d97706;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 28px;
+        }
+
+        .fix-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .fix-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .fix-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .fix-number {
+            background: var(--warning-yellow);
+            color: white;
+            min-width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .fix-text {
+            flex: 1;
+        }
+
+        .fix-title {
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 8px;
+        }
+
+        .fix-desc {
+            color: var(--medium-text);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ত্রুটি কার্ড */
+        .error-section {
+            margin: 50px 0;
+        }
+
+        .error-section h2 {
+            color: var(--dark-text);
+            margin-bottom: 30px;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .error-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .error-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s;
+            border-top: 5px solid var(--error-red);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .error-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .error-card-header {
+            background: #fef2f2;
+            padding: 25px 25px 15px;
+        }
+
+        .error-code {
+            font-family: 'Courier New', monospace;
+            color: var(--error-red);
+            font-weight: 800;
+            font-size: 22px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .copy-btn {
+            background: var(--error-red);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #b91c1c;
+        }
+
+        .error-name {
+            color: var(--dark-text);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .error-body {
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .error-description {
+            color: var(--medium-text);
+            line-height: 1.7;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .error-causes {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .error-causes h4 {
+            color: var(--dark-text);
+            margin-bottom: 12px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-causes ul {
+            margin-left: 20px;
+            color: var(--medium-text);
+            line-height: 1.8;
+        }
+
+        .error-causes li {
+            margin-bottom: 8px;
+        }
+
+        .error-solutions {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .error-solutions h4 {
+            color: var(--success-green);
+            margin-bottom: 12px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-solutions ol {
+            margin-left: 20px;
+            color: #065f46;
+            line-height: 1.8;
+        }
+
+        .error-solutions li {
+            margin-bottom: 8px;
+        }
+
+        /* ডায়াগনস্টিক টুলস */
+        .tools-section {
+            margin: 50px 0;
+        }
+
+        .tools-section h2 {
+            color: var(--dark-text);
+            margin-bottom: 30px;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .tool-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s;
+            text-align: center;
+            border-top: 5px solid var(--primary-blue);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .tool-icon {
+            font-size: 42px;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+
+        .tool-card h3 {
+            color: var(--dark-text);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .tool-card p {
+            color: var(--medium-text);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .run-btn {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .run-btn:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+
+        /* FAQ সেকশন */
+        .faq-section {
+            margin: 50px 0;
+        }
+
+        .faq-section h2 {
+            color: var(--dark-text);
+            margin-bottom: 30px;
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        .faq-question {
+            padding: 25px;
+            font-weight: 700;
+            color: var(--dark-text);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #f8fafc;
+        }
+
+        .faq-answer {
+            padding: 0 25px 25px;
+            color: var(--medium-text);
+            line-height: 1.8;
+            display: none;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-toggle {
+            color: var(--primary-blue);
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* ফুটার */
+        footer {
+            background: #1e293b;
+            color: white;
+            margin-top: 80px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 30px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-column {
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 25px;
+            color: white;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-blue);
+        }
+
+        .footer-column p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer-column a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .footer-column a:hover {
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+            transition: all 0.3s;
+            margin-bottom: 0;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9em;
+            color: #94a3b8;
+        }
+
+        /* স্ক্রল টু টপ বাটন */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(1, 120, 212, 0.3);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            background: var(--dark-blue);
+            transform: translateY(-3px);
+        }
+
+        /* মোবাইল রেসপন্সিভ */
+        @media (max-width: 992px) {
+            .content-box {
+                padding: 35px;
+            }
+            
+            .error-cards-container {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                border-radius: 0 0 12px 12px;
+                z-index: 1000;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .navbar a {
+                padding: 15px;
+                border-radius: 8px;
+                margin-bottom: 5px;
+            }
+
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .breadcrumb-section {
+                padding: 0 20px;
+            }
+
+            .main-content {
+                padding: 0 20px;
+            }
+
+            .content-box {
+                padding: 25px 20px;
+            }
+
+            .tool-header h1 {
+                font-size: 28px;
+            }
+
+            .tool-header p {
+                font-size: 16px;
+            }
+
+            .bsod-simulator {
+                padding: 30px 20px;
+            }
+
+            .bsod-emoji {
+                font-size: 80px;
+            }
+
+            .bsod-simulator h2 {
+                font-size: 28px;
+            }
+
+            .fix-list {
+                grid-template-columns: 1fr;
+            }
+
+            .error-cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .breadcrumb-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .hamburger.active span:nth-child(1) {
+                transform: rotate(45deg) translate(6px, 6px);
+            }
+            
+            .hamburger.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .hamburger.active span:nth-child(3) {
+                transform: rotate(-45deg) translate(8px, -8px);
+            }
+            
+            .language-switcher {
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tool-header h1 {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- হেডার -->
+<div class="fixed-header-container">
+    <div class="header-content">
+        <a href="../../index.html" class="logo">
+            <span class="logo-icon"><i class="fas fa-exclamation-triangle"></i></span>
+            <span>BSOD ত্রুটি নির্দেশিকা</span>
+        </a>
+        
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="../../index.html" class="active"><i class="fas fa-home"></i>হোম</a></li>
+                <li><a href="../../skills.html"><i class="fas fa-cogs"></i>দক্ষতা</a></li>
+                <li><a href="../tools.html"><i class="fas fa-tools"></i>টুলস</a></li>
+                <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>সার্টিফিকেট</a></li>
+                <li><a href="../../contact.html"><i class="fas fa-phone"></i>যোগাযোগ</a></li>
+                <li class="language-switcher" id="languageSwitcher">
+                    <i class="fas fa-language"></i>
+                    <span class="language-text">English</span>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</div>
+
+<!-- ব্রেডক্রম্ব -->
+<div class="breadcrumb-section">
+    <button class="back-button" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i> পিছনে
+    </button>
+    <div class="breadcrumb" id="breadcrumb"></div>
+</div>
+
+<!-- মূল কন্টেন্ট -->
+<div class="main-content">
+    <div class="content-box">
+        <div class="tool-header">
+            <h1><i class="fas fa-exclamation-triangle"></i> সম্পূর্ণ BSOD ত্রুটি নির্দেশিকা</h1>
+            <p>উইন্ডোজ ব্লু স্ক্রিন অফ ডেথ ত্রুটি নির্ণয় ও সমাধানের সম্পূর্ণ নির্দেশিকা। স্টপ কোডের জন্য বিস্তারিত সমাধান, সমস্যা সমাধানের ধাপ, এবং প্রতিরোধমূলক ব্যবস্থা খুঁজুন।</p>
+        </div>
+
+        <!-- স্ট্যাটস সেকশন -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-bug"></i></div>
+                <div class="stat-number" id="totalErrors">২৫+</div>
+                <div class="stat-label">BSOD ত্রুটি</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-tools"></i></div>
+                <div class="stat-number" id="totalSolutions">১৫০+</div>
+                <div class="stat-label">সমাধান</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-number" id="helpedUsers">১০K+</div>
+                <div class="stat-label">ব্যবহারকারী সাহায্য পেয়েছেন</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-percentage"></i></div>
+                <div class="stat-number" id="successRate">৯৫%</div>
+                <div class="stat-label">সাফল্যের হার</div>
+            </div>
+        </div>
+
+        <!-- সার্চ বক্স -->
+        <div class="search-box">
+            <div class="search-icon"><i class="fas fa-search"></i></div>
+            <input type="text" id="searchInput" placeholder="ত্রুটি কোড, নাম, বা বর্ণনা অনুসন্ধান করুন..." oninput="searchErrors()">
+            <div class="search-result-count" id="searchResultCount">সব ত্রুটি দেখানো হচ্ছে</div>
+        </div>
+
+        <!-- BSOD সিমুলেটর -->
+        <div class="bsod-simulator">
+            <div class="bsod-emoji">:(</div>
+            <h2>আপনার পিসিতে একটি সমস্যা হয়েছে এবং পুনরায় শুরু করা প্রয়োজন</h2>
+            <p>আমরা শুধু কিছু ত্রুটি তথ্য সংগ্রহ করছি, তারপর আপনার জন্য পুনরায় শুরু করব।</p>
+            <p>আপনি আরো জানতে চাইলে, পরে এই ত্রুটির জন্য অনলাইনে অনুসন্ধান করতে পারেন:</p>
+            <div class="bsod-code">স্টপ কোড: <span id="randomStopCode">0x0000007B</span></div>
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+        </div>
+
+        <!-- দ্রুত সমাধান -->
+        <div class="quick-fixes">
+            <h2><i class="fas fa-bolt"></i> প্রথমে চেষ্টা করার জন্য দ্রুত সমাধান</h2>
+            <div class="fix-list">
+                <div class="fix-item">
+                    <div class="fix-number">১</div>
+                    <div class="fix-text">
+                        <div class="fix-title">আপনার কম্পিউটার রিস্টার্ট করুন</div>
+                        <div class="fix-desc">একটি সাধারণ রিস্টার্ট অনেক BSOD সমস্যা সমাধান করতে পারে।</div>
+                    </div>
+                </div>
+                <div class="fix-item">
+                    <div class="fix-number">২</div>
+                    <div class="fix-text">
+                        <div class="fix-title">উইন্ডোজ আপডেট করুন</div>
+                        <div class="fix-desc">সবশেষ উইন্ডোজ আপডেট ইনস্টল করুন যাতে গুরুত্বপূর্ণ বাগ ফিক্স থাকে।</div>
+                    </div>
+                </div>
+                <div class="fix-item">
+                    <div class="fix-number">৩</div>
+                    <div class="fix-text">
+                        <div class="fix-title">ড্রাইভার আপডেট করুন</div>
+                        <div class="fix-desc">পুরানো বা ক্ষতিগ্রস্ত ড্রাইভার BSOD ত্রুটির সাধারণ কারণ।</div>
+                    </div>
+                </div>
+                <div class="fix-item">
+                    <div class="fix-number">৪</div>
+                    <div class="fix-text">
+                        <div class="fix-title">SFC স্ক্যান চালান</div>
+                        <div class="fix-desc">কমান্ড প্রম্পট (অ্যাডমিন) এ "sfc /scannow" টাইপ করে সিস্টেম ফাইল মেরামত করুন।</div>
+                    </div>
+                </div>
+                <div class="fix-item">
+                    <div class="fix-number">৫</div>
+                    <div class="fix-text">
+                        <div class="fix-title">RAM চেক করুন</div>
+                        <div class="fix-desc">ত্রুটিপূর্ণ মেমরি মডিউল চেক করতে উইন্ডোজ মেমরি ডায়াগনস্টিক টুল চালান।</div>
+                    </div>
+                </div>
+                <div class="fix-item">
+                    <div class="fix-number">৬</div>
+                    <div class="fix-text">
+                        <div class="fix-title">সেইফ মোডে বুট করুন</div>
+                        <div class="fix-desc">তৃতীয় পক্ষের সফ্টওয়্যার সমস্যা সৃষ্টি করছে কিনা তা চিহ্নিত করতে সাহায্য করে।</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ডায়াগনস্টিক টুলস -->
+        <div class="tools-section">
+            <h2><i class="fas fa-stethoscope"></i> ডায়াগনস্টিক টুলস</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-memory"></i></div>
+                    <h3>মেমরি ডায়াগনস্টিক</h3>
+                    <p>BSOD সৃষ্টিকারী ত্রুটি জন্য আপনার RAM চেক করুন। এই টুলটি আপনার কম্পিউটার রিস্টার্ট করবে এবং মেমরি পরীক্ষা করবে।</p>
+                    <button class="run-btn" onclick="runDiagnostic('memory')"><i class="fas fa-play"></i> টুল চালান</button>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-hdd"></i></div>
+                    <h3>ডিস্ক চেক</h3>
+                    <p>আপনার হার্ড ড্রাইভ বা SSD-তে খারাপ সেক্টর এবং ফাইল সিস্টেম ত্রুটি স্ক্যান করুন যা BSOD ট্রিগার করতে পারে।</p>
+                    <button class="run-btn" onclick="runDiagnostic('disk')"><i class="fas fa-play"></i> টুল চালান</button>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon"><i class="fas fa-file-medical-alt"></i></div>
+                    <h3>সিস্টেম ফাইল চেকার</h3>
+                    <p>ব্লু স্ক্রিন ত্রুটি সৃষ্টিকারী ক্ষতিগ্রস্ত উইন্ডোজ সিস্টেম ফাইল স্ক্যান ও মেরামত করুন।</p>
+                    <button class="run-btn" onclick="runDiagnostic('sfc')"><i class="fas fa-play"></i> টুল চালান</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- সাধারণ BSOD ত্রুটি -->
+        <div class="error-section">
+            <h2><i class="fas fa-list"></i> সাধারণ BSOD ত্রুটি ও সমাধান</h2>
+            <div class="error-cards-container" id="errorCardsContainer">
+                <!-- ত্রুটি কার্ড গুলো ডাইনামিক্যালি ইনসার্ট হবে -->
+            </div>
+        </div>
+
+        <!-- FAQ সেকশন -->
+        <div class="faq-section">
+            <h2><i class="fas fa-question-circle"></i> প্রায়শই জিজ্ঞাসিত প্রশ্ন</h2>
+            <div class="faq-container" id="faqContainer">
+                <!-- FAQ আইটেম গুলো ডাইনামিক্যালি ইনসার্ট হবে -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- স্ক্রল টু টপ বাটন -->
+<div class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-chevron-up"></i>
+</div>
+
+<!-- ফুটার -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>এই নির্দেশিকা সম্পর্কে</h3>
+            <p>এই সম্পূর্ণ BSOD ত্রুটি নির্দেশিকা আসাদুল ইসলাম দ্বারা পরিচালিত হয়, যিনি উইন্ডোজ সমস্যা সমাধান ও সিস্টেম মেরামতের বছরের অভিজ্ঞতা সম্পন্ন একজন আইটি প্রফেশনাল।</p>
+            <p>সর্বশেষ আপডেট: <span id="lastUpdated">মার্চ ২০২৪</span></p>
+        </div>
+
+        <div class="footer-column">
+            <h3>দ্রুত লিঙ্ক</h3>
+            <div class="quick-links">
+                <a href="../../index.html"><i class="fas fa-home"></i> হোম</a>
+                <a href="../../skills.html"><i class="fas fa-cogs"></i> দক্ষতা</a>
+                <a href="../tools.html"><i class="fas fa-tools"></i> টুলস</a>
+                <a href="../../certificate.html"><i class="fas fa-certificate"></i> সার্টিফিকেট</a>
+                <a href="../../contact.html"><i class="fas fa-phone"></i> যোগাযোগ</a>
+                <a href="#"><i class="fas fa-file-download"></i> PDF নির্দেশিকা ডাউনলোড</a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>ফলো ও সংযোগ</h3>
+            <p>আরো আইটি সমাধান ও উইন্ডোজ সমস্যা সমাধানের টিপসের জন্য আমার সাথে সংযুক্ত হন।</p>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="mailto:asadul.islam.asad@gmail.com" title="ইমেইল"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © ২০২৪ আসাদুল ইসলাম | সম্পূর্ণ BSOD ত্রুটি নির্দেশিকা | সর্বস্বত্ব সংরক্ষিত
+    </div>
+</footer>
+
+<script>
+// ভাষা ব্যবস্থাপনা
+let currentLanguage = 'bn'; // ডিফল্ট বাংলা
+const translations = {
+    bn: {
+        // নেভিগেশন
+        "nav-home": "হোম",
+        "nav-skills": "দক্ষতা",
+        "nav-tools": "টুলস",
+        "nav-certificate": "সার্টিফিকেট",
+        "nav-contact": "যোগাযোগ",
+        
+        // ব্রেডক্রম্ব
+        "breadcrumb-home": "হোম",
+        "breadcrumb-tools": "টুলস",
+        "breadcrumb-windows": "উইন্ডোজ টুলস",
+        "breadcrumb-current": "BSOD নির্দেশিকা",
+        
+        // প্রধান কন্টেন্ট
+        "page-title": "সম্পূর্ণ BSOD ত্রুটি নির্দেশিকা",
+        "page-description": "উইন্ডোজ ব্লু স্ক্রিন অফ ডেথ ত্রুটি নির্ণয় ও সমাধানের সম্পূর্ণ নির্দেশিকা। স্টপ কোডের জন্য বিস্তারিত সমাধান, সমস্যা সমাধানের ধাপ, এবং প্রতিরোধমূলক ব্যবস্থা খুঁজুন।",
+        
+        // স্ট্যাটস
+        "stats-errors": "BSOD ত্রুটি",
+        "stats-solutions": "সমাধান",
+        "stats-users": "ব্যবহারকারী সাহায্য পেয়েছেন",
+        "stats-success": "সাফল্যের হার",
+        
+        // সার্চ
+        "search-placeholder": "ত্রুটি কোড, নাম, বা বর্ণনা অনুসন্ধান করুন...",
+        "search-showing": "সব ত্রুটি দেখানো হচ্ছে",
+        "search-results": "{{count}}টি ত্রুটি দেখানো হচ্ছে {{total}}টি থেকে",
+        
+        // BSOD সিমুলেটর
+        "bsod-title": "আপনার পিসিতে একটি সমস্যা হয়েছে এবং পুনরায় শুরু করা প্রয়োজন",
+        "bsod-line1": "আমরা শুধু কিছু ত্রুটি তথ্য সংগ্রহ করছি, তারপর আপনার জন্য পুনরায় শুরু করব।",
+        "bsod-line2": "আপনি আরো জানতে চাইলে, পরে এই ত্রুটির জন্য অনলাইনে অনুসন্ধান করতে পারেন:",
+        
+        // দ্রুত সমাধান
+        "quick-fixes-title": "প্রথমে চেষ্টা করার জন্য দ্রুত সমাধান",
+        "fix1-title": "আপনার কম্পিউটার রিস্টার্ট করুন",
+        "fix1-desc": "একটি সাধারণ রিস্টার্ট অনেক BSOD সমস্যা সমাধান করতে পারে।",
+        "fix2-title": "উইন্ডোজ আপডেট করুন",
+        "fix2-desc": "সবশেষ উইন্ডোজ আপডেট ইনস্টল করুন যাতে গুরুত্বপূর্ণ বাগ ফিক্স থাকে।",
+        "fix3-title": "ড্রাইভার আপডেট করুন",
+        "fix3-desc": "পুরানো বা ক্ষতিগ্রস্ত ড্রাইভার BSOD ত্রুটির সাধারণ কারণ।",
+        "fix4-title": "SFC স্ক্যান চালান",
+        "fix4-desc": "কমান্ড প্রম্পট (অ্যাডমিন) এ \"sfc /scannow\" টাইপ করে সিস্টেম ফাইল মেরামত করুন।",
+        "fix5-title": "RAM চেক করুন",
+        "fix5-desc": "ত্রুটিপূর্ণ মেমরি মডিউল চেক করতে উইন্ডোজ মেমরি ডায়াগনস্টিক টুল চালান।",
+        "fix6-title": "সেইফ মোডে বুট করুন",
+        "fix6-desc": "তৃতীয় পক্ষের সফ্টওয়্যার সমস্যা সৃষ্টি করছে কিনা তা চিহ্নিত করতে সাহায্য করে।",
+        
+        // টুলস
+        "tools-title": "ডায়াগনস্টিক টুলস",
+        "tool1-title": "মেমরি ডায়াগনস্টিক",
+        "tool1-desc": "BSOD সৃষ্টিকারী ত্রুটি জন্য আপনার RAM চেক করুন। এই টুলটি আপনার কম্পিউটার রিস্টার্ট করবে এবং মেমরি পরীক্ষা করবে।",
+        "tool1-btn": "টুল চালান",
+        "tool2-title": "ডিস্ক চেক",
+        "tool2-desc": "আপনার হার্ড ড্রাইভ বা SSD-তে খারাপ সেক্টর এবং ফাইল সিস্টেম ত্রুটি স্ক্যান করুন যা BSOD ট্রিগার করতে পারে।",
+        "tool2-btn": "টুল চালান",
+        "tool3-title": "সিস্টেম ফাইল চেকার",
+        "tool3-desc": "ব্লু স্ক্রিন ত্রুটি সৃষ্টিকারী ক্ষতিগ্রস্ত উইন্ডোজ সিস্টেম ফাইল স্ক্যান ও মেরামত করুন।",
+        "tool3-btn": "টুল চালান",
+        
+        // ত্রুটি তালিকা
+        "errors-title": "সাধারণ BSOD ত্রুটি ও সমাধান",
+        "causes-title": "সাধারণ কারণ:",
+        "solutions-title": "সমাধান:",
+        "frequency": "ফ্রিকোয়েন্সি:",
+        "severity": "গুরুত্ব:",
+        
+        // FAQ
+        "faq-title": "প্রায়শই জিজ্ঞাসিত প্রশ্ন",
+        
+        // ফুটার
+        "footer-about": "এই নির্দেশিকা সম্পর্কে",
+        "footer-about-text": "এই সম্পূর্ণ BSOD ত্রুটি নির্দেশিকা আসাদুল ইসলাম দ্বারা পরিচালিত হয়, যিনি উইন্ডোজ সমস্যা সমাধান ও সিস্টেম মেরামতের বছরের অভিজ্ঞতা সম্পন্ন একজন আইটি প্রফেশনাল।",
+        "footer-quick-links": "দ্রুত লিঙ্ক",
+        "footer-follow": "ফলো ও সংযোগ",
+        "footer-follow-text": "আরো আইটি সমাধান ও উইন্ডোজ সমস্যা সমাধানের টিপসের জন্য আমার সাথে সংযুক্ত হন।",
+        "footer-copyright": "© ২০২৪ আসাদুল ইসলাম | সম্পূর্ণ BSOD ত্রুটি নির্দেশিকা | সর্বস্বত্ব সংরক্ষিত",
+        
+        // বাটন
+        "back-button": "পিছনে",
+        "copy-button": "কপি করুন",
+        "copied-button": "কপি হয়েছে!",
+        "run-tool": "টুল চালান"
+    },
+    en: {
+        // Navigation
+        "nav-home": "Home",
+        "nav-skills": "Skills",
+        "nav-tools": "Tools",
+        "nav-certificate": "Certificate",
+        "nav-contact": "Contact",
+        
+        // Breadcrumb
+        "breadcrumb-home": "Home",
+        "breadcrumb-tools": "Tools",
+        "breadcrumb-windows": "Windows Tools",
+        "breadcrumb-current": "BSOD Guide",
+        
+        // Main Content
+        "page-title": "Complete BSOD Error Guide",
+        "page-description": "Comprehensive diagnosis and solution guide for Windows Blue Screen of Death errors. Find detailed fixes for stop codes, troubleshooting steps, and preventive measures.",
+        
+        // Stats
+        "stats-errors": "BSOD Errors",
+        "stats-solutions": "Solutions",
+        "stats-users": "Users Helped",
+        "stats-success": "Success Rate",
+        
+        // Search
+        "search-placeholder": "Search error code, name, or description...",
+        "search-showing": "Showing all errors",
+        "search-results": "Showing {{count}} of {{total}} errors",
+        
+        // BSOD Simulator
+        "bsod-title": "Your PC ran into a problem and needs to restart",
+        "bsod-line1": "We're just collecting some error info, and then we'll restart for you.",
+        "bsod-line2": "If you'd like to know more, you can search online later for this error:",
+        
+        // Quick Fixes
+        "quick-fixes-title": "Quick Fixes to Try First",
+        "fix1-title": "Restart Your Computer",
+        "fix1-desc": "A simple restart can clear temporary glitches and resolve many BSOD issues.",
+        "fix2-title": "Update Windows",
+        "fix2-desc": "Install the latest Windows updates which often contain critical bug fixes.",
+        "fix3-title": "Update Drivers",
+        "fix3-desc": "Outdated or corrupted drivers are common causes of BSOD errors.",
+        "fix4-title": "Run SFC Scan",
+        "fix4-desc": "Type \"sfc /scannow\" in Command Prompt (Admin) to repair system files.",
+        "fix5-title": "Check RAM",
+        "fix5-desc": "Run Windows Memory Diagnostic tool to check for faulty memory modules.",
+        "fix6-title": "Boot in Safe Mode",
+        "fix6-desc": "Helps identify if third-party software is causing the blue screen.",
+        
+        // Tools
+        "tools-title": "Diagnostic Tools",
+        "tool1-title": "Memory Diagnostic",
+        "tool1-desc": "Check your RAM for errors that could cause BSODs. This tool will restart your computer and test memory.",
+        "tool1-btn": "Run Tool",
+        "tool2-title": "Disk Check",
+        "tool2-desc": "Scan your hard drive or SSD for bad sectors and file system errors that can trigger BSODs.",
+        "tool2-btn": "Run Tool",
+        "tool3-title": "System File Checker",
+        "tool3-desc": "Scan and repair corrupted Windows system files that may be causing blue screen errors.",
+        "tool3-btn": "Run Tool",
+        
+        // Error List
+        "errors-title": "Common BSOD Errors & Solutions",
+        "causes-title": "Common Causes:",
+        "solutions-title": "Solutions:",
+        "frequency": "Frequency:",
+        "severity": "Severity:",
+        
+        // FAQ
+        "faq-title": "Frequently Asked Questions",
+        
+        // Footer
+        "footer-about": "About This Guide",
+        "footer-about-text": "This comprehensive BSOD Error Guide is maintained by Asadul Islam, an IT professional with years of experience in Windows troubleshooting and system repair.",
+        "footer-quick-links": "Quick Links",
+        "footer-follow": "Follow & Connect",
+        "footer-follow-text": "Connect with me for more IT solutions and Windows troubleshooting tips.",
+        "footer-copyright": "© 2024 Asadul Islam | Complete BSOD Error Guide | All Rights Reserved",
+        
+        // Buttons
+        "back-button": "Back",
+        "copy-button": "Copy",
+        "copied-button": "Copied!",
+        "run-tool": "Run Tool"
+    }
+};
+
+// বাংলা BSOD ত্রুটি ডেটা
+const bsodErrorsBN = [
+    {
+        code: "IRQL_NOT_LESS_OR_EQUAL",
+        stopCode: "0x0000000A",
+        name: "IRQL সমান বা বেশি নয়",
+        description: "এই ত্রুটি ঘটে যখন একটি ড্রাইভার বা সিস্টেম সার্ভিস এমন মেমরি অ্যাক্সেস করার চেষ্টা করে যা তার করা উচিত নয়, সাধারণত ড্রাইভার সমস্যা বা হার্ডওয়্যার সমস্যা নির্দেশ করে। এটি সবচেয়ে সাধারণ BSOD ত্রুটি এবং প্রায়শই নতুন হার্ডওয়্যার বা ড্রাইভার ইনস্টল করার পরে দেখা যায়।",
+        causes: [
+            "ত্রুটিপূর্ণ বা অসামঞ্জস্যপূর্ণ ডিভাইস ড্রাইভার",
+            "ক্ষতিগ্রস্ত সিস্টেম ফাইল",
+            "খারাপ RAM বা হার্ডওয়্যার সমস্যা",
+            "অ্যান্টিভাইরাস সফ্টওয়্যার সংঘাত",
+            "অসামঞ্জস্যপূর্ণ সফ্টওয়্যার ইনস্টলেশন"
+        ],
+        solutions: [
+            "সমস্ত ডিভাইস ড্রাইভার আপডেট করুন, বিশেষ করে গ্রাফিক্স এবং নেটওয়ার্ক ড্রাইভার",
+            "মেমরি ডায়াগনস্টিক চালান (Win + R → mdsched.exe)",
+            "সম্প্রতি ইনস্টল করা সফ্টওয়্যার বা ড্রাইভার আনইনস্টল করুন",
+            "SFC স্ক্যান চালান: কমান্ড প্রম্পটে (অ্যাডমিন) sfc /scannow",
+            "পরীক্ষার জন্য অ্যান্টিভাইরাস সাময়িকভাবে অক্ষম বা আনইনস্টল করুন"
+        ],
+        frequency: 85,
+        severity: "উচ্চ"
+    },
+    {
+        code: "SYSTEM_SERVICE_EXCEPTION",
+        stopCode: "0x0000003B",
+        name: "সিস্টেম সার্ভিস ব্যতিক্রম",
+        description: "এই ত্রুটি ঘটে যখন একটি সিস্টেম সার্ভিস এমন একটি ব্যতিক্রমের সম্মুখীন হয় যা এটি পরিচালনা করতে পারে না, প্রায়শই গ্রাফিক্স ড্রাইভার, উইন্ডোজ আপডেট, বা ক্ষতিগ্রস্ত সিস্টেম ফাইল সম্পর্কিত। এটি প্রায়শই গেমিং বা ভিডিও প্লেব্যাকের সময় ঘটে।",
+        causes: [
+            "পুরানো বা ক্ষতিগ্রস্ত গ্রাফিক্স ড্রাইভার",
+            "অসামঞ্জস্যপূর্ণ উইন্ডোজ আপডেট",
+            "ক্ষতিগ্রস্ত সিস্টেম ফাইল",
+            "তৃতীয় পক্ষের সফ্টওয়্যার সংঘাত",
+            "অতিরিক্ত ক্লক করা হার্ডওয়্যার"
+        ],
+        solutions: [
+            "গ্রাফিক্স কার্ড ড্রাইভার আপডেট করুন (NVIDIA/AMD/Intel)",
+            "যদি আপডেটের পরে সমস্যা শুরু হয় তবে সাম্প্রতিক উইন্ডোজ আপডেট আনইনস্টল করুন",
+            "DISM চালান: DISM /Online /Cleanup-Image /RestoreHealth",
+            "সেইফ মোডে বুট করুন এবং সমস্যাযুক্ত সফ্টওয়্যার আনইনস্টল করুন",
+            "অতিরিক্ত ক্লকিং সেটিংস ডিফল্টে রিসেট করুন"
+        ],
+        frequency: 75,
+        severity: "মধ্যম"
+    },
+    {
+        code: "PAGE_FAULT_IN_NONPAGED_AREA",
+        stopCode: "0x00000050",
+        name: "ননপেজড এরিয়াতে পেজ ফল্ট",
+        description: "এই ত্রুটি নির্দেশ করে যে উইন্ডোজ এমন একটি মেমরি পেজ অ্যাক্সেস করার চেষ্টা করেছে যা উপলব্ধ ছিল না, প্রায়শই ত্রুটিপূর্ণ RAM, ক্ষতিগ্রস্ত সিস্টেম ফাইল, বা স্টোরেজ ড্রাইভে খারাপ সেক্টরের কারণে ঘটে।",
+        causes: [
+            "ত্রুটিপূর্ণ RAM মডিউল",
+            "ক্ষতিগ্রস্ত সিস্টেম ফাইল",
+            "ত্রুটিপূর্ণ হার্ড ড্রাইভ বা SSD",
+            "অসামঞ্জস্যপূর্ণ ড্রাইভার",
+            "ভাইরাস বা ম্যালওয়ার সংক্রমণ"
+        ],
+        solutions: [
+            "উইন্ডোজ মেমরি ডায়াগনস্টিক টুল চালান",
+            "CHKDSK দিয়ে হার্ড ড্রাইভ স্বাস্থ্য পরীক্ষা করুন",
+            "সমস্ত ডিভাইস ড্রাইভার আপডেট করুন",
+            "ত্রুটিপূর্ণ মডিউল চিহ্নিত করতে একবারে একটি RAM স্টিক দিয়ে পরীক্ষা করুন",
+            "পূর্ণ অ্যান্টিভাইরাস স্ক্যান চালান"
+        ],
+        frequency: 70,
+        severity: "উচ্চ"
+    },
+    {
+        code: "CRITICAL_PROCESS_DIED",
+        stopCode: "0x000000EF",
+        name: "গুরুত্বপূর্ণ প্রক্রিয়া মারা গেছে",
+        description: "একটি গুরুত্বপূর্ণ উইন্ডোজ সিস্টেম প্রক্রিয়া অপ্রত্যাশিতভাবে শেষ হয়েছে, প্রায়শই ক্ষতিগ্রস্ত সিস্টেম ফাইল, ম্যালওয়ার সংক্রমণ, বা ব্যর্থ হার্ডওয়্যারের কারণে। এই ত্রুটি উইন্ডোজকে স্বাভাবিকভাবে বুট হতে বাধা দেয়।",
+        causes: [
+            "ক্ষতিগ্রস্ত উইন্ডোজ সিস্টেম ফাইল",
+            "ম্যালওয়ার বা ভাইরাস সংক্রমণ",
+            "ব্যর্থ হার্ড ড্রাইভ",
+            "খারাপ উইন্ডোজ আপডেট",
+            "ড্রাইভার সংঘাত"
+        ],
+        solutions: [
+            "সেইফ মোডে পূর্ণ অ্যান্টিভাইরাস স্ক্যান চালান",
+            "SFC চালান: sfc /scannow",
+            "সিস্টেম ইমেজ মেরামত করতে DISM টুল চালান",
+            "পূর্বের একটি পয়েন্টে সিস্টেম রিস্টোর করুন",
+            "যদি সব ব্যর্থ হয় তবে উইন্ডোজ রিসেট করুন"
+        ],
+        frequency: 60,
+        severity: "ক্রিটিক্যাল"
+    },
+    {
+        code: "DRIVER_IRQL_NOT_LESS_OR_EQUAL",
+        stopCode: "0x000000D1",
+        name: "ড্রাইভার IRQL সমান বা বেশি নয়",
+        description: "একটি ড্রাইভার উপযুক্ত অনুমোদন ছাড়াই একটি মেমরি অ্যাড্রেস অ্যাক্সেস করার চেষ্টা করেছে, যা ড্রাইভার সংঘাত বা ক্ষতিগ্রস্ত হওয়া নির্দেশ করে। প্রায়শই নেটওয়ার্ক বা স্টোরেজ ড্রাইভার দ্বারা সৃষ্ট।",
+        causes: [
+            "অসামঞ্জস্যপূর্ণ বা পুরানো ড্রাইভার",
+            "বিভিন্ন প্রোগ্রাম থেকে সংঘর্ষকারী ড্রাইভার",
+            "ত্রুটিপূর্ণ নেটওয়ার্ক ড্রাইভার",
+            "ক্ষতিগ্রস্ত সিস্টেম ফাইল",
+            "হার্ডওয়্যার অসামঞ্জস্যতা"
+        ],
+        solutions: [
+            "নেটওয়ার্ক অ্যাডাপ্টার ড্রাইভার আপডেট করুন",
+            "সম্প্রতি ইনস্টল করা ড্রাইভার আনইনস্টল করুন",
+            "সমস্যাযুক্ত ড্রাইভার চিহ্নিত করতে ড্রাইভার ভেরিফায়ার ব্যবহার করুন",
+            "সেইফ মোডে বুট করুন এবং সংঘর্ষকারী সফ্টওয়্যার সরান",
+            "সাম্প্রতিক ড্রাইভার আপডেট রোল ব্যাক করুন"
+        ],
+        frequency: 65,
+        severity: "মধ্যম"
+    },
+    {
+        code: "MEMORY_MANAGEMENT",
+        stopCode: "0x0000001A",
+        name: "মেমরি ব্যবস্থাপনা",
+        description: "এই ত্রুটি মেমরি ব্যবস্থাপনায় একটি সমস্যা নির্দেশ করে, প্রায়শই ত্রুটিপূর্ণ RAM, ক্ষতিগ্রস্ত পেজ ফাইল, বা পুরানো BIOS-এর দিকে ইঙ্গিত করে। হার্ডওয়্যার পরিবর্তনের পরে সাধারণ।",
+        causes: [
+            "ত্রুটিপূর্ণ RAM",
+            "ক্ষতিগ্রস্ত পেজ ফাইল",
+            "হার্ড ড্রাইভে খারাপ সেক্টর",
+            "পুরানো BIOS",
+            "অসামঞ্জস্যপূর্ণ হার্ডওয়্যার"
+        ],
+        solutions: [
+            "উইন্ডোজ মেমরি ডায়াগনস্টিক চালান",
+            "ভার্চুয়াল মেমরি সেটিংস রিসেট করুন",
+            "MemTest86 দিয়ে RAM পরীক্ষা করুন",
+            "সর্বশেষ সংস্করণে BIOS আপডেট করুন",
+            "যদি চিহ্নিত হয় তবে ত্রুটিপূর্ণ RAM প্রতিস্থাপন করুন"
+        ],
+        frequency: 55,
+        severity: "উচ্চ"
+    }
+];
+
+// ইংরেজি BSOD ত্রুটি ডেটা
+const bsodErrorsEN = [
+    {
+        code: "IRQL_NOT_LESS_OR_EQUAL",
+        stopCode: "0x0000000A",
+        name: "IRQL Not Less or Equal",
+        description: "This error occurs when a driver or system service tries to access memory that it shouldn't, typically indicating driver issues or hardware problems. It's one of the most common BSOD errors and often appears after installing new hardware or drivers.",
+        causes: [
+            "Faulty or incompatible device drivers",
+            "Corrupted system files",
+            "Bad RAM or hardware issues",
+            "Antivirus software conflicts",
+            "Incompatible software installations"
+        ],
+        solutions: [
+            "Update all device drivers, especially graphics and network drivers",
+            "Run Memory Diagnostic (Win + R → mdsched.exe)",
+            "Uninstall recently installed software or drivers",
+            "Run SFC scan: sfc /scannow in Command Prompt (Admin)",
+            "Disable or uninstall antivirus temporarily to test"
+        ],
+        frequency: 85,
+        severity: "High"
+    },
+    {
+        code: "SYSTEM_SERVICE_EXCEPTION",
+        stopCode: "0x0000003B",
+        name: "System Service Exception",
+        description: "This error happens when a system service encounters an exception it can't handle, often related to graphics drivers, Windows updates, or corrupted system files. It frequently occurs during gaming or video playback.",
+        causes: [
+            "Outdated or corrupted graphics drivers",
+            "Incompatible Windows updates",
+            "Corrupted system files",
+            "Third-party software conflicts",
+            "Overclocked hardware"
+        ],
+        solutions: [
+            "Update graphics card drivers (NVIDIA/AMD/Intel)",
+            "Uninstall recent Windows updates if issue started after update",
+            "Run DISM: DISM /Online /Cleanup-Image /RestoreHealth",
+            "Boot in Safe Mode and uninstall problematic software",
+            "Reset overclocking settings to default"
+        ],
+        frequency: 75,
+        severity: "Medium"
+    },
+    {
+        code: "PAGE_FAULT_IN_NONPAGED_AREA",
+        stopCode: "0x00000050",
+        name: "Page Fault in Nonpaged Area",
+        description: "This error indicates Windows tried to access a page of memory that wasn't available, often caused by faulty RAM, corrupted system files, or bad sectors on storage drives.",
+        causes: [
+            "Defective RAM modules",
+            "Corrupted system files",
+            "Faulty hard drive or SSD",
+            "Incompatible drivers",
+            "Virus or malware infection"
+        ],
+        solutions: [
+            "Run Windows Memory Diagnostic tool",
+            "Check hard drive health with CHKDSK",
+            "Update all device drivers",
+            "Test with one RAM stick at a time to identify faulty module",
+            "Run full antivirus scan"
+        ],
+        frequency: 70,
+        severity: "High"
+    },
+    {
+        code: "CRITICAL_PROCESS_DIED",
+        stopCode: "0x000000EF",
+        name: "Critical Process Died",
+        description: "A critical Windows system process unexpectedly terminated, often due to corrupted system files, malware infection, or failing hardware. This error prevents Windows from booting normally.",
+        causes: [
+            "Corrupted Windows system files",
+            "Malware or virus infection",
+            "Failing hard drive",
+            "Bad Windows updates",
+            "Driver conflicts"
+        ],
+        solutions: [
+            "Run full antivirus scan in Safe Mode",
+            "Run SFC: sfc /scannow",
+            "Run DISM tool to repair system image",
+            "Perform System Restore to earlier point",
+            "Reset Windows if all else fails"
+        ],
+        frequency: 60,
+        severity: "Critical"
+    },
+    {
+        code: "DRIVER_IRQL_NOT_LESS_OR_EQUAL",
+        stopCode: "0x000000D1",
+        name: "Driver IRQL Not Less or Equal",
+        description: "A driver attempted to access a memory address without proper authorization, indicating driver conflicts or corruption. Often caused by network or storage drivers.",
+        causes: [
+            "Incompatible or outdated drivers",
+            "Conflicting drivers from different programs",
+            "Faulty network drivers",
+            "Damaged system files",
+            "Hardware incompatibility"
+        ],
+        solutions: [
+            "Update network adapter drivers",
+            "Uninstall recently installed drivers",
+            "Use Driver Verifier to identify problematic drivers",
+            "Boot in Safe Mode and remove conflicting software",
+            "Roll back recent driver updates"
+        ],
+        frequency: 65,
+        severity: "Medium"
+    },
+    {
+        code: "MEMORY_MANAGEMENT",
+        stopCode: "0x0000001A",
+        name: "Memory Management",
+        description: "This error indicates a problem with memory management, often pointing to faulty RAM, corrupted page files, or outdated BIOS. Common after hardware changes.",
+        causes: [
+            "Defective RAM",
+            "Corrupted page file",
+            "Bad sectors on hard drive",
+            "Outdated BIOS",
+            "Incompatible hardware"
+        ],
+        solutions: [
+            "Run Windows Memory Diagnostic",
+            "Reset virtual memory settings",
+            "Test RAM with MemTest86",
+            "Update BIOS to latest version",
+            "Replace faulty RAM if identified"
+        ],
+        frequency: 55,
+        severity: "High"
+    }
+];
+
+// FAQ ডেটা
+const faqDataBN = [
+    {
+        question: "ব্লু স্ক্রিন অফ ডেথ ত্রুটি কি কারণে হয়?",
+        answer: "BSOD ত্রুটি বিভিন্ন কারণে হতে পারে: হার্ডওয়্যার ব্যর্থতা (RAM, হার্ড ড্রাইভ, GPU), ক্ষতিগ্রস্ত সিস্টেম ফাইল, অসামঞ্জস্যপূর্ণ বা পুরানো ড্রাইভার, উপাদান অতিরিক্ত গরম, ম্যালওয়ার সংক্রমণ, ত্রুটিপূর্ণ উইন্ডোজ আপডেট, এবং সফ্টওয়্যার সংঘাত। নির্দিষ্ট কারণ চিহ্নিত করতে স্টপ কোড এবং সাম্প্রতিক সিস্টেম পরিবর্তন বিশ্লেষণ প্রয়োজন।"
+    },
+    {
+        question: "BSOD ত্রুটি কিভাবে প্রতিরোধ করব?",
+        answer: "BSOD ত্রুটি প্রতিরোধ করতে: ১) উইন্ডোজ এবং সমস্ত ড্রাইভার আপডেট রাখুন, ২) নির্ভরযোগ্য অ্যান্টিভাইরাস সফ্টওয়্যার ইনস্টল করুন, ৩) হার্ডওয়্যার স্থিতিশীল সীমার বাইরে অতিরিক্ত ক্লক করবেন না, ৪) অতিরিক্ত গরম প্রতিরোধ করতে আপনার কম্পিউটার পরিষ্কার এবং ভালভাবে বায়ুচলাচল রাখুন, ৫) সামঞ্জস্যপূর্ণ হার্ডওয়্যার এবং সফ্টওয়্যার ব্যবহার করুন, ৬) নিয়মিত সিস্টেম রিস্টোর পয়েন্ট তৈরি করুন, এবং ৭) ডিস্ক ক্লিনআপ এবং ডিফ্র্যাগমেন্টেশন এর মতো নিয়মিত রক্ষণাবেক্ষণ করুন।"
+    },
+    {
+        question: "BSOD দেখা দেওয়ার পর আমি কি করব?",
+        answer: "১) স্টপ কোড এবং ত্রুটি বার্তা নোট করুন, ২) আপনার কম্পিউটার রিস্টার্ট করুন, ৩) যদি ত্রুটি অব্যাহত থাকে, সেইফ মোডে বুট করুন, ৪) বিস্তারিত ত্রুটি লগের জন্য ইভেন্ট ভিউয়ার চেক করুন, ৫) সম্প্রতি যোগ করা সফ্টওয়্যার বা ড্রাইভার আনইনস্টল করুন, ৬) সিস্টেম ডায়াগনস্টিক্স চালান, এবং ৭) আপনার স্টপ কোডের জন্য নির্দিষ্ট সমাধান খুঁজতে এই নির্দেশিকা ব্যবহার করুন।"
+    },
+    {
+        question: "BSOD ত্রুটি কি আমার হার্ডওয়্যার ক্ষতি করতে পারে?",
+        answer: "BSOD ত্রুটি নিজেই সাধারণত হার্ডওয়্যার ক্ষতি করে না, তবে তারা বিদ্যমান হার্ডওয়্যার সমস্যার লক্ষণ হতে পারে। উদাহরণস্বরূপ, অতিরিক্ত গরমের কারণে ঘন ঘন BSOD ঘটলে শেষ পর্যন্ত উপাদানগুলি ক্ষতিগ্রস্ত হতে পারে। সম্ভাব্য হার্ডওয়্যার ক্ষতি রোধ করতে মূল কারণটি সমাধান করা গুরুত্বপূর্ণ।"
+    },
+    {
+        question: "সেইফ মোডে কিভাবে প্রবেশ করব?",
+        answer: "সেইফ মোডে প্রবেশ করতে: ১) আপনার কম্পিউটার রিস্টার্ট করুন, ২) যখন উইন্ডোজ লোড করা শুরু হয়, বুট প্রক্রিয়া বাধা দিতে পাওয়ার বাটন চেপে ধরে রাখুন, ৩) 'Preparing Automatic Repair' দেখার আগ পর্যন্ত এটি ২-৩ বার পুনরাবৃত্তি করুন, ৪) Troubleshoot > Advanced options > Startup Settings > Restart-এ যান, ৫) সেইফ মোডে শুরু করতে ৪ বা F4 চাপুন।"
+    },
+    {
+        question: "কখন উইন্ডোজ পুনরায় ইনস্টল করার কথা বিবেচনা করা উচিত?",
+        answer: "উইন্ডোজ পুনরায় ইনস্টল করার কথা বিবেচনা করুন যদি: ১) একাধিক সমস্যা সমাধানের ধাপ ব্যর্থ হয়, ২) BSOD প্যাটার্ন ছাড়াই এলোমেলোভাবে ঘটে, ৩) সিস্টেম ফাইল গুরুতরভাবে ক্ষতিগ্রস্ত হয়, ৪) ম্যালওয়ার সংক্রমণ গভীর এবং স্থায়ী হয়, ৫) আপনি সফলতা ছাড়া সমস্ত সমাধান চেষ্টা করেছেন। পুনরায় ইনস্টল করার আগে সর্বদা গুরুত্বপূর্ণ ডেটা ব্যাকআপ করুন।"
+    }
+];
+
+const faqDataEN = [
+    {
+        question: "What causes Blue Screen of Death errors?",
+        answer: "BSOD errors can be caused by various factors including: hardware failures (RAM, hard drive, GPU), corrupted system files, incompatible or outdated drivers, overheating components, malware infections, faulty Windows updates, and software conflicts. Identifying the specific cause requires analyzing the stop code and recent system changes."
+    },
+    {
+        question: "How can I prevent BSOD errors?",
+        answer: "To prevent BSOD errors: 1) Keep Windows and all drivers updated, 2) Install reliable antivirus software, 3) Don't overclock hardware beyond stable limits, 4) Keep your computer clean and well-ventilated to prevent overheating, 5) Use compatible hardware and software, 6) Create regular system restore points, and 7) Perform regular maintenance like disk cleanup and defragmentation."
+    },
+    {
+        question: "What should I do immediately after a BSOD?",
+        answer: "1) Note the stop code and error message, 2) Restart your computer, 3) If the error persists, boot into Safe Mode, 4) Check Event Viewer for detailed error logs, 5) Uninstall recently added software or drivers, 6) Run system diagnostics, and 7) Use this guide to find specific solutions for your stop code."
+    },
+    {
+        question: "Can BSOD errors damage my hardware?",
+        answer: "BSOD errors themselves don't typically damage hardware, but they can be symptoms of existing hardware problems. For example, frequent BSODs caused by overheating could eventually damage components. It's important to address the root cause to prevent potential hardware damage."
+    },
+    {
+        question: "How do I access Safe Mode?",
+        answer: "To access Safe Mode: 1) Restart your computer, 2) When Windows starts loading, press and hold the power button to interrupt the boot process, 3) Repeat this 2-3 times until you see 'Preparing Automatic Repair', 4) Go to Troubleshoot > Advanced options > Startup Settings > Restart, 5) Press 4 or F4 to start in Safe Mode."
+    },
+    {
+        question: "When should I consider reinstalling Windows?",
+        answer: "Consider reinstalling Windows if: 1) Multiple troubleshooting steps fail, 2) BSODs occur randomly without pattern, 3) System files are severely corrupted, 4) Malware infection is deep and persistent, 5) You've tried all solutions without success. Always backup important data before reinstalling."
+    }
+];
+
+// DOM রেডি
+document.addEventListener('DOMContentLoaded', function() {
+    // ভাষা টগল বাটন ইনিশিয়ালাইজ করুন
+    const languageSwitcher = document.getElementById("languageSwitcher");
+    languageSwitcher.onclick = () => toggleLanguage();
+    
+    // হ্যামবার্গার মেনু ইনিশিয়ালাইজ করুন
+    const hamburger = document.getElementById("hamburger");
+    const navbar = document.getElementById("navbar");
+    hamburger.onclick = () => {
+        navbar.classList.toggle("active");
+        hamburger.classList.toggle("active");
+    };
+
+    // মেনুর বাইরে ক্লিক করলে বন্ধ করুন
+    document.addEventListener('click', function(event) {
+        if (!navbar.contains(event.target) && !hamburger.contains(event.target)) {
+            navbar.classList.remove("active");
+            hamburger.classList.remove("active");
+        }
+    });
+
+    // ভাষা সেট করুন
+    setLanguage(currentLanguage);
+    
+    // স্ক্রল টু টপ বাটন ইনিশিয়ালাইজ করুন
+    initScrollToTop();
+    
+    // সর্বশেষ আপডেট তারিখ সেট করুন
+    document.getElementById('lastUpdated').textContent = getFormattedDate(currentLanguage);
+});
+
+// ভাষা টগল করুন
+function toggleLanguage() {
+    currentLanguage = currentLanguage === 'bn' ? 'en' : 'bn';
+    setLanguage(currentLanguage);
+    
+    // ভাষা বাটন টেক্সট আপডেট করুন
+    const languageText = document.querySelector('.language-text');
+    languageText.textContent = currentLanguage === 'bn' ? 'English' : 'বাংলা';
+    
+    // ট্র্যাকিং
+    if (window.gtag) {
+        gtag('event', 'language_switch', {
+            'event_category': 'engagement',
+            'event_label': currentLanguage
+        });
+    }
+}
+
+// ভাষা সেট করুন
+function setLanguage(lang) {
+    // HTML ল্যাঙ্গ এট্রিবিউট সেট করুন
+    document.documentElement.lang = lang;
+    
+    // বাংলা ফন্ট ক্লাস যোগ/অপসারণ করুন
+    if (lang === 'bn') {
+        document.body.classList.add('bangla-font');
+    } else {
+        document.body.classList.remove('bangla-font');
+    }
+    
+    // স্ট্যাটিক টেক্সট অনুবাদ করুন
+    translateStaticText(lang);
+    
+    // ব্রেডক্রম্ব সেট করুন
+    setBreadcrumb(lang);
+    
+    // ত্রুটি কার্ড রেন্ডার করুন
+    renderErrorCards(lang === 'bn' ? bsodErrorsBN : bsodErrorsEN);
+    
+    // FAQ রেন্ডার করুন
+    renderFAQ(lang === 'bn' ? faqDataBN : faqDataEN);
+    
+    // র্যান্ডোম BSOD ত্রুটি সেট করুন
+    setRandomBSODError(lang);
+    
+    // সার্চ প্লেসহোল্ডার আপডেট করুন
+    document.getElementById('searchInput').placeholder = translations[lang]["search-placeholder"];
+}
+
+// স্ট্যাটিক টেক্সট অনুবাদ করুন
+function translateStaticText(lang) {
+    const trans = translations[lang];
+    
+    // নেভিগেশন লিঙ্ক
+    document.querySelectorAll('.navbar a').forEach((link, index) => {
+        const keys = ["nav-home", "nav-skills", "nav-tools", "nav-certificate", "nav-contact"];
+        if (index < keys.length) {
+            const span = link.querySelector('span:not(.fa)');
+            if (span) {
+                span.textContent = trans[keys[index]];
+            }
+        }
+    });
+    
+    // পৃষ্ঠা শিরোনাম
+    document.querySelector('.tool-header h1').innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${trans["page-title"]}`;
+    document.querySelector('.tool-header p').textContent = trans["page-description"];
+    
+    // স্ট্যাটস লেবেল
+    document.querySelectorAll('.stat-label').forEach((label, index) => {
+        const keys = ["stats-errors", "stats-solutions", "stats-users", "stats-success"];
+        if (index < keys.length) {
+            label.textContent = trans[keys[index]];
+        }
+    });
+    
+    // BSOD সিমুলেটর
+    document.querySelector('.bsod-simulator h2').textContent = trans["bsod-title"];
+    const bsodParagraphs = document.querySelectorAll('.bsod-simulator p');
+    if (bsodParagraphs.length >= 2) {
+        bsodParagraphs[0].textContent = trans["bsod-line1"];
+        bsodParagraphs[1].textContent = trans["bsod-line2"];
+    }
+    
+    // দ্রুত সমাধান
+    document.querySelector('.quick-fixes h2').innerHTML = `<i class="fas fa-bolt"></i> ${trans["quick-fixes-title"]}`;
+    
+    const fixTitles = document.querySelectorAll('.fix-title');
+    const fixDescs = document.querySelectorAll('.fix-desc');
+    const fixKeys = ["fix1-title", "fix2-title", "fix3-title", "fix4-title", "fix5-title", "fix6-title"];
+    const fixDescKeys = ["fix1-desc", "fix2-desc", "fix3-desc", "fix4-desc", "fix5-desc", "fix6-desc"];
+    
+    fixTitles.forEach((title, index) => {
+        if (index < fixKeys.length) {
+            title.textContent = trans[fixKeys[index]];
+        }
+    });
+    
+    fixDescs.forEach((desc, index) => {
+        if (index < fixDescKeys.length) {
+            desc.textContent = trans[fixDescKeys[index]];
+        }
+    });
+    
+    // টুলস
+    document.querySelector('.tools-section h2').innerHTML = `<i class="fas fa-stethoscope"></i> ${trans["tools-title"]}`;
+    
+    const toolTitles = document.querySelectorAll('.tool-card h3');
+    const toolDescs = document.querySelectorAll('.tool-card p');
+    const toolBtns = document.querySelectorAll('.run-btn');
+    
+    const toolTitleKeys = ["tool1-title", "tool2-title", "tool3-title"];
+    const toolDescKeys = ["tool1-desc", "tool2-desc", "tool3-desc"];
+    
+    toolTitles.forEach((title, index) => {
+        if (index < toolTitleKeys.length) {
+            title.textContent = trans[toolTitleKeys[index]];
+        }
+    });
+    
+    toolDescs.forEach((desc, index) => {
+        if (index < toolDescKeys.length) {
+            desc.textContent = trans[toolDescKeys[index]];
+        }
+    });
+    
+    toolBtns.forEach((btn, index) => {
+        if (index < 3) {
+            btn.innerHTML = `<i class="fas fa-play"></i> ${trans["run-tool"]}`;
+        }
+    });
+    
+    // ত্রুটি সেকশন
+    document.querySelector('.error-section h2').innerHTML = `<i class="fas fa-list"></i> ${trans["errors-title"]}`;
+    
+    // FAQ সেকশন
+    document.querySelector('.faq-section h2').innerHTML = `<i class="fas fa-question-circle"></i> ${trans["faq-title"]}`;
+    
+    // ফুটার
+    document.querySelectorAll('.footer-column h3').forEach((header, index) => {
+        const keys = ["footer-about", "footer-quick-links", "footer-follow"];
+        if (index < keys.length) {
+            header.textContent = trans[keys[index]];
+        }
+    });
+    
+    const footerTexts = document.querySelectorAll('.footer-column p');
+    if (footerTexts.length >= 3) {
+        footerTexts[0].textContent = trans["footer-about-text"];
+        footerTexts[2].textContent = trans["footer-follow-text"];
+    }
+    
+    document.querySelector('.footer-bottom').textContent = trans["footer-copyright"];
+    
+    // বাটন
+    document.querySelector('.back-button').innerHTML = `<i class="fas fa-arrow-left"></i> ${trans["back-button"]}`;
+}
+
+// ব্রেডক্রম্ব সেট করুন
+function setBreadcrumb(lang) {
+    const trans = translations[lang];
+    const breadcrumbEl = document.getElementById("breadcrumb");
+    breadcrumbEl.innerHTML = `
+        <a href="../../index.html">${trans["breadcrumb-home"]}</a> / 
+        <a href="../tools.html">${trans["breadcrumb-tools"]}</a> / 
+        <a href="../tools.html#windows">${trans["breadcrumb-windows"]}</a> / 
+        <span>${trans["breadcrumb-current"]}</span>
+    `;
+}
+
+// তারিখ ফরম্যাট করুন
+function getFormattedDate(lang) {
+    const now = new Date();
+    if (lang === 'bn') {
+        const months = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+        return `${months[now.getMonth()]} ${now.getFullYear()}`;
+    } else {
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        return `${months[now.getMonth()]} ${now.getFullYear()}`;
+    }
+}
+
+// ত্রুটি কার্ড রেন্ডার করুন
+function renderErrorCards(errors) {
+    const container = document.getElementById('errorCardsContainer');
+    const trans = translations[currentLanguage];
+    
+    container.innerHTML = '';
+    
+    errors.forEach(error => {
+        const card = document.createElement('div');
+        card.className = 'error-card';
+        card.innerHTML = `
+            <div class="error-card-header">
+                <div class="error-code">
+                    ${error.code}
+                    <button class="copy-btn" onclick="copyToClipboard('${error.code}', this)">
+                        <i class="fas fa-copy"></i> ${trans["copy-button"]}
+                    </button>
+                </div>
+                <div class="error-name">${error.name} (${error.stopCode})</div>
+            </div>
+            <div class="error-body">
+                <div class="error-description">${error.description}</div>
+                
+                <div class="error-causes">
+                    <h4><i class="fas fa-exclamation-circle"></i> ${trans["causes-title"]}</h4>
+                    <ul>
+                        ${error.causes.map(cause => `<li>${cause}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="error-solutions">
+                    <h4><i class="fas fa-wrench"></i> ${trans["solutions-title"]}</h4>
+                    <ol>
+                        ${error.solutions.map(solution => `<li>${solution}</li>`).join('')}
+                    </ol>
+                </div>
+                
+                <div class="error-frequency">
+                    <div class="frequency-text">${trans["frequency"]} ${error.frequency}%</div>
+                    <div class="frequency-bar">
+                        <div class="frequency-fill" style="width: ${error.frequency}%"></div>
+                    </div>
+                    <div class="frequency-text">${trans["severity"]} ${error.severity}</div>
+                </div>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+    
+    // সার্চ রেজাল্ট কাউন্ট আপডেট করুন
+    updateSearchResultCount(errors.length, errors.length);
+}
+
+// FAQ রেন্ডার করুন
+function renderFAQ(faqData) {
+    const container = document.getElementById('faqContainer');
+    container.innerHTML = '';
+    
+    faqData.forEach((faq, index) => {
+        const item = document.createElement('div');
+        item.className = 'faq-item';
+        item.innerHTML = `
+            <div class="faq-question" onclick="toggleFAQ(${index})">
+                ${faq.question}
+                <span class="faq-toggle">+</span>
+            </div>
+            <div class="faq-answer">${faq.answer}</div>
+        `;
+        container.appendChild(item);
+    });
+}
+
+// FAQ টগল করুন
+function toggleFAQ(index) {
+    const items = document.querySelectorAll('.faq-item');
+    const item = items[index];
+    
+    // অন্যান্য আইটেম বন্ধ করুন
+    items.forEach((el, i) => {
+        if (i !== index) {
+            el.classList.remove('active');
+        }
+    });
+    
+    // বর্তমান আইটেম টগল করুন
+    item.classList.toggle('active');
+}
+
+// র্যান্ডোম BSOD ত্রুটি সেট করুন
+function setRandomBSODError(lang) {
+    const errors = lang === 'bn' ? bsodErrorsBN : bsodErrorsEN;
+    const randomError = errors[Math.floor(Math.random() * errors.length)];
+    document.getElementById('randomStopCode').textContent = randomError.stopCode;
+}
+
+// ত্রুটি অনুসন্ধান করুন
+function searchErrors() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const errors = currentLanguage === 'bn' ? bsodErrorsBN : bsodErrorsEN;
+    
+    if (!input.trim()) {
+        renderErrorCards(errors);
+        return;
+    }
+    
+    const filteredErrors = errors.filter(error => {
+        return error.code.toLowerCase().includes(input) ||
+               error.stopCode.toLowerCase().includes(input) ||
+               error.name.toLowerCase().includes(input) ||
+               error.description.toLowerCase().includes(input) ||
+               error.causes.some(cause => cause.toLowerCase().includes(input)) ||
+               error.solutions.some(solution => solution.toLowerCase().includes(input));
+    });
+    
+    renderErrorCards(filteredErrors);
+    updateSearchResultCount(filteredErrors.length, errors.length);
+}
+
+// সার্চ রেজাল্ট কাউন্ট আপডেট করুন
+function updateSearchResultCount(count, total) {
+    const trans = translations[currentLanguage];
+    const resultText = count === total ? 
+        trans["search-showing"] : 
+        trans["search-results"].replace("{{count}}", count).replace("{{total}}", total);
+    
+    document.getElementById('searchResultCount').textContent = resultText;
+}
+
+// ক্লিপবোর্ডে কপি করুন
+function copyToClipboard(text, button) {
+    const trans = translations[currentLanguage];
+    
+    navigator.clipboard.writeText(text).then(() => {
+        // সফলতা বার্তা দেখান
+        const originalHTML = button.innerHTML;
+        button.innerHTML = `<i class="fas fa-check"></i> ${trans["copied-button"]}`;
+        button.style.background = '#059669';
+        
+        setTimeout(() => {
+            button.innerHTML = originalHTML;
+            button.style.background = '';
+        }, 2000);
+    });
+}
+
+// ডায়াগনস্টিক টুল চালান
+function runDiagnostic(tool) {
+    const messages = currentLanguage === 'bn' ? {
+        memory: "উইন্ডোজ মেমরি ডায়াগনস্টিক চালানো হচ্ছে... এটি আপনার কম্পিউটার রিস্টার্ট করবে। প্রথমে আপনার কাজ সেভ করুন।",
+        disk: "ডিস্ক চেক (CHKDSK) চালানো হচ্ছে... এটি আপনার ড্রাইভের আকারের উপর নির্ভর করে কয়েক মিনিট সময় নিতে পারে।",
+        sfc: "সিস্টেম ফাইল চেকার (SFC) চালানো হচ্ছে... এটি স্ক্যান করবে এবং ক্ষতিগ্রস্ত সিস্টেম ফাইল মেরামত করবে।"
+    } : {
+        memory: "Running Windows Memory Diagnostic... This will restart your computer. Save your work first.",
+        disk: "Running disk check (CHKDSK)... This may take several minutes depending on your drive size.",
+        sfc: "Running System File Checker (SFC)... This will scan and repair corrupted system files."
+    };
+    
+    alert(messages[tool]);
+    
+    // ডায়াগনস্টিক টুল ব্যবহার ট্র্যাক করুন
+    if (window.gtag) {
+        gtag('event', 'diagnostic_tool_run', {
+            'event_category': 'tools',
+            'event_label': tool,
+            'language': currentLanguage
+        });
+    }
+}
+
+// স্ক্রল টু টপ বাটন ইনিশিয়ালাইজ করুন
+function initScrollToTop() {
+    const scrollButton = document.getElementById('scrollToTop');
+    
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollButton.classList.add('visible');
+        } else {
+            scrollButton.classList.remove('visible');
+        }
+    });
+    
+    scrollButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// Google Analytics
+(function() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+    document.head.appendChild(script);
+    
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5H7RZ72M1J');
+    window.gtag = gtag;
+})();
+</script>
+</body>
+</html>

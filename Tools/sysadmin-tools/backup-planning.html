@@ -1,0 +1,2395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backup Planning Calculator | System Administration Tools</title>
+    
+    <!-- ==================== Basic SEO Meta Tags ==================== -->
+    <meta name="description" content="Professional Backup Planning Calculator for system administrators. Plan backup strategies, calculate storage requirements, and optimize backup schedules.">
+    <meta name="keywords" content="backup planning, backup calculator, data backup, disaster recovery, storage planning, system administration tools, IT infrastructure, data protection">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    
+    <!-- ==================== Open Graph Tags ==================== -->
+    <meta property="og:title" content="Professional Backup Planning Calculator | System Admin Tools">
+    <meta property="og:description" content="Plan backup strategies, calculate storage requirements, and optimize backup schedules for your IT infrastructure.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/tools/sysadmin-tools/backup-planning.html">
+    <meta property="og:site_name" content="System Administration Tools">
+    
+    <!-- ==================== Additional SEO Tags ==================== -->
+    <link rel="canonical" href="https://asadul-it.github.io/portfolio/tools/sysadmin-tools/backup-planning.html">
+    
+    <!-- ==================== Schema.org Structured Data ==================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Backup Planning Calculator",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web",
+        "description": "Professional backup planning calculator for system administrators",
+        "url": "https://asadul-it.github.io/portfolio/tools/sysadmin-tools/backup-planning.html",
+        "author": {
+            "@type": "Person",
+            "name": "Asadul Islam"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <!-- ==================== Fonts and Icons ==================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ==================== CSS Reset & Base Styles ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #dbeafe;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+            --danger-red: #ef4444;
+            --info-cyan: #06b6d4;
+            --text-dark: #1f2937;
+            --text-medium: #4b5563;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+            --background-light: #f9fafb;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: var(--text-dark);
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==================== Header Styles ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            box-shadow: var(--shadow-sm);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+            transition: all var(--transition-normal);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: transform var(--transition-fast);
+        }
+
+        .logo-container:hover {
+            transform: translateY(-1px);
+        }
+
+        .logo-icon {
+            background-color: var(--info-cyan);
+            color: #ffffff;
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition-normal);
+        }
+
+        .logo-icon:hover {
+            background-color: #0891b2;
+            transform: rotate(5deg);
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.2;
+        }
+
+        .logo-subtext {
+            font-size: 12px;
+            color: var(--text-light);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==================== Navigation Styles ==================== */
+        .navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-blue);
+            transition: width var(--transition-normal);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            color: var(--primary-blue);
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* ==================== Hamburger Menu ==================== */
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-blue);
+            border-radius: 3px;
+            transition: all var(--transition-normal);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(1) {
+            transform: translateY(9px) rotate(45deg);
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active .hamburger-line:nth-child(3) {
+            transform: translateY(-9px) rotate(-45deg);
+        }
+
+        /* ==================== Breadcrumb Styles ==================== */
+        .breadcrumb-container {
+            background-color: var(--background-light);
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            font-size: 14px;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .breadcrumb-link {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .breadcrumb-link:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
+        }
+
+        .breadcrumb-separator {
+            color: var(--text-light);
+            font-size: 12px;
+        }
+
+        .breadcrumb-current {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* ==================== Main Content Styles ==================== */
+        .main-content-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .page-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .page-description {
+            font-size: 18px;
+            color: var(--text-medium);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ==================== Calculator Container ==================== */
+        .calculator-container {
+            background-color: #ffffff;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .calculator-header {
+            background: linear-gradient(135deg, var(--info-cyan), #0891b2);
+            padding: 24px 32px;
+            color: #ffffff;
+        }
+
+        .calculator-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .calculator-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .calculator-body {
+            padding: 40px 32px;
+        }
+
+        /* ==================== Calculator Grid ==================== */
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .input-section, .results-section {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--primary-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            color: var(--info-cyan);
+        }
+
+        /* ==================== Input Groups ==================== */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .input-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-label i {
+            color: var(--info-cyan);
+            width: 20px;
+        }
+
+        .input-hint {
+            font-size: 13px;
+            color: var(--text-light);
+            font-style: italic;
+            margin-top: -5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-dark);
+            background-color: #ffffff;
+            transition: all var(--transition-fast);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--info-cyan);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+        }
+
+        .input-field.error {
+            border-color: var(--danger-red);
+        }
+
+        .input-unit {
+            position: absolute;
+            right: 16px;
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .select-field {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%234b5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 44px;
+        }
+
+        .backup-strategy-presets {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .strategy-preset-btn {
+            padding: 8px 16px;
+            background-color: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .strategy-preset-btn:hover {
+            background-color: var(--primary-light);
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .strategy-preset-btn.active {
+            background-color: var(--info-cyan);
+            border-color: var(--info-cyan);
+            color: white;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 5px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: var(--radius-sm);
+            transition: background-color var(--transition-fast);
+        }
+
+        .radio-option:hover {
+            background-color: var(--background-light);
+        }
+
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .radio-label {
+            font-weight: 500;
+            color: var(--text-dark);
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .radio-description {
+            font-size: 12px;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        /* ==================== Button Styles ==================== */
+        .button-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .button {
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            font-family: 'Montserrat', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .button-primary {
+            background-color: var(--info-cyan);
+            color: #ffffff;
+            flex: 1;
+        }
+
+        .button-primary:hover {
+            background-color: #0891b2;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .button-secondary {
+            background-color: #f3f4f6;
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .button-secondary:hover {
+            background-color: #e5e7eb;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .button-icon {
+            font-size: 18px;
+        }
+
+        /* ==================== Results Display ==================== */
+        .results-display {
+            background-color: var(--background-light);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--info-cyan);
+        }
+
+        .result-unit {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-left: 4px;
+        }
+
+        .result-note {
+            margin-top: 20px;
+            padding: 16px;
+            background-color: #ecfeff;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            color: #155e75;
+            border-left: 4px solid var(--info-cyan);
+        }
+
+        /* ==================== Backup Schedule Timeline ==================== */
+        .schedule-timeline {
+            margin-top: 40px;
+        }
+
+        .timeline-container {
+            background-color: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .timeline-legend {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+        }
+
+        .timeline-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .timeline-legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .timeline-period {
+            background-color: var(--background-light);
+            border-radius: var(--radius-sm);
+            padding: 15px;
+            border: 1px solid var(--border-color);
+        }
+
+        .timeline-period-title {
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timeline-backups {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .backup-item {
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 100px;
+        }
+
+        .backup-full {
+            background-color: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #93c5fd;
+        }
+
+        .backup-incremental {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .backup-differential {
+            background-color: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fcd34d;
+        }
+
+        /* ==================== Visualization Section ==================== */
+        .visualization-section {
+            margin-top: 40px;
+        }
+
+        .visualization-container {
+            background-color: #ffffff;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .visualization-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .visualization-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .visualization-legend {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+
+        .legend-text {
+            color: var(--text-medium);
+        }
+
+        .storage-bar-container {
+            width: 100%;
+            height: 120px;
+            background-color: #f1f5f9;
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .storage-bar {
+            position: absolute;
+            height: 100%;
+            transition: width 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 14px;
+        }
+
+        .storage-bar-initial {
+            background-color: var(--info-cyan);
+            left: 0;
+        }
+
+        .storage-bar-incremental {
+            background-color: var(--success-green);
+        }
+
+        .storage-bar-retention {
+            background-color: var(--warning-orange);
+        }
+
+        .storage-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 14px;
+            color: var(--text-medium);
+        }
+
+        /* ==================== Information Section ==================== */
+        .info-section {
+            margin-top: 40px;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .info-card {
+            background-color: #ffffff;
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition-normal);
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .info-card-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #ecfeff;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            color: var(--info-cyan);
+            font-size: 20px;
+        }
+
+        .info-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .info-card-content {
+            font-size: 14px;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* ==================== Footer Styles ==================== */
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid var(--border-color);
+            margin-top: 80px;
+            padding-top: 40px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--info-cyan);
+        }
+
+        .footer-description {
+            font-size: 14px;
+            color: var(--text-medium);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .footer-link {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-link:hover {
+            color: var(--info-cyan);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: #f3f4f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: all var(--transition-normal);
+        }
+
+        .social-link:hover {
+            background-color: var(--info-cyan);
+            color: #ffffff;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            margin-top: 40px;
+            padding: 24px 0;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* ==================== Responsive Styles ==================== */
+        @media (max-width: 1024px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 12px 20px;
+            }
+            
+            .hamburger-menu {
+                display: flex;
+            }
+            
+            .navbar {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                box-shadow: var(--shadow-lg);
+                padding: 20px;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all var(--transition-normal);
+                z-index: 999;
+            }
+            
+            .navbar.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .nav-menu {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .nav-item {
+                width: 100%;
+            }
+            
+            .nav-link {
+                padding: 16px 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            .nav-link:last-child {
+                border-bottom: none;
+            }
+            
+            .page-title {
+                font-size: 28px;
+            }
+            
+            .page-description {
+                font-size: 16px;
+            }
+            
+            .calculator-body {
+                padding: 32px 20px;
+            }
+            
+            .calculator-header {
+                padding: 20px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .button {
+                width: 100%;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            
+            .visualization-container {
+                padding: 24px 20px;
+            }
+            
+            .backup-strategy-presets {
+                justify-content: center;
+            }
+            
+            .timeline-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .timeline-legend {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content-container {
+                padding: 0 16px;
+            }
+            
+            .calculator-body {
+                padding: 24px 16px;
+            }
+            
+            .page-title {
+                font-size: 24px;
+            }
+            
+            .result-value {
+                font-size: 18px;
+            }
+            
+            .info-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .visualization-legend {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .timeline-backups {
+                justify-content: center;
+            }
+        }
+
+        /* ==================== Utility Classes ==================== */
+        .hidden {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .mt-40 {
+            margin-top: 40px;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        /* ==================== Animation Keyframes ==================== */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(6, 182, 212, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+            }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- ==================== Header Section ==================== -->
+    <header class="fixed-header-container">
+        <div class="header-content">
+            <a href="../../index.html" class="logo-container">
+                <div class="logo-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div>
+                    <div class="logo-text">Backup Planning Calculator</div>
+                    <div class="logo-subtext">System Administration Tools</div>
+                </div>
+            </a>
+            
+            <nav class="navbar" id="navbar">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="../../index.html" class="nav-link">
+                            <i class="fas fa-home nav-icon"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../skills.html" class="nav-link">
+                            <i class="fas fa-cogs nav-icon"></i>
+                            <span>Skills</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../tools.html" class="nav-link active">
+                            <i class="fas fa-tools nav-icon"></i>
+                            <span>Tools</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../certificate.html" class="nav-link">
+                            <i class="fas fa-certificate nav-icon"></i>
+                            <span>Certificate</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="../../contact.html" class="nav-link">
+                            <i class="fas fa-phone nav-icon"></i>
+                            <span>Contact</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <button class="hamburger-menu" id="hamburger">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== Breadcrumb Section ==================== -->
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb" id="breadcrumb" aria-label="Breadcrumb">
+            <!-- Breadcrumb will be populated by JavaScript -->
+        </nav>
+    </div>
+
+    <!-- ==================== Main Content Section ==================== -->
+    <main class="main-content-container">
+        <div class="page-header">
+            <h1 class="page-title">Professional Backup Planning Calculator</h1>
+            <p class="page-description">
+                Plan comprehensive backup strategies, calculate storage requirements, and optimize backup schedules 
+                for your critical data and IT infrastructure.
+            </p>
+        </div>
+
+        <!-- ==================== Calculator Container ==================== -->
+        <div class="calculator-container">
+            <div class="calculator-header">
+                <h2 class="calculator-title">
+                    <i class="fas fa-calculator"></i>
+                    Backup Strategy Planner
+                </h2>
+                <p class="calculator-subtitle">Calculate storage needs and plan backup schedules for your data protection strategy</p>
+            </div>
+            
+            <div class="calculator-body">
+                <div class="calculator-grid">
+                    <!-- Input Section -->
+                    <div class="input-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-sliders-h section-icon"></i>
+                            Backup Parameters
+                        </h3>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-database"></i>
+                                Total Data Size
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="dataSize" 
+                                    class="input-field" 
+                                    min="1" 
+                                    max="1000000" 
+                                    value="500"
+                                    step="1"
+                                >
+                                <select id="dataSizeUnit" class="input-field select-field" style="margin-left: 10px; width: 120px;">
+                                    <option value="GB" selected>GB</option>
+                                    <option value="TB">TB</option>
+                                    <option value="PB">PB</option>
+                                </select>
+                            </div>
+                            <p class="input-hint">Total size of data to be backed up</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-chart-line"></i>
+                                Daily Change Rate
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="changeRate" 
+                                    class="input-field" 
+                                    min="0.1" 
+                                    max="50" 
+                                    value="5"
+                                    step="0.1"
+                                >
+                                <span class="input-unit">%</span>
+                            </div>
+                            <p class="input-hint">Percentage of data that changes daily</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-cogs"></i>
+                                Backup Strategy
+                            </label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="backupStrategy" value="full" checked>
+                                    <div>
+                                        <div class="radio-label">Full Backup Only</div>
+                                        <div class="radio-description">Complete backup of all data each time</div>
+                                    </div>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="backupStrategy" value="incremental">
+                                    <div>
+                                        <div class="radio-label">Incremental Backup</div>
+                                        <div class="radio-description">Backup only changed data since last backup</div>
+                                    </div>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="backupStrategy" value="differential">
+                                    <div>
+                                        <div class="radio-label">Differential Backup</div>
+                                        <div class="radio-description">Backup changes since last full backup</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-calendar-alt"></i>
+                                Retention Policy
+                            </label>
+                            <div class="input-wrapper">
+                                <select id="retentionPolicy" class="input-field select-field">
+                                    <option value="30">30 days (Short-term)</option>
+                                    <option value="90" selected>90 days (Standard)</option>
+                                    <option value="180">180 days (Medium-term)</option>
+                                    <option value="365">365 days (Long-term)</option>
+                                    <option value="730">2 years (Archival)</option>
+                                </select>
+                            </div>
+                            <p class="input-hint">How long to keep backup copies</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-compress-arrows-alt"></i>
+                                Compression Ratio
+                            </label>
+                            <div class="input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="compressionRatio" 
+                                    class="input-field" 
+                                    min="1" 
+                                    max="10" 
+                                    value="2"
+                                    step="0.1"
+                                >
+                                <span class="input-unit">:1</span>
+                            </div>
+                            <p class="input-hint">Compression ratio (e.g., 2:1 means 50% size reduction)</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label class="input-label">
+                                <i class="fas fa-project-diagram"></i>
+                                Backup Strategy Presets
+                            </label>
+                            <div class="backup-strategy-presets">
+                                <button class="strategy-preset-btn" data-preset="basic">Basic</button>
+                                <button class="strategy-preset-btn active" data-preset="standard">Standard</button>
+                                <button class="strategy-preset-btn" data-preset="enterprise">Enterprise</button>
+                                <button class="strategy-preset-btn" data-preset="compliance">Compliance</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Results Section -->
+                    <div class="results-section">
+                        <h3 class="section-title">
+                            <i class="fas fa-chart-bar section-icon"></i>
+                            Calculation Results
+                        </h3>
+                        
+                        <div class="results-display fade-in">
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-hdd"></i>
+                                    Initial Backup Size
+                                </div>
+                                <div class="result-value" id="initialBackupSize">250<span class="result-unit">GB</span></div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    Daily Backup Size
+                                </div>
+                                <div class="result-value" id="dailyBackupSize">12.5<span class="result-unit">GB</span></div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-calendar-week"></i>
+                                    Weekly Backup Size
+                                </div>
+                                <div class="result-value" id="weeklyBackupSize">87.5<span class="result-unit">GB</span></div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-server"></i>
+                                    Monthly Storage Need
+                                </div>
+                                <div class="result-value" id="monthlyStorage">375<span class="result-unit">GB</span></div>
+                            </div>
+                            
+                            <div class="result-item">
+                                <div class="result-label">
+                                    <i class="fas fa-boxes"></i>
+                                    Total Storage Required
+                                </div>
+                                <div class="result-value" id="totalStorage">11.25<span class="result-unit">TB</span></div>
+                            </div>
+                            
+                            <div class="result-note">
+                                <i class="fas fa-info-circle"></i>
+                                <strong>Note:</strong> Based on <span id="currentStrategy">Standard</span> backup strategy with 
+                                <span id="currentRetention">90 days</span> retention period.
+                            </div>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button id="calculateBtn" class="button button-primary pulse-animation">
+                                <i class="fas fa-calculator button-icon"></i>
+                                Calculate Backup Plan
+                            </button>
+                            <button id="resetBtn" class="button button-secondary">
+                                <i class="fas fa-redo button-icon"></i>
+                                Reset Calculator
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Backup Schedule Timeline -->
+                <div class="schedule-timeline">
+                    <div class="timeline-container">
+                        <div class="timeline-header">
+                            <h4 class="timeline-title">Recommended Backup Schedule</h4>
+                            <div class="timeline-legend">
+                                <div class="timeline-legend-item">
+                                    <div class="timeline-legend-color" style="background-color: #dbeafe;"></div>
+                                    <span>Full Backup</span>
+                                </div>
+                                <div class="timeline-legend-item">
+                                    <div class="timeline-legend-color" style="background-color: #dcfce7;"></div>
+                                    <span>Incremental Backup</span>
+                                </div>
+                                <div class="timeline-legend-item">
+                                    <div class="timeline-legend-color" style="background-color: #fef3c7;"></div>
+                                    <span>Differential Backup</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline" id="backupTimeline">
+                            <!-- Timeline will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Visualization Section -->
+                <div class="visualization-section">
+                    <div class="visualization-container">
+                        <div class="visualization-header">
+                            <h4 class="visualization-title">Storage Distribution Visualization</h4>
+                            <div class="visualization-legend">
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #06b6d4;"></div>
+                                    <span class="legend-text">Initial Backup</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #10b981;"></div>
+                                    <span class="legend-text">Incremental Data</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color" style="background-color: #f59e0b;"></div>
+                                    <span class="legend-text">Retention Buffer</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="storage-bar-container">
+                            <div id="storageBarInitial" class="storage-bar storage-bar-initial" style="width: 40%;">Initial: 250GB</div>
+                            <div id="storageBarIncremental" class="storage-bar storage-bar-incremental" style="width: 30%; left: 40%;">Incremental: 187.5GB</div>
+                            <div id="storageBarRetention" class="storage-bar storage-bar-retention" style="width: 30%; left: 70%;">Retention: 187.5GB</div>
+                        </div>
+                        
+                        <div class="storage-labels">
+                            <span>0 GB</span>
+                            <span id="storageMidLabel">375 GB</span>
+                            <span id="storageMaxLabel">750 GB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ==================== Information Section ==================== -->
+        <div class="info-section">
+            <h3 class="section-title text-center mb-40">
+                <i class="fas fa-info-circle section-icon"></i>
+                Backup Strategy Guidelines
+            </h3>
+            
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4 class="info-card-title">3-2-1 Backup Rule</h4>
+                    <p class="info-card-content">
+                        Maintain 3 copies of your data: original plus 2 backups. Store backups on 2 different media types. 
+                        Keep 1 copy offsite. This ensures protection against hardware failure, site disasters, and cyber threats.
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h4 class="info-card-title">Backup Testing</h4>
+                    <p class="info-card-content">
+                        Regularly test backup restoration to ensure data recoverability. Schedule quarterly test restores, 
+                        verify backup integrity, document restoration procedures, and train staff on recovery processes.
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-card-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h4 class="info-card-title">Retention Best Practices</h4>
+                    <p class="info-card-content">
+                        Implement tiered retention: keep daily backups for 30 days, weekly for 3 months, monthly for 1 year, 
+                        and annual backups for 7+ years. Consider regulatory requirements for different data types.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== Footer Section ==================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 class="footer-title">About This Tool</h3>
+                <p class="footer-description">
+                    Professional Backup Planning Calculator designed for system administrators, IT managers, 
+                    and data protection specialists. Plan comprehensive backup strategies and ensure data 
+                    recoverability for your organization.
+                </p>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" class="social-link" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/asadul-it" class="social-link" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" class="social-link" target="_blank" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/8801706927793" class="social-link" target="_blank" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Quick Links</h3>
+                <div class="footer-links">
+                    <a href="../../index.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Home
+                    </a>
+                    <a href="../../skills.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Skills
+                    </a>
+                    <a href="../tools.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Tools
+                    </a>
+                    <a href="../../certificate.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Certificates
+                    </a>
+                    <a href="../../contact.html" class="footer-link">
+                        <i class="fas fa-chevron-right"></i>
+                        Contact
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">System Tools</h3>
+                <div class="footer-links">
+                    <a href="ram-usage-calculator.html" class="footer-link">
+                        <i class="fas fa-memory"></i>
+                        RAM Usage Calculator
+                    </a>
+                    <a href="uptime-calculator.html" class="footer-link">
+                        <i class="fas fa-chart-line"></i>
+                        Uptime Calculator
+                    </a>
+                    <a href="backup-planning.html" class="footer-link">
+                        <i class="fas fa-database"></i>
+                        Backup Planning Calculator
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-network-wired"></i>
+                        Bandwidth Calculator
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-server"></i>
+                        Server Sizing Tool
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Professional IT Tools | System Administration Utilities | All Rights Reserved</p>
+            <p style="margin-top: 8px; font-size: 13px;">Designed for IT Professionals & System Administrators</p>
+        </div>
+    </footer>
+
+    <!-- ==================== JavaScript ==================== -->
+    <script>
+        // DOM Elements
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const breadcrumb = document.getElementById('breadcrumb');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const backupTimeline = document.getElementById('backupTimeline');
+        
+        // Input Elements
+        const dataSizeInput = document.getElementById('dataSize');
+        const dataSizeUnitSelect = document.getElementById('dataSizeUnit');
+        const changeRateInput = document.getElementById('changeRate');
+        const backupStrategyRadios = document.querySelectorAll('input[name="backupStrategy"]');
+        const retentionPolicySelect = document.getElementById('retentionPolicy');
+        const compressionRatioInput = document.getElementById('compressionRatio');
+        const strategyPresetButtons = document.querySelectorAll('.strategy-preset-btn');
+        
+        // Result Elements
+        const initialBackupSizeEl = document.getElementById('initialBackupSize');
+        const dailyBackupSizeEl = document.getElementById('dailyBackupSize');
+        const weeklyBackupSizeEl = document.getElementById('weeklyBackupSize');
+        const monthlyStorageEl = document.getElementById('monthlyStorage');
+        const totalStorageEl = document.getElementById('totalStorage');
+        const currentStrategyEl = document.getElementById('currentStrategy');
+        const currentRetentionEl = document.getElementById('currentRetention');
+        
+        // Visualization Elements
+        const storageBarInitial = document.getElementById('storageBarInitial');
+        const storageBarIncremental = document.getElementById('storageBarIncremental');
+        const storageBarRetention = document.getElementById('storageBarRetention');
+        const storageMidLabel = document.getElementById('storageMidLabel');
+        const storageMaxLabel = document.getElementById('storageMaxLabel');
+        
+        // Unit conversion factors (to GB)
+        const unitConversion = {
+            GB: 1,
+            TB: 1024,
+            PB: 1048576
+        };
+        
+        // Backup strategy presets
+        const backupPresets = {
+            basic: {
+                strategy: 'full',
+                retention: 30,
+                compression: 1.5,
+                changeRate: 3
+            },
+            standard: {
+                strategy: 'incremental',
+                retention: 90,
+                compression: 2,
+                changeRate: 5
+            },
+            enterprise: {
+                strategy: 'differential',
+                retention: 365,
+                compression: 3,
+                changeRate: 8
+            },
+            compliance: {
+                strategy: 'full',
+                retention: 730,
+                compression: 2.5,
+                changeRate: 10
+            }
+        };
+        
+        // ==================== Utility Functions ====================
+        
+        function updateBreadcrumb() {
+            const breadcrumbItems = [
+                { name: 'Home', link: '../../index.html' },
+                { name: 'Tools', link: '../tools.html' },
+                { name: 'System Admin Tools', link: '../tools.html' },
+                { name: 'Backup Planning Calculator', link: 'backup-planning.html' }
+            ];
+            
+            let breadcrumbHTML = '';
+            
+            breadcrumbItems.forEach((item, index) => {
+                if (index === breadcrumbItems.length - 1) {
+                    breadcrumbHTML += `
+                        <div class="breadcrumb-item">
+                            <span class="breadcrumb-current">${item.name}</span>
+                        </div>
+                    `;
+                } else {
+                    breadcrumbHTML += `
+                        <div class="breadcrumb-item">
+                            <a href="${item.link}" class="breadcrumb-link">
+                                <i class="fas fa-home"></i>
+                                ${item.name}
+                            </a>
+                            <span class="breadcrumb-separator">/</span>
+                        </div>
+                    `;
+                }
+            });
+            
+            breadcrumb.innerHTML = breadcrumbHTML;
+        }
+        
+        function formatStorageSize(gbSize) {
+            if (gbSize >= 1024 * 1024) { // PB
+                return `${(gbSize / (1024 * 1024)).toFixed(2)} PB`;
+            } else if (gbSize >= 1024) { // TB
+                return `${(gbSize / 1024).toFixed(2)} TB`;
+            } else if (gbSize >= 1) { // GB
+                return `${gbSize.toFixed(2)} GB`;
+            } else { // MB
+                return `${(gbSize * 1024).toFixed(2)} MB`;
+            }
+        }
+        
+        function formatNumber(num, decimals = 2) {
+            return parseFloat(num.toFixed(decimals)).toLocaleString();
+        }
+        
+        function getSelectedBackupStrategy() {
+            for (const radio of backupStrategyRadios) {
+                if (radio.checked) {
+                    return radio.value;
+                }
+            }
+            return 'full'; // Default
+        }
+        
+        function calculateBackupRequirements() {
+            // Get input values
+            const dataSize = parseFloat(dataSizeInput.value) || 500;
+            const dataSizeUnit = dataSizeUnitSelect.value;
+            const changeRate = parseFloat(changeRateInput.value) || 5;
+            const strategy = getSelectedBackupStrategy();
+            const retentionDays = parseInt(retentionPolicySelect.value) || 90;
+            const compressionRatio = parseFloat(compressionRatioInput.value) || 2;
+            
+            // Convert data size to GB
+            const dataSizeGB = dataSize * unitConversion[dataSizeUnit];
+            
+            // Apply compression
+            const compressedDataSizeGB = dataSizeGB / compressionRatio;
+            
+            // Calculate initial backup size (compressed)
+            const initialBackupGB = compressedDataSizeGB;
+            
+            // Calculate daily change size
+            const dailyChangeGB = (changeRate / 100) * compressedDataSizeGB;
+            
+            // Calculate backup sizes based on strategy
+            let dailyBackupGB = 0;
+            let weeklyBackupGB = 0;
+            let monthlyBackupGB = 0;
+            
+            switch(strategy) {
+                case 'full':
+                    dailyBackupGB = initialBackupGB;
+                    weeklyBackupGB = initialBackupGB * 7;
+                    monthlyBackupGB = initialBackupGB * 30;
+                    break;
+                case 'incremental':
+                    dailyBackupGB = dailyChangeGB;
+                    weeklyBackupGB = (initialBackupGB + (dailyChangeGB * 6)); // Full + 6 incremental
+                    monthlyBackupGB = (initialBackupGB * 4) + (dailyChangeGB * 26); // 4 full + 26 incremental
+                    break;
+                case 'differential':
+                    dailyBackupGB = dailyChangeGB * 1; // Grows each day
+                    weeklyBackupGB = (initialBackupGB + (dailyChangeGB * 6)); // Full + differential of 6 days
+                    monthlyBackupGB = (initialBackupGB * 4) + (dailyChangeGB * 26); // 4 full + differential
+                    break;
+            }
+            
+            // Calculate storage needs
+            const monthlyStorageGB = monthlyBackupGB;
+            
+            // Calculate total storage for retention period
+            let totalStorageGB = 0;
+            
+            switch(strategy) {
+                case 'full':
+                    totalStorageGB = initialBackupGB * retentionDays;
+                    break;
+                case 'incremental':
+                    // For 90 days: 13 full backups (weekly) + daily incrementals
+                    const weeks = Math.ceil(retentionDays / 7);
+                    totalStorageGB = (initialBackupGB * weeks) + (dailyChangeGB * (retentionDays - weeks));
+                    break;
+                case 'differential':
+                    // For 90 days: 13 full backups + differentials
+                    totalStorageGB = (initialBackupGB * weeks) + (dailyChangeGB * weeks * 6); // Approximate
+                    break;
+            }
+            
+            // Update result display
+            initialBackupSizeEl.innerHTML = `${formatNumber(initialBackupGB, 2)}<span class="result-unit">GB</span>`;
+            dailyBackupSizeEl.innerHTML = `${formatNumber(dailyBackupGB, 2)}<span class="result-unit">GB</span>`;
+            weeklyBackupSizeEl.innerHTML = `${formatNumber(weeklyBackupGB, 2)}<span class="result-unit">GB</span>`;
+            monthlyStorageEl.innerHTML = `${formatNumber(monthlyStorageGB, 2)}<span class="result-unit">GB</span>`;
+            totalStorageEl.innerHTML = formatStorageSize(totalStorageGB);
+            
+            // Update note
+            const strategyNames = {
+                full: 'Full Backup Only',
+                incremental: 'Incremental Backup',
+                differential: 'Differential Backup'
+            };
+            currentStrategyEl.textContent = strategyNames[strategy];
+            currentRetentionEl.textContent = `${retentionDays} days`;
+            
+            // Update visualization
+            updateVisualization(initialBackupGB, dailyBackupGB, totalStorageGB);
+            
+            // Update timeline
+            updateBackupTimeline(strategy, retentionDays);
+            
+            // Add fade-in animation to results
+            const resultsDisplay = document.querySelector('.results-display');
+            resultsDisplay.classList.remove('fade-in');
+            void resultsDisplay.offsetWidth; // Trigger reflow
+            resultsDisplay.classList.add('fade-in');
+            
+            // Log calculation for debugging
+            console.log('Backup Calculation Results:', {
+                dataSizeGB,
+                compressedDataSizeGB,
+                strategy,
+                retentionDays,
+                initialBackupGB,
+                dailyBackupGB,
+                weeklyBackupGB,
+                monthlyStorageGB,
+                totalStorageGB
+            });
+            
+            return {
+                initialBackupGB,
+                dailyBackupGB,
+                weeklyBackupGB,
+                monthlyStorageGB,
+                totalStorageGB
+            };
+        }
+        
+        function updateVisualization(initialBackupGB, dailyBackupGB, totalStorageGB) {
+            // Calculate percentages for visualization
+            const maxDisplayGB = Math.max(totalStorageGB, initialBackupGB * 3);
+            const initialPercentage = (initialBackupGB / maxDisplayGB) * 100;
+            const incrementalPercentage = (dailyBackupGB * 30 / maxDisplayGB) * 100;
+            const retentionPercentage = 100 - initialPercentage - incrementalPercentage;
+            
+            // Update bar widths
+            storageBarInitial.style.width = `${initialPercentage}%`;
+            storageBarIncremental.style.width = `${incrementalPercentage}%`;
+            storageBarIncremental.style.left = `${initialPercentage}%`;
+            storageBarRetention.style.width = `${retentionPercentage}%`;
+            storageBarRetention.style.left = `${initialPercentage + incrementalPercentage}%`;
+            
+            // Update bar labels
+            storageBarInitial.textContent = `Initial: ${formatNumber(initialBackupGB, 1)}GB`;
+            storageBarIncremental.textContent = `Incremental: ${formatNumber(dailyBackupGB * 30, 1)}GB`;
+            storageBarRetention.textContent = `Retention: ${formatNumber(totalStorageGB - initialBackupGB - (dailyBackupGB * 30), 1)}GB`;
+            
+            // Update labels
+            storageMidLabel.textContent = `${formatNumber(maxDisplayGB / 2, 0)} GB`;
+            storageMaxLabel.textContent = `${formatNumber(maxDisplayGB, 0)} GB`;
+        }
+        
+        function updateBackupTimeline(strategy, retentionDays) {
+            let timelineHTML = '';
+            
+            // Create timeline based on strategy
+            if (strategy === 'full') {
+                // Daily full backups
+                for (let week = 1; week <= Math.ceil(retentionDays / 7); week++) {
+                    timelineHTML += `
+                        <div class="timeline-period">
+                            <div class="timeline-period-title">
+                                <i class="fas fa-calendar-week"></i>
+                                Week ${week}
+                            </div>
+                            <div class="timeline-backups">
+                                ${Array.from({length: 7}, (_, i) => `
+                                    <div class="backup-item backup-full">
+                                        <i class="fas fa-database"></i>
+                                        Day ${i + 1}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+            } else if (strategy === 'incremental') {
+                // Weekly full + daily incremental
+                for (let week = 1; week <= Math.ceil(retentionDays / 7); week++) {
+                    timelineHTML += `
+                        <div class="timeline-period">
+                            <div class="timeline-period-title">
+                                <i class="fas fa-calendar-week"></i>
+                                Week ${week}
+                            </div>
+                            <div class="timeline-backups">
+                                <div class="backup-item backup-full">
+                                    <i class="fas fa-database"></i>
+                                    Sunday (Full)
+                                </div>
+                                ${Array.from({length: 6}, (_, i) => `
+                                    <div class="backup-item backup-incremental">
+                                        <i class="fas fa-plus-circle"></i>
+                                        Day ${i + 2}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+            } else if (strategy === 'differential') {
+                // Weekly full + daily differential
+                for (let week = 1; week <= Math.ceil(retentionDays / 7); week++) {
+                    timelineHTML += `
+                        <div class="timeline-period">
+                            <div class="timeline-period-title">
+                                <i class="fas fa-calendar-week"></i>
+                                Week ${week}
+                            </div>
+                            <div class="timeline-backups">
+                                <div class="backup-item backup-full">
+                                    <i class="fas fa-database"></i>
+                                    Sunday (Full)
+                                </div>
+                                ${Array.from({length: 6}, (_, i) => `
+                                    <div class="backup-item backup-differential">
+                                        <i class="fas fa-layer-group"></i>
+                                        Day ${i + 2}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            backupTimeline.innerHTML = timelineHTML;
+        }
+        
+        function resetCalculator() {
+            dataSizeInput.value = 500;
+            dataSizeUnitSelect.value = 'GB';
+            changeRateInput.value = 5;
+            document.querySelector('input[name="backupStrategy"][value="incremental"]').checked = true;
+            retentionPolicySelect.value = '90';
+            compressionRatioInput.value = 2;
+            
+            // Reset strategy preset buttons
+            strategyPresetButtons.forEach(btn => {
+                if (btn.dataset.preset === 'standard') {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Calculate with default values
+            calculateBackupRequirements();
+            
+            // Show success message
+            showNotification('Calculator reset to default values', 'success');
+        }
+        
+        function applyPreset(presetName) {
+            const preset = backupPresets[presetName];
+            
+            if (!preset) return;
+            
+            // Update inputs based on preset
+            changeRateInput.value = preset.changeRate;
+            
+            // Set backup strategy radio
+            document.querySelector(`input[name="backupStrategy"][value="${preset.strategy}"]`).checked = true;
+            
+            // Set retention
+            retentionPolicySelect.value = preset.retention;
+            
+            // Set compression
+            compressionRatioInput.value = preset.compression;
+            
+            // Update active preset button
+            strategyPresetButtons.forEach(btn => {
+                if (btn.dataset.preset === presetName) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Recalculate
+            if (validateInputs()) {
+                calculateBackupRequirements();
+                showNotification(`${presetName.charAt(0).toUpperCase() + presetName.slice(1)} preset applied`, 'success');
+            }
+        }
+        
+        function showNotification(message, type = 'info') {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            
+            let icon = 'info-circle';
+            if (type === 'success') icon = 'check-circle';
+            if (type === 'error') icon = 'exclamation-circle';
+            
+            notification.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${message}</span>
+                <button class="notification-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add styles for notification if not already added
+            if (!document.querySelector('#notification-styles')) {
+                const styleEl = document.createElement('style');
+                styleEl.id = 'notification-styles';
+                styleEl.textContent = `
+                    .notification {
+                        position: fixed;
+                        top: 100px;
+                        right: 20px;
+                        background: #ffffff;
+                        border-radius: 8px;
+                        padding: 16px 20px;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                        display: flex;
+                        align-items: center;
+                        gap: 12px;
+                        z-index: 10000;
+                        border-left: 4px solid #06b6d4;
+                        animation: slideInRight 0.3s ease;
+                        max-width: 350px;
+                    }
+                    
+                    .notification-success {
+                        border-left-color: #10b981;
+                    }
+                    
+                    .notification-error {
+                        border-left-color: #ef4444;
+                    }
+                    
+                    .notification i {
+                        font-size: 18px;
+                        color: #06b6d4;
+                    }
+                    
+                    .notification-success i {
+                        color: #10b981;
+                    }
+                    
+                    .notification-error i {
+                        color: #ef4444;
+                    }
+                    
+                    .notification span {
+                        flex: 1;
+                        font-size: 14px;
+                        font-weight: 500;
+                    }
+                    
+                    .notification-close {
+                        background: none;
+                        border: none;
+                        color: #6b7280;
+                        cursor: pointer;
+                        font-size: 14px;
+                        padding: 4px;
+                        border-radius: 4px;
+                        transition: background 0.2s;
+                    }
+                    
+                    .notification-close:hover {
+                        background: #f3f4f6;
+                    }
+                    
+                    @keyframes slideInRight {
+                        from {
+                            transform: translateX(100%);
+                            opacity: 0;
+                        }
+                        to {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                    }
+                `;
+                document.head.appendChild(styleEl);
+            }
+            
+            // Add to DOM
+            document.body.appendChild(notification);
+            
+            // Add close functionality
+            const closeBtn = notification.querySelector('.notification-close');
+            closeBtn.addEventListener('click', () => {
+                notification.style.animation = 'slideInRight 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            });
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideInRight 0.3s ease reverse';
+                    setTimeout(() => notification.remove(), 300);
+                }
+            }, 5000);
+        }
+        
+        function validateInputs() {
+            let isValid = true;
+            
+            const dataSize = parseFloat(dataSizeInput.value);
+            if (isNaN(dataSize) || dataSize <= 0 || dataSize > 1000000) {
+                dataSizeInput.classList.add('error');
+                isValid = false;
+                showNotification('Please enter a valid data size (1-1,000,000)', 'error');
+            } else {
+                dataSizeInput.classList.remove('error');
+            }
+            
+            const changeRate = parseFloat(changeRateInput.value);
+            if (isNaN(changeRate) || changeRate < 0.1 || changeRate > 50) {
+                changeRateInput.classList.add('error');
+                isValid = false;
+                if (!isValid) showNotification('Please enter a valid change rate (0.1-50%)', 'error');
+            } else {
+                changeRateInput.classList.remove('error');
+            }
+            
+            const compressionRatio = parseFloat(compressionRatioInput.value);
+            if (isNaN(compressionRatio) || compressionRatio < 1 || compressionRatio > 10) {
+                compressionRatioInput.classList.add('error');
+                isValid = false;
+                if (!isValid) showNotification('Please enter a valid compression ratio (1-10)', 'error');
+            } else {
+                compressionRatioInput.classList.remove('error');
+            }
+            
+            return isValid;
+        }
+        
+        function initializeEventListeners() {
+            // Hamburger menu toggle
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navbar.classList.toggle('active');
+                
+                // Track mobile menu usage
+                if (window.gtag) {
+                    gtag('event', 'mobile_menu_toggle', {
+                        'event_category': 'ui_interaction',
+                        'event_label': 'mobile_menu_opened'
+                    });
+                }
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!navbar.contains(event.target) && !hamburger.contains(event.target) && navbar.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    navbar.classList.remove('active');
+                }
+            });
+            
+            // Calculate button click
+            calculateBtn.addEventListener('click', () => {
+                if (validateInputs()) {
+                    calculateBackupRequirements();
+                    
+                    // Show success notification
+                    showNotification('Backup plan calculated successfully!', 'success');
+                    
+                    // Track calculation event
+                    if (window.gtag) {
+                        gtag('event', 'calculate_backup', {
+                            'event_category': 'calculator',
+                            'event_label': 'backup_calculation'
+                        });
+                    }
+                }
+            });
+            
+            // Reset button click
+            resetBtn.addEventListener('click', resetCalculator);
+            
+            // Strategy preset buttons
+            strategyPresetButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const presetName = btn.dataset.preset;
+                    applyPreset(presetName);
+                });
+            });
+            
+            // Input validation on change
+            const inputElements = [
+                dataSizeInput,
+                changeRateInput,
+                compressionRatioInput
+            ];
+            
+            inputElements.forEach(input => {
+                input.addEventListener('input', () => {
+                    input.classList.remove('error');
+                });
+            });
+            
+            // Recalculate when strategy or retention changes
+            backupStrategyRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    if (validateInputs()) {
+                        calculateBackupRequirements();
+                    }
+                });
+            });
+            
+            retentionPolicySelect.addEventListener('change', () => {
+                if (validateInputs()) {
+                    calculateBackupRequirements();
+                }
+            });
+            
+            // Calculate on Enter key in inputs
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' && 
+                    (event.target.tagName === 'INPUT' || event.target.tagName === 'SELECT')) {
+                    if (validateInputs()) {
+                        calculateBackupRequirements();
+                        showNotification('Calculated with Enter key', 'success');
+                    }
+                }
+            });
+            
+            // Recalculate when any input changes (with debounce)
+            let recalcTimeout;
+            const recalcInputs = document.querySelectorAll('.input-field, .select-field, input[type="radio"]');
+            recalcInputs.forEach(input => {
+                input.addEventListener('change', () => {
+                    clearTimeout(recalcTimeout);
+                    recalcTimeout = setTimeout(() => {
+                        if (validateInputs()) {
+                            calculateBackupRequirements();
+                        }
+                    }, 300);
+                });
+            });
+        }
+        
+        // ==================== Initialize Application ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize breadcrumb
+            updateBreadcrumb();
+            
+            // Initialize event listeners
+            initializeEventListeners();
+            
+            // Calculate initial values
+            calculateBackupRequirements();
+            
+            // Add loading animation to calculate button
+            calculateBtn.classList.add('pulse-animation');
+            
+            // Track page view
+            if (window.gtag) {
+                gtag('event', 'page_view', {
+                    'page_title': 'Backup Planning Calculator',
+                    'page_location': window.location.href
+                });
+            }
+            
+            // Initialize scroll tracking
+            let maxScrollDepth = 0;
+            window.addEventListener('scroll', () => {
+                const scrollDepth = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+                if (scrollDepth > maxScrollDepth && scrollDepth % 25 === 0) {
+                    maxScrollDepth = scrollDepth;
+                    if (window.gtag) {
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': scrollDepth + '%_scrolled',
+                            'value': scrollDepth
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Google Analytics 4
+        (function() {
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+            document.head.appendChild(script);
+            
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-5H7RZ72M1J', {
+                'send_page_view': true,
+                'anonymize_ip': true,
+                'allow_google_signals': false
+            });
+            window.gtag = gtag;
+        })();
+    </script>
+</body>
+</html>

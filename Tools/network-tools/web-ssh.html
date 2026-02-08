@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web SSH Client - Online Tools</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #ffffff;
+            color: #000000;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* Header Navigation */
+        .main-header {
+            background: #ffffff;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            margin: -20px -20px 0 -20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo h1 {
+            color: #667eea;
+            font-size: 1.8em;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        /* Navigation Container */
+        .nav-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #navMenu {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 0;
+            padding: 0;
+        }
+
+        #navMenu li {
+            margin: 0;
+        }
+
+        #navMenu li a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95em;
+            background: transparent;
+        }
+
+        #navMenu li a:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Back Button */
+        .back-button-container {
+            margin: 30px 0 20px 0;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: #ffffff;
+            color: #000000;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button:hover {
+            background: #667eea;
+            color: #ffffff;
+            border-color: #667eea;
+            transform: translateX(-5px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .back-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .back-button:hover i {
+            transform: translateX(-3px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: #000000;
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: #000000;
+        }
+
+        .header h1 i {
+            animation: pulse 2s infinite;
+            color: #667eea;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .header p {
+            font-size: 1.2em;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        .tool-card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+            border: 2px solid #e0e0e0;
+        }
+
+        /* Connection Form */
+        .connection-form {
+            margin-bottom: 30px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+        }
+
+        .form-group label i {
+            color: #667eea;
+            margin-right: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e0e4e8;
+            border-radius: 12px;
+            font-size: 1.05em;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.3s ease;
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .form-checkbox input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .form-checkbox label {
+            margin: 0;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Quick Connections */
+        .quick-connections {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .quick-connections-title {
+            font-weight: 600;
+            color: #000000;
+            margin-bottom: 12px;
+            font-size: 1.05em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-connections-title i {
+            color: #667eea;
+        }
+
+        .quick-connections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .quick-connection-btn {
+            padding: 14px 22px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #000000;
+            font-size: 0.95em;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            text-align: left;
+        }
+
+        .quick-connection-btn:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+        }
+
+        .quick-connection-btn i {
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
+        /* Button Group */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05em;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: #ffffff;
+            flex: 1;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #5568d3;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-primary:active:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #e53e3e;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(229, 62, 62, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: #c53030;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(229, 62, 62, 0.4);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background: #27c93f;
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(39, 201, 63, 0.3);
+        }
+
+        .btn-success:hover {
+            background: #20a836;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(39, 201, 63, 0.4);
+        }
+
+        /* Terminal Container */
+        .terminal-container {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .terminal-container.active {
+            display: block;
+            animation: slideUp 0.4s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .terminal-header {
+            background: #323232;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .terminal-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-title {
+            margin-left: 10px;
+            color: #d4d4d4;
+            font-size: 0.9em;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .terminal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .terminal-action-btn {
+            background: none;
+            border: none;
+            color: #d4d4d4;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .terminal-action-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .terminal-body {
+            background: #1e1e1e;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95em;
+            line-height: 1.6;
+            color: #d4d4d4;
+            height: 500px;
+            overflow-y: auto;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+
+        .terminal-output {
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin-bottom: 10px;
+        }
+
+        .terminal-input-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .terminal-prompt {
+            color: #4ec9b0;
+            white-space: nowrap;
+        }
+
+        .terminal-input {
+            background: transparent;
+            border: none;
+            color: #d4d4d4;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95em;
+            width: 100%;
+            outline: none;
+            caret-color: #4ec9b0;
+        }
+
+        /* Connection Status */
+        .connection-status {
+            display: none;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .connection-status.active {
+            display: flex;
+            animation: slideUp 0.4s ease;
+        }
+
+        .connection-status.connected {
+            background: rgba(39, 201, 63, 0.1);
+            border: 2px solid #27c93f;
+        }
+
+        .connection-status.disconnected {
+            background: rgba(229, 62, 62, 0.1);
+            border: 2px solid #e53e3e;
+        }
+
+        .connection-status.connecting {
+            background: rgba(255, 189, 46, 0.1);
+            border: 2px solid #ffbd2e;
+        }
+
+        .connection-status-icon {
+            font-size: 1.5em;
+        }
+
+        .connection-status.connected .connection-status-icon {
+            color: #27c93f;
+        }
+
+        .connection-status.disconnected .connection-status-icon {
+            color: #e53e3e;
+        }
+
+        .connection-status.connecting .connection-status-icon {
+            color: #ffbd2e;
+            animation: pulse 1.5s infinite;
+        }
+
+        .connection-status-text {
+            font-weight: 600;
+            color: #000000;
+        }
+
+        /* Footer */
+        .main-footer {
+            background: #ffffff;
+            margin: 60px -20px -20px -20px;
+            padding: 50px 40px 30px 40px;
+            border-top: 2px solid #e0e0e0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+
+        .footer-column p {
+            color: #5a6c7d;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: #5a6c7d;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-column ul li a:hover {
+            color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .footer-column ul li i {
+            color: #667eea;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            background: #ffffff;
+            color: #000000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid #e0e0e0;
+        }
+
+        .social-links a:hover {
+            background: #667eea;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            border-color: #667eea;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 2px solid #e0e0e0;
+            color: #000000;
+            font-size: 0.95em;
+        }
+
+        .footer-bottom i {
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+        }
+
+        /* Error Message */
+        .error-message {
+            color: #e53e3e;
+            font-size: 0.9em;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid rgba(102, 126, 234, 0.2);
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .logo h1 {
+                font-size: 1.5em;
+            }
+
+            .nav-container {
+                justify-content: center;
+                width: 100%;
+            }
+
+            #navMenu {
+                justify-content: center;
+                gap: 8px;
+            }
+
+            #navMenu li a {
+                padding: 8px 12px;
+                font-size: 0.85em;
+            }
+
+            .back-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header p {
+                font-size: 1em;
+            }
+
+            .tool-card {
+                padding: 30px 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .quick-connections-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .terminal-body {
+                height: 400px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .terminal-header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .terminal-actions {
+                align-self: flex-end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Navigation -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo">
+                <h1>ONLINE TOOLS</h1>
+            </div>
+            <div class="nav-container">
+                <ul id="navMenu">
+                    <li><a href="../../index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="../../skills.html"><i class="fas fa-cogs"></i> Skills</a></li>
+                    <li><a href="../tools.html"><i class="fas fa-tools"></i> Tools</a></li>
+                    <li><a href="../../certificate.html"><i class="fas fa-certificate"></i> Certificate</a></li>
+                    <li><a href="../../contact.html"><i class="fas fa-phone"></i> Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="back-button-container">
+            <a href="../tools.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Tools
+            </a>
+        </div>
+
+        <div class="header">
+            <h1><i class="fas fa-terminal"></i> Web SSH Client</h1>
+            <p>Connect to remote servers via SSH directly from your browser</p>
+        </div>
+
+        <div class="tool-card">
+            <!-- Quick Connections -->
+            <div class="quick-connections">
+                <div class="quick-connections-title">
+                    <i class="fas fa-bolt"></i> Quick Connections
+                </div>
+                <div class="quick-connections-grid">
+                    <button class="quick-connection-btn" onclick="loadQuickConnection('ubuntu-server')">
+                        <i class="fab fa-ubuntu"></i>
+                        <div>
+                            <div style="font-weight: 700;">Ubuntu Server</div>
+                            <div style="font-size: 0.85em; color: #666;">SSH to Ubuntu</div>
+                        </div>
+                    </button>
+                    <button class="quick-connection-btn" onclick="loadQuickConnection('debian-server')">
+                        <i class="fab fa-linux"></i>
+                        <div>
+                            <div style="font-weight: 700;">Debian Server</div>
+                            <div style="font-size: 0.85em; color: #666;">SSH to Debian</div>
+                        </div>
+                    </button>
+                    <button class="quick-connection-btn" onclick="loadQuickConnection('centos-server')">
+                        <i class="fab fa-centos"></i>
+                        <div>
+                            <div style="font-weight: 700;">CentOS Server</div>
+                            <div style="font-size: 0.85em; color: #666;">SSH to CentOS</div>
+                        </div>
+                    </button>
+                    <button class="quick-connection-btn" onclick="loadQuickConnection('aws-ec2')">
+                        <i class="fab fa-aws"></i>
+                        <div>
+                            <div style="font-weight: 700;">AWS EC2</div>
+                            <div style="font-size: 0.85em; color: #666;">Connect to EC2</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Connection Form -->
+            <div class="connection-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-server"></i> Host Address
+                        </label>
+                        <input 
+                            type="text" 
+                            id="hostAddress" 
+                            placeholder="e.g., 192.168.1.100 or example.com"
+                            value="localhost"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-network-wired"></i> Port
+                        </label>
+                        <input 
+                            type="number" 
+                            id="port" 
+                            placeholder="22"
+                            value="22"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-user"></i> Username
+                        </label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            placeholder="e.g., root or admin"
+                            value="user"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <i class="fas fa-key"></i> Authentication Method
+                        </label>
+                        <select id="authMethod" onchange="togglePasswordField()">
+                            <option value="password">Password</option>
+                            <option value="key">Private Key</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="passwordField" class="form-group">
+                    <label>
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        placeholder="Enter your password"
+                        value="password"
+                    >
+                </div>
+
+                <div id="keyField" class="form-group" style="display: none;">
+                    <label>
+                        <i class="fas fa-key"></i> Private Key
+                    </label>
+                    <textarea 
+                        id="privateKey" 
+                        placeholder="Paste your private key here"
+                        rows="4"
+                        style="width: 100%; padding: 15px 20px; border: 2px solid #e0e4e8; border-radius: 12px; font-family: 'JetBrains Mono', monospace; resize: vertical;"
+                    ></textarea>
+                </div>
+
+                <div class="form-checkbox">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Remember connection settings</label>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" id="connectBtn" onclick="connectSSH()">
+                        <i class="fas fa-plug"></i> Connect
+                    </button>
+                    <button class="btn btn-secondary" id="disconnectBtn" onclick="disconnectSSH()" disabled>
+                        <i class="fas fa-plug-circle-xmark"></i> Disconnect
+                    </button>
+                    <button class="btn btn-success" onclick="clearTerminal()">
+                        <i class="fas fa-broom"></i> Clear Terminal
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p style="color: #667eea; font-weight: 600;">Establishing SSH connection...</p>
+            </div>
+
+            <!-- Connection Status -->
+            <div class="connection-status disconnected" id="connectionStatus">
+                <div class="connection-status-icon">
+                    <i class="fas fa-circle"></i>
+                </div>
+                <div class="connection-status-text">Disconnected</div>
+            </div>
+
+            <!-- Terminal Container -->
+            <div class="terminal-container" id="terminalContainer">
+                <div class="terminal-header">
+                    <div class="terminal-header-left">
+                        <div class="terminal-dot dot-red"></div>
+                        <div class="terminal-dot dot-yellow"></div>
+                        <div class="terminal-dot dot-green"></div>
+                        <div class="terminal-title" id="terminalTitle">SSH Terminal - Not Connected</div>
+                    </div>
+                    <div class="terminal-actions">
+                        <button class="terminal-action-btn" onclick="copyTerminal()" title="Copy Terminal">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <button class="terminal-action-btn" onclick="clearTerminal()" title="Clear Terminal">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="terminal-action-btn" onclick="fullscreenTerminal()" title="Fullscreen">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="terminal-body" id="terminalBody">
+                    <div class="terminal-output" id="terminalOutput">
+                        Welcome to Web SSH Client<br>
+                        Enter your connection details and click Connect to start.<br><br>
+                        <span style="color: #4ec9b0;"># Available Commands:</span><br>
+                        • connect - Connect to SSH server<br>
+                        • disconnect - Disconnect from SSH server<br>
+                        • clear - Clear terminal<br>
+                        • help - Show this help message<br><br>
+                        <span style="color: #4ec9b0;">$</span> Ready for connection...
+                    </div>
+                    <div class="terminal-input-line">
+                        <div class="terminal-prompt" id="terminalPrompt">$</div>
+                        <input type="text" class="terminal-input" id="terminalInput" placeholder="Type 'connect' to start or enter SSH command..." disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About Tools</h3>
+                <p>Free collection of online tools for everyday tasks. No installation required, works directly in your browser.</p>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="../../index.html">Home</a></li>
+                    <li><a href="../../skills.html">Skills</a></li>
+                    <li><a href="../../certificate.html">Certificate</a></li>
+                    <li><a href="../../contact.html">Contact</a></li>
+                    <li><a href="../../blog.html">Blog</a></li>
+                    <li><a href="../../Tools/tools.html">Tools</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="mailto:asadul.it@yahoo.com"><i class="fas fa-envelope"></i> asadul.it@yahoo.com</a></li>
+                    <li><a href="tel:01706927793"><i class="fas fa-phone"></i> 01706927793</a></li>
+                    <li><i class="fas fa-map-marker-alt"></i> Savar, Dhaka</li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect</h3>
+                <div class="social-links">
+                    <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="https://github.com/asadul-it" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://wa.me/8801706927793" target="_blank" title="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Online Tools. All rights reserved. | Developed with <i class="fas fa-heart" style="color: #e53e3e;"></i> by Asadul Islam</p>
+        </div>
+    </footer>
+
+    <script>
+        // State variables
+        let isConnected = false;
+        let sshSocket = null;
+        let terminalHistory = [];
+        let historyIndex = -1;
+
+        // DOM Elements
+        const terminalContainer = document.getElementById('terminalContainer');
+        const terminalBody = document.getElementById('terminalBody');
+        const terminalOutput = document.getElementById('terminalOutput');
+        const terminalInput = document.getElementById('terminalInput');
+        const terminalPrompt = document.getElementById('terminalPrompt');
+        const terminalTitle = document.getElementById('terminalTitle');
+        const connectionStatus = document.getElementById('connectionStatus');
+        const loading = document.getElementById('loading');
+        const connectBtn = document.getElementById('connectBtn');
+        const disconnectBtn = document.getElementById('disconnectBtn');
+
+        // Toggle password/key field based on authentication method
+        function togglePasswordField() {
+            const authMethod = document.getElementById('authMethod').value;
+            const passwordField = document.getElementById('passwordField');
+            const keyField = document.getElementById('keyField');
+            
+            if (authMethod === 'password') {
+                passwordField.style.display = 'block';
+                keyField.style.display = 'none';
+            } else {
+                passwordField.style.display = 'none';
+                keyField.style.display = 'block';
+            }
+        }
+
+        // Load quick connection presets
+        function loadQuickConnection(type) {
+            const connections = {
+                'ubuntu-server': {
+                    host: 'ubuntu.example.com',
+                    port: 22,
+                    username: 'ubuntu',
+                    authMethod: 'password'
+                },
+                'debian-server': {
+                    host: 'debian.example.com',
+                    port: 22,
+                    username: 'admin',
+                    authMethod: 'password'
+                },
+                'centos-server': {
+                    host: 'centos.example.com',
+                    port: 22,
+                    username: 'root',
+                    authMethod: 'password'
+                },
+                'aws-ec2': {
+                    host: 'ec2-xxx-xxx-xxx-xxx.compute-1.amazonaws.com',
+                    port: 22,
+                    username: 'ec2-user',
+                    authMethod: 'key'
+                }
+            };
+
+            const conn = connections[type] || connections['ubuntu-server'];
+            
+            document.getElementById('hostAddress').value = conn.host;
+            document.getElementById('port').value = conn.port;
+            document.getElementById('username').value = conn.username;
+            document.getElementById('authMethod').value = conn.authMethod;
+            
+            togglePasswordField();
+            
+            if (conn.authMethod === 'key') {
+                document.getElementById('privateKey').value = 
+                    '-----BEGIN RSA PRIVATE KEY-----\n' +
+                    'MIIEowIBAAKCAQEAtQc6I... (sample key)\n' +
+                    '-----END RSA PRIVATE KEY-----';
+            }
+            
+            addToTerminal(`Loaded ${type} configuration`);
+        }
+
+        // Connect to SSH server
+        function connectSSH() {
+            const host = document.getElementById('hostAddress').value.trim();
+            const port = document.getElementById('port').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const authMethod = document.getElementById('authMethod').value;
+            const password = document.getElementById('password').value;
+            const privateKey = document.getElementById('privateKey').value.trim();
+
+            // Validation
+            if (!host) {
+                showError('Please enter host address');
+                return;
+            }
+            if (!port) {
+                showError('Please enter port number');
+                return;
+            }
+            if (!username) {
+                showError('Please enter username');
+                return;
+            }
+            if (authMethod === 'password' && !password) {
+                showError('Please enter password');
+                return;
+            }
+            if (authMethod === 'key' && !privateKey) {
+                showError('Please enter private key');
+                return;
+            }
+
+            // Show loading and update UI
+            loading.classList.add('show');
+            updateConnectionStatus('connecting');
+            terminalInput.disabled = true;
+
+            // Simulate SSH connection (in a real app, this would connect to a backend)
+            setTimeout(() => {
+                // Check if it's a localhost/demo connection
+                if (host === 'localhost' || host === '127.0.0.1') {
+                    simulateLocalSSHConnection();
+                } else {
+                    simulateRemoteSSHConnection(host, port, username);
+                }
+            }, 2000);
+        }
+
+        // Simulate local SSH connection (for demo)
+        function simulateLocalSSHConnection() {
+            loading.classList.remove('show');
+            isConnected = true;
+            
+            // Update UI
+            updateConnectionStatus('connected');
+            terminalInput.disabled = false;
+            terminalInput.focus();
+            
+            connectBtn.disabled = true;
+            disconnectBtn.disabled = false;
+            
+            // Update terminal
+            terminalContainer.classList.add('active');
+            terminalTitle.textContent = `SSH Terminal - Connected to localhost`;
+            terminalPrompt.textContent = `${document.getElementById('username').value}@localhost:~$ `;
+            
+            // Add welcome message
+            addToTerminal('Connected to SSH server');
+            addToTerminal('Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 5.15.0-91-generic x86_64)');
+            addToTerminal('');
+            addToTerminal(' * Documentation:  https://help.ubuntu.com');
+            addToTerminal(' * Management:     https://landscape.canonical.com');
+            addToTerminal(' * Support:        https://ubuntu.com/advantage');
+            addToTerminal('');
+            addToTerminal('  System information as of ' + new Date().toLocaleString());
+            addToTerminal('');
+            addToTerminal('  System load:  0.12               Processes:             245');
+            addToTerminal('  Usage of /:   24.8% of 19.21GB   Users logged in:       1');
+            addToTerminal('  Memory usage: 37%                IPv4 address for eth0: 192.168.1.100');
+            addToTerminal('  Swap usage:   0%');
+            addToTerminal('');
+            addToTerminal('0 updates can be applied immediately.');
+            addToTerminal('');
+            addToTerminal('Last login: ' + new Date().toLocaleString() + ' from 192.168.1.50');
+            addToTerminal('');
+            
+            // Remember connection settings
+            if (document.getElementById('rememberMe').checked) {
+                saveConnectionSettings();
+            }
+        }
+
+        // Simulate remote SSH connection
+        function simulateRemoteSSHConnection(host, port, username) {
+            loading.classList.remove('show');
+            
+            // 50% chance of success for demo
+            if (Math.random() > 0.5) {
+                isConnected = true;
+                updateConnectionStatus('connected');
+                terminalInput.disabled = false;
+                terminalInput.focus();
+                
+                connectBtn.disabled = true;
+                disconnectBtn.disabled = false;
+                
+                terminalContainer.classList.add('active');
+                terminalTitle.textContent = `SSH Terminal - Connected to ${host}:${port}`;
+                terminalPrompt.textContent = `${username}@${host}:~$ `;
+                
+                addToTerminal(`Connected to ${host}:${port}`);
+                addToTerminal('Welcome to remote SSH server');
+                addToTerminal('Type your commands below...');
+                
+                if (document.getElementById('rememberMe').checked) {
+                    saveConnectionSettings();
+                }
+            } else {
+                // Simulate connection failure
+                updateConnectionStatus('disconnected');
+                addToTerminal(`Connection failed: Could not connect to ${host}:${port}`);
+                addToTerminal('Please check your connection details and try again.');
+                showError('Connection failed. Please check your credentials.');
+            }
+        }
+
+        // Disconnect from SSH
+        function disconnectSSH() {
+            if (sshSocket) {
+                sshSocket.close();
+                sshSocket = null;
+            }
+            
+            isConnected = false;
+            updateConnectionStatus('disconnected');
+            
+            connectBtn.disabled = false;
+            disconnectBtn.disabled = true;
+            
+            terminalInput.disabled = true;
+            terminalTitle.textContent = 'SSH Terminal - Not Connected';
+            terminalPrompt.textContent = '$';
+            
+            addToTerminal('Disconnected from SSH server');
+        }
+
+        // Update connection status UI
+        function updateConnectionStatus(status) {
+            connectionStatus.className = 'connection-status ' + status;
+            connectionStatus.classList.add('active');
+            
+            const statusText = connectionStatus.querySelector('.connection-status-text');
+            const statusIcon = connectionStatus.querySelector('.connection-status-icon i');
+            
+            switch(status) {
+                case 'connected':
+                    statusText.textContent = 'Connected';
+                    statusIcon.className = 'fas fa-circle';
+                    break;
+                case 'disconnected':
+                    statusText.textContent = 'Disconnected';
+                    statusIcon.className = 'fas fa-circle';
+                    break;
+                case 'connecting':
+                    statusText.textContent = 'Connecting...';
+                    statusIcon.className = 'fas fa-circle';
+                    break;
+            }
+        }
+
+        // Add text to terminal output
+        function addToTerminal(text) {
+            const line = document.createElement('div');
+            line.className = 'terminal-output-line';
+            line.textContent = text;
+            terminalOutput.appendChild(line);
+            
+            // Auto scroll to bottom
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+        }
+
+        // Clear terminal
+        function clearTerminal() {
+            terminalOutput.innerHTML = '';
+            addToTerminal('Terminal cleared');
+        }
+
+        // Copy terminal content
+        function copyTerminal() {
+            const text = terminalOutput.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                addToTerminal('Terminal content copied to clipboard');
+            });
+        }
+
+        // Toggle fullscreen
+        function fullscreenTerminal() {
+            const elem = terminalBody;
+            if (!document.fullscreenElement) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        // Save connection settings to localStorage
+        function saveConnectionSettings() {
+            const settings = {
+                host: document.getElementById('hostAddress').value,
+                port: document.getElementById('port').value,
+                username: document.getElementById('username').value,
+                authMethod: document.getElementById('authMethod').value,
+                rememberMe: document.getElementById('rememberMe').checked
+            };
+            
+            localStorage.setItem('sshConnectionSettings', JSON.stringify(settings));
+        }
+
+        // Load saved connection settings
+        function loadConnectionSettings() {
+            const saved = localStorage.getItem('sshConnectionSettings');
+            if (saved) {
+                try {
+                    const settings = JSON.parse(saved);
+                    document.getElementById('hostAddress').value = settings.host || '';
+                    document.getElementById('port').value = settings.port || '22';
+                    document.getElementById('username').value = settings.username || '';
+                    document.getElementById('authMethod').value = settings.authMethod || 'password';
+                    document.getElementById('rememberMe').checked = settings.rememberMe || false;
+                    
+                    togglePasswordField();
+                } catch (e) {
+                    console.error('Error loading saved settings:', e);
+                }
+            }
+        }
+
+        // Show error message
+        function showError(message) {
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message show';
+            errorDiv.textContent = message;
+            
+            // Remove any existing error
+            const existingError = document.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+            
+            // Add new error
+            document.querySelector('.connection-form').appendChild(errorDiv);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+
+        // Handle terminal input
+        terminalInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const command = terminalInput.value.trim();
+                terminalInput.value = '';
+                
+                if (command) {
+                    // Add to history
+                    terminalHistory.push(command);
+                    historyIndex = terminalHistory.length;
+                    
+                    // Display command
+                    addToTerminal(terminalPrompt.textContent + command);
+                    
+                    // Process command
+                    processCommand(command);
+                }
+            } else if (e.key === 'ArrowUp') {
+                // Navigate history up
+                if (terminalHistory.length > 0) {
+                    if (historyIndex > 0) {
+                        historyIndex--;
+                    }
+                    terminalInput.value = terminalHistory[historyIndex] || '';
+                }
+                e.preventDefault();
+            } else if (e.key === 'ArrowDown') {
+                // Navigate history down
+                if (terminalHistory.length > 0) {
+                    if (historyIndex < terminalHistory.length - 1) {
+                        historyIndex++;
+                        terminalInput.value = terminalHistory[historyIndex] || '';
+                    } else {
+                        historyIndex = terminalHistory.length;
+                        terminalInput.value = '';
+                    }
+                }
+                e.preventDefault();
+            }
+        });
+
+        // Process terminal commands
+        function processCommand(command) {
+            // Local commands
+            switch(command.toLowerCase()) {
+                case 'help':
+                    addToTerminal('Available commands:');
+                    addToTerminal('  clear      - Clear terminal screen');
+                    addToTerminal('  connect    - Connect to SSH server');
+                    addToTerminal('  disconnect - Disconnect from SSH server');
+                    addToTerminal('  help       - Show this help message');
+                    addToTerminal('  ls         - List directory contents');
+                    addToTerminal('  pwd        - Print working directory');
+                    addToTerminal('  whoami     - Print current user');
+                    addToTerminal('  date       - Show current date and time');
+                    break;
+                    
+                case 'clear':
+                    clearTerminal();
+                    break;
+                    
+                case 'connect':
+                    connectSSH();
+                    break;
+                    
+                case 'disconnect':
+                    disconnectSSH();
+                    break;
+                    
+                case 'ls':
+                    addToTerminal('Desktop    Documents  Downloads  Music');
+                    addToTerminal('Pictures   Public     Templates  Videos');
+                    addToTerminal('file1.txt  file2.txt  script.sh');
+                    break;
+                    
+                case 'pwd':
+                    addToTerminal('/home/' + document.getElementById('username').value);
+                    break;
+                    
+                case 'whoami':
+                    addToTerminal(document.getElementById('username').value);
+                    break;
+                    
+                case 'date':
+                    addToTerminal(new Date().toString());
+                    break;
+                    
+                default:
+                    // Simulate command execution
+                    if (isConnected) {
+                        addToTerminal(`Command executed: ${command}`);
+                        addToTerminal('(This is a demo - real commands would execute on the SSH server)');
+                    } else {
+                        addToTerminal('Not connected to SSH server. Type "connect" to connect.');
+                    }
+                    break;
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved settings
+            loadConnectionSettings();
+            
+            // Set initial terminal prompt
+            terminalPrompt.textContent = '$';
+            
+            // Focus on host input
+            document.getElementById('hostAddress').focus();
+            
+            // Enable terminal on page load
+            setTimeout(() => {
+                terminalContainer.classList.add('active');
+            }, 500);
+        });
+    </script>
+</body>
+</html>

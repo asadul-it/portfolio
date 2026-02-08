@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cron Job Helper - Advanced Crontab Generator & Schedule Manager</title>
+    
+    <!-- ==================== Enhanced SEO Meta Tags ==================== -->
+    <meta name="description" content="Advanced Cron Job Helper Tool. Generate crontab syntax, understand cron expressions, schedule Linux tasks, and test cron expressions with our comprehensive tool.">
+    <meta name="keywords" content="cron job helper, crontab generator, cron expression, linux scheduler, crontab syntax, schedule manager, cron calculator, Asadul Islam">
+    <meta name="author" content="Asadul Islam">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English, Bengali">
+    
+    <!-- ==================== Open Graph Tags ==================== -->
+    <meta property="og:title" content="Advanced Cron Job Helper - Ultimate Crontab Generator">
+    <meta property="og:description" content="Generate, test, and understand cron job syntax with this comprehensive crontab helper tool. Features expression builder, schedule calculator, and real-time preview.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://asadul-it.github.io/portfolio/Tools/linux-tools/cron-job-helper.html">
+    <meta property="og:image" content="https://asadul-it.github.io/portfolio/assets/cron-helper-preview.png">
+    
+    <!-- ==================== Additional Fonts ==================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ==================== Preconnect for Performance ==================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+        /* ==================== CSS Variables for Theme ==================== */
+        :root {
+            --primary: #06b6d4;
+            --primary-dark: #0891b2;
+            --primary-light: #22d3ee;
+            --secondary: #8b5cf6;
+            --dark: #1e293b;
+            --dark-light: #334155;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-dark: linear-gradient(135deg, var(--dark) 0%, var(--dark-light) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f0 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ==================== Header Styles ==================== */
+        .fixed-header-container {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            background: var(--gradient-primary);
+            color: white;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+
+        .logo-sub {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--gray);
+            letter-spacing: 1px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            padding: 8px 16px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .navbar a:hover {
+            color: var(--primary);
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        .navbar a.active {
+            color: var(--primary);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .navbar a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .navbar i {
+            font-size: 16px;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ==================== Breadcrumb Styles ==================== */
+        .breadcrumb-section {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 30px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .back-button {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(6, 182, 212, 0.4);
+        }
+
+        .breadcrumb {
+            font-size: 15px;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            transition: var(--transition);
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .breadcrumb a:hover {
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .breadcrumb i {
+            font-size: 12px;
+            color: var(--gray-light);
+        }
+
+        /* ==================== Main Content Styles ==================== */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto 60px;
+            padding: 0 30px;
+        }
+
+        .content-box {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .content-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+
+        /* ==================== Tool Header ==================== */
+        .tool-header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .tool-header h1 {
+            font-size: 42px;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .tool-header h1 i {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .tool-header p {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ==================== Tabs Navigation ==================== */
+        .tabs-navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--gray-light);
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab-button:hover {
+            color: var(--primary);
+        }
+
+        .tab-button.active {
+            color: var(--primary);
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==================== Cron Display ==================== */
+        .cron-display {
+            background: var(--gradient-dark);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(30, 41, 59, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cron-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-primary);
+        }
+
+        .cron-expression {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .cron-description {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ==================== Cron Builder ==================== */
+        .cron-builder {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .field-group {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .field-group:hover {
+            border-color: var(--primary-light);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(6, 182, 212, 0.1);
+        }
+
+        .field-group label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .field-group label i {
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .field-group select, 
+        .field-group input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--gray-light);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .field-group select:focus,
+        .field-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        }
+
+        /* ==================== Command Section ==================== */
+        .command-section {
+            margin-top: 30px;
+        }
+
+        .command-section label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .command-section input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--gray-light);
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Source Code Pro', monospace;
+            transition: var(--transition);
+        }
+
+        .command-section input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+        }
+
+        .command-output {
+            background: var(--dark);
+            color: var(--success);
+            padding: 25px;
+            border-radius: 12px;
+            font-family: 'Source Code Pro', monospace;
+            font-size: 18px;
+            margin-top: 20px;
+            position: relative;
+            border: 2px solid var(--dark-light);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .command-output span {
+            color: var(--gray-light);
+            margin-right: 10px;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+        }
+
+        /* ==================== Quick Presets ==================== */
+        .quick-presets {
+            margin: 40px 0;
+        }
+
+        .quick-presets h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .preset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .preset-btn {
+            background: white;
+            border: 2px solid var(--gray-light);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: left;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(6, 182, 212, 0.1);
+        }
+
+        .preset-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .preset-cron {
+            font-family: 'Source Code Pro', monospace;
+            color: var(--primary);
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .preset-desc {
+            font-size: 13px;
+            color: var(--gray);
+        }
+
+        /* ==================== Advanced Options ==================== */
+        .advanced-options {
+            margin: 40px 0;
+            padding: 25px;
+            background: var(--light);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .advanced-options h3 {
+            color: var(--dark);
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .advanced-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .advanced-option {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .advanced-option label {
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ==================== Next Runs Preview ==================== */
+        .next-runs {
+            margin: 40px 0;
+            padding: 25px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 12px;
+            border-left: 4px solid var(--warning);
+        }
+
+        .next-runs h3 {
+            color: #92400e;
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .run-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .run-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #fbbf24;
+        }
+
+        .run-time {
+            font-weight: 600;
+            color: #92400e;
+        }
+
+        .run-relative {
+            color: #b45309;
+            font-size: 14px;
+        }
+
+        /* ==================== Syntax Guide ==================== */
+        .syntax-guide {
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border-left: 4px solid var(--success);
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .syntax-guide h3 {
+            color: #065f46;
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .syntax-guide table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .syntax-guide th,
+        .syntax-guide td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #d1fae5;
+        }
+
+        .syntax-guide th {
+            background: #10b981;
+            color: white;
+            font-weight: 600;
+        }
+
+        .syntax-guide tr:hover {
+            background: #f0fdfa;
+        }
+
+        .syntax-example {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            font-family: 'Source Code Pro', monospace;
+            color: #065f46;
+            margin: 15px 0;
+            border: 1px solid #a7f3d0;
+        }
+
+        /* ==================== Examples Section ==================== */
+        .examples-section {
+            margin-top: 50px;
+        }
+
+        .examples-section h2 {
+            color: var(--dark);
+            margin-bottom: 25px;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .example-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid var(--gray-light);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .example-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(6, 182, 212, 0.1);
+        }
+
+        .example-title {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+        }
+
+        .example-cron {
+            font-family: 'Source Code Pro', monospace;
+            color: var(--primary);
+            font-size: 16px;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: var(--light);
+            border-radius: 6px;
+        }
+
+        .example-desc {
+            color: var(--gray);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* ==================== Footer Styles ==================== */
+        footer {
+            background: var(--dark);
+            color: white;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 50px 30px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 20px;
+            color: white;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .footer-column p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quick-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quick-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 15px;
+        }
+
+        .footer-bottom a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* ==================== Utility Classes ==================== */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .badge-new {
+            background: var(--primary);
+            color: white;
+        }
+
+        .badge-popular {
+            background: var(--warning);
+            color: #92400e;
+        }
+
+        .tool-tip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tool-tip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+        }
+
+        /* ==================== Responsive Design ==================== */
+        @media (max-width: 1200px) {
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .cron-builder {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .examples-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                border-radius: 0 0 20px 20px;
+            }
+
+            .navbar.active {
+                display: block;
+            }
+
+            .navbar ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .navbar a {
+                padding: 15px 20px;
+                border-radius: 10px;
+            }
+
+            .header-content {
+                padding: 15px 20px;
+            }
+
+            .breadcrumb-section {
+                padding: 0 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .main-content {
+                padding: 0 20px;
+            }
+
+            .content-box {
+                padding: 30px 20px;
+            }
+
+            .tool-header h1 {
+                font-size: 28px;
+                flex-direction: column;
+            }
+
+            .cron-expression {
+                font-size: 28px;
+            }
+
+            .cron-description {
+                font-size: 16px;
+            }
+
+            .cron-builder {
+                grid-template-columns: 1fr;
+            }
+
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .preset-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cron-display {
+                padding: 25px 20px;
+            }
+            
+            .cron-expression {
+                font-size: 22px;
+            }
+            
+            .tab-button {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="fixed-header-container">
+    <div class="header-content">
+        <a href="../../index.html" class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="logo-text">
+                <span>CRON HELPER</span>
+                <span class="logo-sub">ADVANCED SCHEDULER</span>
+            </div>
+        </a>
+        
+        <nav class="navbar" id="navbar">
+            <ul>
+                <li><a href="../../index.html" class="active"><i class="fas fa-home"></i>Home</a></li>
+                <li><a href="../../skills.html"><i class="fas fa-cogs"></i>Skills</a></li>
+                <li><a href="../tools.html"><i class="fas fa-tools"></i>Tools</a></li>
+                <li><a href="../../certificate.html"><i class="fas fa-certificate"></i>Certificate</a></li>
+                <li><a href="../../contact.html"><i class="fas fa-phone"></i>Contact</a></li>
+            </ul>
+        </nav>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</div>
+
+<div class="breadcrumb-section">
+    <button class="back-button" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i> Back to Tools
+    </button>
+    <div class="breadcrumb" id="breadcrumb"></div>
+</div>
+
+<div class="main-content">
+    <div class="content-box">
+        <div class="tool-header">
+            <h1><i class="fas fa-clock"></i> Advanced Cron Job Helper</h1>
+            <p>Generate, test, and understand cron job syntax with our comprehensive tool. Perfect for system administrators and developers.</p>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="tabs-navigation">
+            <button class="tab-button active" data-tab="tab-builder">
+                <i class="fas fa-sliders-h"></i> Cron Builder
+            </button>
+            <button class="tab-button" data-tab="tab-advanced">
+                <i class="fas fa-cogs"></i> Advanced Editor
+            </button>
+            <button class="tab-button" data-tab="tab-examples">
+                <i class="fas fa-list"></i> Examples
+            </button>
+        </div>
+
+        <!-- Cron Display -->
+        <div class="cron-display">
+            <div class="cron-expression" id="cronExpression">0 0 * * *</div>
+            <div class="cron-description" id="cronDescription">Runs every day at midnight (00:00)</div>
+        </div>
+
+        <!-- Tab 1: Cron Builder -->
+        <div id="tab-builder" class="tab-content active">
+            <div class="cron-builder">
+                <div class="field-group">
+                    <label><i class="fas fa-clock"></i> Minute (0-59)</label>
+                    <select id="minute" onchange="updateCron()">
+                        <option value="*">Every minute</option>
+                        <option value="0" selected>0 (Start of hour)</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                        <option value="25">25</option>
+                        <option value="30">30</option>
+                        <option value="35">35</option>
+                        <option value="40">40</option>
+                        <option value="45">45</option>
+                        <option value="50">50</option>
+                        <option value="55">55</option>
+                        <option value="*/1">Every minute</option>
+                        <option value="*/5">Every 5 minutes</option>
+                        <option value="*/10">Every 10 minutes</option>
+                        <option value="*/15">Every 15 minutes</option>
+                        <option value="*/30">Every 30 minutes</option>
+                        <option value="0,30">At 0 and 30 minutes</option>
+                        <option value="15,45">At 15 and 45 minutes</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
+                    <label><i class="fas fa-hourglass"></i> Hour (0-23)</label>
+                    <select id="hour" onchange="updateCron()">
+                        <option value="*">Every hour</option>
+                        <option value="0" selected>0 (Midnight)</option>
+                        <option value="1">1 AM</option>
+                        <option value="2">2 AM</option>
+                        <option value="3">3 AM</option>
+                        <option value="4">4 AM</option>
+                        <option value="5">5 AM</option>
+                        <option value="6">6 AM</option>
+                        <option value="7">7 AM</option>
+                        <option value="8">8 AM</option>
+                        <option value="9">9 AM</option>
+                        <option value="10">10 AM</option>
+                        <option value="11">11 AM</option>
+                        <option value="12">12 PM (Noon)</option>
+                        <option value="13">1 PM</option>
+                        <option value="14">2 PM</option>
+                        <option value="15">3 PM</option>
+                        <option value="16">4 PM</option>
+                        <option value="17">5 PM</option>
+                        <option value="18">6 PM</option>
+                        <option value="19">7 PM</option>
+                        <option value="20">8 PM</option>
+                        <option value="21">9 PM</option>
+                        <option value="22">10 PM</option>
+                        <option value="23">11 PM</option>
+                        <option value="*/1">Every hour</option>
+                        <option value="*/2">Every 2 hours</option>
+                        <option value="*/3">Every 3 hours</option>
+                        <option value="*/6">Every 6 hours</option>
+                        <option value="*/12">Every 12 hours</option>
+                        <option value="0-12">Midday to Midnight</option>
+                        <option value="12-23">Noon to 11 PM</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
+                    <label><i class="fas fa-calendar-day"></i> Day of Month (1-31)</label>
+                    <select id="day" onchange="updateCron()">
+                        <option value="*" selected>Every day</option>
+                        <option value="1">1st</option>
+                        <option value="2">2nd</option>
+                        <option value="3">3rd</option>
+                        <option value="4">4th</option>
+                        <option value="5">5th</option>
+                        <option value="10">10th</option>
+                        <option value="15">15th</option>
+                        <option value="20">20th</option>
+                        <option value="25">25th</option>
+                        <option value="28">28th</option>
+                        <option value="L">Last day of month</option>
+                        <option value="1-15">First half of month</option>
+                        <option value="16-31">Second half of month</option>
+                        <option value="*/5">Every 5 days</option>
+                        <option value="*/7">Every week</option>
+                        <option value="*/10">Every 10 days</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
+                    <label><i class="fas fa-calendar"></i> Month (1-12)</label>
+                    <select id="month" onchange="updateCron()">
+                        <option value="*" selected>Every month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                        <option value="1-6">First half of year</option>
+                        <option value="7-12">Second half of year</option>
+                        <option value="*/2">Every 2 months</option>
+                        <option value="*/3">Every quarter</option>
+                        <option value="*/4">Every 4 months</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
+                    <label><i class="fas fa-calendar-week"></i> Day of Week (0-6, 0 = Sunday)</label>
+                    <select id="weekday" onchange="updateCron()">
+                        <option value="*" selected>Every day</option>
+                        <option value="0">Sunday</option>
+                        <option value="1">Monday</option>
+                        <option value="2">Tuesday</option>
+                        <option value="3">Wednesday</option>
+                        <option value="4">Thursday</option>
+                        <option value="5">Friday</option>
+                        <option value="6">Saturday</option>
+                        <option value="1-5">Weekdays (Mon-Fri)</option>
+                        <option value="0,6">Weekends (Sat-Sun)</option>
+                        <option value="0-4">Sunday to Thursday</option>
+                        <option value="5-6">Friday and Saturday</option>
+                        <option value="*/2">Every 2 days</option>
+                        <option value="1,3,5">Mon, Wed, Fri</option>
+                        <option value="0,2,4,6">Sun, Tue, Thu, Sat</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Quick Presets -->
+            <div class="quick-presets">
+                <h3><i class="fas fa-bolt"></i> Quick Presets</h3>
+                <div class="preset-grid">
+                    <div class="preset-btn" onclick="loadPreset('every_minute')">
+                        <div class="preset-title">Every Minute <span class="badge badge-new">Popular</span></div>
+                        <div class="preset-cron">* * * * *</div>
+                        <div class="preset-desc">Run every minute, useful for monitoring</div>
+                    </div>
+                    <div class="preset-btn" onclick="loadPreset('hourly')">
+                        <div class="preset-title">Hourly</div>
+                        <div class="preset-cron">0 * * * *</div>
+                        <div class="preset-desc">Run at the beginning of each hour</div>
+                    </div>
+                    <div class="preset-btn" onclick="loadPreset('daily')">
+                        <div class="preset-title">Daily (Midnight)</div>
+                        <div class="preset-cron">0 0 * * *</div>
+                        <div class="preset-desc">Run once per day at midnight</div>
+                    </div>
+                    <div class="preset-btn" onclick="loadPreset('weekly')">
+                        <div class="preset-title">Weekly (Monday 9 AM)</div>
+                        <div class="preset-cron">0 9 * * 1</div>
+                        <div class="preset-desc">Run every Monday at 9:00 AM</div>
+                    </div>
+                    <div class="preset-btn" onclick="loadPreset('monthly')">
+                        <div class="preset-title">Monthly (1st at Midnight)</div>
+                        <div class="preset-cron">0 0 1 * *</div>
+                        <div class="preset-desc">Run on the 1st day of each month</div>
+                    </div>
+                    <div class="preset-btn" onclick="loadPreset('reboot')">
+                        <div class="preset-title">@reboot</div>
+                        <div class="preset-cron">@reboot</div>
+                        <div class="preset-desc">Run once at system startup</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Command Section -->
+            <div class="command-section">
+                <label><i class="fas fa-terminal"></i> Command to Execute</label>
+                <input type="text" id="command" placeholder="/path/to/your/script.sh" value="/path/to/your/script.sh" oninput="updateCron()">
+                
+                <div class="command-output" id="commandOutput">
+                    <span>$</span> 0 0 * * * /path/to/your/script.sh
+                    <button class="copy-btn" onclick="copyCron()">
+                        <i class="fas fa-copy"></i> Copy Cron
+                    </button>
+                </div>
+            </div>
+
+            <!-- Next Runs Preview -->
+            <div class="next-runs">
+                <h3><i class="fas fa-calendar-check"></i> Next 5 Scheduled Runs</h3>
+                <div class="run-list" id="nextRuns">
+                    <div class="run-item">
+                        <div class="run-time">Today at 00:00</div>
+                        <div class="run-relative">in 5 hours</div>
+                    </div>
+                    <div class="run-item">
+                        <div class="run-time">Tomorrow at 00:00</div>
+                        <div class="run-relative">in 1 day</div>
+                    </div>
+                    <div class="run-item">
+                        <div class="run-time">Jan 3 at 00:00</div>
+                        <div class="run-relative">in 2 days</div>
+                    </div>
+                    <div class="run-item">
+                        <div class="run-time">Jan 4 at 00:00</div>
+                        <div class="run-relative">in 3 days</div>
+                    </div>
+                    <div class="run-item">
+                        <div class="run-time">Jan 5 at 00:00</div>
+                        <div class="run-relative">in 4 days</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Advanced Editor -->
+        <div id="tab-advanced" class="tab-content">
+            <div class="advanced-options">
+                <h3><i class="fas fa-code"></i> Direct Cron Expression Editor</h3>
+                <div class="field-group" style="margin-bottom: 20px;">
+                    <label><i class="fas fa-edit"></i> Enter Cron Expression</label>
+                    <input type="text" id="cronDirect" value="0 0 * * *" placeholder="* * * * *" oninput="parseCronExpression()">
+                </div>
+                
+                <div class="command-section">
+                    <label><i class="fas fa-terminal"></i> Command to Execute</label>
+                    <input type="text" id="commandAdvanced" placeholder="/path/to/your/script.sh" value="/path/to/your/script.sh" oninput="updateDirectCron()">
+                    
+                    <div class="command-output" id="commandOutputAdvanced">
+                        <span>$</span> 0 0 * * * /path/to/your/script.sh
+                        <button class="copy-btn" onclick="copyCronAdvanced()">
+                            <i class="fas fa-copy"></i> Copy Cron
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Examples -->
+        <div id="tab-examples" class="tab-content">
+            <div class="examples-section">
+                <h2><i class="fas fa-clipboard-list"></i> Cron Job Examples & Use Cases</h2>
+                
+                <div class="examples-grid">
+                    <div class="example-card" onclick="loadExample('every_minute')">
+                        <div class="example-title"><i class="fas fa-sync"></i> Run every minute</div>
+                        <div class="example-cron">* * * * *</div>
+                        <div class="example-desc">Executes every minute of every hour, every day. Perfect for monitoring scripts.</div>
+                    </div>
+
+                    <div class="example-card" onclick="loadExample('every_hour')">
+                        <div class="example-title"><i class="fas fa-hourglass-half"></i> Run every hour</div>
+                        <div class="example-cron">0 * * * *</div>
+                        <div class="example-desc">Executes at the start of every hour. Ideal for hourly log rotation.</div>
+                    </div>
+
+                    <div class="example-card" onclick="loadExample('daily_backup')">
+                        <div class="example-title"><i class="fas fa-database"></i> Daily backup at 2:30 AM</div>
+                        <div class="example-cron">30 2 * * *</div>
+                        <div class="example-desc">Perfect for daily database backup scripts during low traffic hours.</div>
+                    </div>
+
+                    <div class="example-card" onclick="loadExample('weekly_report')">
+                        <div class="example-title"><i class="fas fa-chart-line"></i> Weekly report on Monday</div>
+                        <div class="example-cron">0 9 * * 1</div>
+                        <div class="example-desc">Generates weekly reports every Monday at 9:00 AM.</div>
+                    </div>
+
+                    <div class="example-card" onclick="loadExample('monthly_cleanup')">
+                        <div class="example-title"><i class="fas fa-broom"></i> Monthly cleanup</div>
+                        <div class="example-cron">0 0 1 * *</div>
+                        <div class="example-desc">Runs on the 1st of each month at midnight for system cleanup.</div>
+                    </div>
+
+                    <div class="example-card" onclick="loadExample('every_15_minutes')">
+                        <div class="example-title"><i class="fas fa-history"></i> Every 15 minutes</div>
+                        <div class="example-cron">*/15 * * * *</div>
+                        <div class="example-desc">Executes every 15 minutes. Great for monitoring or polling tasks.</div>
+                    </div>
+
+                    <div class="example-card" onclick="loadExample('weekday_work_hours')">
+                        <div class="example-title"><i class="fas fa-briefcase"></i> Weekdays during work hours</div>
+                        <div class="example-cron">0 9-17 * * 1-5</div>
+                        <div class="example-desc">Runs every hour from 9 AM to 5 PM, Monday through Friday.</div>
+                    </div>
+
+                    <div class="example-card" onclick="loadExample('quarterly')">
+                        <div class="example-title"><i class="fas fa-calendar-alt"></i> Quarterly tasks</div>
+                        <div class="example-cron">0 0 1 */3 *</div>
+                        <div class="example-desc">Runs on the first day of every third month (quarterly).</div>
+                    </div>
+
+                    <div class="example-card" onclick="loadExample('weekend_nightly')">
+                        <div class="example-title"><i class="fas fa-moon"></i> Weekend nightly tasks</div>
+                        <div class="example-cron">0 2 * * 0,6</div>
+                        <div class="example-desc">Runs at 2:00 AM on Saturdays and Sundays for weekend maintenance.</div>
+                    </div>
+
+                    <div class="example-card" onclick="loadExample('every_2_hours')">
+                        <div class="example-title"><i class="fas fa-clock"></i> Every 2 hours</div>
+                        <div class="example-cron">0 */2 * * *</div>
+                        <div class="example-desc">Runs every 2 hours starting at midnight. Good for regular checks.</div>
+                    </div>
+
+                    <div class="example-card" onclick="loadExample('yearly')">
+                        <div class="example-title"><i class="fas fa-birthday-cake"></i> Yearly task</div>
+                        <div class="example-cron">0 0 1 1 *</div>
+                        <div class="example-desc">Runs at midnight on January 1st each year for annual tasks.</div>
+                    </div>
+
+                    <div class="example-card" onclick="loadExample('reboot_task')">
+                        <div class="example-title"><i class="fas fa-power-off"></i> On system reboot</div>
+                        <div class="example-cron">@reboot</div>
+                        <div class="example-desc">Special syntax that runs once when the system starts up.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Syntax Guide -->
+        <div class="syntax-guide">
+            <h3><i class="fas fa-book"></i> Comprehensive Crontab Syntax Guide</h3>
+            
+            <div class="syntax-example">
+                <strong>Basic Format:</strong> * * * * * command-to-execute<br>
+                <strong>With User:</strong> * * * * * username command-to-execute<br>
+                <strong>Special Strings:</strong> @reboot, @yearly, @annually, @monthly, @weekly, @daily, @hourly
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>Field</th>
+                        <th>Allowed Values</th>
+                        <th>Special Characters</th>
+                        <th>Examples</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Minute</td>
+                        <td>0-59</td>
+                        <td>* , - /</td>
+                        <td>0,15,30,45 or */15</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Hour</td>
+                        <td>0-23</td>
+                        <td>* , - /</td>
+                        <td>0-12 or */6</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Day of Month</td>
+                        <td>1-31</td>
+                        <td>* , - / L W</td>
+                        <td>1,15 or L (last day)</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Month</td>
+                        <td>1-12 or JAN-DEC</td>
+                        <td>* , - /</td>
+                        <td>1-6 or */3</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Day of Week</td>
+                        <td>0-6 or SUN-SAT</td>
+                        <td>* , - / L #</td>
+                        <td>1-5 or 6L (last Friday)</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="syntax-example" style="margin-top: 20px;">
+                <strong>Special Characters Explained:</strong><br>
+                <strong>*</strong> = Any value (wildcard)<br>
+                <strong>,</strong> = Value list separator (1,15,30)<br>
+                <strong>-</strong> = Range of values (1-5)<br>
+                <strong>/</strong> = Step values (*/2 = every 2 units)<br>
+                <strong>L</strong> = Last (day of month or week)<br>
+                <strong>W</strong> = Weekday (nearest weekday)<br>
+                <strong>#</strong> = Nth weekday of month (5#2 = 2nd Friday)
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h3>About Cron Helper</h3>
+            <p>This advanced cron job helper tool is designed to make scheduling tasks on Unix/Linux systems easier than ever. Generate, test, and understand cron expressions with our comprehensive interface.</p>
+            <div class="social-links">
+                <a href="https://linkedin.com/in/asadul-islam-asad/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/asadul-it" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://facebook.com/mdasadulislam.asad.7311/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/8801706927793" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <div class="quick-links">
+                <a href="../../index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="../../skills.html"><i class="fas fa-cogs"></i> Skills</a>
+                <a href="../tools.html"><i class="fas fa-tools"></i> Tools</a>
+                <a href="../../certificate.html"><i class="fas fa-certificate"></i> Certificate</a>
+                <a href="../../contact.html"><i class="fas fa-phone"></i> Contact</a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Cron Resources</h3>
+            <div class="quick-links">
+                <a href="#" onclick="loadTab('tab-examples')"><i class="fas fa-list"></i> Examples</a>
+                <a href="#" onclick="loadTab('tab-advanced')"><i class="fas fa-code"></i> Advanced Editor</a>
+                <a href="https://crontab.guru/" target="_blank"><i class="fas fa-external-link-alt"></i> Crontab Guru</a>
+                <a href="https://en.wikipedia.org/wiki/Cron" target="_blank"><i class="fas fa-book"></i> Cron Wikipedia</a>
+                <a href="https://man7.org/linux/man-pages/man5/crontab.5.html" target="_blank"><i class="fas fa-file-alt"></i> man crontab</a>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h3>Other Tools</h3>
+            <div class="quick-links">
+                <a href="../tools.html"><i class="fas fa-terminal"></i> Terminal Tools</a>
+                <a href="../tools.html"><i class="fas fa-server"></i> Server Tools</a>
+                <a href="../tools.html"><i class="fas fa-network-wired"></i> Network Tools</a>
+                <a href="../tools.html"><i class="fas fa-shield-alt"></i> Security Tools</a>
+                <a href="../tools.html"><i class="fas fa-database"></i> Database Tools</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © <span id="currentYear"></span> Asadul Islam | All Rights Reserved | 
+        <a href="https://github.com/asadul-it" target="_blank">GitHub Profile</a> | 
+        <a href="../../privacy.html">Privacy Policy</a>
+    </div>
+</footer>
+
+<script>
+    // Set current year in footer
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Initialize Google Analytics
+    (function() {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-5H7RZ72M1J';
+        document.head.appendChild(script);
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5H7RZ72M1J');
+        window.gtag = gtag;
+    })();
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById("hamburger");
+    const navbar = document.getElementById("navbar");
+    hamburger.onclick = () => {
+        navbar.classList.toggle("active");
+        hamburger.classList.toggle("active");
+    };
+
+    // Close navbar when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navbar.contains(e.target) && !hamburger.contains(e.target)) {
+            navbar.classList.remove("active");
+            hamburger.classList.remove("active");
+        }
+    });
+
+    // Set breadcrumb
+    setBreadcrumb([
+        { name: "Home", link: "../../index.html" },
+        { name: "Tools", link: "../tools.html" },
+        { name: "Linux Tools", link: "../tools.html#linux" },
+        { name: "Cron Job Helper" }
+    ]);
+
+    function setBreadcrumb(items) {
+        document.getElementById("breadcrumb").innerHTML =
+            items.map((i, index) => {
+                if (i.link) {
+                    return `<a href="${i.link}">${i.name}</a>`;
+                } else if (index < items.length - 1) {
+                    return `<span>${i.name}</span><i class="fas fa-chevron-right"></i>`;
+                } else {
+                    return `<span class="current">${i.name}</span>`;
+                }
+            }).join("");
+    }
+
+    // Tab functionality
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const tabId = button.getAttribute('data-tab');
+            
+            // Remove active class from all buttons and contents
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked button and corresponding content
+            button.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+            
+            // Track tab switch in analytics
+            if (window.gtag) {
+                gtag('event', 'tab_switch', {
+                    'event_category': 'navigation',
+                    'event_label': tabId
+                });
+            }
+        });
+    });
+
+    function loadTab(tabId) {
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        
+        document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    }
+
+    // Cron generation logic
+    function updateCron() {
+        const minute = document.getElementById('minute').value;
+        const hour = document.getElementById('hour').value;
+        const day = document.getElementById('day').value;
+        const month = document.getElementById('month').value;
+        const weekday = document.getElementById('weekday').value;
+        const command = document.getElementById('command').value;
+        
+        const cronExp = `${minute} ${hour} ${day} ${month} ${weekday}`;
+        document.getElementById('cronExpression').textContent = cronExp;
+        document.getElementById('cronDirect').value = cronExp;
+        
+        // Generate description
+        let desc = generateCronDescription(minute, hour, day, month, weekday);
+        document.getElementById('cronDescription').textContent = desc;
+        
+        // Update command output
+        document.getElementById('commandOutput').innerHTML = 
+            `<span>$</span> ${cronExp} ${command}<button class="copy-btn" onclick="copyCron()"><i class="fas fa-copy"></i> Copy Cron</button>`;
+        
+        // Update next runs (simulated)
+        updateNextRuns();
+        
+        // Track in analytics
+        if (window.gtag) {
+            gtag('event', 'cron_generated', {
+                'event_category': 'tool_usage',
+                'event_label': cronExp
+            });
+        }
+    }
+
+    function generateCronDescription(minute, hour, day, month, weekday) {
+        let desc = "Runs ";
+        
+        // Handle special cases
+        if (minute === '*' && hour === '*' && day === '*' && month === '*' && weekday === '*') {
+            return "Runs every minute";
+        }
+        
+        // Parse minute
+        let minuteText = "at";
+        if (minute === '*') {
+            minuteText = "every minute";
+        } else if (minute === '0') {
+            minuteText = "at the start of the hour";
+        } else if (minute.includes('/')) {
+            const interval = minute.split('/')[1];
+            minuteText = `every ${interval} minutes`;
+        } else if (minute.includes(',')) {
+            minuteText = `at minutes ${minute}`;
+        } else if (minute.includes('-')) {
+            minuteText = `from minute ${minute.split('-')[0]} to ${minute.split('-')[1]}`;
+        } else {
+            minuteText = `at minute ${minute}`;
+        }
+        
+        // Parse hour
+        let hourText = "";
+        if (hour === '*') {
+            hourText = "of every hour";
+        } else if (hour === '0') {
+            hourText = "at midnight";
+        } else if (hour === '12') {
+            hourText = "at noon";
+        } else if (hour.includes('/')) {
+            const interval = hour.split('/')[1];
+            hourText = `every ${interval} hours`;
+        } else if (hour.includes(',')) {
+            hourText = `at hours ${hour}`;
+        } else if (hour.includes('-')) {
+            const [start, end] = hour.split('-');
+            hourText = `from ${start}:00 to ${end}:00`;
+        } else {
+            hourText = `at ${hour.padStart(2, '0')}:00`;
+        }
+        
+        // Parse day
+        let dayText = "";
+        if (day === '*') {
+            dayText = "every day";
+        } else if (day === 'L') {
+            dayText = "on the last day of the month";
+        } else if (day.includes('/')) {
+            const interval = day.split('/')[1];
+            dayText = `every ${interval} days`;
+        } else if (day.includes(',')) {
+            dayText = `on days ${day}`;
+        } else if (day.includes('-')) {
+            const [start, end] = day.split('-');
+            dayText = `from day ${start} to ${end}`;
+        } else {
+            dayText = `on day ${day}`;
+        }
+        
+        // Parse month
+        let monthText = "";
+        if (month === '*') {
+            monthText = "every month";
+        } else if (month.includes('/')) {
+            const interval = month.split('/')[1];
+            monthText = `every ${interval} months`;
+        } else if (month.includes(',')) {
+            monthText = `in months ${month}`;
+        } else if (month.includes('-')) {
+            const [start, end] = month.split('-');
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+            monthText = `from ${months[start-1]} to ${months[end-1]}`;
+        } else {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                           'July', 'August', 'September', 'October', 'November', 'December'];
+            monthText = `in ${months[parseInt(month)-1]}`;
+        }
+        
+        // Parse weekday
+        let weekdayText = "";
+        if (weekday === '*') {
+            weekdayText = "";
+        } else if (weekday === '0,6' || weekday === '6,0') {
+            weekdayText = "on weekends";
+        } else if (weekday === '1-5') {
+            weekdayText = "on weekdays";
+        } else if (weekday.includes('/')) {
+            const interval = weekday.split('/')[1];
+            weekdayText = `every ${interval} days of the week`;
+        } else if (weekday.includes(',')) {
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const dayNames = weekday.split(',').map(d => days[parseInt(d)]).join(', ');
+            weekdayText = `on ${dayNames}`;
+        } else if (weekday.includes('-')) {
+            const [start, end] = weekday.split('-');
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            weekdayText = `from ${days[start]} to ${days[end]}`;
+        } else {
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            weekdayText = `on ${days[parseInt(weekday)]}`;
+        }
+        
+        // Build final description
+        if (weekdayText) {
+            desc = `Runs ${weekdayText} ${dayText} ${monthText} ${hourText} ${minuteText}`;
+        } else {
+            desc = `Runs ${dayText} ${monthText} ${hourText} ${minuteText}`;
+        }
+        
+        return desc.replace(/\s+/g, ' ').trim();
+    }
+
+    function updateNextRuns() {
+        // Simulate next run times (in a real app, this would calculate actual times)
+        const now = new Date();
+        const runs = [];
+        
+        for (let i = 0; i < 5; i++) {
+            const nextDate = new Date(now);
+            nextDate.setDate(nextDate.getDate() + i);
+            nextDate.setHours(0, 0, 0, 0);
+            
+            const options = { weekday: 'short', month: 'short', day: 'numeric' };
+            const timeStr = nextDate.toLocaleDateString('en-US', options);
+            
+            runs.push(`
+                <div class="run-item">
+                    <div class="run-time">${timeStr} at 00:00</div>
+                    <div class="run-relative">${i === 0 ? 'today' : `in ${i} day${i > 1 ? 's' : ''}`}</div>
+                </div>
+            `);
+        }
+        
+        document.getElementById('nextRuns').innerHTML = runs.join('');
+    }
+
+    function parseCronExpression() {
+        const cronExp = document.getElementById('cronDirect').value.trim();
+        
+        if (cronExp) {
+            document.getElementById('cronExpression').textContent = cronExp;
+            
+            // Simple parsing for display purposes
+            const parts = cronExp.split(' ');
+            if (parts.length === 5) {
+                document.getElementById('minute').value = parts[0];
+                document.getElementById('hour').value = parts[1];
+                document.getElementById('day').value = parts[2];
+                document.getElementById('month').value = parts[3];
+                document.getElementById('weekday').value = parts[4];
+                
+                const desc = generateCronDescription(parts[0], parts[1], parts[2], parts[3], parts[4]);
+                document.getElementById('cronDescription').textContent = desc;
+            }
+            
+            updateDirectCron();
+        }
+    }
+
+    function updateDirectCron() {
+        const cronExp = document.getElementById('cronDirect').value;
+        const command = document.getElementById('commandAdvanced').value;
+        
+        document.getElementById('commandOutputAdvanced').innerHTML = 
+            `<span>$</span> ${cronExp} ${command}<button class="copy-btn" onclick="copyCronAdvanced()"><i class="fas fa-copy"></i> Copy Cron</button>`;
+    }
+
+    function loadPreset(presetId) {
+        const presets = {
+            'every_minute': { minute: '*', hour: '*', day: '*', month: '*', weekday: '*' },
+            'hourly': { minute: '0', hour: '*', day: '*', month: '*', weekday: '*' },
+            'daily': { minute: '0', hour: '0', day: '*', month: '*', weekday: '*' },
+            'weekly': { minute: '0', hour: '9', day: '*', month: '*', weekday: '1' },
+            'monthly': { minute: '0', hour: '0', day: '1', month: '*', weekday: '*' },
+            'reboot': { minute: '@reboot', hour: '@reboot', day: '@reboot', month: '@reboot', weekday: '@reboot' }
+        };
+        
+        if (presets[presetId]) {
+            const preset = presets[presetId];
+            
+            if (presetId === 'reboot') {
+                // Special handling for @reboot
+                document.getElementById('cronExpression').textContent = '@reboot';
+                document.getElementById('cronDirect').value = '@reboot';
+                document.getElementById('cronDescription').textContent = 'Runs once at system startup';
+                document.getElementById('commandOutput').innerHTML = 
+                    `<span>$</span> @reboot /path/to/your/script.sh<button class="copy-btn" onclick="copyCron()"><i class="fas fa-copy"></i> Copy Cron</button>`;
+            } else {
+                document.getElementById('minute').value = preset.minute;
+                document.getElementById('hour').value = preset.hour;
+                document.getElementById('day').value = preset.day;
+                document.getElementById('month').value = preset.month;
+                document.getElementById('weekday').value = preset.weekday;
+                
+                updateCron();
+            }
+            
+            // Track preset usage
+            if (window.gtag) {
+                gtag('event', 'preset_used', {
+                    'event_category': 'tool_usage',
+                    'event_label': presetId
+                });
+            }
+        }
+    }
+
+    function loadExample(exampleId) {
+        // Similar to loadPreset but for examples
+        loadPreset(exampleId);
+        
+        // Switch to builder tab
+        loadTab('tab-builder');
+    }
+
+    function copyCron() {
+        const cronExp = document.getElementById('cronExpression').textContent;
+        const command = document.getElementById('command').value;
+        const textToCopy = `${cronExp} ${command}`;
+        
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            showNotification('Cron expression copied to clipboard!', 'success');
+            
+            if (window.gtag) {
+                gtag('event', 'copy_cron', {
+                    'event_category': 'tool_usage',
+                    'event_label': cronExp
+                });
+            }
+        });
+    }
+
+    function copyCronAdvanced() {
+        const cronExp = document.getElementById('cronDirect').value;
+        const command = document.getElementById('commandAdvanced').value;
+        const textToCopy = `${cronExp} ${command}`;
+        
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            showNotification('Cron expression copied to clipboard!', 'success');
+        });
+    }
+
+    function showNotification(message, type) {
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+            <span>${message}</span>
+        `;
+        
+        // Style the notification
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? '#10b981' : '#ef4444'};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 10000;
+            animation: slideIn 0.3s ease;
+        `;
+        
+        // Add animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        document.body.appendChild(notification);
+        
+        // Remove after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        updateCron();
+        updateNextRuns();
+        
+        // Add click tracking for navigation
+        document.querySelectorAll('.navbar a, .quick-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (window.gtag && !this.getAttribute('href').startsWith('#')) {
+                    gtag('event', 'navigation_click', {
+                        'event_category': 'navigation',
+                        'event_label': e.target.textContent.trim()
+                    });
+                }
+            });
+        });
+    });
+
+    // Add keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        // Ctrl/Cmd + C to copy cron
+        if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+            const activeTab = document.querySelector('.tab-content.active').id;
+            if (activeTab === 'tab-builder') {
+                copyCron();
+            } else if (activeTab === 'tab-advanced') {
+                copyCronAdvanced();
+            }
+        }
+        
+        // Ctrl/Cmd + / to focus search
+        if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+            e.preventDefault();
+            const commandInput = document.getElementById('command');
+            if (commandInput) commandInput.focus();
+        }
+    });
+</script>
+</body>
+</html>
